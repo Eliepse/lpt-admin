@@ -24,6 +24,7 @@ use Illuminate\Support\Str;
  * @property string phone
  * @property string address
  * @property string password
+ * @property bool active
  * @property string remember_token
  * @property Collection children
  * @property Collection grades
