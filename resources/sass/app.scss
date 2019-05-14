@@ -1,8 +1,10 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import 'variables';
+//@import 'variables';
 
 // Bootstrap
+@import '~tabler-ui/src/assets/scss/variables';
 @import '~bootstrap/scss/bootstrap';
+@import '~tabler-ui/src/assets/scss/dashboard/dashboard';
