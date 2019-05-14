@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
 /**
  * Class User
@@ -19,7 +20,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string lastname
  * @property string email
  * @property string type
-// * @property string wechat_id
+ * @property string wechat_id
  * @property string phone
  * @property string address
  * @property string password
@@ -60,6 +61,13 @@ class User extends Authenticatable
     public function grades(): HasMany
     {
         return $this->hasMany(Grade::class, 'teacher_id');
+    }
+
+
+    public function getInitials(): string
+    {
+        return Str::upper(Str::substr($this->firstname, 0, 1) .
+            Str::substr($this->lastname, 0, 1));
     }
 
 }

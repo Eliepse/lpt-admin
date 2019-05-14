@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
 //            $table->set('role', ['admin'])->nullable();
             $table->enum('type', ['admin', 'teacher', 'parent'])->default('parent');
-//            $table->string('wechat_id')->unique()->nullable();
+            $table->string('wechat_id')->unique()->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
 //            $table->timestamp('email_verified_at')->nullable();

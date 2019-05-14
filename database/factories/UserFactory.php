@@ -24,6 +24,7 @@ $factory->define(User::class, function (Faker $faker) {
         'lastname'       => $faker->lastName,
         'email'          => $faker->unique()->safeEmail,
         'type'           => Arr::random(['admin', 'teacher', 'parent']),
+        'wechat_id'      => $faker->userName . $faker->randomNumber(4),
         'phone'          => $faker->phoneNumber,
         'address'        => $faker->address,
         'password'       => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
