@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use Illuminate\Support\Facades\Route;
+
+\Illuminate\Support\Facades\Auth::routes([
+    'register' => false,
+    'reset'    => false,
+    'verify'   => false,
+]);
+
+Route::get('/home', function () {
+    return view('home');
+})->middleware('auth')->name('home');
+
+// This is only temporary
+Route::redirect('/', '/login');
