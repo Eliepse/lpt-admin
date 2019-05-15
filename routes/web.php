@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/home', function () {
     return view('home');
-})->middleware('auth')->name('home');
+})->middleware(['auth', 'type:admin,teacher'])->name('home');
 
 // This is only temporary
 Route::redirect('/', '/login');
