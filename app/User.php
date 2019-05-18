@@ -32,8 +32,8 @@ use Illuminate\Support\Str;
  * @property Carbon created_at
  * @property Carbon updated_at
  *
- * @method Builder teacher
- * @method Builder parent
+ * @method static Builder teacher
+ * @method static Builder parent
  */
 class User extends Authenticatable
 {

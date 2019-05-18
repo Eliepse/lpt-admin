@@ -1,6 +1,6 @@
 @extends('dashboard-master')
 
-@section('title', 'Ajouter un cours - ')
+@section('title', 'Cours - ')
 
 @section('main')
 

@@ -56,6 +56,12 @@ class Grade extends Model
     }
 
 
+    public function getTimetableHourAttribute($hour): Carbon
+    {
+        return Carbon::createFromTimeString($hour);
+    }
+
+
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'teacher_id');
