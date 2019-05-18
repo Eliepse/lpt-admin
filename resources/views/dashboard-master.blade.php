@@ -26,9 +26,13 @@
         @include("navigation.navigation")
 
         <div class="my-3 my-md-5">
+            <div class="container">
+                <div class="row justify-content-center">
 
-            @yield("main")
+                    @yield("main")
 
+                </div>
+            </div>
         </div>
 
     </div>

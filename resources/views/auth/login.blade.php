@@ -24,14 +24,14 @@
                         <div class="card-body p-6">
                             <div class="card-title">Connexion à LPT</div>
 
-                            @component('components.form.text-input')
+                            @component('components.form.input')
                                 @slot('type', 'email')
                                 @slot('name', 'email')
                                 @slot('title', 'Adresse email')
                                 @slot('placeholder', 'Votre adresse email')
                             @endcomponent
 
-                            @component('components.form.text-input')
+                            @component('components.form.input')
                                 @slot('type', 'password')
                                 @slot('name', 'password')
                                 @slot('title', 'Mot de passe')

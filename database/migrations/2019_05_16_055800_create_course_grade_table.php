@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStudentParentTable extends Migration
+class CreateGradeCourseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateStudentParentTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_parent', function (Blueprint $table) {
-            $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("student_id");
-            $table->string('relation');
+        Schema::create('course_grade', function (Blueprint $table) {
+            $table->unsignedBigInteger('grade_id');
+            $table->unsignedBigInteger('course_id');
+//            $table->unsignedTinyInteger('position');
 
             // TODO add foreign keys
         });
@@ -30,6 +30,6 @@ class CreateStudentParentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_parent');
+        Schema::dropIfExists('grade_course');
     }
 }

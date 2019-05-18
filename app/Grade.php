@@ -58,4 +58,10 @@ class Grade extends Model
         return $this->belongsToMany(Student::class, 'student_grade');
     }
 
+
+    public function courses(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class);
+    }
+
 }

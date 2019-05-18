@@ -4,6 +4,7 @@ namespace App;
 
 use App\Pivots\StudentParent;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -30,6 +31,9 @@ use Illuminate\Support\Str;
  * @property Collection grades
  * @property Carbon created_at
  * @property Carbon updated_at
+ *
+ * @method Builder teacher
+ * @method Builder parent
  */
 class User extends Authenticatable
 {
@@ -65,10 +69,46 @@ class User extends Authenticatable
     }
 
 
+    public function getFullname(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+
     public function getInitials(): string
     {
         return Str::upper(Str::substr($this->firstname, 0, 1) .
             Str::substr($this->lastname, 0, 1));
+    }
+
+
+    public function isAdmin(): bool { return $this->type === 'admin'; }
+
+
+    public function isTeacher(): bool { return $this->type === 'teacher'; }
+
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  Builder $query
+     * @return Builder
+     */
+    public function scopeTeacher(Builder $query)
+    {
+        return $query->where('type', 'teacher');
+    }
+
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  Builder $query
+     * @return Builder
+     */
+    public function scopeParent(Builder $query)
+    {
+        return $query->where('type', 'parent');
     }
 
 }

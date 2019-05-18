@@ -16,6 +16,8 @@ class CreateStudentGradeTable extends Migration
         Schema::create('student_grade', function (Blueprint $table) {
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('grade_id');
+
+            // TODO add foreign keys
         });
     }
 

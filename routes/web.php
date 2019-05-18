@@ -15,9 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 \Illuminate\Support\Facades\Auth::routes([
     'register' => false,
-    'reset'    => false,
-    'verify'   => false,
+    'reset' => false,
+    'verify' => false,
 ]);
+
+
+Route::get('/courses', 'CourseController@index')->name('courses.index');
+Route::get('/courses/create', 'CourseController@create')->name('courses.create');
+Route::post('/courses', 'CourseController@store')->name('courses.store');
 
 Route::get('/home', function () {
     return view('home');
