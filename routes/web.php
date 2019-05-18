@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
     'verify' => false,
 ]);
 
+Route::get('/grades/create', 'GradeController@create')->name('grades.create');
+Route::post('/grades', 'GradeController@store')->name('grades.store');
+Route::get('/grades', 'GradeController@index')->name('grades.index');
 
 Route::get('/courses', 'CourseController@index')->name('courses.index');
 Route::get('/courses/create', 'CourseController@create')->name('courses.create');

@@ -16,15 +16,17 @@ class CreateGradesTable extends Migration
         Schema::create('grades', function (Blueprint $table) {
 
             $table->bigIncrements('id');
+            $table->string("title");
             $table->string("location");
             $table->enum("country", ["france"]);
             $table->unsignedBigInteger("teacher_id")->nullable();
-            $table->unsignedTinyInteger("level");
-            $table->date("date_start_at");
-            $table->date("date_end_at");
-            $table->set("days", [1, 2, 3, 4, 5, 6, 7]);
-            $table->time("timetable_start_at");
-            $table->time("timetable_end_at");
+            $table->unsignedTinyInteger("level")->nullable();
+            $table->unsignedTinyInteger("max_students");
+            $table->unsignedSmallInteger("price");
+            $table->set("timetable_day", ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]);
+            $table->time("timetable_hour");
+            $table->date("start_at");
+            $table->date("end_at");
             $table->timestamps();
 
             $table->foreign('teacher_id')

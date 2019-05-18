@@ -8,6 +8,8 @@ require('./bootstrap');
 //import 'tabler-ui/dist/assets/js/dashboard'
 const feather = require('feather-icons')
 
+_.templateSettings.interpolate = /\[([\s\S]+?)\]/g;
+
 feather.replace()
 
 //window.Vue = require('vue');

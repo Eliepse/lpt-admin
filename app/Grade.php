@@ -12,38 +12,47 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Class Grade
  * @package App
  * @property int id
+ * @property string title
  * @property string location
  * @property string country
- * @property int teacher_id
- * @property int level
- * @property Carbon date_start_at
- * @property Carbon date_end_at
- * @property Carbon timetable_start_at
- * @property Carbon timetable_end_at
- * @property Collection students
- * @property User teacher
+ * @property int|null teacher_id
+ * @property int|null level
+ * @property int max_students
+ * @property int price
+ * @property Carbon start_at
+ * @property Carbon end_at
+ * @property array timetable_days
+ * @property Carbon timetable_hour
+ * @property Collection|null students
+ * @property User|null teacher
+ * @property Collection|null courses
  * @property Carbon created_at
  * @property Carbon updated_at
  */
 class Grade extends Model
 {
+    protected $fillable = [
+        'title', 'location', 'country', 'level', 'max_students',
+        'price', 'start_at', 'end_at', 'timetable_days', 'timetable_hour',
+    ];
+
     protected $casts = [
-        'timetable_start_at' => 'datetime:H:i:s',
-        'timetable_end_at'   => 'datetime:H:i:s',
-        'date_start_at'      => 'datetime:Y-m-d',
-        'date_end_at'        => 'datetime:Y-m-d',
+        'start_at' => 'datetime:Y-m-d',
+        'end_at' => 'datetime:Y-m-d',
+        'timetable_day' => 'array',
+        'timetable_hour' => 'datetime:H:i',
     ];
 
 
-    public function getDaysAttribute(string $value): array
+    public function getTimetableDaysAttribute(string $value): array
     {
         return explode(',', $value);
     }
 
 
-    public function setDaysAttribute(array $options)
+    public function setTimetableDaysAttribute(array $options)
     {
-        $this->attributes['days'] = join(',', $options);
+        $this->attributes['timetable_days'] = join(',', $options);
     }
 
 
