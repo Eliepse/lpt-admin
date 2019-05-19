@@ -17,7 +17,13 @@
                             <a href="{{ route('home') }}" class="nav-link"><i class="fe fe-home"></i> Home</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('grades.index') }}" class="nav-link"><i class="fe fe-book-open"></i> Classes</a>
+                            <a href="{{ route('grades.index') }}" class="nav-link"><i class="fe fe-calendar"></i> Classes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('courses.index') }}" class="nav-link"><i class="fe fe-book"></i> Cours</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('users.index') }}" class="nav-link"><i class="fe fe-users"></i> Comptes</a>
                         </li>
                     </ul>
                 @endauth

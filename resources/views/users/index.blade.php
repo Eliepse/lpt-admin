@@ -9,7 +9,16 @@ use \Illuminate\Support\Str;
 @section('main')
 
     <div class="col-12">
+
         <div class="card">
+
+            <div class="card-header">
+                <h2 class="card-title">Utilisateurs</h2>
+                <div class="card-options">
+                    <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm ml-2"><span class="fe fe-user-plus"></span> Ajouter un compte</a>
+                </div>
+            </div>
+
             <div class="table-responsive">
 
                 <table class="table table-outline table-vcenter card-table">

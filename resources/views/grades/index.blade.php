@@ -10,6 +10,14 @@ use \Illuminate\Support\Str;
 
     <div class="col-12">
         <div class="card">
+
+            <div class="card-header">
+                <h2 class="card-title">Classes</h2>
+                <div class="card-options">
+                    <a href="{{ route('grades.create') }}" class="btn btn-primary btn-sm ml-2"><span class="fe fe-calendar"></span> Nouvelle classe</a>
+                </div>
+            </div>
+
             <div class="table-responsive">
 
                 <table class="table table-outline table-vcenter card-table">
