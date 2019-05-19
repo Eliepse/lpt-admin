@@ -15,9 +15,9 @@ $isInvalid = $errors->has($name);
 
     <input type="{{ $type ?? 'text' }}" id="{{ $name }}" name="{{ $name }}"
            class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
-           @isset($step)step="{{ $step }}" @endisset
            @isset($placeholder)placeholder="{{ $placeholder }}" @endisset
            autocomplete=""
+           @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
            value="{{ old($name, $default ?? '') }}">
 
     @if($isInvalid)

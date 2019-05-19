@@ -123,8 +123,8 @@
                     @slot('title', 'Heure de début du cours')
                     @slot('name', 'timetable_hour')
                     @slot('type', 'time')
-                    @slot('step', 60000)
                     @slot('default', "10:00")
+                    @slot('attrs', ['step' => '60000'])
                 @endcomponent
 
             </div>
