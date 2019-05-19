@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $users = User::query()->where('type', '!=', 'parent')->get();
 
-        return view('users.index', compact('users'));
+        return view('users.index-staff', compact('users'));
     }
 
 
@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('users.create-staff');
     }
 
 

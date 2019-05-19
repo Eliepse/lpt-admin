@@ -10,7 +10,7 @@
             {{ csrf_field() }}
 
             <div class="card-header">
-                <h3 class="card-title">Ajouter un cours</h3>
+                <h3 class="card-title">Ajouter un compte</h3>
             </div>
 
             <div class="card-body">
@@ -41,7 +41,6 @@
                     @slot('options', [
                         'Admin' => 'admin',
                         'Teacher' => 'teacher',
-                        'Parent' => 'parent',
                     ])
                     @slot('default', 'parent')
                 @endcomponent

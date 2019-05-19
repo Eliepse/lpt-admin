@@ -46,7 +46,7 @@ use App\User;
                     @empty
                         <tr>
                             <td colspan="10">
-                                <p class="text-center text-muted">Il n'y a pas de classe enregistrée</p>
+                                <p class="text-center text-muted">Il n'y a pas de compte enregistré</p>
                             </td>
                         </tr>
                     @endforelse

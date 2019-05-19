@@ -27,8 +27,8 @@ class StoreUserController extends FormRequest
             'firstname' => 'required|string|max:50',
             'lastname' => 'required|string|max:50',
             'email' => 'required|email|unique:users,email',
-            'type' => 'required|in:admin,teacher,parent',
-            'wechat_id' => 'required|string|max:20',
+            'type' => 'nullable|in:admin,teacher,parent',
+            'wechat_id' => 'nullable|string|max:20',
             'phone' => 'required|string|max:16',
             'address' => 'required|string|max:150',
         ];
