@@ -23,7 +23,7 @@ class CreateGradesTable extends Migration
             $table->unsignedTinyInteger("level")->nullable();
             $table->unsignedTinyInteger("max_students");
             $table->unsignedSmallInteger("price");
-            $table->set("timetable_day", ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]);
+            $table->set("timetable_days", ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]);
             $table->time("timetable_hour");
             $table->date("start_at");
             $table->date("end_at");
