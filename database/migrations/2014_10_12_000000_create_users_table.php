@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
 //            $table->set('role', ['admin'])->nullable();
             $table->enum('type', ['admin', 'teacher', 'parent'])->default('parent');
+            $table->unsignedBigInteger('family_id')->nullable();
             $table->string('wechat_id')->unique()->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
@@ -28,6 +29,9 @@ class CreateUsersTable extends Migration
             $table->boolean("active")->default(false);
             $table->rememberToken();
             $table->timestamps();
+
+            // TODO Foreign keys
+
         });
     }
 

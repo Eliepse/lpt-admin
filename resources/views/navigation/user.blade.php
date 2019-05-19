@@ -17,7 +17,7 @@ $user = auth()->user()
             <form action="{{ route('logout') }}" method="POST">
                 {{ csrf_field() }}
                 <button type="submit" class="dropdown-item">
-                    <i class="dropdown-icon fe fe-log-out"></i> Sign out
+                    <i class="dropdown-icon fe fe-log-out"></i> Déconnexion
                 </button>
             </form>
         </div>

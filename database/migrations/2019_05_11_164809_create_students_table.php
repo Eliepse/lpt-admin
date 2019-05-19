@@ -19,7 +19,10 @@ class CreateStudentsTable extends Migration
             $table->string("lastname");
             $table->date("birthday");
             $table->text("notes")->nullable();
+            $table->unsignedBigInteger("family_id");
             $table->timestamps();
+
+            // TODO foreigns keys
         });
     }
 

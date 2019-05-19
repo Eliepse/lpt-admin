@@ -19,11 +19,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string notes
  * @property Collection parents
  * @property Collection grades
+ * @property Family family
  * @property Carbon created_at
  * @property Carbon updated_at
  */
 class Student extends Model
 {
+    protected $fillable = ['firstname', 'lastname', 'birthday', 'notes'];
+
     protected $dates = [
         'birthday',
     ];
@@ -44,4 +47,9 @@ class Student extends Model
         return $this->belongsToMany(Grade::class, 'student_grade');
     }
 
+
+    public function family(): BelongsTo
+    {
+        return $this->belongsTo(Family::class);
+    }
 }

@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Family;
-use App\Http\Requests\StoreUserController;
+use App\Http\Requests\StoreStudentRequest;
+use App\Student;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
-class ParentController extends Controller
+class StudentController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('type:admin,teacher');
-        $this->authorizeResource(User::class, 'parent');
+        $this->authorizeResource(Student::class, 'student');
     }
 
 
@@ -26,50 +25,46 @@ class ParentController extends Controller
      */
     public function index()
     {
-        $users = User::query()->where('type', 'parent')->get();
-
-        return view('users.index-parent', compact('users'));
+        //
     }
 
 
     /**
      * Show the form for creating a new resource.
      *
-     * @param Family|null $family
+     * @param Family $family
      * @return \Illuminate\Http\Response
      */
     public function create(Family $family)
     {
-        return view('users.create-parent', compact('family'));
+        return view('students.create', compact('family'));
     }
 
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreUserController $request
-     * @param Family|null $family
+     * @param StoreStudentRequest $request
+     * @param Family $family
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserController $request, Family $family)
+    public function store(StoreStudentRequest $request, Family $family)
     {
-        $parent = new User($request->all());
-        $parent->password = Hash::make(Str::random(24));
-        $parent->type = 'parent';
-        $parent->family()->associate($family);
-        $parent->save();
+        $student = new Student($request->all());
+        $student->family()->associate($family);
+        $student->save();
 
-        return redirect(route('parents.index'));
+        return redirect(route('family.show', $family));
     }
 
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\User $parent
+     * @param  \App\Student $student
      * @return \Illuminate\Http\Response
      */
-    public function show(User $parent)
+    public function show(Student $student)
     {
         //
     }
@@ -78,10 +73,10 @@ class ParentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User $parent
+     * @param  \App\Student $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $parent)
+    public function edit(Student $student)
     {
         //
     }
@@ -91,10 +86,10 @@ class ParentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\User $parent
+     * @param  \App\Student $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $parent)
+    public function update(Request $request, Student $student)
     {
         //
     }
@@ -103,10 +98,10 @@ class ParentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User $parent
+     * @param  \App\Student $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $parent)
+    public function destroy(Student $student)
     {
         //
     }

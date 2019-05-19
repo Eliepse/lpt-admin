@@ -14,7 +14,7 @@
                 @auth
                     <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                         <li class="nav-item">
-                            <a href="{{ route('home') }}" class="nav-link"><i class="fe fe-home"></i> Home</a>
+                            <a href="{{ route('home') }}" class="nav-link"><i class="fe fe-home"></i> Accueil</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('grades.index') }}" class="nav-link"><i class="fe fe-calendar"></i> Classes</a>
