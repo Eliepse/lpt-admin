@@ -75,20 +75,4 @@
         </form>
     </div>
 
-    {{--<div class="col-3">--}}
-    {{--<div class="card">--}}
-    {{--<table class="table card-table">--}}
-    {{--<tr>--}}
-    {{--<td>Name</td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-    {{--<td>Période</td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-    {{--<td>Durée</td>--}}
-    {{--</tr>--}}
-    {{--</table>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-
 @endsection

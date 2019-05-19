@@ -26,7 +26,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        $users = User::query()->where('type', '!=', 'parent')->get();
+
+        return view('users.index', compact('users'));
     }
 
 

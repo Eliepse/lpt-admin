@@ -2,9 +2,14 @@
 
 <?php
 use \Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+use App\User;
+/**
+ * @var Collection $users
+ */
 ?>
 
-@section('title', 'Comptes - ')
+@section('title', 'Équipe - ')
 
 @section('main')
 
@@ -13,7 +18,7 @@ use \Illuminate\Support\Str;
         <div class="card">
 
             <div class="card-header">
-                <h2 class="card-title">Utilisateurs</h2>
+                <h2 class="card-title">Comptes</h2>
                 <div class="card-options">
                     <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm ml-2"><span class="fe fe-user-plus"></span> Ajouter un compte</a>
                 </div>
@@ -29,8 +34,8 @@ use \Illuminate\Support\Str;
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse(\App\User::all() as $user)
-                        <?php /** @var \App\User $user */ ?>
+                    @forelse($users as $user)
+                        <?php /** @var User $user */ ?>
                         <tr>
                             <td>
                                 {{ $user->getFullname() }}&ensp;<span class="tag">{{ $user->type }}</span><br>
