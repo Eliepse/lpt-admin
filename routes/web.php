@@ -25,6 +25,11 @@ Route::get('/users', 'UserController@index')->name('users.index');
 Route::get('/users/create', 'UserController@create')->name('users.create');
 Route::post('/users', 'UserController@store')->name('users.store');
 
+// Parents
+Route::get('/parents', 'ParentController@index')->name('parents.index');
+Route::get('/parents/create', 'ParentController@create')->name('parents.create');
+Route::get('/parents/{parent}', 'ParentController@show')->name('parents.show');
+Route::post('/parents', 'ParentController@store')->name('parents.store');
 
 // Grades
 Route::get('/grades', 'GradeController@index')->name('grades.index');

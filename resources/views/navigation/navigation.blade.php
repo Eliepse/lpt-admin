@@ -25,6 +25,9 @@
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link"><i class="fe fe-users"></i> Équipe</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('parents.index') }}" class="nav-link"><i class="fe fe-users"></i> Parents</a>
+                        </li>
                     </ul>
                 @endauth
 
