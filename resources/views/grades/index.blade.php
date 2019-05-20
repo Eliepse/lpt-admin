@@ -14,7 +14,8 @@ use \Illuminate\Support\Str;
             <div class="card-header">
                 <h2 class="card-title">Classes</h2>
                 <div class="card-options">
-                    <a href="{{ route('grades.create') }}" class="btn btn-primary btn-sm ml-2"><span class="fe fe-calendar"></span> Nouvelle classe</a>
+                    <a href="{{ route('courses.index') }}" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-book"></i> Gérer les cours</a>
+                    <a href="{{ route('grades.create') }}" class="btn btn-outline-primary btn-sm ml-2"><span class="fe fe-calendar"></span> Nouvelle classe</a>
                 </div>
             </div>
 
