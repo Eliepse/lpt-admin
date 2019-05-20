@@ -101,12 +101,13 @@ class CreateUserCommand extends Command
         $user->password = Hash::make($password);
 
         // Account type
-        $user->type = $this->choice("Which kind of account do you want to create ?", ["admin", "teacher", "parent"]);
+        // We do not allow parent creation here, since it does not handle family links
+        $user->type = $this->choice("Which kind of account do you want to create ?", ["admin", "teacher"]);
 
         // Confirmation
         $this->info("This user is about to be created:");
 
-        foreach ($user->getAttributes() as $attribute => $value) {
+        foreach ($user->toArray() as $attribute => $value) {
             $this->info("$attribute: $value");
         }
 
