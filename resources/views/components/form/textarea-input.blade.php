@@ -6,7 +6,6 @@
  * @var string $describedby
  * @var string $placeholder
  */
-$isInvalid = $errors->has($name);
 ?>
 
 <div class="form-group">
@@ -19,11 +18,9 @@ $isInvalid = $errors->has($name);
               autocomplete=""
               @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
               placeholder="{{ $placeholder ?? '' }}">{{ old($name, $default ?? '') }}</textarea>
-    @if($isInvalid)
-        @foreach($errors->get($name) as $message)
-            <div class="invalid-feedback">{{ $message }}</div>
-        @endforeach
-    @endif
+    @error($name)
+    @foreach($errors->get($name) as $message)
+        <div class="invalid-feedback">{{ $message }}</div>
+    @endforeach
+    @enderror
 </div>
-
-<?php unset($isInvalid); ?>

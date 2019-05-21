@@ -7,7 +7,6 @@
  * @var string $describedby
  * @var string $placeholder
  */
-$isInvalid = $errors->has($name);
 ?>
 <div class="form-group">
     <label class="form-label" for="{{ $name }}">{{ $title }}</label>
@@ -20,11 +19,9 @@ $isInvalid = $errors->has($name);
            @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
            value="{{ old($name, $default ?? '') }}">
 
-    @if($isInvalid)
-        @foreach($errors->get($name) as $message)
-            <div class="invalid-feedback">{{ $message }}</div>
-        @endforeach
-    @endif
+    @error($name)
+    @foreach($errors->get($name) as $message)
+        <div class="invalid-feedback">{{ $message }}</div>
+    @endforeach
+    @enderror
 </div>
-
-<?php unset($isInvalid); ?>

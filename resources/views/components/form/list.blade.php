@@ -10,7 +10,6 @@ use \Illuminate\Support\Arr;
  */
 
 $type = $type ?? 'radio';
-$isInvalid = $errors->has($name);
 $old = old($name, $default ?? null);
 
 if (!function_exists('optionChecked')) {
@@ -39,21 +38,20 @@ if (!function_exists('optionChecked')) {
                 <input type="{{ $type }}" name="{{ $name }}" value="{{ $o_value }}"
                        @if(optionChecked($o_value, $old, $type)) checked @endif
                        autocomplete=""
-                       class="selectgroup-input {{ $isInvalid ? 'is-invalid' : '' }}">
+                       class="selectgroup-input {{ $errors->has($name) ? 'is-invalid' : '' }}">
                 <span class="selectgroup-button">{!! $o_name !!}</span>
             </label>
         @endforeach
     </div>
 
-    @if($isInvalid)
-        @foreach($errors->get($name) as $message)
-            <div class="invalid-feedback">{{ $message }}</div>
-        @endforeach
-    @endif
+    @error($name)
+    @foreach($errors->get($name) as $message)
+        <div class="invalid-feedback">{{ $message }}</div>
+    @endforeach
+    @enderror
 </div>
 
 <?php
 unset($type);
-unset($isInvalid);
 unset($old);
 ?>
