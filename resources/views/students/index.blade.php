@@ -17,7 +17,6 @@ use \App\Student;
                 <h2 class="card-title">Étudiants</h2>
                 <div class="card-options">
                     <a href="{{ route('parents.index') }}" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-book"></i> Parents</a>
-                    {{--<a href="{{ route('grades.create') }}" class="btn btn-outline-primary btn-sm ml-2"><span class="fe fe-calendar"></span> Nouvelle classe</a>--}}
                 </div>
             </div>
 
@@ -48,8 +47,11 @@ use \App\Student;
                             <td class="text-right">
                                 <div class="btn-group" role="group" aria-label="Parent actions">
                                     @isset($student->family)
-                                        <a href="{{ route('family.show', $student->family) }}" type="button" class="btn btn-secondary">Voir la famille</a>
+                                        <a href="{{ route('family.show', $student->family) }}" type="button" class="btn btn-secondary mr-2">Voir la famille</a>
                                     @endisset
+                                    @can('update', $student)
+                                        <a href="{{ route('students.edit', $student) }}" type="button" class="btn btn-secondary">Modifier</a>
+                                    @endcan
                                 </div>
                             </td>
                         </tr>

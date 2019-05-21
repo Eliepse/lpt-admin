@@ -28,9 +28,13 @@ Route::post('/users', 'UserController@store')->name('users.store');
 
 // Parents
 Route::get('/parents', 'ParentController@index')->name('parents.index');
+Route::get('/parents/{parent}/edit', 'ParentController@edit')->name('parents.edit');
+Route::put('/parents/{parent}', 'ParentController@update')->name('parents.update');
 
 // Students
 Route::get('/students', 'StudentController@index')->name('students.index');
+Route::get('/students/{student}/edit', 'StudentController@edit')->name('students.edit');
+Route::put('/students/{student}', 'StudentController@update')->name('students.update');
 
 // Family, Parents and students (children)
 Route::get('/families/{family}', 'FamilyController@show')->name('family.show');
@@ -38,7 +42,7 @@ Route::get('/family/create', 'FamilyController@create')->name('family.create');
 Route::get('/family/{family}/parent/create', 'ParentController@create')->name('family.parent.create');
 Route::get('/family/{family}/children/create', 'StudentController@create')->name('family.children.create');
 Route::post('/family', 'FamilyController@store')->name('family.store');
-Route::post('/family/{family}/parent', 'ParentController@create')->name('family.parent.store');
+Route::post('/family/{family}/parent', 'ParentController@store')->name('family.parent.store');
 Route::post('/family/{family}/children', 'StudentController@store')->name('family.children.store');
 
 // Grades

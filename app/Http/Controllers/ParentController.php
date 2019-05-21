@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Family;
-use App\Http\Requests\StoreUserController;
+use App\Http\Requests\StoreParentController;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -40,18 +39,18 @@ class ParentController extends Controller
      */
     public function create(Family $family)
     {
-        return view('users.create-parent', compact('family'));
+        return view('parents.create', compact('family'));
     }
 
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreUserController $request
+     * @param StoreParentController $request
      * @param Family|null $family
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserController $request, Family $family)
+    public function store(StoreParentController $request, Family $family)
     {
         $parent = new User($request->all());
         $parent->password = Hash::make(Str::random(24));
@@ -67,7 +66,7 @@ class ParentController extends Controller
      * Display the specified resource.
      *
      * @param  \App\User $parent
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function show(User $parent)
     {
@@ -79,24 +78,27 @@ class ParentController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\User $parent
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(User $parent)
     {
-        //
+        return view('parents.edit', compact('parent'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreParentController $request
      * @param  \App\User $parent
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, User $parent)
+    public function update(StoreParentController $request, User $parent)
     {
-        //
+        $parent->fill($request->all());
+        $parent->save();
+
+        return redirect(route('family.show', $parent->family));
     }
 
 
@@ -104,7 +106,7 @@ class ParentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\User $parent
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function destroy(User $parent)
     {

@@ -2,7 +2,7 @@
 
 @section('main')
 
-    <div class="col-4">
+    <div class="col-12 col-md-4 col-lg-4">
         <div class="card">
             <div class="card-status bg-warning"></div>
             <div class="card-header">
