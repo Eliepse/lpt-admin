@@ -29,6 +29,9 @@ Route::post('/users', 'UserController@store')->name('users.store');
 // Parents
 Route::get('/parents', 'ParentController@index')->name('parents.index');
 
+// Students
+Route::get('/students', 'StudentController@index')->name('students.index');
+
 // Family, Parents and students (children)
 Route::get('/families/{family}', 'FamilyController@show')->name('family.show');
 Route::get('/family/create', 'FamilyController@create')->name('family.create');

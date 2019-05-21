@@ -68,7 +68,7 @@ use App\Family;
                                     <h3 class="card-title">{{ $child->firstname }}</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>{{ $child->birthday->diffInYears() }} ans</p>
+                                    <p>{{ $child->getAge() }} ans</p>
                                 </div>
                             </div>
                         </div>

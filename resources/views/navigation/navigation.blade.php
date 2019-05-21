@@ -20,13 +20,13 @@
                             <a href="{{ route('grades.index') }}" class="nav-link"><i class="fe fe-calendar"></i> Classes</a>
                         </li>
                         {{--<li class="nav-item">--}}
-                            {{--<a href="{{ route('courses.index') }}" class="nav-link"><i class="fe fe-book"></i> Cours</a>--}}
+                        {{--<a href="{{ route('courses.index') }}" class="nav-link"><i class="fe fe-book"></i> Cours</a>--}}
                         {{--</li>--}}
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link"><i class="fe fe-users"></i> Équipe</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('parents.index') }}" class="nav-link"><i class="fe fe-users"></i> Parents</a>
+                            <a href="{{ route('students.index') }}" class="nav-link"><i class="fe fe-users"></i> Étudiants</a>
                         </li>
                     </ul>
                 @endauth

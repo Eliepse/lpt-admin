@@ -2,6 +2,7 @@
 
 <?php
 use \Illuminate\Support\Str;
+use \App\Student;
 ?>
 
 @section('title', 'Comptes - ')
@@ -13,9 +14,10 @@ use \Illuminate\Support\Str;
         <div class="card">
 
             <div class="card-header">
-                <h2 class="card-title">Utilisateurs</h2>
+                <h2 class="card-title">Étudiants</h2>
                 <div class="card-options">
-                    <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm ml-2"><span class="fe fe-user-plus"></span> Ajouter un compte</a>
+                    <a href="{{ route('parents.index') }}" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-book"></i> Parents</a>
+                    {{--<a href="{{ route('grades.create') }}" class="btn btn-outline-primary btn-sm ml-2"><span class="fe fe-calendar"></span> Nouvelle classe</a>--}}
                 </div>
             </div>
 
@@ -24,24 +26,37 @@ use \Illuminate\Support\Str;
                 <table class="table table-outline table-vcenter card-table">
                     <thead>
                     <tr>
-                        <th>Dénomination</th>
+                        <th>Nom</th>
+                        <th>Classes</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse(\App\User::all() as $user)
-                        <?php /** @var \App\User $user */ ?>
+                    @forelse($students as $student)
+                        <?php /** @var Student $student */ ?>
                         <tr>
                             <td>
-                                {{ $user->getFullname() }}&ensp;<span class="tag">{{ $user->type }}</span><br>
-                                <span class="text-muted">{{ $user->email }}</span>
+                                {{ $student->getFullname() }}<br>
+                                <span class="text-muted">{{ $student->getAge() }} ans</span>
                             </td>
-                            <td></td>
+                            <td>
+                                @foreach($student->getActiveGrades() as $grade)
+                                    <?php /** @var \App\Grade $grade */ ?>
+                                    {{ $grade->title }},
+                                @endforeach
+                            </td>
+                            <td class="text-right">
+                                <div class="btn-group" role="group" aria-label="Parent actions">
+                                    @isset($student->family)
+                                        <a href="{{ route('family.show', $student->family) }}" type="button" class="btn btn-secondary">Voir la famille</a>
+                                    @endisset
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>
                             <td colspan="10">
-                                <p class="text-center text-muted">Il n'y a pas de classe enregistrée</p>
+                                <p class="text-center text-muted">Il n'y a pas d'étudiant enregistré</p>
                             </td>
                         </tr>
                     @endforelse

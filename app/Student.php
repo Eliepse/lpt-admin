@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Student extends Model
 {
     use HasHumanNames;
-    
+
     protected $fillable = ['firstname', 'lastname', 'birthday', 'notes'];
 
     protected $dates = [
@@ -54,5 +54,19 @@ class Student extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
+    }
+
+
+    public function getActiveGrades($only_started = false): Collection
+    {
+        return $this->grades()
+            ->whereDate('end_at', '>=', Carbon::now())
+            ->get();
+    }
+
+
+    public function getAge(): int
+    {
+        return $this->birthday->diffInYears();
     }
 }
