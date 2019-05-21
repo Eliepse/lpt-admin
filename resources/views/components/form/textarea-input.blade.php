@@ -12,8 +12,13 @@ $isInvalid = $errors->has($name);
 <div class="form-group">
     <label class="form-label" for="{{ $name }}">{{ $title }}</label>
     @if(!empty($description))<p class="text-muted">{{ $description }}</p>@endif
-    <textarea class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}" id="{{ $name }}"
-              name="{{ $name }}" rows="6" placeholder="{{ $placeholder ?? '' }}"></textarea>
+    <textarea class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+              id="{{ $name }}"
+              name="{{ $name }}"
+              rows="6"
+              autocomplete=""
+              @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
+              placeholder="{{ $placeholder ?? '' }}">{{ old($name, $default ?? '') }}</textarea>
     @if($isInvalid)
         @foreach($errors->get($name) as $message)
             <div class="invalid-feedback">{{ $message }}</div>
