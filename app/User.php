@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Pivots\StudentParent;
+use App\Traits\HasHumanNames;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -41,6 +42,7 @@ use Illuminate\Support\Str;
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasHumanNames;
 
     protected $fillable = [
         'firstname', 'lastname', 'email',
@@ -75,19 +77,6 @@ class User extends Authenticatable
     public function grades(): HasMany
     {
         return $this->hasMany(Grade::class, 'teacher_id');
-    }
-
-
-    public function getFullname(): string
-    {
-        return $this->firstname . ' ' . $this->lastname;
-    }
-
-
-    public function getInitials(): string
-    {
-        return Str::upper(Str::substr($this->firstname, 0, 1) .
-            Str::substr($this->lastname, 0, 1));
     }
 
 

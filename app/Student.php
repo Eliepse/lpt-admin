@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Pivots\StudentParent;
+use App\Traits\HasHumanNames;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +26,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Student extends Model
 {
+    use HasHumanNames;
+    
     protected $fillable = ['firstname', 'lastname', 'birthday', 'notes'];
 
     protected $dates = [
