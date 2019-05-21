@@ -25,8 +25,8 @@
             </div>
             <div class="card-body">
                 <h4>
-                    {{--<span class="tag tag-primary">0.2</span>--}}
-                    {{--<span class="text-muted small">2019-05-21</span>--}}
+                    <span class="tag tag-primary">0.2</span>
+                    <span class="text-muted small">2019-05-21</span>
                 </h4>
                 <p class="text-info">Corrections suite à la version v0.1 et petits ajouts</p>
                 <h5>Ajouts</h5>
