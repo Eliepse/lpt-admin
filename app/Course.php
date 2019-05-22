@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -18,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property bool active
  * @property int teacher_id
  * @property User teacher
+ * @property Collection grades
  * @property Carbon created_at
  * @property Carbon updated_at
  */

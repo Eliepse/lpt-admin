@@ -10,7 +10,7 @@
             <div class="card-header">
                 <h2 class="card-title">Classes</h2>
                 <div class="card-options">
-                    <a href="{{ route('courses.create') }}" class="btn btn-primary btn-sm ml-2"><span class="fe fe-book"></span> Nouveau cours</a>
+                    <a href="{{ route('courses.create') }}" class="btn btn-outline-primary btn-sm ml-2"><span class="fe fe-book"></span> Nouveau cours</a>
                 </div>
             </div>
 
@@ -23,6 +23,8 @@
                         <th>Catégorie</th>
                         <th>Durée</th>
                         <th>Enseignant</th>
+                        <th>Classes</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -35,6 +37,14 @@
                             <td>{{ \Illuminate\Support\Str::ucfirst($course->category) }}</td>
                             <td>{{ $course->duration }} min</td>
                             <td>{{ $course->teacher ? $course->teacher->firstname . ' ' . $course->teacher->lastname : '' }}</td>
+                            <td>{{ $course->grades()->count() }}</td>
+                            <td class="text-right">
+                                <div class="btn-group" role="group">
+                                    @can('update', $course)
+                                        <a href="{{ route('courses.edit', $course) }}" type="button" class="btn btn-secondary">Modifier</a>
+                                    @endcan
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>

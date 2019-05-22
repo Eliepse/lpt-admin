@@ -12,7 +12,7 @@ class CourseController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('type:admin,teacher');
-        $this->authorizeResource(Course::class, 'grade');
+        $this->authorizeResource(Course::class, 'course');
     }
 
 
@@ -41,7 +41,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreCourseRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCourseRequest $request)
@@ -58,7 +58,7 @@ class CourseController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Course $course
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function show(Course $course)
     {
@@ -70,24 +70,28 @@ class CourseController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Course $course
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Course $course)
     {
-        //
+        return view('courses.edit', compact('course'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreCourseRequest $request
      * @param  \App\Course $course
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Course $course)
+    public function update(StoreCourseRequest $request, Course $course)
     {
-        //
+        $course->fill($request->all());
+        $course->teacher()->associate($request->get('teacher'));
+        $course->save();
+
+        return redirect(route('courses.index'));
     }
 
 
@@ -95,7 +99,7 @@ class CourseController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Course $course
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function destroy(Course $course)
     {

@@ -53,7 +53,9 @@ Route::post('/grades', 'GradeController@store')->name('grades.store');
 // Courses
 Route::get('/courses', 'CourseController@index')->name('courses.index');
 Route::get('/courses/create', 'CourseController@create')->name('courses.create');
+Route::get('/courses/{course}/edit', 'CourseController@edit')->name('courses.edit');
 Route::post('/courses', 'CourseController@store')->name('courses.store');
+Route::put('/courses/{course}', 'CourseController@update')->name('courses.update');
 
 // Other
 Route::get('/home', function () {
