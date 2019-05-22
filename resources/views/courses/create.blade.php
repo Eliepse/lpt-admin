@@ -48,57 +48,43 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Durée</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control text-right" name="duration" min="1" max="65000"
-                               placeholder="Durée en minutes" value="30">
+                @component('components.form.input-group')
+                    @slot('title', 'Durée')
+                    @slot('name', 'duration')
+                    @slot('type', 'number')
+                    @slot('attrs', [
+                        'min' => '1',
+                        'max' => '65000',
+                    ])
+                    @slot('placeholder', 'Durée en minutes')
+                    @slot('default', 30)
+                    @slot('after')
                         <span class="input-group-append"><span class="input-group-text">min</span></span>
-                    </div>
-                </div>
+                    @endslot
+                @endcomponent
 
-                <div class="form-group">
-                    <label class="form-label">Enseignant.e</label>
-                    <select class="form-control custom-select" name="teacher">
-                        <?php
-                        /**
-                         * @var \App\User $teacher
-                         */
-                        $teachers = \App\User::teacher()->select(['id', 'firstname', 'lastname'])->get();
-                        ?>
-                        @foreach($teachers as $teacher)
-                            <option value="{{ $teacher->id }}">
-                                {{ $teacher->lastname . ' ' . $teacher->firstname }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+                <?php
+                /** @var \Illuminate\Database\Eloquent\Collection $teachers */
+                $teachers = \App\User::teacher()->select(['id', 'firstname', 'lastname'])->get();
+                $options = $teachers->map(function (\App\User $teacher) {
+                    return ['name' => $teacher->getFullname(), 'value' => $teacher->id,];
+                });
+                ?>
+                @component('components.form.select')
+                    @slot('title', 'Enseignant.e')
+                    @slot('name', 'teacher')
+                    @slot('options', $options)
+                @endcomponent
 
             </div>
 
             <div class="card-footer text-right">
                 <div class="d-flex">
-                    <a href="javascript:void(0)" class="btn btn-link">Annuler</a>
+                    {{--<a href="javascript:void(0)" class="btn btn-link">Annuler</a>--}}
                     <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                 </div>
             </div>
         </form>
     </div>
-
-    {{--<div class="col-3">--}}
-    {{--<div class="card">--}}
-    {{--<table class="table card-table">--}}
-    {{--<tr>--}}
-    {{--<td>Name</td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-    {{--<td>Période</td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-    {{--<td>Durée</td>--}}
-    {{--</tr>--}}
-    {{--</table>--}}
-    {{--</div>--}}
-    {{--</div>--}}
 
 @endsection
