@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Pivots\StudentParent;
+use App\Sets\UserRoles;
 use App\Traits\HasHumanNames;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -10,11 +11,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Str;
 
 /**
  * Class User
@@ -23,6 +21,7 @@ use Illuminate\Support\Str;
  * @property string firstname
  * @property string lastname
  * @property string email
+ * @property UserRoles roles
  * @property string type
  * @property string wechat_id
  * @property string phone
@@ -53,11 +52,30 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    protected $casts = [
-//        'email_verified_at' => 'datetime',
-    ];
+
+    /**
+     * @param $value
+     * @return UserRoles
+     * @throws \Eliepse\Set\Exceptions\UnknownMemberException
+     */
+    public function getRolesAttributes($value): UserRoles
+    {
+        return new UserRoles($value);
+    }
 
 
+    /**
+     * @param UserRoles $value
+     */
+    public function setRolesAttributes(UserRoles $value)
+    {
+        $this->attributes['roles'] = join(',', $value->getValues());
+    }
+
+
+    /**
+     * @return BelongsToMany
+     */
     public function children(): BelongsToMany
     {
         return $this->belongsToMany(Student::class, "student_parent")
@@ -68,43 +86,62 @@ class User extends Authenticatable
     }
 
 
+    /**
+     * @return BelongsTo
+     */
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
     }
 
 
+    /**
+     * @return HasMany
+     */
     public function grades(): HasMany
     {
         return $this->hasMany(Grade::class, 'teacher_id');
     }
 
 
-    public function isAdmin(): bool { return $this->type === 'admin'; }
-
-
-    public function isTeacher(): bool { return $this->type === 'teacher'; }
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool { return $this->roles->has(UserRoles::ADMIN); }
 
 
     /**
-     * Scope a query to only include popular users.
-     *
-     * @param  Builder $query
+     * @return bool
+     */
+    public function isTeacher(): bool { return $this->roles->has(UserRoles::TEACHER); }
+
+
+    /**
+     * @param Builder $query
      * @return Builder
      */
-    public function scopeTeacher(Builder $query)
+    public function scopeStaff(Builder $query): Builder
     {
-        return $query->where('type', 'teacher');
+        return $query->where('type', 'staff');
     }
 
 
     /**
-     * Scope a query to only include popular users.
-     *
      * @param  Builder $query
      * @return Builder
      */
-    public function scopeParent(Builder $query)
+    public function scopeTeacher(Builder $query): Builder
+    {
+        return $query->where('type', 'staff')
+            ->where('roles', UserRoles::TEACHER);
+    }
+
+
+    /**
+     * @param  Builder $query
+     * @return Builder
+     */
+    public function scopeParent(Builder $query): Builder
     {
         return $query->where('type', 'parent');
     }

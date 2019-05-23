@@ -1,5 +1,6 @@
 <?php
 
+use App\Sets\UserRoles;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -18,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email')->unique();
-//            $table->set('role', ['admin'])->nullable();
-            $table->enum('type', ['admin', 'teacher', 'parent'])->default('parent');
+            UserRoles::createTableColumn($table, 'roles');
+            $table->enum('type', ['staff', 'parent'])->default('parent');
             $table->unsignedBigInteger('family_id')->nullable();
             $table->string('wechat_id')->unique()->nullable();
             $table->string('phone')->nullable();
