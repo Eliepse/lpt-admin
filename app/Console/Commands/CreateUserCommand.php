@@ -47,11 +47,6 @@ class CreateUserCommand extends Command
             InputArgument::REQUIRED,
             'The firstname of the user');
 
-        $this->addOption('type',
-            't',
-            InputOption::VALUE_OPTIONAL,
-            'The type (admin, teacher, parent) of the user',
-            'parent');
         $this->addOption('wechat',
             'w',
             InputOption::VALUE_OPTIONAL,
@@ -63,15 +58,16 @@ class CreateUserCommand extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws \Eliepse\Set\Exceptions\UnknownMemberException
      */
     public function handle()
     {
         // Main attributes
         $validator = Validator::make($this->arguments(), [
-            'email'     => 'required|email|unique:users|max:255',
+            'email' => 'required|email|unique:users|max:255',
             'firstname' => 'required|string|max:255',
-            'lastname'  => 'required|string|max:255',
-            'wechat'    => 'unique:users,wechat_id|max:255',
+            'lastname' => 'required|string|max:255',
+            'wechat' => 'unique:users,wechat_id|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -84,6 +80,7 @@ class CreateUserCommand extends Command
         $user = new User($this->arguments());
         $user->wechat_id = $this->option("wechat");
         $user->active = true;
+        $user->type = 'staff';
 
         // Password
         $password = $this->secret("Please input a password (12 caracters minimum): ");
@@ -102,7 +99,11 @@ class CreateUserCommand extends Command
 
         // Account type
         // We do not allow parent creation here, since it does not handle family links
-        $user->type = $this->choice("Which kind of account do you want to create ?", ["admin", "teacher"]);
+
+        $role = $this->choice("Which kind of account do you want to create ?", ["admin", "teacher"]);
+        $roles = $user->roles;
+        $roles->set($role);
+        $user->roles = $roles;
 
         // Confirmation
         $this->info("This user is about to be created:");
