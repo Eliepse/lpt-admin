@@ -11,7 +11,7 @@ class CourseController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('type:admin,teacher');
+        $this->middleware('roles:admin,teacher');
         $this->authorizeResource(Course::class, 'course');
     }
 
