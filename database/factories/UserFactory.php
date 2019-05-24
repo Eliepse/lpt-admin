@@ -20,14 +20,14 @@ use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'firstname'      => $faker->firstName,
-        'lastname'       => $faker->lastName,
-        'email'          => $faker->unique()->safeEmail,
-        'type'           => Arr::random(['admin', 'teacher', 'parent']),
-        'wechat_id'      => $faker->userName . $faker->randomNumber(4),
-        'phone'          => $faker->phoneNumber,
-        'address'        => $faker->address,
-        'password'       => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'firstname' => $faker->firstName,
+        'lastname' => $faker->lastName,
+        'email' => $faker->unique()->safeEmail,
+        'type' => Arr::random(['staff', 'parent']),
+        'wechat_id' => $faker->userName . $faker->randomNumber(4),
+        'phone' => $faker->phoneNumber,
+        'address' => $faker->address,
+        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
 //        'email_verified_at' => now(),
     ];
