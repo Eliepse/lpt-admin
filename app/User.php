@@ -61,7 +61,7 @@ class User extends Authenticatable
      */
     public function getRolesAttribute($value): UserRoles
     {
-        return new UserRoles(explode(',', $value));
+        return new UserRoles($value ? explode(',', $value) : []);
     }
 
 

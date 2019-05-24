@@ -114,6 +114,8 @@ class CreateUserCommand extends Command
 
         if (!$this->confirm("Do you confirm the creation of this user ?")) {
             $this->info("Creation aborted.");
+
+            return;
         }
 
         $user->save();
