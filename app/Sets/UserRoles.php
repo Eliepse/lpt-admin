@@ -15,4 +15,10 @@ class UserRoles extends Set
     protected static $members = ['admin', 'manager', 'teacher'];
 
     protected static $nullable = true;
+
+
+    public function __toString(): string
+    {
+        return join(',', $this->getValues());
+    }
 }

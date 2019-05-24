@@ -31,11 +31,11 @@ class Set implements SetInterface
      * @param array $values
      * @throws UnknownMemberException
      */
-    public function __construct(array $values = [])
+    public function __construct(?array $values = [])
     {
         // Unset all initialize $this->values
         $this->unsetAll();
-        $this->set($values);
+        $this->set($values ?? []);
     }
 
 
@@ -45,7 +45,7 @@ class Set implements SetInterface
      */
     public static function getMembers(): array
     {
-        return self::$members;
+        return static::$members;
     }
 
 
@@ -55,7 +55,7 @@ class Set implements SetInterface
      */
     public static function isNullbale(): bool
     {
-        return self::$nullable;
+        return static::$nullable;
     }
 
 
@@ -69,7 +69,7 @@ class Set implements SetInterface
             array_filter($this->values, function ($value) { return $value; })
         );
 
-        if (self::$nullable)
+        if (static::$nullable)
             return count($values) ? $values : null;
         else
             return $values;
@@ -125,7 +125,8 @@ class Set implements SetInterface
      */
     public function unsetAll()
     {
-        $this->values = array_walk(array_flip(self::$members), function () { return false; });
+        $r_members = array_flip(static::$members);
+        $this->values = array_map(function () { return false; }, $r_members);
     }
 
 
@@ -136,7 +137,7 @@ class Set implements SetInterface
      */
     public function memberExists(string $member): bool
     {
-        return array_key_exists($member, array_flip(self::$members));
+        return array_key_exists($member, array_flip(static::$members));
     }
 
 
@@ -147,10 +148,8 @@ class Set implements SetInterface
     protected function activateMember(string $member)
     {
         $member = trim($member);
-
         if (!$this->memberExists($member))
             throw new UnknownMemberException();
-
         $this->values[ $member ] = true;
     }
 
@@ -162,16 +161,14 @@ class Set implements SetInterface
     public function unactivateMember(string $member)
     {
         $member = trim($member);
-
         if (!$this->memberExists($member))
             throw new UnknownMemberException();
-
         $this->values[ $member ] = false;
     }
 
 
     public static function createTableColumn(Blueprint $table, string $column_name)
     {
-        $table->set($column_name, self::getMembers())->nullable(self::isNullbale());
+        $table->set($column_name, static::getMembers())->nullable(static::isNullbale());
     }
 }
