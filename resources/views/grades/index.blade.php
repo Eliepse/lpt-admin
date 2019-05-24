@@ -56,7 +56,11 @@ use \Illuminate\Support\Str;
                                 {{ $grade->start_at->toDateString() }}<br>
                                 {{ $grade->end_at->toDateString() }}
                             </td>
-                            <td></td>
+                            <td class="text-right">
+                                @can('view', $grade)
+                                    <a href="{{ route('grades.show', $grade) }}" type="button" class="btn btn-secondary">Voir</a>
+                                @endcan
+                            </td>
                         </tr>
                     @empty
                         <tr>

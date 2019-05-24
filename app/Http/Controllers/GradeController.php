@@ -62,11 +62,11 @@ class GradeController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Grade $grade
-     * @return void
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Grade $grade)
     {
-        //
+        return view('grades.show', compact('grade'));
     }
 
 

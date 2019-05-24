@@ -48,6 +48,7 @@ Route::post('/family/{family}/children', 'StudentController@store')->name('famil
 // Grades
 Route::get('/grades', 'GradeController@index')->name('grades.index');
 Route::get('/grades/create', 'GradeController@create')->name('grades.create');
+Route::get('/grades/{grade}', 'GradeController@show')->name('grades.show');
 Route::post('/grades', 'GradeController@store')->name('grades.store');
 
 // Courses

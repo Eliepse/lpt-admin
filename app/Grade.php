@@ -79,4 +79,14 @@ class Grade extends Model
         return $this->belongsToMany(Course::class);
     }
 
+
+    /**
+     * Return the global duration in minutes of the courses
+     * @return int
+     */
+    public function getDuration(): int
+    {
+        return $this->courses->sum('duration');
+    }
+
 }
