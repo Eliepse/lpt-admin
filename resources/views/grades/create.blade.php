@@ -176,7 +176,7 @@
 
             <div class="card-footer text-right">
                 <div class="d-flex">
-                    <a href="javascript:void(0)" class="btn btn-link">Retour</a>
+                    {{--<a href="javascript:void(0)" class="btn btn-link">Retour</a>--}}
                     <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                 </div>
             </div>

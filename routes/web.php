@@ -60,7 +60,7 @@ Route::put('/courses/{course}', 'CourseController@update')->name('courses.update
 // Other
 Route::get('/home', function () {
     return view('home');
-})->middleware(['auth', 'type:admin,teacher'])->name('home');
+})->middleware(['auth', 'roles:admin,teacher'])->name('home');
 
 // This is only temporary
 Route::redirect('/', '/login');

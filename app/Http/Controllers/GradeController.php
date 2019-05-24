@@ -54,7 +54,7 @@ class GradeController extends Controller
 
         $grade->courses()->attach($request->get("courses"));
 
-        return redirect(route('courses.index'));
+        return redirect(route('grades.index'));
     }
 
 
