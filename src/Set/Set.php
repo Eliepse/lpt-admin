@@ -5,6 +5,7 @@ namespace Eliepse\Set;
 
 use Eliepse\Set\Exceptions\UnknownMemberException;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\ColumnDefinition;
 
 class Set implements SetInterface
 {
@@ -135,7 +136,7 @@ class Set implements SetInterface
      * @return mixed
      * @throws UnknownMemberException
      */
-    public function set($member)
+    public function set($member): void
     {
         if (is_string($member))
             $this->activateMember($member);
@@ -151,7 +152,7 @@ class Set implements SetInterface
      * @return mixed
      * @throws UnknownMemberException
      */
-    public function unset($member)
+    public function unset($member): void
     {
         if (is_string($member))
             $this->unactivateMember($member);
@@ -165,7 +166,7 @@ class Set implements SetInterface
      * To unset all members of the Set
      * @return void
      */
-    public function unsetAll()
+    public function unsetAll(): void
     {
         $r_members = array_flip(static::$members);
         $this->values = array_map(function () { return false; }, $r_members);
@@ -187,7 +188,7 @@ class Set implements SetInterface
      * @param string $member
      * @throws UnknownMemberException
      */
-    protected function activateMember(string $member)
+    protected function activateMember(string $member): void
     {
         $member = trim($member);
         if (!$this->memberExists($member))
@@ -200,7 +201,7 @@ class Set implements SetInterface
      * @param string $member
      * @throws UnknownMemberException
      */
-    public function unactivateMember(string $member)
+    public function unactivateMember(string $member): void
     {
         $member = trim($member);
         if (!$this->memberExists($member))
@@ -209,8 +210,14 @@ class Set implements SetInterface
     }
 
 
-    public static function createTableColumn(Blueprint $table, string $column_name)
+    /**
+     * Handle the creation of the table for the Set
+     * @param Blueprint $table
+     * @param string $column_name
+     * @return ColumnDefinition
+     */
+    public static function createTableColumn(Blueprint $table, string $column_name): ColumnDefinition
     {
-        $table->set($column_name, static::getMembers())->nullable(static::isNullbale());
+        return $table->set($column_name, static::getMembers())->nullable(static::isNullbale());
     }
 }

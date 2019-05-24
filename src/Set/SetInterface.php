@@ -56,26 +56,26 @@ interface SetInterface
     /**
      * To set (or activate) a member of the Set
      * @param string|array $member
-     * @return mixed
+     * @return void
      * @throws UnknownMemberException
      */
-    public function set($member);
+    public function set($member): void;
 
 
     /**
      * To unset (or unactivate) a member of the Set
      * @param string|array $member
-     * @return mixed
+     * @return void
      * @throws UnknownMemberException
      */
-    public function unset($member);
+    public function unset($member): void;
 
 
     /**
      * To unset all members of the Set
      * @return void
      */
-    public function unsetAll();
+    public function unsetAll(): void;
 
 
     /**
