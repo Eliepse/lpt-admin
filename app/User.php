@@ -46,6 +46,7 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname', 'lastname', 'email',
         'type', 'phone', 'address', 'wechat_id',
+        'roles'
     ];
 
     protected $hidden = [
@@ -58,7 +59,7 @@ class User extends Authenticatable
      * @return UserRoles
      * @throws \Eliepse\Set\Exceptions\UnknownMemberException
      */
-    public function getRolesAttributes($value): UserRoles
+    public function getRolesAttribute($value): UserRoles
     {
         return new UserRoles($value);
     }
@@ -67,7 +68,7 @@ class User extends Authenticatable
     /**
      * @param UserRoles $value
      */
-    public function setRolesAttributes(UserRoles $value)
+    public function setRolesAttribute(UserRoles $value)
     {
         $this->attributes['roles'] = join(',', $value->getValues());
     }
