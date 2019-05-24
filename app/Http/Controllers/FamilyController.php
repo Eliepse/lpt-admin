@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Family;
-use App\Http\Requests\StoreUserController;
+use App\Http\Requests\StoreParentRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +14,7 @@ class FamilyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -25,7 +25,7 @@ class FamilyController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -36,10 +36,10 @@ class FamilyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreUserController $request
-     * @return \Illuminate\Http\Response
+     * @param StoreParentRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(StoreUserController $request)
+    public function store(StoreParentRequest $request)
     {
         $parent = new User($request->all());
         $parent->password = Hash::make(Str::random(24));
@@ -55,7 +55,7 @@ class FamilyController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Family $family
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Family $family)
     {
@@ -67,7 +67,7 @@ class FamilyController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Family $family
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function edit(Family $family)
     {
@@ -80,7 +80,7 @@ class FamilyController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Family $family
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function update(Request $request, Family $family)
     {
@@ -92,7 +92,7 @@ class FamilyController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Family $family
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function destroy(Family $family)
     {

@@ -39,10 +39,9 @@
                     @slot('title', 'Type de compte')
                     @slot('name', 'type')
                     @slot('options', [
-                        'Admin' => 'admin',
-                        'Teacher' => 'teacher',
+                        'Staff' => 'staff',
                     ])
-                    @slot('default', 'parent')
+                    @slot('default', 'staff')
                 @endcomponent
 
                 @component('components.form.input')

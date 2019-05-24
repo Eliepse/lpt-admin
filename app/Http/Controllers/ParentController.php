@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Family;
-use App\Http\Requests\StoreParentController;
+use App\Http\Requests\StoreParentRequest;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -46,11 +46,11 @@ class ParentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreParentController $request
+     * @param StoreParentRequest $request
      * @param Family|null $family
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreParentController $request, Family $family)
+    public function store(StoreParentRequest $request, Family $family)
     {
         $parent = new User($request->all());
         $parent->password = Hash::make(Str::random(24));
@@ -89,11 +89,11 @@ class ParentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreParentController $request
+     * @param StoreParentRequest $request
      * @param  \App\User $parent
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(StoreParentController $request, User $parent)
+    public function update(StoreParentRequest $request, User $parent)
     {
         $parent->fill($request->all());
         $parent->save();
