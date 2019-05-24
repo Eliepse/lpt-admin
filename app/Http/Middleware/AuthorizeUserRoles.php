@@ -2,27 +2,26 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
 use Illuminate\Support\Arr;
 
-class AuthorizeUserType
+class AuthorizeUserRoles
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
-     * @param array $types
+     * @param array|string $roles
      * @return mixed
      */
-    public function handle($request, Closure $next, ...$types)
+    public function handle($request, Closure $next, ...$roles)
     {
-        $userType = $request->user()->type;
-        $match = Arr::first($types, function ($type) use ($userType) {
-            return $userType === $type;
-        });
+        /** @var User $user */
+        $user = $request->user();
 
-        if (empty($match))
+        if (!$user->roles->hasOne(is_string($roles) ? [$roles] : $roles))
             return response("", 403);
 
         return $next($request);
