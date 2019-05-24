@@ -45,8 +45,11 @@ class UserRolesSetTest extends TestCase
         $set = new UserRoles(['manager', 'teacher']);
         $this->assertTrue($set->has('teacher'));
         $this->assertTrue($set->has('manager'));
-        // Not implemented yet
-//        $this->assertTrue($set->has(['teacher', 'manager']));
+        $this->assertTrue($set->hasOne(['unvalid_member', 'admin', 'teacher']));
+        $this->assertTrue($set->hasAll(['manager', 'teacher']));
+
+        $this->assertFalse($set->hasOne(['unvalid_member', 'admin']));
+        $this->assertFalse($set->hasAll(['unvalid_member', 'manager', 'teacher']));
         $this->assertFalse($set->has('admin'));
     }
 

@@ -31,7 +31,7 @@ class Set implements SetInterface
      * @param array $values
      * @throws UnknownMemberException
      */
-    public function __construct(?array $values = [])
+    public function __construct($values = [])
     {
         // Unset all initialize $this->values
         $this->unsetAll();
@@ -77,13 +77,55 @@ class Set implements SetInterface
 
 
     /**
-     * Check if a value is activated
+     * Check if a single member is active
      * @param string $member
      * @return bool
      */
     public function has(string $member): bool
     {
         return $this->values[ $member ] ?? false;
+    }
+
+
+    /**
+     * Check if at least one of the given members is active
+     * @param array $members
+     * @return bool
+     */
+    public function hasOne(array $members): bool
+    {
+        // We only take the valid members
+        $filtered = array_intersect_key($this->values, array_flip($members));
+
+        // Then we check if one of them is valid
+        foreach ($filtered as $value)
+            if ($value)
+                return true;
+
+        return false;
+    }
+
+
+    /**
+     * Check if every given members are active
+     * @param array $members
+     * @return bool
+     */
+    public function hasAll(array $members): bool
+    {
+        // If some members are invalid, return false
+        // (because those keys are obviously not active)
+        if (count(array_diff_key(array_flip($members), $this->values)))
+            return false;
+
+
+        // If members to test are valid, we proceed to a check
+        // that stops if there is an non-active member
+        foreach ($members as $member)
+            if (!$this->values[ $member ] ?? true)
+                return false;
+
+        return true;
     }
 
 

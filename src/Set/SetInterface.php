@@ -30,11 +30,27 @@ interface SetInterface
 
 
     /**
-     * Check if a value is activated
+     * Check if a single member is active
      * @param string $member
      * @return bool
      */
     public function has(string $member): bool;
+
+
+    /**
+     * Check if at least one of the given members is active
+     * @param array $members
+     * @return bool
+     */
+    public function hasOne(array $members): bool;
+
+
+    /**
+     * Check if every given members are active
+     * @param array $members
+     * @return bool
+     */
+    public function hasAll(array $members): bool;
 
 
     /**
