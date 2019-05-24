@@ -133,7 +133,7 @@ class Set implements SetInterface
     /**
      * To set (or activate) a member of the Set
      * @param string|array $member
-     * @return mixed
+     * @return void
      * @throws UnknownMemberException
      */
     public function set($member): void
@@ -149,7 +149,7 @@ class Set implements SetInterface
     /**
      * To unset (or unactivate) a member of the Set
      * @param string|array $member
-     * @return mixed
+     * @return void
      * @throws UnknownMemberException
      */
     public function unset($member): void
@@ -186,6 +186,7 @@ class Set implements SetInterface
 
     /**
      * @param string $member
+     * @return void
      * @throws UnknownMemberException
      */
     protected function activateMember(string $member): void
@@ -199,6 +200,7 @@ class Set implements SetInterface
 
     /**
      * @param string $member
+     * @return void
      * @throws UnknownMemberException
      */
     public function unactivateMember(string $member): void
