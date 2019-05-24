@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\Days;
 use App\Grade;
 use App\Http\Requests\StoreGradeRequest;
+use App\Student;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -66,7 +67,12 @@ class GradeController extends Controller
      */
     public function show(Grade $grade)
     {
-        return view('grades.show', compact('grade'));
+        $new_students = Student::query()
+            ->select(['id', 'firstname', 'lastname'])
+            ->whereNotIn('id', $grade->students->pluck('id'))
+            ->get();
+
+        return view('grades.show', compact('grade', 'new_students'));
     }
 
 
@@ -105,4 +111,41 @@ class GradeController extends Controller
     {
         //
     }
+
+
+    /**
+     * @param Grade $grade
+     * @param Student $student
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function linkStudent(Grade $grade, Student $student)
+    {
+        $this->authorize('update', $grade);
+
+        if ($grade->students()->find($student->id))
+            return redirect()->back();
+
+        $grade->students()->attach($student->id);
+
+        return redirect(route('grades.show', $grade));
+    }
+
+
+    /**
+     * @param Grade $grade
+     * @param Student $student
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function unlinkStudent(Grade $grade, Student $student)
+    {
+        $this->authorize('update', $grade);
+
+        $grade->students()->detach($student->id);
+
+        return redirect(route('grades.show', $grade));
+    }
+
+
 }

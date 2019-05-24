@@ -50,6 +50,8 @@ Route::get('/grades', 'GradeController@index')->name('grades.index');
 Route::get('/grades/create', 'GradeController@create')->name('grades.create');
 Route::get('/grades/{grade}', 'GradeController@show')->name('grades.show');
 Route::post('/grades', 'GradeController@store')->name('grades.store');
+Route::put('/grades/{grade}/students/{student}/link', 'GradeController@linkStudent')->name('grades.students.link');
+Route::put('/grades/{grade}/students/{student}/unlink', 'GradeController@unlinkStudent')->name('grades.students.unlink');
 
 // Courses
 Route::get('/courses', 'CourseController@index')->name('courses.index');

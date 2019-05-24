@@ -25,6 +25,25 @@
             </div>
             <div class="card-body">
                 <h4>
+                    <span class="tag tag-primary">unreleased</span>
+                    {{--<span class="text-muted small">2019-0*-**</span>--}}
+                </h4>
+                {{--<p class="text-info">...</p>--}}
+                <h5>Ajouts</h5>
+                <ul>
+                    <li>Ajout des étudiants dans les classes</li>
+                    <li>Page pour afficher une classe</li>
+                    <li>Possibilité de modifier les cours</li>
+                </ul>
+                {{--<h5>Changements</h5>--}}
+                {{--<ul>--}}
+                {{--</ul>--}}
+                {{--<h5>Corrections</h5>--}}
+                {{--<ul>--}}
+                {{--</ul>--}}
+            </div>
+            <div class="card-body">
+                <h4>
                     <span class="tag tag-primary">0.2</span>
                     <span class="text-muted small">2019-05-21</span>
                 </h4>
