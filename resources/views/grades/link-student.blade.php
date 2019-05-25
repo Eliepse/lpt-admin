@@ -56,7 +56,7 @@ use App\Student;
 
             <div class="card-footer text-right">
                 <div class="d-flex">
-                    <a href="javascript:void(0)" class="btn btn-link">Annuler</a>
+                    <a href="{{ route('grades.show', $grade) }}" class="btn btn-link">Annuler</a>
                     <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                 </div>
             </div>

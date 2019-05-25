@@ -20,8 +20,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int|null level
  * @property int max_students
  * @property int price
- * @property Carbon start_at
- * @property Carbon end_at
+ * @property Carbon first_day
+ * @property Carbon last_day
  * @property array timetable_days
  * @property Carbon timetable_hour
  * @property Collection|null students
@@ -35,14 +35,14 @@ class Grade extends Model
 {
     protected $fillable = [
         'title', 'location', 'country', 'level', 'max_students',
-        'price', 'start_at', 'end_at', 'timetable_days', 'timetable_hour',
+        'price', 'first_day', 'last_day', 'timetable_days', 'timetable_hour',
     ];
 
     protected $casts = [
-        'start_at' => 'datetime:Y-m-d',
-        'end_at' => 'datetime:Y-m-d',
+        'first_day' => 'datetime:Y-m-d',
+        'last_day' => 'datetime:Y-m-d',
         'timetable_day' => 'array',
-//        'timetable_hour' => 'datetime:H:i',
+    ];
     ];
 
 

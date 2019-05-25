@@ -68,7 +68,7 @@ class Student extends Model
     public function getActiveGrades($only_started = false): Collection
     {
         return $this->grades()
-            ->whereDate('end_at', '>=', Carbon::now())
+            ->whereDate('last_day', '>=', Carbon::now())
             ->get();
     }
 

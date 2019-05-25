@@ -85,13 +85,15 @@
 
                 @component('components.form.input')
                     @slot('title', 'Premier jour')
-                    @slot('name', 'start_at')
+                    @slot('description', 'Le premier jour de cours.')
+                    @slot('name', 'first_day')
                     @slot('type', 'date')
                 @endcomponent
 
                 @component('components.form.input')
                     @slot('title', 'Dernier jour')
-                    @slot('name', 'end_at')
+                    @slot('description', 'Le dernier jour de cours.')
+                    @slot('name', 'last_day')
                     @slot('type', 'date')
                 @endcomponent
 

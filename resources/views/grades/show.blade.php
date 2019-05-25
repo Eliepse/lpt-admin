@@ -38,7 +38,7 @@ use \Illuminate\Support\Str;
                     à {{ $grade->timetable_hour->copy()->addMinutes($grade->getDuration())->format('H:i') }}
                 </p>
                 <p>
-                    Période de cours : {{ $grade->start_at->toDateString() . ' - ' . $grade->end_at->toDateString() }}
+                    Période de cours : {{ $grade->first_day->toDateString() . ' - ' . $grade->last_day->toDateString() }}
                 </p>
             </div>
         </div>

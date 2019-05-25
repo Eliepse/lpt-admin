@@ -53,8 +53,7 @@ use \Illuminate\Support\Str;
                                 @endisset
                             </td>
                             <td>
-                                {{ $grade->start_at->toDateString() }}<br>
-                                {{ $grade->end_at->toDateString() }}
+                                {{ $grade->first_day->toDateString() }} - {{ $grade->last_day->toDateString() }}<br>
                             </td>
                             <td class="text-right">
                                 @can('view', $grade)

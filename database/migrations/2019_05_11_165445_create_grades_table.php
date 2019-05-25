@@ -25,8 +25,8 @@ class CreateGradesTable extends Migration
             $table->unsignedSmallInteger("price");
             $table->set("timetable_days", ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]);
             $table->time("timetable_hour");
-            $table->date("start_at");
-            $table->date("end_at");
+            $table->date("first_day");
+            $table->date("last_day");
             $table->timestamps();
 
             $table->foreign('teacher_id')

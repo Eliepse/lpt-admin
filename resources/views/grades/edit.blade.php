@@ -96,16 +96,16 @@
 
                 @component('components.form.input')
                     @slot('title', 'Premier jour')
-                    @slot('name', 'start_at')
+                    @slot('name', 'first_day')
                     @slot('type', 'date')
-                    @slot('default', $grade->start_at->toDateString())
+                    @slot('default', $grade->first_day->toDateString())
                 @endcomponent
 
                 @component('components.form.input')
                     @slot('title', 'Dernier jour')
-                    @slot('name', 'end_at')
+                    @slot('name', 'last_day')
                     @slot('type', 'date')
-                    @slot('default', $grade->end_at->toDateString())
+                    @slot('default', $grade->last_day->toDateString())
                 @endcomponent
 
                 @component('components.form.list')
