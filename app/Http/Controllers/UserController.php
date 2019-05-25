@@ -14,7 +14,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('roles:admin,teacher');
+        $this->middleware('roles:admin,manager');
         $this->authorizeResource(User::class, 'user');
     }
 
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::query()->where('type', '!=', 'parent')->get();
+        $users = User::query()->where('type', '!=', 'client')->get();
 
         return view('users.index-staff', compact('users'));
     }

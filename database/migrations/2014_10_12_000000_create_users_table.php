@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->string('email')->unique();
             UserRoles::createTableColumn($table, 'roles');
-            $table->enum('type', ['staff', 'parent'])->default('parent');
+            $table->enum('type', ['staff', 'client'])->default('client');
             $table->unsignedBigInteger('family_id')->nullable();
             $table->string('wechat_id')->unique()->nullable();
             $table->string('phone')->nullable();

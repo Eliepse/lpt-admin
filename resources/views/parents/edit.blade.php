@@ -49,9 +49,9 @@
                     @slot('title', 'Type de compte')
                     @slot('name', 'type')
                     @slot('options', [
-                        'Parent' => 'parent',
+                        'Parent' => 'client',
                     ])
-                    @slot('default', 'parent')
+                    @slot('default', 'client')
                     @slot('attrs', ['disabled'])
                 @endcomponent
 

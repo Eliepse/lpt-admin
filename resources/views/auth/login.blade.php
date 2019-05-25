@@ -40,7 +40,7 @@
 
                             <div class="form-group">
                                 <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input"/>
+                                    <input type="checkbox" class="custom-control-input" name="remember"/>
                                     <span class="custom-control-label">Se rappeler de moi</span>
                                 </label>
                             </div>

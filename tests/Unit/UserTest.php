@@ -29,7 +29,7 @@ class UserTest extends TestCase
 
     public function createParent(array $attributes = []): User
     {
-        return factory(User::class)->create(array_merge($attributes, ['type' => 'parent']));
+        return factory(User::class)->create(array_merge($attributes, ['type' => 'client']));
     }
 
 

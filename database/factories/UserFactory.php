@@ -23,7 +23,7 @@ $factory->define(User::class, function (Faker $faker) {
         'firstname' => $faker->firstName,
         'lastname' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
-        'type' => Arr::random(['staff', 'parent']),
+        'type' => Arr::random(['staff', 'client']),
         'wechat_id' => $faker->userName . $faker->randomNumber(4),
         'phone' => $faker->phoneNumber,
         'address' => $faker->address,

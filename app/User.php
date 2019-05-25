@@ -43,6 +43,8 @@ class User extends Authenticatable
     use Notifiable;
     use HasHumanNames;
 
+    protected $table = 'users';
+
     protected $fillable = [
         'firstname', 'lastname', 'email',
         'type', 'phone', 'address', 'wechat_id',
@@ -118,6 +120,15 @@ class User extends Authenticatable
 
 
     /**
+     * @return bool
+     */
+    public function isStaff(): bool { return $this->type === 'staff'; }
+
+
+    public function isClient(): bool { return $this->type === 'client'; }
+
+
+    /**
      * @param Builder $query
      * @return Builder
      */
@@ -144,7 +155,7 @@ class User extends Authenticatable
      */
     public function scopeParent(Builder $query): Builder
     {
-        return $query->where('type', 'parent');
+        return $query->where('type', 'client');
     }
 
 }

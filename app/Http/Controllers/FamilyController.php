@@ -43,7 +43,7 @@ class FamilyController extends Controller
     {
         $parent = new User($request->all());
         $parent->password = Hash::make(Str::random(24));
-        $parent->type = 'parent';
+        $parent->type = 'client';
         $parent->family()->associate(Family::create());
         $parent->save();
 

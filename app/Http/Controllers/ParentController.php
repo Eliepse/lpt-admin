@@ -13,7 +13,7 @@ class ParentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('roles:admin,teacher');
+        $this->middleware('roles:admin,manager');
         $this->authorizeResource(User::class, 'parent');
     }
 
@@ -25,7 +25,7 @@ class ParentController extends Controller
      */
     public function index()
     {
-        $users = User::query()->where('type', 'parent')->get();
+        $users = User::query()->where('type', 'client')->get();
 
         return view('users.index-parent', compact('users'));
     }
@@ -54,7 +54,7 @@ class ParentController extends Controller
     {
         $parent = new User($request->all());
         $parent->password = Hash::make(Str::random(24));
-        $parent->type = 'parent';
+        $parent->type = 'client';
         $parent->family()->associate($family);
         $parent->save();
 

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class LoginController extends Controller
 {
@@ -27,6 +30,7 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
+
     /**
      * Create a new controller instance.
      *
@@ -35,5 +39,20 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+
+    protected function guard()
+    {
+        $request = Request::instance();
+
+        /** @var User|null $user */
+        if ($request->has('email'))
+            $user = User::query()->where('email', $request->get('email'))->first();
+
+        if (empty($user))
+            return Auth::guard();
+
+        return Auth::guard($user->isStaff() ? 'admin' : 'client');
     }
 }
