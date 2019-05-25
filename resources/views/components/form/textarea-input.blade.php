@@ -11,11 +11,12 @@
 <div class="form-group">
     <label class="form-label" for="{{ $name }}">{{ $title }}</label>
     @if(!empty($description))<p class="text-muted">{{ $description }}</p>@endif
-    <textarea class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+    <textarea class="form-control @error($name) is-invalid @enderror"
               id="{{ $name }}"
               name="{{ $name }}"
               rows="6"
               autocomplete=""
+              @if($required ?? false) required @endif
               @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
               placeholder="{{ $placeholder ?? '' }}">{{ old($name, $default ?? '') }}</textarea>
     @error($name)

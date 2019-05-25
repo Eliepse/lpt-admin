@@ -12,11 +12,12 @@
     <label class="form-label" for="{{ $name }}">{{ $title }}</label>
     @isset($description)<p class="text-muted">{{ $description }}</p>@endisset
 
-    <select class="form-control custom-select {{ $errors->has($name) ? 'is-invalid' : '' }}"
+    <select class="form-control custom-select @error($name) is-invalid @enderror"
             id="{{ $name }}"
             name="{{ $name }}"
             @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
-            autocomplete="">
+            autocomplete=""
+            @if($required ?? false) required @endif>
         @foreach($options as $option)
             <option value="{{ $option['value'] }}" @if($option['value'] === old($name, $default ?? null)) selected @endif>{{ $option['name'] }}</option>
         @endforeach

@@ -13,9 +13,10 @@
     @isset($description)<p class="text-muted">{{ $description }}</p>@endisset
 
     <input type="{{ $type ?? 'text' }}" id="{{ $name }}" name="{{ $name }}"
-           class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}"
+           class="form-control @error($name) is-invalid @enderror"
            @isset($placeholder)placeholder="{{ $placeholder }}" @endisset
-           autocomplete=""
+           autocomplete
+           @if($required ?? false) required @endif
            @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
            value="{{ old($name, $default ?? '') }}">
 
