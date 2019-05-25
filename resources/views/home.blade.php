@@ -38,6 +38,7 @@
                     <li>Réinitialisation du mot de passe</li>
                     <li>Suivi des paiements</li>
                     <li>Gestion des périodes d'inscription</li>
+                    <li>Duplication de classe</li>
                 </ul>
                 {{--<h5>Changements</h5>--}}
                 {{--<ul>--}}

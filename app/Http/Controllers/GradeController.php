@@ -32,11 +32,15 @@ class GradeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
+     * @param Grade|null $grade
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('grades.create');
+        $grade = Grade::find($request->get('grade'));
+
+        return view('grades.create', compact('grade'));
     }
 
 

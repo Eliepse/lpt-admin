@@ -20,8 +20,11 @@ use \Illuminate\Support\Str;
             <div class="card-header">
                 <h3 class="card-title">{{ $grade->title }}</h3>
                 <div class="card-options">
-                    <a href="{{ route('grades.edit', $grade) }}" class="btn btn-outline-secondary btn-sm ml-2">
+                    <a href="{{ route('grades.edit', $grade) }}" class="btn btn-outline-primary btn-sm ml-2">
                         <span class="fe fe-edit-2"></span> Modifier
+                    </a>
+                    <a href="{{ route('grades.create', ["grade" => $grade]) }}" class="btn btn-outline-secondary btn-sm ml-2">
+                        <span class="fe fe-plus"></span> Dupliquer
                     </a>
                 </div>
             </div>
