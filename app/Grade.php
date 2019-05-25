@@ -40,7 +40,7 @@ class Grade extends Model
         'start_at' => 'datetime:Y-m-d',
         'end_at' => 'datetime:Y-m-d',
         'timetable_day' => 'array',
-        'timetable_hour' => 'datetime:H:i',
+//        'timetable_hour' => 'datetime:H:i',
     ];
 
 
@@ -59,6 +59,12 @@ class Grade extends Model
     public function getTimetableHourAttribute($hour): Carbon
     {
         return Carbon::createFromTimeString($hour);
+    }
+
+
+    public function setTimetableHourAttribute($value): void
+    {
+        $this->attributes['timetable_hour'] = Carbon::createFromTimeString($value)->toDateTimeString();
     }
 
 

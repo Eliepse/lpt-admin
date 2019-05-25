@@ -34,6 +34,7 @@
                     <li>Ajouter des étudiants dans les classes</li>
                     <li>Afficher une classe</li>
                     <li>Modifier un cours</li>
+                    <li>Modifier une classe</li>
                     <li>Réinitialisation du mot de passe</li>
                 </ul>
                 {{--<h5>Changements</h5>--}}

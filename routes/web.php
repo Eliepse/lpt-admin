@@ -48,7 +48,9 @@ Route::post('/family/{family}/children', 'StudentController@store')->name('famil
 Route::get('/grades', 'GradeController@index')->name('grades.index');
 Route::get('/grades/create', 'GradeController@create')->name('grades.create');
 Route::get('/grades/{grade}', 'GradeController@show')->name('grades.show');
+Route::get('/grades/{grade}/edit', 'GradeController@edit')->name('grades.edit');
 Route::post('/grades', 'GradeController@store')->name('grades.store');
+Route::put('/grades/{grade}', 'GradeController@update')->name('grades.update');
 Route::put('/grades/{grade}/students/{student}/link', 'GradeController@linkStudent')->name('grades.students.link');
 Route::put('/grades/{grade}/students/{student}/unlink', 'GradeController@unlinkStudent')->name('grades.students.unlink');
 

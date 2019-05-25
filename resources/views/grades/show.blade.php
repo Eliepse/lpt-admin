@@ -19,12 +19,17 @@ use \Illuminate\Support\Str;
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">{{ $grade->title }}</h3>
-                {{--<div class="card-options"></div>--}}
+                <div class="card-options">
+                    <a href="{{ route('grades.edit', $grade) }}" class="btn btn-outline-secondary btn-sm ml-2">
+                        <span class="fe fe-edit-2"></span> Modifier
+                    </a>
+                </div>
             </div>
             <div class="card-body">
                 <p><strong>Local :</strong> {{ Str::ucfirst($grade->location) }}</p>
                 <p><strong>Prix :</strong> {{ Str::ucfirst($grade->price) }}</p>
-                <p><strong>Responsable :</strong> {{ Str::ucfirst($grade->teacher->getFullname()) }}</p>
+                <p><strong>Responsable :</strong> {{ Str::ucfirst(optional($grade->teacher)->getFullname() ?? '/') }}
+                </p>
             </div>
             <div class="card-body">
                 <p>
@@ -58,10 +63,14 @@ use \Illuminate\Support\Str;
                         <tr class="col-12 col-lg-6">
                             <td>{{ $student->getFullname() }}</td>
                             <td class="text-right">
-                                <form action="{{ route('grades.students.unlink', [$grade, $student]) }}" method="POST">
+                                <a href="{{ route('family.show', $student->family) }}"
+                                   class="btn btn-sm btn-outline-info mr-2">
+                                    <span class="fe fe-eye"></span>
+                                </a>
+                                <form class="d-inline" action="{{ route('grades.students.unlink', [$grade, $student]) }}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('PUT') }}
-                                    <button class="btn btn-outline-secondary btn-sm">
+                                    <button class="btn btn-outline-warning btn-sm">
                                         <span class="fe fe-x"></span>
                                     </button>
                                 </form>

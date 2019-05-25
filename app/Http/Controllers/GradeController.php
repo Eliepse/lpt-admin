@@ -50,12 +50,15 @@ class GradeController extends Controller
     {
         $grade = new Grade($request->all());
         $grade->timetable_days = [$request->get('timetable_day')];
-        $grade->teacher()->associate($request->get('teacher'));
+
+        if (!empty($request->get('teacher')))
+            $grade->teacher()->associate($request->get('teacher'));
+
         $grade->save();
 
         $grade->courses()->attach($request->get("courses"));
 
-        return redirect(route('grades.index'));
+        return redirect(route('grades.show', $grade));
     }
 
 
@@ -80,24 +83,38 @@ class GradeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Grade $grade
-     * @return void
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Grade $grade)
     {
-        //
+        return view('grades.edit', compact('grade'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreGradeRequest $request
      * @param  \App\Grade $grade
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Grade $grade)
+    public function update(StoreGradeRequest $request, Grade $grade)
     {
-        //
+        $grade->fill($request->all());
+        $grade->timetable_days = [$request->get('timetable_day')];
+
+        if (empty($request->get('teacher')))
+            $grade->teacher()->dissociate();
+        else
+            $grade->teacher()->associate($request->get('teacher'));
+
+//        dd($grade);
+
+        $grade->save();
+
+        $grade->courses()->sync($request->get("courses"));
+
+        return redirect(route('grades.show', $grade));
     }
 
 

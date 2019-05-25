@@ -60,6 +60,9 @@ use \Illuminate\Support\Str;
                                 @can('view', $grade)
                                     <a href="{{ route('grades.show', $grade) }}" type="button" class="btn btn-secondary">Voir</a>
                                 @endcan
+                                @can('update', $grade)
+                                    <a href="{{ route('grades.edit', $grade) }}" type="button" class="btn btn-secondary">Modifier</a>
+                                @endcan
                             </td>
                         </tr>
                     @empty

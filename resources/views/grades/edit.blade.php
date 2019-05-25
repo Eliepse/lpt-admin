@@ -1,14 +1,23 @@
 @extends('dashboard-master')
 
-@section('title', 'Ajouter une classe - ')
+<?php
+/**
+ * @var \App\Grade $grade
+ */
+?>
+
+@section('title', 'Modifier une classe - ')
 
 @section('main')
 
     <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
-        <form class="card" action="{{ route('grades.store') }}" method="POST">
-            {{ csrf_field() }}
+        <form class="card" action="{{ route('grades.update', $grade) }}" method="POST">
+
+            @csrf
+            @method('put')
+
             <div class="card-header">
-                <h3 class="card-title">Ajouter une classe</h3>
+                <h3 class="card-title">Modifier une classe</h3>
             </div>
 
             <div class="card-body">
@@ -21,6 +30,7 @@
                     @slot('name', 'title')
                     @slot('type', 'text')
                     @slot('placeholder', 'Chinois intensif, cours de dessin, ...')
+                    @slot('default', $grade->title)
                 @endcomponent
 
             </div>
@@ -35,7 +45,7 @@
                         'Belleville' => 'belleville',
                         'Aubervilliers' => 'aubervilliers',
                     ])
-                    @slot('default', 'belleville')
+                    @slot('default', $grade->location)
                 @endcomponent
 
                 <?php
@@ -50,6 +60,7 @@
                     @slot('title', 'Enseignant responsable')
                     @slot('name', 'teacher')
                     @slot('options', $options)
+                    @slot('default', $grade->teacher_id)
                 @endcomponent
 
                 @component('components.form.input-group')
@@ -59,7 +70,7 @@
                     @slot('classes', 'text-right')
                     @slot('attrs', ['min' => '1', 'max' => '65000'])
                     @slot('placeholder', 'Le prix en euros')
-                    @slot('default', 0)
+                    @slot('default', $grade->price)
                     @slot('after')
                         <span class="input-group-append"><span class="input-group-text">€</span></span>
                     @endslot
@@ -72,7 +83,7 @@
                     @slot('classes', 'text-right')
                     @slot('attrs', ['min' => '1', 'max' => '255'])
                     @slot('placeholder', 'Nombre d\'étudiant max')
-                    @slot('default', 10)
+                    @slot('default', $grade->max_students)
                     @slot('after')
                         <span class="input-group-append"><span class="input-group-text">étudiants</span></span>
                     @endslot
@@ -87,12 +98,14 @@
                     @slot('title', 'Premier jour')
                     @slot('name', 'start_at')
                     @slot('type', 'date')
+                    @slot('default', $grade->start_at->toDateString())
                 @endcomponent
 
                 @component('components.form.input')
                     @slot('title', 'Dernier jour')
                     @slot('name', 'end_at')
                     @slot('type', 'date')
+                    @slot('default', $grade->end_at->toDateString())
                 @endcomponent
 
                 @component('components.form.list')
@@ -107,14 +120,14 @@
                         'Sam' => "saturday",
                         'Dim' => "sunday"
                     ])
-                    @slot('default', "monday")
+                    @slot('default', $grade->timetable_days[0])
                 @endcomponent
 
                 @component('components.form.input')
                     @slot('title', 'Heure de début du cours')
                     @slot('name', 'timetable_hour')
                     @slot('type', 'time')
-                    @slot('default', "10:00")
+                    @slot('default', $grade->timetable_hour->format('H:i'))
                     @slot('attrs', ['step' => '60000'])
                 @endcomponent
 
@@ -133,7 +146,7 @@
                         '3' => "3",
                         '4' => "4",
                     ])
-                    @slot('default', "0")
+                    @slot('default', "{$grade->level}")
                 @endcomponent
 
                 <div class="form-group">
@@ -196,6 +209,7 @@
                                                        name="courses[]"
                                                        autocomplete=""
                                                        value="{{ $course->id }}"
+                                                       @if($grade->courses->firstWhere('id', $course->id)) checked @endif
                                                        data-teacher="{{ $teacher ? $teacher->getFullname() : ''  }}"
                                                        data-duration="{{ $course->duration  }}"
                                                        data-name="{{ $course->name }}"
