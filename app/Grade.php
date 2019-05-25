@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Pivots\StudentGrade;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property array timetable_days
  * @property Carbon timetable_hour
  * @property Collection|null students
+ * @property StudentGrade subscription
  * @property User|null teacher
  * @property Collection|null courses
  * @property Carbon created_at
@@ -76,7 +78,12 @@ class Grade extends Model
 
     public function students(): BelongsToMany
     {
-        return $this->belongsToMany(Student::class, 'student_grade');
+        return $this->belongsToMany(Student::class)->using(StudentGrade::class)
+            ->as('subscription')
+            ->withPivot([
+                'price',
+                'paid',
+            ]);
     }
 
 

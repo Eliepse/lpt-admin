@@ -61,11 +61,23 @@ use \Illuminate\Support\Str;
                     <tbody>
                     @forelse($grade->students as $student)
                         <tr class="col-12 col-lg-6">
-                            <td>{{ $student->getFullname() }}</td>
+                            <td>
+                                {{ $student->getFullname() }}<br>
+                                @if(!$student->subscription->hasPaid())
+                                    <span class="text-warning">
+                                        <span class="fe fe-alert-triangle text-warning"></span>
+                                        {{ $student->subscription->unpaidAmount() }} € non payé
+                                    </span>
+                                @endif
+                            </td>
                             <td class="text-right">
                                 <a href="{{ route('family.show', $student->family) }}"
                                    class="btn btn-sm btn-outline-info mr-2">
                                     <span class="fe fe-eye"></span>
+                                </a>
+                                <a href="{{ route('grades.students.link', [$grade, $student]) }}"
+                                   class="btn btn-sm btn-outline-secondary mr-2">
+                                    <span class="fe fe-dollar-sign"></span>
                                 </a>
                                 <form class="d-inline" action="{{ route('grades.students.unlink', [$grade, $student]) }}" method="POST">
                                     {{ csrf_field() }}
@@ -104,11 +116,9 @@ use \Illuminate\Support\Str;
                 <tr>
                     <td>{{ $student->getFullname() }}</td>
                     <td class="text-right">
-                        <form action="{{ route('grades.students.link', [$grade, $student]) }}" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('PUT') }}
-                            <input type="submit" class="btn btn-primary" value="Ajouter">
-                        </form>
+                        <a href="{{ route('grades.students.link', [$grade, $student]) }}" class="btn btn-primary">
+                            Ajouter
+                        </a>
                     </td>
                 </tr>
             @endforeach

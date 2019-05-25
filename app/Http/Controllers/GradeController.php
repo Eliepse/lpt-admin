@@ -136,14 +136,44 @@ class GradeController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function linkStudent(Grade $grade, Student $student)
+    public function linkStudentForm(Grade $grade, Student $student)
     {
         $this->authorize('update', $grade);
 
-        if ($grade->students()->find($student->id))
-            return redirect()->back();
+        if ($s_student = $grade->students()->find($student->id)) {
+            $student = $s_student;
+        }
 
-        $grade->students()->attach($student->id);
+        return view('grades.link-student', compact('grade', 'student'));
+    }
+
+
+    /**
+     * @param Request $request
+     * @param Grade $grade
+     * @param Student $student
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function linkStudent(Request $request, Grade $grade, Student $student)
+    {
+        $this->authorize('update', $grade);
+
+        $this->validate($request, [
+            'price' => 'required|integer|between:0,65000',
+            'paid' => 'required|integer|between:0,65000',
+        ]);
+
+        if ($grade->students()->find($student->id)) {
+            $grade->students()
+                ->updateExistingPivot($student->id, $request->all(['price', 'paid']));
+
+        } else {
+            $grade->students()
+                ->withPivotValue($request->all(['price', 'paid']))
+                ->attach($student->id);
+        }
 
         return redirect(route('grades.show', $grade));
     }

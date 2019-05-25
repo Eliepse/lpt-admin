@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStudentGradeTable extends Migration
+class CreateGradeStudentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateStudentGradeTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_grade', function (Blueprint $table) {
+        Schema::create('grade_student', function (Blueprint $table) {
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('grade_id');
+            $table->unsignedSmallInteger('price')->default(0);
+            $table->unsignedSmallInteger('paid')->default(0);
 
             // TODO add foreign keys
         });

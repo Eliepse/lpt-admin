@@ -36,6 +36,7 @@
                     <li>Modifier un cours</li>
                     <li>Modifier une classe</li>
                     <li>Réinitialisation du mot de passe</li>
+                    <li>Suivi des paiements</li>
                 </ul>
                 {{--<h5>Changements</h5>--}}
                 {{--<ul>--}}
