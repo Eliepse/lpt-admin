@@ -54,6 +54,19 @@ use \Illuminate\Support\Str;
                             </td>
                             <td>
                                 {{ $grade->first_day->toDateString() }} - {{ $grade->last_day->toDateString() }}<br>
+                                @if($grade->booking_open_at)
+                                    @if($grade->booking_open_at->isFuture())
+                                        <span class="text-muted">
+                                            Inscriptions {{ $grade->booking_open_at->diffForHumans() }}
+                                        </span>
+                                    @elseif($grade->booking_close_at->isFuture())
+                                        <span class="text-success">
+                                            Inscriptions en cours (fin {{ $grade->booking_close_at->diffForHumans() }})
+                                        </span>
+                                    @else
+                                        <span class="text-muted">Inscriptions terminées</span>
+                                    @endif
+                                @endif
                             </td>
                             <td class="text-right">
                                 @can('view', $grade)

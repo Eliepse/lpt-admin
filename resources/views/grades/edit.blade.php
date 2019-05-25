@@ -89,6 +89,26 @@
                     @endslot
                 @endcomponent
 
+                @component('components.form.input')
+                    @slot('title', 'Ouverture de l\'inscription')
+                    @slot('description', 'Le jour renseigné est inclu.')
+                    @slot('name', 'booking_open_at')
+                    @slot('placeholder', 'YYYY-MM-DD')
+                    @slot('attrs', [])
+                    @slot('type', 'date')
+                    @slot('default', optional($grade->booking_open_at)->toDateString())
+                @endcomponent
+
+                @component('components.form.input')
+                    @slot('title', 'Fermeture de l\'inscription')
+                    @slot('description', 'Le jour renseigné est inclu.')
+                    @slot('name', 'booking_close_at')
+                    @slot('placeholder', 'YYYY-MM-DD')
+                    @slot('attrs', [])
+                    @slot('type', 'date')
+                    @slot('default', optional($grade->booking_close_at)->toDateString())
+                @endcomponent
+
             </div>
 
             <div class="card-body">

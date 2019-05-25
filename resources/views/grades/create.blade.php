@@ -13,7 +13,7 @@
 
             <div class="card-body">
 
-                <p class="text-muted">Description</p>
+                <p class="text-muted">Une classe est définie par un horaire, un ensemble de cours et des étudiants.</p>
 
                 @component('components.form.input')
                     @slot('title', 'Nom de la classe')
@@ -54,6 +54,7 @@
 
                 @component('components.form.input-group')
                     @slot('title', 'Prix')
+                    @slot('description', 'Peut-être ajusté au cas par cas, une fois l\'étudiant ajouté à la classe.')
                     @slot('name', 'price')
                     @slot('type', 'number')
                     @slot('classes', 'text-right')
@@ -67,6 +68,7 @@
 
                 @component('components.form.input-group')
                     @slot('title', 'Effectif maximum')
+                    @slot('description', 'Les administrateurs auront toujours la possibilité de surcharger la classe.')
                     @slot('name', 'max_students')
                     @slot('type', 'number')
                     @slot('classes', 'text-right')
@@ -76,6 +78,24 @@
                     @slot('after')
                         <span class="input-group-append"><span class="input-group-text">étudiants</span></span>
                     @endslot
+                @endcomponent
+
+                @component('components.form.input')
+                    @slot('title', 'Ouverture de l\'inscription')
+                    @slot('description', 'Le jour renseigné est inclu.')
+                    @slot('name', 'booking_open_at')
+                    @slot('placeholder', 'YYYY-MM-DD')
+                    @slot('attrs', [])
+                    @slot('type', 'date')
+                @endcomponent
+
+                @component('components.form.input')
+                    @slot('title', 'Fermeture de l\'inscription')
+                    @slot('description', 'Le jour renseigné est inclu.')
+                    @slot('name', 'booking_close_at')
+                    @slot('placeholder', 'YYYY-MM-DD')
+                    @slot('attrs', [])
+                    @slot('type', 'date')
                 @endcomponent
 
             </div>
@@ -114,6 +134,8 @@
 
                 @component('components.form.input')
                     @slot('title', 'Heure de début du cours')
+                    @slot('description', 'L\'heure de fin de la classe est automatiquement calculée à partir
+                        des cours renseignés.')
                     @slot('name', 'timetable_hour')
                     @slot('type', 'time')
                     @slot('default', "10:00")

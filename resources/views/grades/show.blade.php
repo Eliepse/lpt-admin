@@ -41,6 +41,23 @@ use \Illuminate\Support\Str;
                     Période de cours : {{ $grade->first_day->toDateString() . ' - ' . $grade->last_day->toDateString() }}
                 </p>
             </div>
+            <div class="card-body">
+                <h4>Inscriptions</h4>
+                <p>
+                    @if($grade->booking_open_at->isFuture())
+                        Ouverture {{ $grade->booking_open_at->diffForHumans() }}.
+                    @elseif($grade->booking_close_at->isFuture())
+                        <span class="text-success">En cours,</span> clôture
+                        {{ $grade->booking_close_at->diffForHumans() }}.
+                    @else
+                        <span class="text-muted">Terminées.</span>
+                    @endif
+                </p>
+                <p>
+                    Du <strong>{{ $grade->booking_open_at->toDateString() }}</strong>
+                    au <strong>{{ $grade->booking_close_at->toDateString() }}.</strong>
+                </p>
+            </div>
         </div>
     </div>
 

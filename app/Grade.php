@@ -4,6 +4,7 @@ namespace App;
 
 use App\Pivots\StudentGrade;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int price
  * @property Carbon first_day
  * @property Carbon last_day
+ * @property Carbon booking_open_at
+ * @property Carbon booking_close_at
  * @property array timetable_days
  * @property Carbon timetable_hour
  * @property Collection|null students
@@ -36,6 +39,7 @@ class Grade extends Model
     protected $fillable = [
         'title', 'location', 'country', 'level', 'max_students',
         'price', 'first_day', 'last_day', 'timetable_days', 'timetable_hour',
+        'booking_open_at', 'booking_close_at',
     ];
 
     protected $casts = [
@@ -43,6 +47,10 @@ class Grade extends Model
         'last_day' => 'datetime:Y-m-d',
         'timetable_day' => 'array',
     ];
+
+    protected $dates = [
+        'booking_open_at',
+        'booking_close_at',
     ];
 
 
@@ -100,6 +108,13 @@ class Grade extends Model
     public function getDuration(): int
     {
         return $this->courses->sum('duration');
+    }
+
+
+    public function scopeRegistrable(Builder $query): Builder
+    {
+        return $query->whereDate('booking_open_at', '<=', Carbon::now())
+            ->whereDate('booking_close_at', '<=', Carbon::now());
     }
 
 }

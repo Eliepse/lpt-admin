@@ -27,6 +27,8 @@ class CreateGradesTable extends Migration
             $table->time("timetable_hour");
             $table->date("first_day");
             $table->date("last_day");
+            $table->dateTime("booking_open_at")->nullable();
+            $table->dateTime("booking_close_at")->nullable();
             $table->timestamps();
 
             $table->foreign('teacher_id')

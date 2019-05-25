@@ -35,6 +35,8 @@ class StoreGradeRequest extends FormRequest
 //            'timetable'    => 'required|regex:/^[1-7]-[0-23]$/',
             'timetable_day' => 'required|enum_key:' . Days::class,
             'timetable_hour' => 'required|date_format:H:i',
+            'booking_open_at' => 'required_with:booking_close_at|date|before:last_day|before:booking_close_at',
+            'booking_close_at' => 'required_with:booking_open_at|date|before:last_day|after:booking_open_at',
             'level' => 'present|integer|nullable|between:1,4',
             'courses' => 'required|array',
             'courses.*' => 'required|exists:courses,id',

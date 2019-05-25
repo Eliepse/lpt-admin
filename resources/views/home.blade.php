@@ -37,6 +37,7 @@
                     <li>Modifier une classe</li>
                     <li>Réinitialisation du mot de passe</li>
                     <li>Suivi des paiements</li>
+                    <li>Gestion des périodes d'inscription</li>
                 </ul>
                 {{--<h5>Changements</h5>--}}
                 {{--<ul>--}}
