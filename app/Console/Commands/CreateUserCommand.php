@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -83,16 +84,17 @@ class CreateUserCommand extends Command
         $user->type = 'staff';
 
         // Password
-        $password = $this->secret("Please input a password (12 caracters minimum): ");
+        $password = $this->secret("Please input a password (12 caracters minimum, or none): ");
 
-        $validator = Validator::make(['password' => $password], [
-            'password' => 'required|string|min:12',
-        ]);
-
-        if ($validator->fails()) {
+        if (!empty($password) && Str::length($password) < 12) {
             $this->printFailedInputs($validator->errors(), "The password is not valid:");
 
             return;
+        }
+
+        if (empty($password)) {
+            $this->info("Random password generated.");
+            $password = Str::random(32);
         }
 
         $user->password = Hash::make($password);

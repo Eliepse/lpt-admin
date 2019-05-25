@@ -31,9 +31,10 @@
                 {{--<p class="text-info">...</p>--}}
                 <h5>Ajouts</h5>
                 <ul>
-                    <li>Ajout des étudiants dans les classes</li>
-                    <li>Page pour afficher une classe</li>
-                    <li>Possibilité de modifier les cours</li>
+                    <li>Ajouter des étudiants dans les classes</li>
+                    <li>Afficher une classe</li>
+                    <li>Modifier un cours</li>
+                    <li>Réinitialisation du mot de passe</li>
                 </ul>
                 {{--<h5>Changements</h5>--}}
                 {{--<ul>--}}
