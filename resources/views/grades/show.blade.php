@@ -82,7 +82,7 @@ use \Illuminate\Support\Str;
         @slot('title', "Sélection d'un étudiant")
         @slot('label', 'students-modal')
         @slot('size', 'modal-lg')
-        @if($grade->students->count() >== $grade->max_students)
+        @if($grade->students->count() >= $grade->max_students)
             <div class="alert alert-icon alert-warning" role="alert">
                 <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i>
                 La classe a déjà atteint son effectif maximum. Il vous est cependant possible de la surcharger.
