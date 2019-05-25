@@ -39,7 +39,7 @@ if (!function_exists('optionChecked')) {
                        @if(optionChecked($o_value, $old, $type)) checked @endif
                        autocomplete
                        @if($required ?? false) required @endif
-                       class="selectgroup-input @error($name) is-invalid @enderror">
+                       class="selectgroup-input @error($name) is-invalid @enderror {{ $classes ?? '' }}">
                 <span class="selectgroup-button">{!! $o_name !!}</span>
             </label>
         @endforeach

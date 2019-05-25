@@ -12,7 +12,7 @@
     <label class="form-label" for="{{ $name }}">{{ $title }}</label>
     @isset($description)<p class="text-muted">{{ $description }}</p>@endisset
 
-    <select class="form-control custom-select @error($name) is-invalid @enderror"
+    <select class="form-control custom-select @error($name) is-invalid @enderror {{ $classes ?? '' }}"
             id="{{ $name }}"
             name="{{ $name }}"
             @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach

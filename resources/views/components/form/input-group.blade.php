@@ -15,7 +15,7 @@
     <div class="input-group">
         {!! $before ?? '' !!}
         <input type="{{ $type ?? 'text' }}" id="{{ $name }}" name="{{ $name }}"
-               class="form-control @error($name) is-invalid @enderror"
+               class="form-control @error($name) is-invalid @enderror {{ $classes ?? '' }}"
                @isset($placeholder)placeholder="{{ $placeholder }}" @endisset
                autocomplete
                @if($required ?? false) required @endif

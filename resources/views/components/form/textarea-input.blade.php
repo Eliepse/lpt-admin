@@ -11,7 +11,7 @@
 <div class="form-group">
     <label class="form-label" for="{{ $name }}">{{ $title }}</label>
     @if(!empty($description))<p class="text-muted">{{ $description }}</p>@endif
-    <textarea class="form-control @error($name) is-invalid @enderror"
+    <textarea class="form-control @error($name) is-invalid @enderror {{ $classes ?? '' }}"
               id="{{ $name }}"
               name="{{ $name }}"
               rows="6"
