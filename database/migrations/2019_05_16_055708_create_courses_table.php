@@ -28,8 +28,6 @@ class CreateCoursesTable extends Migration
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-
-            // TODO optimize fields size
         });
     }
 
@@ -41,6 +39,8 @@ class CreateCoursesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('courses');
+        Schema::enableForeignKeyConstraints();
     }
 }

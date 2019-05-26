@@ -19,7 +19,17 @@ class CreateGradeStudentTable extends Migration
             $table->unsignedSmallInteger('price')->default(0);
             $table->unsignedSmallInteger('paid')->default(0);
 
-            // TODO add foreign keys
+            $table->foreign('student_id')
+                ->references('id')
+                ->on('students')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('grade_id')
+                ->references('id')
+                ->on('grades')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
@@ -31,6 +41,6 @@ class CreateGradeStudentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_grade');
+        Schema::dropIfExists('grade_student');
     }
 }

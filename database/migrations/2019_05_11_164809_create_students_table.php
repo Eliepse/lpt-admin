@@ -19,10 +19,8 @@ class CreateStudentsTable extends Migration
             $table->string("lastname");
             $table->date("birthday");
             $table->text("notes")->nullable();
-            $table->unsignedBigInteger("family_id");
+            $table->unsignedBigInteger("family_id")->nullable();
             $table->timestamps();
-
-            // TODO foreigns keys
         });
     }
 
@@ -34,6 +32,8 @@ class CreateStudentsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('students');
+        Schema::enableForeignKeyConstraints();
     }
 }

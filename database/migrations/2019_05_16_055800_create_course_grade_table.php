@@ -16,9 +16,18 @@ class CreateCourseGradeTable extends Migration
         Schema::create('course_grade', function (Blueprint $table) {
             $table->unsignedBigInteger('grade_id');
             $table->unsignedBigInteger('course_id');
-//            $table->unsignedTinyInteger('position');
 
-            // TODO add foreign keys
+            $table->foreign('grade_id')
+                ->references('id')
+                ->on('grades')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('course_id')
+                ->references('id')
+                ->on('courses')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
@@ -30,6 +39,6 @@ class CreateCourseGradeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grade_course');
+        Schema::dropIfExists('course_grade');
     }
 }

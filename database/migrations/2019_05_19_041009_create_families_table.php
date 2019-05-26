@@ -17,6 +17,22 @@ class CreateFamiliesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('family_id')
+                ->references('id')
+                ->on('families')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+        });
+
+        Schema::table('students', function (Blueprint $table) {
+            $table->foreign('family_id')
+                ->references('id')
+                ->on('families')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+        });
     }
 
 
@@ -27,6 +43,14 @@ class CreateFamiliesTable extends Migration
      */
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign("users_family_id_foreign");
+        });
+
+        Schema::table('students', function (Blueprint $table) {
+            $table->dropForeign("students_family_id_foreign");
+        });
+
         Schema::dropIfExists('families');
     }
 }
