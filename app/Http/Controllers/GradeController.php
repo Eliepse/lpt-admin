@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Days;
+use App\Enums\DaysEnum;
 use App\Grade;
 use App\Http\Requests\StoreGradeRequest;
 use App\Student;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\Days;
+use App\Enums\DaysEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreGradeRequest extends FormRequest
@@ -33,7 +33,7 @@ class StoreGradeRequest extends FormRequest
             'first_day' => 'required|date|before:last_day',
             'last_day' => 'required|date|after:first_day',
 //            'timetable'    => 'required|regex:/^[1-7]-[0-23]$/',
-            'timetable_day' => 'required|enum_key:' . Days::class,
+            'timetable_day' => 'required|enum_key:' . DaysEnum::class,
             'timetable_hour' => 'required|date_format:H:i',
             'booking_open_at' => 'required_with:booking_close_at|date|before:last_day|before:booking_close_at',
             'booking_close_at' => 'required_with:booking_open_at|date|before:last_day|after:booking_open_at',

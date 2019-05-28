@@ -6,7 +6,7 @@ namespace App\Sets;
 
 use Eliepse\Set\Set;
 
-class UserRoles extends Set
+class UserRolesSet extends Set
 {
     public const ADMIN = 'admin';
     public const MANAGER = 'manager';

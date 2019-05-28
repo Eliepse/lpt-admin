@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Sets\UserRoles;
+use App\Sets\UserRolesSet;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutEvents;
@@ -23,7 +23,7 @@ class UserRolesSetTest extends TestCase
      */
     public function testMembers()
     {
-        $this->assertEquals(['admin', 'manager', 'teacher'], UserRoles::getMembers());
+        $this->assertEquals(['admin', 'manager', 'teacher'], UserRolesSet::getMembers());
     }
 
 
@@ -32,7 +32,7 @@ class UserRolesSetTest extends TestCase
      */
     public function testInitialize()
     {
-        $set = new UserRoles(['manager', 'teacher']);
+        $set = new UserRolesSet(['manager', 'teacher']);
         $this->assertEquals(['manager', 'teacher'], $set->getValues());
     }
 
@@ -42,7 +42,7 @@ class UserRolesSetTest extends TestCase
      */
     public function testHasValues()
     {
-        $set = new UserRoles(['manager', 'teacher']);
+        $set = new UserRolesSet(['manager', 'teacher']);
         $this->assertTrue($set->has('teacher'));
         $this->assertTrue($set->has('manager'));
         $this->assertTrue($set->hasOne(['unvalid_member', 'admin', 'teacher']));
@@ -59,7 +59,7 @@ class UserRolesSetTest extends TestCase
      */
     public function testSetValues()
     {
-        $set = new UserRoles();
+        $set = new UserRolesSet();
         $set->set('teacher');
         $this->assertTrue($set->has('teacher'));
         $set->set(['admin']);

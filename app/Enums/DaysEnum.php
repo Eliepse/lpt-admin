@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use BenSampo\Enum\Enum;
 
-final class Days extends Enum
+final class DaysEnum extends Enum
 {
     const monday = 1;
     const tuesday = 2;

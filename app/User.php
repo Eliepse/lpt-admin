@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Pivots\StudentParent;
-use App\Sets\UserRoles;
+use App\Sets\UserRolesSet;
 use App\Traits\HasHumanNames;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,7 +21,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string firstname
  * @property string lastname
  * @property string email
- * @property UserRoles roles
+ * @property UserRolesSet roles
  * @property string type
  * @property string wechat_id
  * @property string phone
@@ -58,19 +58,19 @@ class User extends Authenticatable
 
     /**
      * @param $value
-     * @return UserRoles
+     * @return UserRolesSet
      * @throws \Eliepse\Set\Exceptions\UnknownMemberException
      */
-    public function getRolesAttribute($value): UserRoles
+    public function getRolesAttribute($value): UserRolesSet
     {
-        return new UserRoles($value ? explode(',', $value) : []);
+        return new UserRolesSet($value ? explode(',', $value) : []);
     }
 
 
     /**
-     * @param UserRoles $value
+     * @param UserRolesSet $value
      */
-    public function setRolesAttribute(UserRoles $value)
+    public function setRolesAttribute(UserRolesSet $value)
     {
         $this->attributes['roles'] = join(',', $value->getValues());
     }
@@ -110,13 +110,13 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function isAdmin(): bool { return $this->roles->has(UserRoles::ADMIN); }
+    public function isAdmin(): bool { return $this->roles->has(UserRolesSet::ADMIN); }
 
 
     /**
      * @return bool
      */
-    public function isTeacher(): bool { return $this->roles->has(UserRoles::TEACHER); }
+    public function isTeacher(): bool { return $this->roles->has(UserRolesSet::TEACHER); }
 
 
     /**
@@ -145,7 +145,7 @@ class User extends Authenticatable
     public function scopeTeacher(Builder $query): Builder
     {
         return $query->where('type', 'staff')
-            ->where('roles', UserRoles::TEACHER);
+            ->where('roles', UserRolesSet::TEACHER);
     }
 
 
