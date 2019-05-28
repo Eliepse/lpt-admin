@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Collection|null courses
  * @property Carbon created_at
  * @property Carbon updated_at
+ * @method static Builder registrable
  */
 class Grade extends Model
 {
@@ -54,9 +55,9 @@ class Grade extends Model
     ];
 
 
-    public function getTimetableDaysAttribute(string $value): array
+    public function getTimetableDaysAttribute($value): array
     {
-        return explode(',', $value);
+        return $value ? explode(',', $value) : [];
     }
 
 
@@ -114,7 +115,13 @@ class Grade extends Model
     public function scopeRegistrable(Builder $query): Builder
     {
         return $query->whereDate('booking_open_at', '<=', Carbon::now())
-            ->whereDate('booking_close_at', '<=', Carbon::now());
+            ->whereDate('booking_close_at', '>=', Carbon::now());
+    }
+
+
+    public static function registrableAvailable(): bool
+    {
+        return static::registrable()->exists();
     }
 
 }

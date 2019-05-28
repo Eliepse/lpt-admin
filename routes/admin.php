@@ -13,6 +13,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Auth
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
 // Users
 Route::get('/users', 'UserController@index')->name('users.index');
 Route::get('/users/create', 'UserController@create')->name('users.create');

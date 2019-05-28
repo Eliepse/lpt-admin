@@ -94,7 +94,7 @@
                     @slot('name', 'booking_open_at')
                     @slot('placeholder', 'YYYY-MM-DD')
                     @slot('type', 'date')
-                    @slot('default', optional($grade->booking_open_at)->toDateString())
+                    @slot('default', optional(optional($grade)->booking_open_at)->toDateString())
                 @endcomponent
 
                 @component('components.form.input')
@@ -103,7 +103,7 @@
                     @slot('name', 'booking_close_at')
                     @slot('placeholder', 'YYYY-MM-DD')
                     @slot('type', 'date')
-                    @slot('default', optional($grade->booking_close_at)->toDateString())
+                    @slot('default', optional(optional($grade)->booking_close_at)->toDateString())
                 @endcomponent
 
             </div>
@@ -116,7 +116,7 @@
                     @slot('description', 'Le premier jour de cours.')
                     @slot('name', 'first_day')
                     @slot('type', 'date')
-                    @slot('default', optional($grade->first_day)->toDateString())
+                    @slot('default', optional(optional($grade)->first_day)->toDateString())
                 @endcomponent
 
                 @component('components.form.input')
@@ -124,7 +124,7 @@
                     @slot('description', 'Le dernier jour de cours.')
                     @slot('name', 'last_day')
                     @slot('type', 'date')
-                    @slot('default', optional($grade->last_day)->toDateString())
+                    @slot('default', optional(optional($grade)->last_day)->toDateString())
                 @endcomponent
 
                 @component('components.form.list')
@@ -139,7 +139,7 @@
                         'Sam' => "saturday",
                         'Dim' => "sunday"
                     ])
-                    @slot('default', optional($grade->timetable_days)[0] ?? "monday")
+                    @slot('default', optional(optional($grade)->timetable_days)[0] ?? "monday")
                 @endcomponent
 
                 @component('components.form.input')
@@ -148,7 +148,7 @@
                         des cours renseignés.')
                     @slot('name', 'timetable_hour')
                     @slot('type', 'time')
-                    @slot('default', optional($grade->timetable_hour)->format('H:i') ?? "10:00")
+                    @slot('default', optional(optional($grade)->timetable_hour)->format('H:i') ?? "10:00")
                     @slot('attrs', ['step' => '60000'])
                 @endcomponent
 
@@ -230,7 +230,7 @@
                                                        name="courses[]"
                                                        autocomplete=""
                                                        value="{{ $course->id }}"
-                                                       @if(optional($grade->courses->firstWhere('id', $course->id))->id) checked @endif
+                                                       @if(optional(optional(optional($grade)->courses)->firstWhere('id', $course->id))->id) checked @endif
                                                        data-teacher="{{ $teacher ? $teacher->getFullname() : ''  }}"
                                                        data-duration="{{ $course->duration  }}"
                                                        data-name="{{ $course->name }}"
