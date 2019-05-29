@@ -13,9 +13,9 @@ use Illuminate\Support\Arr;
  * @property int grade_id
  * @property int student_id
  * @property int price
- * @property bool paid
+ * @property int paid
  */
-class StudentGrade extends Pivot
+class ClassroomStudent extends Pivot
 {
     protected $fillable = ['price', 'paid'];
 

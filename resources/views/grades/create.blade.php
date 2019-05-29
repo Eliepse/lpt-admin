@@ -212,10 +212,10 @@
                 @slot('size', 'modal-lg')
                 <div class="form-group">
                     <div class="row row-cards row-deck">
-                        @foreach(\App\Course::orderBy('category')->get() as $course)
+                        @foreach(\App\Lesson::orderBy('category')->get() as $course)
                             <?php
                             /**
-                             * @var \App\Course $course
+                             * @var \App\Lesson $course
                              * @var \App\User $teacher
                              */
                             $teacher = $course->teacher;

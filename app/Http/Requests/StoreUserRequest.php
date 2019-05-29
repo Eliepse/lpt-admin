@@ -27,6 +27,7 @@ class StoreUserRequest extends FormRequest
             'firstname' => 'required|string|max:50',
             'lastname' => 'required|string|max:50',
             'email' => 'required|email|unique:users,email',
+            'password' => 'sometimes|string|min:8|max:64',
             'type' => 'nullable|in:staff,parent',
             'wechat_id' => 'nullable|string|max:20',
             'phone' => 'required|string|max:16',

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Course;
-use App\Http\Requests\StoreCourseRequest;
+use App\Lesson;
+use App\Http\Requests\StoreLessonRequest;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class LessonController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('roles:admin,manager');
-        $this->authorizeResource(Course::class, 'course');
+        $this->authorizeResource(Lesson::class, 'lesson');
     }
 
 
@@ -23,7 +23,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('courses.index');
+        return view('lessons.index');
     }
 
 
@@ -34,33 +34,33 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('courses.create');
+        return view('lessons.create');
     }
 
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreCourseRequest $request
+     * @param StoreLessonRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCourseRequest $request)
+    public function store(StoreLessonRequest $request)
     {
-        $course = new Course($request->all());
-        $course->teacher()->associate($request->get('teacher'));
-        $course->save();
+        $lesson = new Lesson($request->all());
+        $lesson->teacher()->associate($request->get('teacher'));
+        $lesson->save();
 
-        return redirect(route('courses.index'));
+        return redirect(route('lessons.index'));
     }
 
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Course $course
+     * @param  \App\Lesson $lesson
      * @return void
      */
-    public function show(Course $course)
+    public function show(Lesson $lesson)
     {
         //
     }
@@ -69,39 +69,39 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Course $course
+     * @param  \App\Lesson $lesson
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Course $course)
+    public function edit(Lesson $lesson)
     {
-        return view('courses.edit', compact('course'));
+        return view('lessons.edit', compact('lesson'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreCourseRequest $request
-     * @param  \App\Course $course
+     * @param StoreLessonRequest $request
+     * @param  \App\Lesson $lesson
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(StoreCourseRequest $request, Course $course)
+    public function update(StoreLessonRequest $request, Lesson $lesson)
     {
-        $course->fill($request->all());
-        $course->teacher()->associate($request->get('teacher'));
-        $course->save();
+        $lesson->fill($request->all());
+        $lesson->teacher()->associate($request->get('teacher'));
+        $lesson->save();
 
-        return redirect(route('courses.index'));
+        return redirect(route('lessons.index'));
     }
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Course $course
+     * @param  \App\Lesson $lesson
      * @return void
      */
-    public function destroy(Course $course)
+    public function destroy(Lesson $lesson)
     {
         //
     }

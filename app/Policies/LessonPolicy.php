@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\User;
-use App\Course;
+use App\Lesson;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CoursePolicy
+class LessonPolicy
 {
     use HandlesAuthorization;
 
@@ -20,20 +20,20 @@ class CoursePolicy
 
 
     /**
-     * Determine whether the user can view the course.
+     * Determine whether the user can view the lesson.
      *
      * @param  \App\User $user
-     * @param  \App\Course $course
+     * @param  \App\Lesson $lesson
      * @return mixed
      */
-    public function view(User $user, Course $course)
+    public function view(User $user, Lesson $lesson)
     {
         return $user->isTeacher();
     }
 
 
     /**
-     * Determine whether the user can create courses.
+     * Determine whether the user can create lessons.
      *
      * @param  \App\User $user
      * @return mixed
@@ -45,52 +45,52 @@ class CoursePolicy
 
 
     /**
-     * Determine whether the user can update the course.
+     * Determine whether the user can update the lesson.
      *
      * @param  \App\User $user
-     * @param  \App\Course $course
+     * @param  \App\Lesson $lesson
      * @return mixed
      */
-    public function update(User $user, Course $course)
+    public function update(User $user, Lesson $lesson)
     {
         //
     }
 
 
     /**
-     * Determine whether the user can delete the course.
+     * Determine whether the user can delete the lesson.
      *
      * @param  \App\User $user
-     * @param  \App\Course $course
+     * @param  \App\Lesson $lesson
      * @return mixed
      */
-    public function delete(User $user, Course $course)
+    public function delete(User $user, Lesson $lesson)
     {
         //
     }
 
 
     /**
-     * Determine whether the user can restore the course.
+     * Determine whether the user can restore the lesson.
      *
      * @param  \App\User $user
-     * @param  \App\Course $course
+     * @param  \App\Lesson $lesson
      * @return mixed
      */
-    public function restore(User $user, Course $course)
+    public function restore(User $user, Lesson $lesson)
     {
         //
     }
 
 
     /**
-     * Determine whether the user can permanently delete the course.
+     * Determine whether the user can permanently delete the lesson.
      *
      * @param  \App\User $user
-     * @param  \App\Course $course
+     * @param  \App\Lesson $lesson
      * @return mixed
      */
-    public function forceDelete(User $user, Course $course)
+    public function forceDelete(User $user, Lesson $lesson)
     {
         //
     }

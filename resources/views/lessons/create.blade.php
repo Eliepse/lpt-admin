@@ -1,23 +1,16 @@
 @extends('dashboard-master')
 
-<?php
-/**
- * @var \App\Course $course
- */
-?>
-
-@section('title', 'Modifier un cours - ')
+@section('title', 'Ajouter un cours - ')
 
 @section('main')
 
     <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
-        <form class="card" action="{{ route('courses.update', $course) }}" method="POST">
+        <form class="card" action="{{ route('lessons.store') }}" method="POST">
 
             {{ csrf_field() }}
-            {{ method_field('put') }}
 
             <div class="card-header">
-                <h3 class="card-title">Modifier un cours</h3>
+                <h3 class="card-title">Ajouter un cours</h3>
             </div>
 
             <div class="card-body">
@@ -29,14 +22,12 @@
                     @slot('name', 'name')
                     @slot('type', 'text')
                     @slot('placeholder', '')
-                    @slot('default', $course->name)
                 @endcomponent
 
                 @component('components.form.textarea-input')
                     @slot('title', 'Description du cours')
                     @slot('name', 'description')
                     @slot('placeholder', '')
-                    @slot('default', $course->description)
                 @endcomponent
 
                 @component('components.form.list')
@@ -47,7 +38,7 @@
                         'Art' => 'art',
                         'Activité' => 'activity',
                     ])
-                    @slot('default', $course->category)
+                    @slot('default', 'language')
                 @endcomponent
 
                 @component('components.form.input-group')
@@ -59,7 +50,7 @@
                         'max' => '65000',
                     ])
                     @slot('placeholder', 'Durée en minutes')
-                    @slot('default', $course->duration)
+                    @slot('default', 30)
                     @slot('after')
                         <span class="input-group-append"><span class="input-group-text">min</span></span>
                     @endslot
@@ -76,7 +67,6 @@
                     @slot('title', 'Enseignant.e')
                     @slot('name', 'teacher')
                     @slot('options', $options)
-                    @slot('default', $course->teacher_id)
                 @endcomponent
 
             </div>

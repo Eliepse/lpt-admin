@@ -5,16 +5,15 @@ namespace App\Pivots;
 
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Illuminate\Support\Arr;
 
 /**
- * Class StudentParent
+ * Class ParentStudent
  * @package App\Pivots
  * @property int user_id
  * @property int student_id
  * @property string relation
  */
-class StudentParent extends Pivot
+class ParentStudent extends Pivot
 {
     protected $fillable = ['relation'];
 }

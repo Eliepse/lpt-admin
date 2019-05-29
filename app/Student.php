@@ -2,8 +2,8 @@
 
 namespace App;
 
-use App\Pivots\StudentGrade;
-use App\Pivots\StudentParent;
+use App\Pivots\ClassroomStudent;
+use App\Pivots\ParentStudent;
 use App\Traits\HasHumanNames;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,8 +20,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Carbon birthday
  * @property string notes
  * @property Collection parents
- * @property Collection grades
- * @property StudentGrade subscription
+ * @property Collection classrooms
+ * @property ClassroomStudent subscription
  * @property Family family
  * @property Carbon created_at
  * @property Carbon updated_at
@@ -39,22 +39,10 @@ class Student extends Model
 
     public function parents(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'student_parent')
-            ->using(StudentParent::class)
+        return $this->belongsToMany(User::class, 'parent_student')
+            ->using(ParentStudent::class)
             ->withPivot([
                 'relation',
-            ]);
-    }
-
-
-    public function grades(): BelongsToMany
-    {
-        return $this->belongsToMany(Grade::class)
-            ->using(StudentGrade::class)
-            ->as('subscription')
-            ->withPivot([
-                'price',
-                'paid',
             ]);
     }
 
@@ -62,6 +50,18 @@ class Student extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
+    }
+
+
+    public function classrooms(): BelongsToMany
+    {
+        return $this->belongsToMany(Classroom::class)
+            ->using(ClassroomStudent::class)
+            ->as('subscription')
+            ->withPivot([
+                'price',
+                'paid',
+            ]);
     }
 
 

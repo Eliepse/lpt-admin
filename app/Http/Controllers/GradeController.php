@@ -60,7 +60,7 @@ class GradeController extends Controller
 
         $grade->save();
 
-        $grade->courses()->attach($request->get("courses"));
+        $grade->lessons()->attach($request->get("lessons"));
 
         return redirect(route('grades.show', $grade));
     }
@@ -112,11 +112,9 @@ class GradeController extends Controller
         else
             $grade->teacher()->associate($request->get('teacher'));
 
-//        dd($grade);
-
         $grade->save();
 
-        $grade->courses()->sync($request->get("courses"));
+        $grade->lessons()->sync($request->get("lessons"));
 
         return redirect(route('grades.show', $grade));
     }

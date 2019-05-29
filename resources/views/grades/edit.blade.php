@@ -211,37 +211,37 @@
                 @slot('size', 'modal-lg')
                 <div class="form-group">
                     <div class="row row-cards row-deck">
-                        @foreach(\App\Course::orderBy('category')->get() as $course)
+                        @foreach(\App\Lesson::orderBy('category')->get() as $lesson)
                             <?php
                             /**
-                             * @var \App\Course $course
+                             * @var \App\Lesson $lesson
                              * @var \App\User $teacher
                              */
-                            $teacher = $course->teacher;
+                            $teacher = $lesson->teacher;
                             ?>
                             <div class="col-4">
                                 <div class="card">
                                     <div class="card-header">
-                                        <div class="card-title">{{ $course->name }}</div>
+                                        <div class="card-title">{{ $lesson->name }}</div>
                                         <div class="card-options">
-                                            <label class="custom-switch m-0" for="course-{{ $course->id }}">
-                                                <input id="course-{{ $course->id }}" type="checkbox"
+                                            <label class="custom-switch m-0" for="course-{{ $lesson->id }}">
+                                                <input id="course-{{ $lesson->id }}" type="checkbox"
                                                        name="courses[]"
                                                        autocomplete=""
-                                                       value="{{ $course->id }}"
-                                                       @if($grade->courses->firstWhere('id', $course->id)) checked @endif
+                                                       value="{{ $lesson->id }}"
+                                                       @if($grade->lessons->firstWhere('id', $lesson->id)) checked @endif
                                                        data-teacher="{{ $teacher ? $teacher->getFullname() : ''  }}"
-                                                       data-duration="{{ $course->duration  }}"
-                                                       data-name="{{ $course->name }}"
+                                                       data-duration="{{ $lesson->duration  }}"
+                                                       data-name="{{ $lesson->name }}"
                                                        class="custom-switch-input">
                                                 <span class="custom-switch-indicator"></span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <p><span class="tag">{{ $course->category }}</span></p>
-                                        <p>{{ $course->description }}</p>
-                                        <p>{{ $course->duration }} min</p>
+                                        <p><span class="tag">{{ $lesson->category }}</span></p>
+                                        <p>{{ $lesson->description }}</p>
+                                        <p>{{ $lesson->duration }} min</p>
                                         <p>{{ $teacher ? $teacher->getFullname() : '' }}</p>
                                     </div>
                                 </div>

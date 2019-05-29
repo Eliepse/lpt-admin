@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Pivots\StudentParent;
+use App\Pivots\ParentStudent;
 use App\Sets\UserRolesSet;
 use App\Traits\HasHumanNames;
 use Carbon\Carbon;
@@ -82,7 +82,7 @@ class User extends Authenticatable
     public function children(): BelongsToMany
     {
         return $this->belongsToMany(Student::class, "student_parent")
-            ->using(StudentParent::class)
+            ->using(ParentStudent::class)
             ->withPivot([
                 'relation',
             ]);

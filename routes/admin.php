@@ -53,11 +53,11 @@ Route::put('/grades/{grade}/students/{student}/link', 'GradeController@linkStude
 Route::put('/grades/{grade}/students/{student}/unlink', 'GradeController@unlinkStudent')->name('grades.students.unlink');
 
 // Courses
-Route::get('/courses', 'CourseController@index')->name('courses.index');
-Route::get('/courses/create', 'CourseController@create')->name('courses.create');
-Route::get('/courses/{course}/edit', 'CourseController@edit')->name('courses.edit');
-Route::post('/courses', 'CourseController@store')->name('courses.store');
-Route::put('/courses/{course}', 'CourseController@update')->name('courses.update');
+Route::get('/lessons', 'LessonController@index')->name('lessons.index');
+Route::get('/lessons/create', 'LessonController@create')->name('lessons.create');
+Route::get('/lessons/{lesson}/edit', 'LessonController@edit')->name('lessons.edit');
+Route::post('/lessons', 'LessonController@store')->name('lessons.store');
+Route::put('/lessons/{lesson}', 'LessonController@update')->name('lessons.update');
 
 // Other
 Route::get('/home', 'Administration\\MainController@home')->name('home');

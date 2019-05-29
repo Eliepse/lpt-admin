@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCourseGradeTable extends Migration
+class CreateGradeLessonTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateCourseGradeTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_grade', function (Blueprint $table) {
+        Schema::create('grade_lesson', function (Blueprint $table) {
             $table->unsignedBigInteger('grade_id');
-            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('lesson_id');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->smallInteger('duration');
 
             $table->foreign('grade_id')
                 ->references('id')
@@ -23,11 +25,17 @@ class CreateCourseGradeTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('course_id')
+            $table->foreign('lesson_id')
                 ->references('id')
-                ->on('courses')
+                ->on('lessons')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('teacher_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
     }
 
@@ -39,6 +47,6 @@ class CreateCourseGradeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_grade');
+        Schema::dropIfExists('grade_lesson');
     }
 }

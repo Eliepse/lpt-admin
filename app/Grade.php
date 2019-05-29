@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Pivots\StudentGrade;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,16 +20,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int|null level
  * @property int max_students
  * @property int price
- * @property Carbon first_day
- * @property Carbon last_day
- * @property Carbon booking_open_at
- * @property Carbon booking_close_at
- * @property array timetable_days
- * @property Carbon timetable_hour
- * @property Collection|null students
- * @property StudentGrade subscription
  * @property User|null teacher
- * @property Collection|null courses
+ * @property Collection|null lessons
  * @property Carbon created_at
  * @property Carbon updated_at
  * @method static Builder registrable
@@ -38,90 +29,35 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Grade extends Model
 {
     protected $fillable = [
-        'title', 'location', 'country', 'level', 'max_students',
-        'price', 'first_day', 'last_day', 'timetable_days', 'timetable_hour',
-        'booking_open_at', 'booking_close_at',
-    ];
-
-    protected $casts = [
-        'first_day' => 'datetime:Y-m-d',
-        'last_day' => 'datetime:Y-m-d',
-        'timetable_day' => 'array',
-    ];
-
-    protected $dates = [
-        'booking_open_at',
-        'booking_close_at',
+        'title', 'location', 'country', 'level', 'max_students', 'price',
     ];
 
 
-    public function getTimetableDaysAttribute($value): array
+    public function lessons(): BelongsToMany
     {
-        return $value ? explode(',', $value) : [];
-    }
-
-
-    public function setTimetableDaysAttribute(array $options)
-    {
-        $this->attributes['timetable_days'] = join(',', $options);
-    }
-
-
-    public function getTimetableHourAttribute($hour): Carbon
-    {
-        return Carbon::createFromTimeString($hour);
-    }
-
-
-    public function setTimetableHourAttribute($value): void
-    {
-        $this->attributes['timetable_hour'] = Carbon::createFromTimeString($value)->toDateTimeString();
+        return $this->belongsToMany(Lesson::class);
     }
 
 
     public function teacher(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'teacher_id');
+        return $this->belongsTo(StaffUser::class, 'teacher_id');
     }
 
 
-    public function students(): BelongsToMany
+    public function classrooms(): BelongsToMany
     {
-        return $this->belongsToMany(Student::class)->using(StudentGrade::class)
-            ->as('subscription')
-            ->withPivot([
-                'price',
-                'paid',
-            ]);
-    }
-
-
-    public function courses(): BelongsToMany
-    {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Classroom::class);
     }
 
 
     /**
-     * Return the global duration in minutes of the courses
+     * Return the global duration in minutes of the lessons
      * @return int
      */
     public function getDuration(): int
     {
-        return $this->courses->sum('duration');
-    }
-
-
-    public function scopeRegistrable(Builder $query): Builder
-    {
-        return $query->whereDate('booking_open_at', '<=', Carbon::now())
-            ->whereDate('booking_close_at', '>=', Carbon::now());
-    }
-
-
-    public static function registrableAvailable(): bool
-    {
-        return static::registrable()->exists();
+        return $this->lessons->sum('duration');
     }
 
 }

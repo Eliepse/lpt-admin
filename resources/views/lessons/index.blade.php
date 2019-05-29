@@ -10,7 +10,7 @@
             <div class="card-header">
                 <h2 class="card-title">Classes</h2>
                 <div class="card-options">
-                    <a href="{{ route('courses.create') }}" class="btn btn-outline-primary btn-sm ml-2"><span class="fe fe-book"></span> Nouveau cours</a>
+                    <a href="{{ route('lessons.create') }}" class="btn btn-outline-primary btn-sm ml-2"><span class="fe fe-book"></span> Nouveau cours</a>
                 </div>
             </div>
 
@@ -28,20 +28,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse(\App\Course::all() as $course)
+                    @forelse(\App\Lesson::all() as $lesson)
                         <tr>
                             <td>
-                                {{ $course->name }}<br>
-                                <span class="text-muted">{{ $course->description }}</span>
+                                {{ $lesson->name }}<br>
+                                <span class="text-muted">{{ $lesson->description }}</span>
                             </td>
-                            <td>{{ \Illuminate\Support\Str::ucfirst($course->category) }}</td>
-                            <td>{{ $course->duration }} min</td>
-                            <td>{{ $course->teacher ? $course->teacher->firstname . ' ' . $course->teacher->lastname : '' }}</td>
-                            <td>{{ $course->grades()->count() }}</td>
+                            <td>{{ \Illuminate\Support\Str::ucfirst($lesson->category) }}</td>
+                            <td>{{ $lesson->duration }} min</td>
+                            <td>{{ $lesson->teacher ? $lesson->teacher->firstname . ' ' . $lesson->teacher->lastname : '' }}</td>
+                            <td>{{ $lesson->grades()->count() }}</td>
                             <td class="text-right">
                                 <div class="btn-group" role="group">
-                                    @can('update', $course)
-                                        <a href="{{ route('courses.edit', $course) }}" type="button" class="btn btn-secondary">Modifier</a>
+                                    @can('update', $lesson)
+                                        <a href="{{ route('lessons.edit', $lesson) }}" type="button" class="btn btn-secondary">Modifier</a>
                                     @endcan
                                 </div>
                             </td>
