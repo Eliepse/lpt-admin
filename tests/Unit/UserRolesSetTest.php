@@ -23,7 +23,7 @@ class UserRolesSetTest extends TestCase
      */
     public function testMembers()
     {
-        $this->assertEquals(['admin', 'manager', 'teacher'], UserRolesSet::getMembers());
+        $this->assertEquals(['admin', 'manager', 'teacher'], UserRolesSet::getKeys());
     }
 
 

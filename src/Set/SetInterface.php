@@ -12,7 +12,7 @@ interface SetInterface
      * Get members of the Set
      * @return array
      */
-    public static function getMembers(): array;
+    public static function getKeys(): array;
 
 
     /**
@@ -80,8 +80,8 @@ interface SetInterface
 
     /**
      * Check if the member exists
-     * @param string $member
+     * @param string $key
      * @return bool
      */
-    public function memberExists(string $member): bool;
+    public static function hasKey(string $key): bool;
 }

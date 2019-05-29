@@ -44,7 +44,7 @@ class Set implements SetInterface
      * Get members of the Set
      * @return array
      */
-    public static function getMembers(): array
+    public static function getKeys(): array
     {
         return static::$members;
     }
@@ -175,12 +175,12 @@ class Set implements SetInterface
 
     /**
      * Check if the member exists
-     * @param string $member
+     * @param string $key
      * @return bool
      */
-    public function memberExists(string $member): bool
+    public static function hasKey(string $key): bool
     {
-        return array_key_exists($member, array_flip(static::$members));
+        return array_key_exists($key, array_flip(static::getKeys()));
     }
 
 
@@ -192,7 +192,7 @@ class Set implements SetInterface
     protected function activateMember(string $member): void
     {
         $member = trim($member);
-        if (!$this->memberExists($member))
+        if (!static::hasKey($member))
             throw new UnknownMemberException();
         $this->values[ $member ] = true;
     }
@@ -206,7 +206,7 @@ class Set implements SetInterface
     public function unactivateMember(string $member): void
     {
         $member = trim($member);
-        if (!$this->memberExists($member))
+        if (!static::hasKey($member))
             throw new UnknownMemberException();
         $this->values[ $member ] = false;
     }
@@ -220,6 +220,12 @@ class Set implements SetInterface
      */
     public static function createTableColumn(Blueprint $table, string $column_name): ColumnDefinition
     {
-        return $table->set($column_name, static::getMembers())->nullable(static::isNullbale());
+        return $table->set($column_name, static::getKeys())->nullable(static::isNullbale());
+    }
+
+
+    public function __toString(): string
+    {
+        return join(',', $this->getValues());
     }
 }

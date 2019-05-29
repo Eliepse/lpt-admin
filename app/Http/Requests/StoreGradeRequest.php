@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\DaysEnum;
+use App\Enums\LocationEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreGradeRequest extends FormRequest
@@ -26,7 +27,7 @@ class StoreGradeRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:100',
-            'location' => 'required|in:belleville,aubervilliers',
+            'location' => ['required', 'enum_key:' . LocationEnum::class],
             'teacher' => 'present|nullable|exists:users,id',
             'price' => 'required|integer|min:0|max:65000',
             'max_students' => 'required|integer|min:1|max:250',

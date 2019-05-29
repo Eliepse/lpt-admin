@@ -16,7 +16,7 @@ $factory->define(Classroom::class, function (Faker $faker) {
     }
 
     // Then we generate and fill an array of days
-    $timetables = Arr::random(\App\Sets\DaysSet::getMembers(), $faker->numberBetween(1, 3));
+    $timetables = Arr::random(\App\Sets\DaysSet::getKeys(), $faker->numberBetween(1, 3));
     $timetables = array_map(function ($item, $key) use ($hours, $faker) {
         return Arr::random($hours, $faker->numberBetween(1, 6));
     }, $timetables);

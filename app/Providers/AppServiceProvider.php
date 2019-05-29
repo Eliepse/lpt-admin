@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Rules\SetRule;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
+
     /**
      * Bootstrap any application services.
      *
@@ -23,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Validator::extend('set', function ($attribute, $value, $parameters, $validator) {
+            $setClass = $parameters[0] ?? null;
+
+            return (new SetRule($setClass))->passes($attribute, $value);
+        });
     }
 }
