@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Pivots\GradeLesson;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,14 +15,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @package App
  * @property int id
  * @property string title
- * @property string location
+ * @property string description
  * @property string country
  * @property int|null teacher_id
  * @property int|null level
- * @property int max_students
  * @property int price
  * @property User|null teacher
  * @property Collection|null lessons
+ * @property Collection|null classrooms
  * @property Carbon created_at
  * @property Carbon updated_at
  * @method static Builder registrable
@@ -29,13 +30,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Grade extends Model
 {
     protected $fillable = [
-        'title', 'location', 'country', 'level', 'max_students', 'price',
+        'title', 'description', 'location', 'country', 'level', 'max_students', 'price',
     ];
 
 
     public function lessons(): BelongsToMany
     {
-        return $this->belongsToMany(Lesson::class);
+        return $this->belongsToMany(Lesson::class)
+            ->using(GradeLesson::class)
+            ->withPivot(['teacher_id', 'duration']);
     }
 
 
@@ -58,6 +61,16 @@ class Grade extends Model
     public function getDuration(): int
     {
         return $this->lessons->sum('duration');
+    }
+
+
+    public function getDurationString(): string
+    {
+        $duration = $this->getDuration();
+        $hours = floor($duration / 60);
+        $minutes = $duration % 60;
+
+        return "$hours h $minutes min";
     }
 
 }

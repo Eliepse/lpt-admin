@@ -18,4 +18,13 @@ use Illuminate\Support\Arr;
 class GradeLesson extends Pivot
 {
     protected $fillable = ['teacher_id', 'duration'];
+
+
+    public function getDurationString(): string
+    {
+        $hours = floor($this->duration / 60);
+        $minutes = $this->duration % 60;
+
+        return "$hours h $minutes min";
+    }
 }

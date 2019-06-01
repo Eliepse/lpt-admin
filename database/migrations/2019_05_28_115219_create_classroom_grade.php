@@ -16,7 +16,6 @@ class CreateClassroomGrade extends Migration
         Schema::create('classroom_grade', function (Blueprint $table) {
             $table->unsignedBigInteger('classroom_id');
             $table->unsignedBigInteger('grade_id');
-            $table->json('timetables');
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Pivots\GradeLesson;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property string description
  * @property string category
  * @property Collection grades
+ * @property GradeLesson pivot
  * @property Carbon created_at
  * @property Carbon updated_at
  */
@@ -26,6 +28,8 @@ class Lesson extends Model
 
     public function grades(): BelongsToMany
     {
-        return $this->belongsToMany(Grade::class);
+        return $this->belongsToMany(Grade::class)
+            ->using(GradeLesson::class)
+            ->withPivot(['teacher_id', 'duration']);
     }
 }

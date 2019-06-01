@@ -17,7 +17,7 @@
                             <a href="{{ route('home') }}" class="nav-link"><i class="fe fe-home"></i> Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('grades.index') }}" class="nav-link"><i class="fe fe-calendar"></i> Classes</a>
+                            <a href="{{ route('grades.index') }}" class="nav-link"><i class="fe fe-calendar"></i> Cours</a>
                         </li>
                         {{--<li class="nav-item">--}}
                         {{--<a href="{{ route('lessons.index') }}" class="nav-link"><i class="fe fe-book"></i> Cours</a>--}}

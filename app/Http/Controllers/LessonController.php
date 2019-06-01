@@ -47,7 +47,6 @@ class LessonController extends Controller
     public function store(StoreLessonRequest $request)
     {
         $lesson = new Lesson($request->all());
-        $lesson->teacher()->associate($request->get('teacher'));
         $lesson->save();
 
         return redirect(route('lessons.index'));
@@ -88,7 +87,6 @@ class LessonController extends Controller
     public function update(StoreLessonRequest $request, Lesson $lesson)
     {
         $lesson->fill($request->all());
-        $lesson->teacher()->associate($request->get('teacher'));
         $lesson->save();
 
         return redirect(route('lessons.index'));

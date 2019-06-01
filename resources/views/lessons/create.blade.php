@@ -1,6 +1,10 @@
 @extends('dashboard-master')
 
-@section('title', 'Ajouter un cours - ')
+<?php
+use \App\Enums\LessonCategoryEnum;
+?>
+
+@section('title', 'Nouvelle leçon - ')
 
 @section('main')
 
@@ -10,22 +14,26 @@
             {{ csrf_field() }}
 
             <div class="card-header">
-                <h3 class="card-title">Ajouter un cours</h3>
+                <h3 class="card-title">Ajouter une leçon</h3>
             </div>
 
             <div class="card-body">
 
-                <p class="text-muted">TODO</p>
+                <p class="text-muted">
+                    Une <i>leçon</i> est une partie d'un cours complet (qui se compose donc de plusieurs leçons).
+                    Lors
+                    de l'ajout d'une leçon à un cours, vous serez amené à indiquer sa durée.
+                </p>
 
                 @component('components.form.input')
-                    @slot('title', 'Nom du cours')
+                    @slot('title', 'Nom de la leçon')
                     @slot('name', 'name')
                     @slot('type', 'text')
                     @slot('placeholder', '')
                 @endcomponent
 
                 @component('components.form.textarea-input')
-                    @slot('title', 'Description du cours')
+                    @slot('title', 'Description de la leçon')
                     @slot('name', 'description')
                     @slot('placeholder', '')
                 @endcomponent
@@ -33,40 +41,8 @@
                 @component('components.form.list')
                     @slot('title', 'Catégorie')
                     @slot('name', 'category')
-                    @slot('options', [
-                        'Langue' => 'language',
-                        'Art' => 'art',
-                        'Activité' => 'activity',
-                    ])
+                    @slot('options', array_combine(LessonCategoryEnum::getValues(), LessonCategoryEnum::getKeys()))
                     @slot('default', 'language')
-                @endcomponent
-
-                @component('components.form.input-group')
-                    @slot('title', 'Durée')
-                    @slot('name', 'duration')
-                    @slot('type', 'number')
-                    @slot('attrs', [
-                        'min' => '1',
-                        'max' => '65000',
-                    ])
-                    @slot('placeholder', 'Durée en minutes')
-                    @slot('default', 30)
-                    @slot('after')
-                        <span class="input-group-append"><span class="input-group-text">min</span></span>
-                    @endslot
-                @endcomponent
-
-                <?php
-                /** @var \Illuminate\Database\Eloquent\Collection $teachers */
-                $teachers = \App\User::teacher()->select(['id', 'firstname', 'lastname'])->get();
-                $options = $teachers->map(function (\App\User $teacher) {
-                    return ['name' => $teacher->getFullname(), 'value' => $teacher->id,];
-                });
-                ?>
-                @component('components.form.select')
-                    @slot('title', 'Enseignant.e')
-                    @slot('name', 'teacher')
-                    @slot('options', $options)
                 @endcomponent
 
             </div>

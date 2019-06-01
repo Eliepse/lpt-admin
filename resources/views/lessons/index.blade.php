@@ -1,6 +1,6 @@
 @extends('dashboard-master')
 
-@section('title', 'Cours - ')
+@section('title', 'Leçons - ')
 
 @section('main')
 
@@ -8,9 +8,9 @@
         <div class="card">
 
             <div class="card-header">
-                <h2 class="card-title">Classes</h2>
+                <h2 class="card-title">Leçons</h2>
                 <div class="card-options">
-                    <a href="{{ route('lessons.create') }}" class="btn btn-outline-primary btn-sm ml-2"><span class="fe fe-book"></span> Nouveau cours</a>
+                    <a href="{{ route('lessons.create') }}" class="btn btn-outline-primary btn-sm ml-2"><span class="fe fe-book"></span> Nouvelle leçon</a>
                 </div>
             </div>
 
@@ -19,11 +19,9 @@
                 <table class="table table-outline table-vcenter card-table">
                     <thead>
                     <tr>
-                        <th>Cours</th>
+                        <th>Nom</th>
                         <th>Catégorie</th>
-                        <th>Durée</th>
-                        <th>Enseignant</th>
-                        <th>Classes</th>
+                        <th>Utilisation</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -35,8 +33,6 @@
                                 <span class="text-muted">{{ $lesson->description }}</span>
                             </td>
                             <td>{{ \Illuminate\Support\Str::ucfirst($lesson->category) }}</td>
-                            <td>{{ $lesson->duration }} min</td>
-                            <td>{{ $lesson->teacher ? $lesson->teacher->firstname . ' ' . $lesson->teacher->lastname : '' }}</td>
                             <td>{{ $lesson->grades()->count() }}</td>
                             <td class="text-right">
                                 <div class="btn-group" role="group">
@@ -49,7 +45,7 @@
                     @empty
                         <tr>
                             <td colspan="10">
-                                <p class="text-center text-muted">Il n'y a pas de cours enregistré</p>
+                                <p class="text-center text-muted">Il n'y a pas de leçon enregistrée</p>
                             </td>
                         </tr>
                     @endforelse

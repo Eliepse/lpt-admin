@@ -28,21 +28,21 @@
                     <span class="tag tag-primary">unreleased</span>
                     {{--<span class="text-muted small">2019-0*-**</span>--}}
                 </h4>
-                {{--<p class="text-info">...</p>--}}
+                <p class="text-info">
+                    Cette version comporte un changement radical dans la base de donnée. Le principe de gestion a été
+                    repensé pour plus de flexibilité et permettre de meilleurs automatisation dans la création des
+                    classes par horaire.
+                </p>
                 <h5>Ajouts</h5>
                 <ul>
-                    <li>Ajouter des étudiants dans les classes</li>
-                    <li>Afficher une classe</li>
-                    <li>Modifier un cours</li>
-                    <li>Modifier une classe</li>
+                    <li>Gestion des classes</li>
                     <li>Réinitialisation du mot de passe</li>
-                    <li>Suivi des paiements</li>
-                    <li>Gestion des périodes d'inscription</li>
-                    <li>Duplication de classe</li>
                 </ul>
-                {{--<h5>Changements</h5>--}}
-                {{--<ul>--}}
-                {{--</ul>--}}
+                <h5>Changements</h5>
+                <ul>
+                    <li>Gestion des cours</li>
+                    <li>Gestion des leçons</li>
+                </ul>
                 {{--<h5>Corrections</h5>--}}
                 {{--<ul>--}}
                 {{--</ul>--}}

@@ -32,7 +32,7 @@ if (!function_exists('optionChecked')) {
     <label class="form-label" for="{{ $name }}">{{ $title }}</label>
     @if(!empty($description))<p class="text-muted">{{ $description }}</p>@endif
 
-    <div class="selectgroup w-100">
+    <div class="selectgroup {{ $group_classes ?? '' }} w-100">
         @foreach($options as $o_name => $o_value)
             <label class="selectgroup-item bg-white">
                 <input type="{{ $type }}" name="{{ $name }}" value="{{ $o_value }}"

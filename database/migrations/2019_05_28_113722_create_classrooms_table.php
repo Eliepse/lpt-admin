@@ -16,7 +16,9 @@ class CreateClassroomsTable extends Migration
         Schema::create('classrooms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
-            $table->unsignedBigInteger('teacher_id');
+            $table->string("location");
+            $table->unsignedTinyInteger("max_students");
+            $table->unsignedBigInteger('teacher_id')->nullable();
             $table->json('timetables');
             $table->date('first_day');
             $table->date('last_day');

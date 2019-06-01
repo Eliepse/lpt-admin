@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Enums\DaysEnum;
 use App\Grade;
 use App\Http\Requests\StoreGradeRequest;
+use App\Lesson;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class GradeController extends Controller
 {
@@ -25,7 +27,9 @@ class GradeController extends Controller
      */
     public function index()
     {
-        return view('grades.index');
+        $grades = Grade::with(['classrooms'])->get();
+
+        return view('grades.index', compact('grades'));
     }
 
 
@@ -33,7 +37,6 @@ class GradeController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Request $request
-     * @param Grade|null $grade
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(Request $request)
@@ -53,14 +56,13 @@ class GradeController extends Controller
     public function store(StoreGradeRequest $request)
     {
         $grade = new Grade($request->all());
-        $grade->timetable_days = [$request->get('timetable_day')];
 
         if (!empty($request->get('teacher')))
             $grade->teacher()->associate($request->get('teacher'));
 
         $grade->save();
 
-        $grade->lessons()->attach($request->get("lessons"));
+//        $grade->lessons()->attach($request->get("lessons"));
 
         return redirect(route('grades.show', $grade));
     }
@@ -74,12 +76,7 @@ class GradeController extends Controller
      */
     public function show(Grade $grade)
     {
-        $new_students = Student::query()
-            ->select(['id', 'firstname', 'lastname'])
-            ->whereNotIn('id', $grade->students->pluck('id'))
-            ->get();
-
-        return view('grades.show', compact('grade', 'new_students'));
+        return view('grades.show', compact('grade'));
     }
 
 
@@ -105,7 +102,6 @@ class GradeController extends Controller
     public function update(StoreGradeRequest $request, Grade $grade)
     {
         $grade->fill($request->all());
-        $grade->timetable_days = [$request->get('timetable_day')];
 
         if (empty($request->get('teacher')))
             $grade->teacher()->dissociate();
@@ -114,7 +110,7 @@ class GradeController extends Controller
 
         $grade->save();
 
-        $grade->lessons()->sync($request->get("lessons"));
+//        $grade->lessons()->sync($request->get("lessons"));
 
         return redirect(route('grades.show', $grade));
     }
@@ -134,47 +130,59 @@ class GradeController extends Controller
 
     /**
      * @param Grade $grade
-     * @param Student $student
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function linkStudentForm(Grade $grade, Student $student)
+    public function selectLesson(Grade $grade)
     {
         $this->authorize('update', $grade);
 
-        if ($s_student = $grade->students()->find($student->id)) {
-            $student = $s_student;
-        }
+        $lessons = Lesson::all();
 
-        return view('grades.link-student', compact('grade', 'student'));
+        return view('grades.select-lesson', compact('grade', 'lessons'));
+    }
+
+
+    /**
+     * @param Grade $grade
+     * @param Lesson $lesson
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function linkLessonForm(Grade $grade, Lesson $lesson)
+    {
+        $this->authorize('update', $grade);
+
+        $lesson = $grade->lessons()->find($lesson->id) ?: $lesson;
+
+        return view('grades.link-lesson', compact('grade', 'lesson'));
     }
 
 
     /**
      * @param Request $request
      * @param Grade $grade
-     * @param Student $student
+     * @param Lesson $lesson
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function linkStudent(Request $request, Grade $grade, Student $student)
+    public function linkLesson(Request $request, Grade $grade, Lesson $lesson)
     {
         $this->authorize('update', $grade);
 
         $this->validate($request, [
-            'price' => 'required|integer|between:0,65000',
-            'paid' => 'required|integer|between:0,65000',
+            'duration' => 'required|integer|between:1,65000',
+            'teacher_id' => 'sometimes|nullable|exists:users,id',
         ]);
 
-        if ($grade->students()->find($student->id)) {
-            $grade->students()
-                ->updateExistingPivot($student->id, $request->all(['price', 'paid']));
-
+        if ($grade->lessons()->find($lesson->id)) {
+            $grade->lessons()
+                ->updateExistingPivot($lesson->id, $request->all(['duration']));
         } else {
-            $grade->students()
-                ->withPivotValue($request->all(['price', 'paid']))
-                ->attach($student->id);
+            $grade->lessons()
+                ->withPivotValue($request->all(['duration']))
+                ->attach($lesson->id);
         }
 
         return redirect(route('grades.show', $grade));
@@ -183,18 +191,17 @@ class GradeController extends Controller
 
     /**
      * @param Grade $grade
-     * @param Student $student
+     * @param Lesson $lesson
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function unlinkStudent(Grade $grade, Student $student)
+    public function unlinkLesson(Grade $grade, Lesson $lesson)
     {
         $this->authorize('update', $grade);
 
-        $grade->students()->detach($student->id);
+        $grade->lessons()->detach($lesson->id);
 
         return redirect(route('grades.show', $grade));
     }
-
 
 }

@@ -6,12 +6,12 @@ use App\Student;
 use \Illuminate\Support\Str;
 /**
  * @var Grade $grade
- * @var Student $student
+ * @var \App\Lesson $lesson
  * @var \Illuminate\Database\Eloquent\Collection $new_students
  */
 ?>
 
-@section('title', "Classe : {$grade->title} - ")
+@section('title', "[Cours] {$grade->title} - ")
 
 @section('main')
 
@@ -23,42 +23,16 @@ use \Illuminate\Support\Str;
                     <a href="{{ route('grades.edit', $grade) }}" class="btn btn-outline-primary btn-sm ml-2">
                         <span class="fe fe-edit-2"></span> Modifier
                     </a>
-                    <a href="{{ route('grades.create', ["grade" => $grade]) }}" class="btn btn-outline-secondary btn-sm ml-2">
-                        <span class="fe fe-plus"></span> Dupliquer
-                    </a>
+                    {{--<a href="{{ route('grades.create', ["grade" => $grade]) }}" class="btn btn-outline-secondary btn-sm ml-2">--}}
+                    {{--<span class="fe fe-plus"></span> Dupliquer--}}
+                    {{--</a>--}}
                 </div>
             </div>
             <div class="card-body">
+                <p>{{ $grade->description }}</p>
                 <p><strong>Local :</strong> {{ Str::ucfirst($grade->location) }}</p>
                 <p><strong>Prix :</strong> {{ Str::ucfirst($grade->price) }}</p>
                 <p><strong>Responsable :</strong> {{ Str::ucfirst(optional($grade->teacher)->getFullname() ?? '/') }}
-                </p>
-            </div>
-            <div class="card-body">
-                <p>
-                    Chaque {{ Str::title(join(', ', $grade->timetable_days)) }}<br>
-                    de {{ $grade->timetable_hour->format('H:i') }}
-                    à {{ $grade->timetable_hour->copy()->addMinutes($grade->getDuration())->format('H:i') }}
-                </p>
-                <p>
-                    Période de cours : {{ $grade->first_day->toDateString() . ' - ' . $grade->last_day->toDateString() }}
-                </p>
-            </div>
-            <div class="card-body">
-                <h4>Inscriptions</h4>
-                <p>
-                    @if($grade->booking_open_at->isFuture())
-                        Ouverture {{ $grade->booking_open_at->diffForHumans() }}.
-                    @elseif($grade->booking_close_at->isFuture())
-                        <span class="text-success">En cours,</span> clôture
-                        {{ $grade->booking_close_at->diffForHumans() }}.
-                    @else
-                        <span class="text-muted">Terminées.</span>
-                    @endif
-                </p>
-                <p>
-                    Du <strong>{{ $grade->booking_open_at->toDateString() }}</strong>
-                    au <strong>{{ $grade->booking_close_at->toDateString() }}.</strong>
                 </p>
             </div>
         </div>
@@ -67,50 +41,30 @@ use \Illuminate\Support\Str;
     <div class="col-12 col-md-4">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Étudiants ({{ $grade->students->count() . "/" . $grade->max_students }})</h3>
+                <h3 class="card-title">Leçons ({{ $grade->getDurationString() }})</h3>
                 <div class="card-options">
-                    <button type="button"
-                            class="btn btn-outline-primary btn-sm ml-2"
-                            data-toggle="modal" data-target="#students-modal">
-                        <span class="fe fe-user-plus"></span> Ajouter
-                    </button>
+                    <div class="card-options">
+                        <a href="{{ route('grades.lessons.select', $grade) }}" class="btn btn-outline-primary btn-sm ml-2">
+                            <span class="fe fe-plus"></span> Ajouter une leçon
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="card-table">
                 <table class="table table-vcenter">
                     <tbody>
-                    @forelse($grade->students as $student)
+                    @forelse($grade->lessons as $lesson)
                         <tr class="col-12 col-lg-6">
                             <td>
-                                {{ $student->getFullname() }}<br>
-                                @if(!$student->subscription->hasPaid())
-                                    <span class="text-warning">
-                                        <span class="fe fe-alert-triangle text-warning"></span>
-                                        {{ $student->subscription->unpaidAmount() }} € non payé
-                                    </span>
-                                @endif
+                                {{ $lesson->name }}<br>
+                                <p class="text-muted">{{ $lesson->description }}</p>
                             </td>
-                            <td class="text-right">
-                                <a href="{{ route('family.show', $student->family) }}"
-                                   class="btn btn-sm btn-outline-info mr-2">
-                                    <span class="fe fe-eye"></span>
-                                </a>
-                                <a href="{{ route('grades.students.link', [$grade, $student]) }}"
-                                   class="btn btn-sm btn-outline-secondary mr-2">
-                                    <span class="fe fe-dollar-sign"></span>
-                                </a>
-                                <form class="d-inline" action="{{ route('grades.students.unlink', [$grade, $student]) }}" method="POST">
-                                    {{ csrf_field() }}
-                                    {{ method_field('PUT') }}
-                                    <button class="btn btn-outline-warning btn-sm">
-                                        <span class="fe fe-x"></span>
-                                    </button>
-                                </form>
-                            </td>
+                            <td>{{ $lesson->pivot->getDurationString() }}</td>
+                            <td></td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="2" class="text-center">Aucun enfant associé</td>
+                            <td colspan="2" class="text-center text-muted">Aucune leçon associée</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -119,31 +73,54 @@ use \Illuminate\Support\Str;
         </div>
     </div>
 
-    @component('components.modal')
-        @slot('title', "Sélection d'un étudiant")
-        @slot('label', 'students-modal')
-        @slot('size', 'modal-lg')
-        @if($grade->students->count() >= $grade->max_students)
-            <div class="alert alert-icon alert-warning" role="alert">
-                <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i>
-                La classe a déjà atteint son effectif maximum. Il vous est cependant possible de la surcharger.
-                Utilisez ce pouvoir avec sagesse !
+    <div class="col-12 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Classes</h2>
+                <div class="card-options">
+                    <a href="{{ route('grades.classrooms.create', $grade) }}" class="btn btn-outline-primary btn-sm ml-2">
+                        <span class="fe fe-plus"></span> Créer une classe
+                    </a>
+                </div>
             </div>
-        @endif
-        <table class="table table-vcenter table-striped">
-            <tbody>
-            @foreach($new_students as $student)
-                <tr>
-                    <td>{{ $student->getFullname() }}</td>
-                    <td class="text-right">
-                        <a href="{{ route('grades.students.link', [$grade, $student]) }}" class="btn btn-primary">
-                            Ajouter
-                        </a>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    @endcomponent
+            <div class="card-table">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Horaires</th>
+                        <th>Période de cours</th>
+                        <th>Effectif</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($grade->classrooms as $classroom)
+                        <tr>
+                            <td>
+                                @foreach($classroom->timetables as $day => $hours)
+                                    {{ \Illuminate\Support\Str::ucfirst(__($day)) }}&nbsp;: {{ join(', ', $hours) }}<br>
+                                @endforeach
+                            </td>
+                            <td>
+                                Du {{ $classroom->first_day->toDateString() }}
+                                au {{ $classroom->last_day->toDateString() }}<br>
+                                à {{ \Illuminate\Support\Str::ucfirst($classroom->location) }}
+                            </td>
+                            <td>
+                                {{ $classroom->students->count() }} / {{ $classroom->max_students }}<br>
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ route('classrooms.show', $classroom) }}" class="btn btn-secondary">Voir</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="2" class="text-center text-muted">Aucune classe associée</td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 @endsection

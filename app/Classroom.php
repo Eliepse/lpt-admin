@@ -16,20 +16,23 @@ use Illuminate\Support\Collection;
  * @package App
  * @property string|null name
  * @property Collection timetables
+ * @property string location
+ * @property int max_students
  * @property Carbon $first_day
  * @property Carbon $last_day
  * @property Carbon $booking_open_at
  * @property Carbon $booking_close_at
  * @property EloquentCollection $students
- * @property Grade $grade
+ * @property EloquentCollection $grades
  * @property StaffUser teacher
  * @method static Builder bookable
  */
 class Classroom extends Model
 {
-    protected $fillable = ['name', 'timetables', 'first_day', 'last_day', 'booking_open_at', 'booking_close_at'];
+    protected $fillable = ['name', 'location', 'max_students', 'timetables',
+        'first_day', 'last_day', 'booking_open_at', 'booking_close_at'];
 
-    protected $casts = ['timetables' => 'collection'];
+    protected $casts = ['timetables' => 'array'];
 
     protected $dates = ['first_day', 'last_day', 'booking_open_at', 'booking_close_at'];
 
@@ -46,10 +49,9 @@ class Classroom extends Model
     }
 
 
-    public function grade(): BelongsToMany
+    public function grades(): BelongsToMany
     {
-        return $this->belongsToMany(Grade::class)
-            ->limit(1);
+        return $this->belongsToMany(Grade::class);
     }
 
 

@@ -39,10 +39,7 @@ use \App\Student;
                                 <span class="text-muted">{{ $student->getAge() }} ans</span>
                             </td>
                             <td>
-                                @foreach($student->getActiveGrades() as $grade)
-                                    <?php /** @var \App\Grade $grade */ ?>
-                                    {{ $grade->title }},
-                                @endforeach
+                                /
                             </td>
                             <td class="text-right">
                                 <div class="btn-group" role="group" aria-label="Parent actions">

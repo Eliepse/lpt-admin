@@ -17,10 +17,7 @@ class CreateGradesTable extends Migration
             $table->bigIncrements('id');
             $table->string("title");
             $table->string("description");
-            $table->string("location");
-            $table->enum("country", ["france"]);
             $table->unsignedTinyInteger("level")->nullable();
-            $table->unsignedTinyInteger("max_students");
             $table->unsignedSmallInteger("price");
             $table->timestamps();
         });
