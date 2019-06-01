@@ -102,6 +102,8 @@ class ClassroomController extends Controller
     public function update(StoreClassroomRequest $request, Classroom $classroom)
     {
         $classroom->fill($request->all());
+        $classroom->timetables = json_decode($request->get('timetables'), true);
+        $classroom->save();
 
         return redirect(route('classrooms.show', $classroom));
     }

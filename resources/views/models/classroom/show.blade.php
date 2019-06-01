@@ -18,9 +18,9 @@ use \Illuminate\Support\Str;
             <div class="card-header">
                 <h3 class="card-title">Classe</h3>
                 <div class="card-options">
-                    {{--<a href="{{ route('grades.edit', $grade) }}" class="btn btn-outline-primary btn-sm ml-2">--}}
-                    {{--<span class="fe fe-edit-2"></span> Modifier--}}
-                    {{--</a>--}}
+                    <a href="{{ route('classrooms.edit', $classroom) }}" class="btn btn-outline-primary btn-sm ml-2">
+                        <span class="fe fe-edit-2"></span> Modifier
+                    </a>
                 </div>
             </div>
             <div class="card-body">

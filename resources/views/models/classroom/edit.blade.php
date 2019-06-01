@@ -12,9 +12,10 @@ use \Illuminate\Support\Str;
 @section('main')
 
     <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
-        <form class="card" action="{{ route('grades.classrooms.store', $grade) }}" method="POST">
+        <form class="card" action="{{ route('classrooms.update', $classroom) }}" method="POST">
 
-            {{ csrf_field() }}
+            @csrf
+            @method('put')
 
             <div class="card-header">
                 <h3 class="card-title">Ajouter une classe</h3>
@@ -63,7 +64,7 @@ use \Illuminate\Support\Str;
                     @slot('name', 'first_day')
                     @slot('type', 'date')
                     @slot('required', true)
-                    @slot('default', $classroom->first_day)
+                    @slot('default', $classroom->first_day->toDateString())
                 @endcomponent
 
                 @component('components.form.input')
@@ -72,7 +73,7 @@ use \Illuminate\Support\Str;
                     @slot('name', 'last_day')
                     @slot('type', 'date')
                     @slot('required', true)
-                    @slot('default', $classroom->last_day)
+                    @slot('default', $classroom->last_day->toDateString())
                 @endcomponent
 
                 @component('components.form.input')
