@@ -64,6 +64,8 @@ Route::put('/lessons/{lesson}', 'LessonController@update')->name('lessons.update
 
 // Classrooms
 Route::get('/classrooms/{classroom}', 'ClassroomController@show')->name('classrooms.show');
+Route::put('/classrooms/{classroom}', 'ClassroomController@update')->name('classrooms.update');
+Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('classrooms.edit');
 Route::get('/classrooms/{classroom}/students/select', 'ClassroomController@selectStudent')->name('classrooms.students.select');
 Route::get('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudentForm')->name('classrooms.students.link');
 Route::put('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudent');

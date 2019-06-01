@@ -84,24 +84,26 @@ class ClassroomController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Classroom $classroom
-     * @return void
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Classroom $classroom)
     {
-        //
+        return view('models.classroom.edit', compact('classroom'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreClassroomRequest $request
      * @param  \App\Classroom $classroom
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Classroom $classroom)
+    public function update(StoreClassroomRequest $request, Classroom $classroom)
     {
-        //
+        $classroom->fill($request->all());
+
+        return redirect(route('classrooms.show', $classroom));
     }
 
 

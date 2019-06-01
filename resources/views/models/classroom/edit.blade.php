@@ -31,13 +31,14 @@ use \Illuminate\Support\Str;
                     @slot('description', "Vous pouvez donner un nom à cette classe, ce n'est pas obligatoire")
                     @slot('name', 'name')
                     @slot('attrs', ['max' => 50])
+                    @slot('default', optional($classroom)->name)
                 @endcomponent
 
                 @component('components.form.list')
                     @slot('title', 'Local')
                     @slot('name', 'location')
                     @slot('options', array_combine(LocationEnum::getKeys(), LocationEnum::getValues()))
-                    @slot('default', 'aubervilliers')
+                    @slot('default', $classroom->location)
                     @slot('required', true)
                 @endcomponent
 
@@ -49,7 +50,7 @@ use \Illuminate\Support\Str;
                     @slot('classes', 'text-right')
                     @slot('attrs', ['min' => '1', 'max' => '255'])
                     @slot('placeholder', 'Nombre d\'étudiant max')
-                    @slot('default', 10)
+                    @slot('default', $classroom->max_students)
                     @slot('required', true)
                     @slot('after')
                         <span class="input-group-append"><span class="input-group-text">étudiants</span></span>
@@ -62,6 +63,7 @@ use \Illuminate\Support\Str;
                     @slot('name', 'first_day')
                     @slot('type', 'date')
                     @slot('required', true)
+                    @slot('default', $classroom->first_day)
                 @endcomponent
 
                 @component('components.form.input')
@@ -70,6 +72,7 @@ use \Illuminate\Support\Str;
                     @slot('name', 'last_day')
                     @slot('type', 'date')
                     @slot('required', true)
+                    @slot('default', $classroom->last_day)
                 @endcomponent
 
                 @component('components.form.input')
@@ -78,6 +81,7 @@ use \Illuminate\Support\Str;
                     @slot('name', 'booking_open_at')
                     @slot('placeholder', 'YYYY-MM-DD')
                     @slot('type', 'date')
+                    @slot('default', optional(optional($classroom)->booking_open_at)->toDateString())
                 @endcomponent
 
                 @component('components.form.input')
@@ -86,6 +90,7 @@ use \Illuminate\Support\Str;
                     @slot('name', 'booking_close_at')
                     @slot('placeholder', 'YYYY-MM-DD')
                     @slot('type', 'date')
+                    @slot('default', optional(optional($classroom)->booking_close_at)->toDateString())
                 @endcomponent
 
             </div>
@@ -121,7 +126,7 @@ use \Illuminate\Support\Str;
 
                     <input type="hidden"
                            class="d-none form-control @error('timetables') is-invalid @enderror {{ $classes ?? '' }}"
-                           name="timetables" value="{{ old('timetables', '{}') }}"/>
+                           name="timetables" value="{{ old('timetables', json_encode($classroom->timetables)) }}"/>
 
                     @error('timetables')
                     @foreach($errors->get('timetables') as $message)
@@ -135,7 +140,6 @@ use \Illuminate\Support\Str;
             <div class="card-footer text-right">
                 <div class="d-flex">
                     {{--<a href="javascript:void(0)" class="btn btn-link">Annuler</a>--}}
-
                     <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                 </div>
             </div>
