@@ -36,6 +36,7 @@
                 <h5>Ajouts</h5>
                 <ul>
                     <li>Gestion des classes</li>
+                    <li>Création multiple (assistée) des classes</li>
                     <li>Réinitialisation du mot de passe</li>
                 </ul>
                 <h5>Changements</h5>

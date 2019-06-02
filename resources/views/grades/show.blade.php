@@ -30,7 +30,6 @@ use \Illuminate\Support\Str;
             </div>
             <div class="card-body">
                 <p>{{ $grade->description }}</p>
-                <p><strong>Local :</strong> {{ Str::ucfirst($grade->location) }}</p>
                 <p><strong>Prix :</strong> {{ Str::ucfirst($grade->price) }}</p>
                 <p><strong>Responsable :</strong> {{ Str::ucfirst(optional($grade->teacher)->getFullname() ?? '/') }}
                 </p>
@@ -80,6 +79,9 @@ use \Illuminate\Support\Str;
                 <div class="card-options">
                     <a href="{{ route('grades.classrooms.create', $grade) }}" class="btn btn-outline-primary btn-sm ml-2">
                         <span class="fe fe-plus"></span> Créer une classe
+                    </a>
+                    <a href="{{ route('grades.classrooms.bench-create', $grade) }}" class="btn btn-outline-primary btn-sm ml-2">
+                        <span class="fe fe-layers"></span> Création multiple
                     </a>
                 </div>
             </div>

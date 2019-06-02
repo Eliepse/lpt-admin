@@ -53,6 +53,8 @@ Route::get('/grades/{grade}/lessons/{lesson}/link', 'GradeController@linkLessonF
 Route::put('/grades/{grade}/lessons/{lesson}/link', 'GradeController@linkLesson');
 Route::put('/grades/{grade}/lessons/{lesson}/unlink', 'GradeController@unlinkLesson')->name('grades.lessons.unlink');
 Route::get('/grades/{grade}/classrooms/create', 'ClassroomController@create')->name('grades.classrooms.create');
+Route::get('/grades/{grade}/classrooms/create/bench', 'ClassroomController@benchForm')->name('grades.classrooms.bench-create');
+Route::post('/grades/{grade}/classrooms/create/bench', 'ClassroomController@bench')->name('grades.classrooms.bench-store');
 Route::post('/grades/{grade}/classrooms', 'ClassroomController@store')->name('grades.classrooms.store');
 
 // Courses

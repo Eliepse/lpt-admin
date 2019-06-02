@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Classroom;
+use App\Enums\LocationEnum;
 use App\Grade;
 use App\Http\Requests\StoreClassroomRequest;
+use App\Sets\DaysSet;
 use App\Student;
 use Illuminate\Http\Request;
 
@@ -197,5 +199,60 @@ class ClassroomController extends Controller
         $classroom->students()->detach($student->id);
 
         return redirect(route('classrooms.show', $classroom));
+    }
+
+
+    /**
+     * @param Grade $grade
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function benchForm(Grade $grade)
+    {
+        $this->authorize('update', $grade);
+
+        return view('models.classroom.create-bench', compact('grade'));
+    }
+
+
+    /**
+     * @param Request $request
+     * @param Grade $grade
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function bench(Request $request, Grade $grade)
+    {
+        $this->authorize('update', $grade);
+        $classrooms = collect();
+
+        $this->validate($request, [
+            'location' => ['required', 'enum_key:' . LocationEnum::class],
+            'max_students' => 'required|integer|min:1|max:250',
+            'days' => 'required|array|min:1',
+            'days.*' => 'required|in:' . join(',', DaysSet::getKeys()),
+            'hours' => 'required|json',
+            'first_day' => 'required|date|before:last_day',
+            'last_day' => 'required|date|after:first_day',
+            'booking_open_at' => 'sometimes|nullable|date|before:last_day|before:last_day',
+            'booking_close_at' => 'sometimes|nullable|date|after:first_day|before:last_day',
+        ]);
+
+        $days = $request->get('days', []);
+        $hours = json_decode($request->get('hours', "[]"));
+
+        foreach ($days as $day) {
+            foreach ($hours as $hour) {
+                $classroom = new Classroom($request->all(['location', 'max_students', 'first_day', 'last_day',
+                    'booking_open_at', 'booking_close_at']));
+                $classroom->timetables = [$day => [$hour]];
+                $classrooms->push($classroom);
+            }
+        }
+
+        $grade->classrooms()->saveMany($classrooms);
+
+        return redirect(route('grades.show', $grade));
     }
 }

@@ -9,7 +9,7 @@
  */
 ?>
 <div class="form-group">
-    <label class="form-label" for="{{ $name }}">{{ $title }}</label>
+    <label class="form-label" for="{{ $name }}">{{ $title ?? '' }}</label>
     @isset($description)<p class="text-muted">{{ $description }}</p>@endisset
 
     <div class="input-group">
