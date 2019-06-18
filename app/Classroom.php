@@ -76,7 +76,7 @@ class Classroom extends Model
     }
 
 
-    public static function bookableAvailable(): bool
+    public static function hasBookable(): bool
     {
         return static::bookable()->exists();
     }

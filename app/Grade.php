@@ -54,6 +54,14 @@ class Grade extends Model
     }
 
 
+    public function bookableClassrooms(): BelongsToMany
+    {
+        return $this->classrooms()
+            ->whereDate('booking_open_at', '<=', Carbon::now())
+            ->whereDate('booking_close_at', '>=', Carbon::now());
+    }
+
+
     /**
      * Return the global duration in minutes of the lessons
      * @return int
