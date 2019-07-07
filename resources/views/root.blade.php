@@ -29,30 +29,23 @@
         <link href="{{ mix("/css/app.css") }}" rel="stylesheet"/>
     @show
 </head>
-<body class="">
+<body class="d-flex flex-column">
 
 <header>
-
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">
             <img src="{{ asset("images/logo-2.png") }}" class="navbar-brand-img" alt="LPT logo">
         </a>
-
         @include("navigation.navigation")
-
         @auth
             @include("navigation.user")
         @endauth
-
     </nav>
-
-
 </header>
 
-{{--<div class="page d-flex flex-column" id="app">--}}
-@yield('root-main')
-{{--</div>--}}
+<div class="d-flex flex-grow-1" id="app">
+    @yield('root-main')
+</div>
 
 @section('scripts')
     <script src="{{ mix("/js/app.js") }}"></script>
