@@ -11,6 +11,10 @@
 |
 */
 
+use App\Http\Controllers\Administration\CreateClassroomController;
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 // Auth
@@ -21,6 +25,8 @@ Route::get('/users', 'UserController@index')->name('users.index');
 Route::get('/users/create', 'UserController@create')->name('users.create');
 Route::post('/users', 'UserController@store')->name('users.store');
 
+// Staff
+Route::get('/staff', [StaffController::class, 'index']);
 
 // Parents
 Route::get('/parents', 'ParentController@index')->name('parents.index');
@@ -41,24 +47,8 @@ Route::post('/family', 'FamilyController@store')->name('family.store');
 Route::post('/family/{family}/parent', 'ParentController@store')->name('family.parent.store');
 Route::post('/family/{family}/children', 'StudentController@store')->name('family.children.store');
 
-// Grades
-Route::get('/grades', 'GradeController@index')->name('grades.index');
-Route::post('/grades', 'GradeController@store')->name('grades.store');
-Route::get('/grades/create', 'GradeController@create')->name('grades.create');
-Route::get('/grades/{grade}', 'GradeController@show')->name('grades.show');
-Route::put('/grades/{grade}', 'GradeController@update')->name('grades.update');
-Route::get('/grades/{grade}/edit', 'GradeController@edit')->name('grades.edit');
-Route::get('/grades/{grade}/lessons/select', 'GradeController@selectLesson')->name('grades.lessons.select');
-Route::get('/grades/{grade}/lessons/{lesson}/link', 'GradeController@linkLessonForm')->name('grades.lessons.link');
-Route::put('/grades/{grade}/lessons/{lesson}/link', 'GradeController@linkLesson');
-Route::put('/grades/{grade}/lessons/{lesson}/unlink', 'GradeController@unlinkLesson')->name('grades.lessons.unlink');
-Route::get('/grades/{grade}/classrooms/create', 'ClassroomController@create')->name('grades.classrooms.create');
-Route::get('/grades/{grade}/classrooms/create/bench', 'ClassroomController@benchForm')->name('grades.classrooms.bench-create');
-Route::post('/grades/{grade}/classrooms/create/bench', 'ClassroomController@bench')->name('grades.classrooms.bench-store');
-Route::post('/grades/{grade}/classrooms', 'ClassroomController@store')->name('grades.classrooms.store');
-
-// Courses
-Route::get('/lessons', 'LessonController@index')->name('lessons.index');
+// Lessons
+Route::get('/lessons', [LessonController::class, 'index'])->name('lessons.index');
 Route::get('/lessons/create', 'LessonController@create')->name('lessons.create');
 Route::get('/lessons/{lesson}/edit', 'LessonController@edit')->name('lessons.edit');
 Route::post('/lessons', 'LessonController@store')->name('lessons.store');

@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->date("birthday");
             $table->text("notes")->nullable();
             $table->unsignedBigInteger("family_id")->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

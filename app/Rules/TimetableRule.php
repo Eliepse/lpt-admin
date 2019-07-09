@@ -69,7 +69,7 @@ class TimetableRule implements Rule
             }
 
             // TODO check for duplicates
-            // TODO maybe use a middleware to clean timetables
+            // TODO maybe use a middleware to clean schedules
         }
 
         return true;

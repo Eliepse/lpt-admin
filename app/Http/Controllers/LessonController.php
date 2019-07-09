@@ -23,7 +23,10 @@ class LessonController extends Controller
      */
     public function index()
     {
-        return view('lessons.index');
+        $lessons = Lesson::query()
+            ->select(['id', 'name', 'description', 'category'])->get();
+
+        return view('lessons.index', compact('lessons'));
     }
 
 

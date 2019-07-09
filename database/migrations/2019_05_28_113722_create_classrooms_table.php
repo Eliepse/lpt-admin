@@ -15,15 +15,8 @@ class CreateClassroomsTable extends Migration
     {
         Schema::create('classrooms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->nullable();
-            $table->string("location");
-            $table->unsignedTinyInteger("max_students");
-            $table->unsignedBigInteger('teacher_id')->nullable();
-            $table->json('timetables');
-            $table->date('first_day');
-            $table->date('last_day');
-            $table->dateTime('booking_open_at')->nullable();
-            $table->dateTime('booking_close_at')->nullable();
+            $table->string('name');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

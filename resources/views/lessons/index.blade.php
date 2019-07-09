@@ -26,7 +26,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse(\App\Lesson::all() as $lesson)
+                    @forelse($lessons as $lesson)
                         <tr>
                             <td>
                                 {{ $lesson->name }}<br>

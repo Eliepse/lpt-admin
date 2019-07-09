@@ -31,7 +31,7 @@
 </head>
 <body class="d-flex flex-column">
 
-<header>
+<header class="header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">
             <img src="{{ asset("images/logo-2.png") }}" class="navbar-brand-img" alt="LPT logo">
@@ -43,7 +43,7 @@
     </nav>
 </header>
 
-<div class="d-flex flex-grow-1" id="app">
+<div class="container-fluid" id="app">
     @yield('root-main')
 </div>
 

@@ -2,14 +2,15 @@
 
 namespace App;
 
-use App\Pivots\ClassroomStudent;
 use App\Pivots\ParentStudent;
+use App\Pivots\StudentSchedule;
 use App\Traits\HasHumanNames;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Student
@@ -21,13 +22,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string notes
  * @property Collection parents
  * @property Collection classrooms
- * @property ClassroomStudent subscription
+ * @property StudentSchedule subscription
  * @property Family family
  * @property Carbon created_at
  * @property Carbon updated_at
  */
 class Student extends Model
 {
+    use SoftDeletes;
     use HasHumanNames;
 
     protected $fillable = ['firstname', 'lastname', 'birthday', 'notes'];
@@ -53,23 +55,15 @@ class Student extends Model
     }
 
 
-    public function classrooms(): BelongsToMany
+    public function schedules(): BelongsToMany
     {
-        return $this->belongsToMany(Classroom::class)
-            ->using(ClassroomStudent::class)
+        return $this->belongsToMany(Schedule::class)
+            ->using(StudentSchedule::class)
             ->as('subscription')
             ->withPivot([
                 'price',
                 'paid',
             ]);
-    }
-
-
-    public function getActiveGrades($only_started = false): Collection
-    {
-        return $this->grades()
-            ->whereDate('last_day', '>=', Carbon::now())
-            ->get();
     }
 
 

@@ -10,12 +10,12 @@ use Illuminate\Support\Arr;
 /**
  * Class StudentParent
  * @package App\Pivots
- * @property int grade_id
+ * @property int timetable_id
  * @property int student_id
  * @property int price
  * @property int paid
  */
-class ClassroomStudent extends Pivot
+class StudentSchedule extends Pivot
 {
     protected $fillable = ['price', 'paid'];
 

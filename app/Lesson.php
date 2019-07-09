@@ -2,11 +2,10 @@
 
 namespace App;
 
-use App\Pivots\GradeLesson;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -16,20 +15,21 @@ use Illuminate\Support\Carbon;
  * @property string name
  * @property string description
  * @property string category
- * @property Collection grades
- * @property GradeLesson pivot
+ * @property Collection classroom
+ * @property \stdClass pivot
  * @property Carbon created_at
  * @property Carbon updated_at
  */
 class Lesson extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['name', 'description', 'duration', 'category'];
 
 
-    public function grades(): BelongsToMany
+    public function classrooms(): BelongsToMany
     {
-        return $this->belongsToMany(Grade::class)
-            ->using(GradeLesson::class)
-            ->withPivot(['teacher_id', 'duration']);
+        return $this->belongsToMany(Classroom::class)
+            ->withPivot(['teacher_id', 'duration', 'position']);
     }
 }

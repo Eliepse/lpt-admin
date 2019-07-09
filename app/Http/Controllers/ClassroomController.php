@@ -35,15 +35,14 @@ class ClassroomController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Grade $grade
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create(Grade $grade)
+    public function create()
     {
-        $this->authorize('create', $grade);
+        $this->authorize('create', Classroom::class);
 
-        return view('models.classroom.create', compact('grade'));
+        return view('models.classroom.create');
     }
 
 
@@ -51,20 +50,17 @@ class ClassroomController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreClassroomRequest $request
-     * @param Grade $grade
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(StoreClassroomRequest $request, Grade $grade)
+    public function store(StoreClassroomRequest $request)
     {
-        $this->authorize('create', $grade);
+        $this->authorize('create', Classroom::class);
 
         $classroom = new Classroom($request->all());
-        $classroom->timetables = json_decode($request->get('timetables'), true);
 
-        $grade->classrooms()->save($classroom);
 
-        return redirect(route('grades.show', $grade));
+        return redirect(route('classrooms.show', $classroom));
     }
 
 
@@ -76,9 +72,7 @@ class ClassroomController extends Controller
      */
     public function show(Classroom $classroom)
     {
-        $grade = $classroom->grades()->first(['id', 'title']);
-
-        return view('models.classroom.show', compact('classroom', 'grade'));
+        return view('models.classroom.show', compact('classroom'));
     }
 
 
@@ -104,7 +98,7 @@ class ClassroomController extends Controller
     public function update(StoreClassroomRequest $request, Classroom $classroom)
     {
         $classroom->fill($request->all());
-        $classroom->timetables = json_decode($request->get('timetables'), true);
+        $classroom->schedules = json_decode($request->get('schedules'), true);
         $classroom->save();
 
         return redirect(route('classrooms.show', $classroom));
@@ -246,7 +240,7 @@ class ClassroomController extends Controller
             foreach ($hours as $hour) {
                 $classroom = new Classroom($request->all(['location', 'max_students', 'first_day', 'last_day',
                     'booking_open_at', 'booking_close_at']));
-                $classroom->timetables = [$day => [$hour]];
+                $classroom->schedules = [$day => [$hour]];
                 $classrooms->push($classroom);
             }
         }

@@ -30,7 +30,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property bool active
  * @property string remember_token
  * @property Collection children
- * @property Collection grades
  * @property Family family
  * @property Carbon created_at
  * @property Carbon updated_at
@@ -95,15 +94,6 @@ class User extends Authenticatable
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
-    }
-
-
-    /**
-     * @return HasMany
-     */
-    public function grades(): HasMany
-    {
-        return $this->hasMany(Grade::class, 'teacher_id');
     }
 
 
