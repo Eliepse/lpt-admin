@@ -5,14 +5,32 @@
  */
 
 require('./bootstrap');
+
+if (document.querySelector('#app')) {
+    require(['vue'], function (Vue) {
+
+        window.Vue = require('vue');
+
+        Vue.component('classroom-create', function (resolve) {
+            require(['./components/classroom/ClassroomCreate'], resolve)
+        });
+
+        const app = new Vue({
+            el: '#app',
+        });
+
+    })
+}
+
 //import 'tabler-ui/dist/assets/js/dashboard'
-const feather = require('feather-icons')
 
-_.templateSettings.interpolate = /\[([\s\S]+?)\]/g;
+if (document.querySelector('.fe')) {
+    require(['feather-icons'], function (feather) {
+        feather.replace()
+    })
+}
 
-feather.replace()
-
-//window.Vue = require('vue');
+//window.List = require('list.js')
 
 /**
  * The following block of code may be used to automatically register your
@@ -22,10 +40,12 @@ feather.replace()
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+//const files = require.context('./', true, /\.vue$/i);
+//files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//Vue.component('classroom-form', function (resolve) {
+//    require(['./components/classroom/ClassroomCreate'], resolve)
+//});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

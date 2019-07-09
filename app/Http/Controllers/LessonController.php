@@ -19,12 +19,16 @@ class LessonController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $lessons = Lesson::query()
             ->select(['id', 'name', 'description', 'category'])->get();
+
+        if ($request->ajax())
+            return response()->json($lessons);
 
         return view('lessons.index', compact('lessons'));
     }

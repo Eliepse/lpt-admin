@@ -55,7 +55,10 @@ Route::post('/lessons', 'LessonController@store')->name('lessons.store');
 Route::put('/lessons/{lesson}', 'LessonController@update')->name('lessons.update');
 
 // Classrooms
-Route::get('/classrooms/{classroom}', 'ClassroomController@show')->name('classrooms.show');
+Route::get('classrooms/create', [ClassroomController::class, 'create']);
+Route::post('classrooms', [ClassroomController::class, 'store']);
+Route::get('/classrooms/{classroom}', [ClassroomController::class, 'show'])->name('classrooms.show');
+Route::get('classrooms/create/compose', [CreateClassroomController::class, 'ComposeForm']);
 Route::put('/classrooms/{classroom}', 'ClassroomController@update')->name('classrooms.update');
 Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('classrooms.edit');
 Route::get('/classrooms/{classroom}/students/select', 'ClassroomController@selectStudent')->name('classrooms.students.select');

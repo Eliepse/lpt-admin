@@ -57,8 +57,23 @@ class ClassroomController extends Controller
     {
         $this->authorize('create', Classroom::class);
 
-        $classroom = new Classroom($request->all());
+        $classroom = new Classroom($request->all(['name']));
+        $lessons = [];
 
+        // We remap the lessons array to match the sync
+        // with all pivot properties in it
+        foreach ($request->get('lessons', []) as $el) {
+            $lessons[ $el['id'] ] = [
+                'teacher_id' => $el['teacher_id'] ?? null,
+                'duration' => $el['duration'],
+            ];
+        }
+
+        $classroom->save();
+        $classroom->lessons()->sync($lessons);
+
+        if ($request->ajax())
+            return response()->json(['redirect' => route('classrooms.show', $classroom)]);
 
         return redirect(route('classrooms.show', $classroom));
     }

@@ -5,6 +5,14 @@
 //@import 'variables';
 
 // Bootstrap
-@import '~tabler-ui/src/assets/scss/variables';
+//@import '~tabler-ui/src/assets/scss/_variables';
 @import '~bootstrap/scss/bootstrap';
-@import '~tabler-ui/src/assets/scss/dashboard/dashboard';
+//@import '~tabler-ui/src/assets/scss/dashboard/dashboard';
+
+html, body {
+  min-height: 100vh;
+}
+@import "~tabler-ui/src/assets/scss/dashboard/fonts/_feather.scss";
+@import "header";
+@import "sidepanel";
+@import '~dragula/dist/dragula.css';
