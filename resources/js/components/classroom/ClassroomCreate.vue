@@ -4,6 +4,7 @@
 
 <template>
     <div class="row">
+
         <div class="col-4 panel-side border-right" v-bind:class="{ 'overflow-hidden': loading }">
             <div class="loaderScreen" v-bind:class="{'d-none' : !loading}">
                 <div class="spinner-border" role="status">
@@ -15,14 +16,13 @@
 
             <div class="lessonList mt-2" v-bind:class="{'d-none' : editingLesson}">
                 <ul class="p-0 mb-5 mt-3" v-for="(lessonGroup, key) in groupedLessons">
-                    <h4 class="h-4">{{ key }}</h4>
-                    <li class="card mb-3" v-for="lesson in lessonGroup">
+                    <h4 class="h-4 text-uppercase text-muted">{{ key }}</h4>
+                    <li class="card lessonElement mb-3"
+                        v-on:click="addLesson(lesson)"
+                        v-for="lesson in lessonGroup">
                         <div class="card-body">
                             <div class="card-title">{{ lesson.name }}</div>
-                            <p class="text-muted">{{ lesson.description }}</p>
-                            <button class="btn btn-block btn-outline-primary btn-sm" v-on:click="addLesson(lesson)">
-                                <i class="fe fe-plus"></i> Ajouter
-                            </button>
+                            <p class="text-muted mb-0">{{ lesson.description }}</p>
                         </div>
                     </li>
                 </ul>
@@ -130,6 +130,7 @@
                 </div>
             </form>
         </main>
+
     </div>
 </template>
 
@@ -264,5 +265,17 @@
 
     .lessonEditor {
         z-index: 50;
+    }
+
+
+    .lessonElement {
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+        transition: box-shadow .2s;
+    }
+
+
+    .lessonElement:hover {
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 6px;
     }
 </style>
