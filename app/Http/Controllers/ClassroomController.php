@@ -58,19 +58,11 @@ class ClassroomController extends Controller
         $this->authorize('create', Classroom::class);
 
         $classroom = new Classroom($request->all(['name']));
-        $lessons = [];
-
-        // We remap the lessons array to match the sync
-        // with all pivot properties in it
-        foreach ($request->get('lessons', []) as $el) {
-            $lessons[ $el['id'] ] = [
-                'teacher_id' => $el['teacher_id'] ?? null,
-                'duration' => $el['duration'],
-            ];
-        }
-
         $classroom->save();
-        $classroom->lessons()->sync($lessons);
+
+        $classroom->lessons()->sync(
+            $this->prepareLessonsToSync($request->get('lessons', []))
+        );
 
         if ($request->ajax())
             return response()->json(['redirect' => route('classrooms.show', $classroom)]);
@@ -82,11 +74,15 @@ class ClassroomController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param  \App\Classroom $classroom
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Classroom $classroom)
+    public function show(Request $request, Classroom $classroom)
     {
+        if ($request->ajax())
+            return response()->json($classroom);
+
         return view('models.classroom.show', compact('classroom'));
     }
 
@@ -109,12 +105,21 @@ class ClassroomController extends Controller
      * @param StoreClassroomRequest $request
      * @param  \App\Classroom $classroom
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(StoreClassroomRequest $request, Classroom $classroom)
     {
-        $classroom->fill($request->all());
-        $classroom->schedules = json_decode($request->get('schedules'), true);
+        $this->authorize('update', $classroom);
+
+        $classroom->fill($request->all(['name']));
         $classroom->save();
+
+        $classroom->lessons()->sync(
+            $this->prepareLessonsToSync($request->get('lessons', []))
+        );
+
+        if ($request->ajax())
+            return response()->json(['redirect' => route('classrooms.show', $classroom)]);
 
         return redirect(route('classrooms.show', $classroom));
     }
@@ -263,5 +268,26 @@ class ClassroomController extends Controller
         $grade->classrooms()->saveMany($classrooms);
 
         return redirect(route('grades.show', $grade));
+    }
+
+
+    /**
+     * Prepare lessons from the requests to match the sync method's requirements
+     *
+     * @param array $lessons The lesson array from the request
+     * @return array
+     */
+    private function prepareLessonsToSync(array $lessons)
+    {
+        $result = [];
+
+        foreach ($lessons as $el) {
+            $result[ $el['id'] ] = [
+                'teacher_id' => $el['teacher_id'] ?? null,
+                'duration' => $el['duration'],
+            ];
+        }
+
+        return $result;
     }
 }

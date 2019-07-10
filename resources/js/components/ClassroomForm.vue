@@ -1,6 +1,4 @@
 <!-- TODO(eliepse): comment this code -->
-<!-- TODO(eliepse): split this code -->
-<!-- TODO(eliepse): loader as component -->
 
 <template>
     <div class="row">
@@ -123,12 +121,18 @@
 </template>
 
 <script>
-    import Loader from '../Loader'
+    import Loader from './Loader'
 
     export default {
-        name: "classroom-create",
+        name: "classroom-form",
         components: {
             Loader
+        },
+        props: {
+            id: {
+                type: Number,
+                required: false
+            }
         },
         data: function () {
             return {
@@ -157,17 +161,39 @@
             }
         },
         created: function () {
-            axios.all([
-                axios.get('/lessons'),
-                axios.get('/staff', {
-                    params: {
-                        fields: ['id', 'firstname', 'lastname', 'roles'],
-                        has_role: ['teacher']
-                    }
-                }),])
-                .then(axios.spread((lessonsReq, StaffReq) => {
+            let requests = []
+
+            requests.push(axios.get('/lessons'))
+            requests.push(axios.get('/staff', {
+                params: {
+                    fields: ['id', 'firstname', 'lastname', 'roles'],
+                    has_role: ['teacher']
+                }
+            }))
+
+            if (this.id)
+                requests.push(axios.get('/classrooms/' + this.id))
+
+            axios.all(requests)
+                .then(axios.spread((lessonsReq, StaffReq, classroomReq) => {
                     this.lessons = lessonsReq.data
                     this.teachers = StaffReq.data
+
+                    if (classroomReq && classroomReq.status === 200) {
+                        console.log(classroomReq.data)
+                        let classroom = classroomReq.data
+                        this.classroom.name = classroom.name
+                        classroom.lessons.forEach((lesson) => {
+                            this.classroom.lessons.push({
+                                id: lesson.id,
+                                name: lesson.name,
+                                category: lesson.category,
+                                teacher_id: lesson.pivot.teacher_id,
+                                duration: lesson.pivot.duration
+                            })
+                        })
+                    }
+
                     this.loading = false
                 }))
         },
@@ -215,7 +241,12 @@
 
                 this.loading = true
                 this.saving = true
-                axios.post('/classrooms', this.classroom)
+
+                axios({
+                    method: this.id ? 'put' : 'post',
+                    url: this.id ? '/classrooms/' + this.id : '/classrooms',
+                    data: this.classroom
+                })
                     .then((response) => {
                         window.location = response.data.redirect
                     })

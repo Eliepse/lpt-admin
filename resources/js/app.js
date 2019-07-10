@@ -11,8 +11,8 @@ if (document.querySelector('#app')) {
 
         window.Vue = require('vue');
 
-        Vue.component('classroom-create', function (resolve) {
-            require(['./components/classroom/ClassroomCreate'], resolve)
+        Vue.component('classroom-form', function (resolve) {
+            require(['./components/ClassroomForm'], resolve)
         });
 
         const app = new Vue({

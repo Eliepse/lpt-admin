@@ -11,7 +11,6 @@
 |
 */
 
-use App\Http\Controllers\Administration\CreateClassroomController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\StaffController;
@@ -55,16 +54,16 @@ Route::post('/lessons', 'LessonController@store')->name('lessons.store');
 Route::put('/lessons/{lesson}', 'LessonController@update')->name('lessons.update');
 
 // Classrooms
-Route::get('classrooms/create', [ClassroomController::class, 'create']);
-Route::post('classrooms', [ClassroomController::class, 'store']);
+Route::post('classrooms', [ClassroomController::class, 'store'])->name('classroom.store');
+Route::get('classrooms/create', [ClassroomController::class, 'create'])->name('classroom.create');
 Route::get('/classrooms/{classroom}', [ClassroomController::class, 'show'])->name('classrooms.show');
-Route::get('classrooms/create/compose', [CreateClassroomController::class, 'ComposeForm']);
-Route::put('/classrooms/{classroom}', 'ClassroomController@update')->name('classrooms.update');
+Route::put('/classrooms/{classroom}', [ClassroomController::class, 'update'])->name('classrooms.update');
 Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('classrooms.edit');
-Route::get('/classrooms/{classroom}/students/select', 'ClassroomController@selectStudent')->name('classrooms.students.select');
-Route::get('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudentForm')->name('classrooms.students.link');
-Route::put('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudent');
-Route::put('/classrooms/{classroom}/students/{student}/unlink', 'ClassroomController@unlinkStudent')->name('classrooms.students.unlink');
+
+//Route::get('/classrooms/{classroom}/students/select', 'ClassroomController@selectStudent')->name('classrooms.students.select');
+//Route::get('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudentForm')->name('classrooms.students.link');
+//Route::put('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudent');
+//Route::put('/classrooms/{classroom}/students/{student}/unlink', 'ClassroomController@unlinkStudent')->name('classrooms.students.unlink');
 
 // Other
 Route::get('/home', 'Administration\\MainController@home')->name('home');

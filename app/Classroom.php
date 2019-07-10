@@ -23,6 +23,8 @@ class Classroom extends Model
 
     protected $guarded = [];
 
+    protected $with = ['lessons'];
+
 
     public function lessons(): BelongsToMany
     {
