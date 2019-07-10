@@ -26,14 +26,11 @@ class StoreClassroomRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|nullable|string|max:50',
-            'location' => ['required', 'enum_key:' . LocationEnum::class],
-            'max_students' => 'required|integer|min:1|max:250',
-            'timetables' => ['required', 'json', new TimetableRule(true)],
-            'first_day' => 'required|date|before:last_day',
-            'last_day' => 'required|date|after:first_day',
-            'booking_open_at' => 'sometimes|nullable|date|before:last_day|before:last_day',
-            'booking_close_at' => 'sometimes|nullable|date|after:first_day|before:last_day',
+            'name' => 'required|string|max:50',
+            'lessons' => 'required|array',
+            'lessons.*.id' => 'required|min:1|exists:lessons,id',
+            'lessons.*.teacher_id' => 'nullable|exists:users,id',
+            'lessons.*.duration' => 'required|integer|between:0,65000',
         ];
     }
 }
