@@ -6,13 +6,7 @@
     <div class="row">
 
         <div class="col-4 panel-side border-right" v-bind:class="{ 'overflow-hidden': loading }">
-            <div class="loaderScreen" v-bind:class="{'d-none' : !loading}">
-                <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <div v-if="loading && !saving">Chargement...</div>
-                <div v-if="saving">Envoie des données...</div>
-            </div>
+            <loader :active="loading"></loader>
 
             <div class="lessonList mt-2" v-bind:class="{'d-none' : editingLesson}">
                 <ul class="p-0 mb-5 mt-3" v-for="(lessonGroup, key) in groupedLessons">
@@ -55,17 +49,12 @@
             </div>
         </div>
 
-        <main class="col-8 panel-content">
+        <main class="flex-fill">
             <form v-on:submit.prevent="save()">
                 <div class="container">
-                    <div class="loaderScreen" v-bind:class="{'d-none' : !loading}">
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <div v-if="loading && !saving">Chargement...</div>
-                        <div v-if="saving">Envoie des données...</div>
-                    </div>
-                    <div class="card mt-3">
+                    <loader :active="loading"></loader>
+
+                    <div class="card mt-3 mb-3">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="classroomName">Nom de la classe</label>
@@ -122,9 +111,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="actionBar">
-                    <div class="container text-right">
+
+                    <div class="text-right">
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </div>
                 </div>
@@ -135,8 +123,13 @@
 </template>
 
 <script>
+    import Loader from '../Loader'
+
     export default {
         name: "classroom-create",
+        components: {
+            Loader
+        },
         data: function () {
             return {
                 classroom: {
@@ -237,31 +230,13 @@
 </script>
 
 <style type="text/scss" scoped>
-
-    .loaderScreen {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: #ffffff;
-        opacity: .7;
-        z-index: 100;
-    }
-
-
-    .actionBar {
-        position: absolute;
-        bottom: 0;
-        height: 3.5rem;
-        width: 100%;
-        overflow: hidden;
-    }
-
+    /*.actionBar {*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*height: 3.5rem;*/
+    /*width: 100%;*/
+    /*overflow: hidden;*/
+    /*}*/
 
     .lessonEditor {
         z-index: 50;
