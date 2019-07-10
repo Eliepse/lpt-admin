@@ -203,7 +203,8 @@
                 return teacher ? teacher.lastname + ' ' + teacher.firstname : ''
             },
             minToHuman: function (time) {
-                return Math.floor(time / 60) + ' h ' + (time % 60) + ' min'
+                let seconds = time % 60
+                return Math.floor(time / 60) + ' h ' + (seconds < 10 ? '0' + seconds : seconds) + ' min'
             },
             closeEditor: function () {
                 this.editingLesson = false
@@ -230,14 +231,6 @@
 </script>
 
 <style type="text/scss" scoped>
-    /*.actionBar {*/
-    /*position: absolute;*/
-    /*bottom: 0;*/
-    /*height: 3.5rem;*/
-    /*width: 100%;*/
-    /*overflow: hidden;*/
-    /*}*/
-
     .lessonEditor {
         z-index: 50;
     }

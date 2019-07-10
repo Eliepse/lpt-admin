@@ -33,6 +33,9 @@ class ClassroomLesson extends Pivot
      */
     public function getDuration(bool $toString = false)
     {
-        return !$toString ? $this->duration : floor($this->duration / 60) . ' h ' . ($this->duration % 60) . ' min';
+        $seconds = $this->duration % 60;
+
+        return !$toString ? $this->duration : floor($this->duration / 60) . ' h ' .
+            ($seconds < 10 ? '0' . $seconds : $seconds) . ' min';
     }
 }

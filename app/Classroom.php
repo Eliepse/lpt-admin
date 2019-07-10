@@ -48,6 +48,9 @@ class Classroom extends Model
             return $carry + $lesson->pivot->duration;
         }, 0);
 
-        return !$toString ? $duration : floor($duration / 60) . ' h ' . ($duration % 60) . ' min';
+        $seconds = $duration % 60;
+
+        return !$toString ? $duration : floor($duration / 60) . ' h ' .
+            ($seconds < 10 ? '0' . $seconds : $seconds) . ' min';
     }
 }
