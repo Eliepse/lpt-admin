@@ -14,11 +14,10 @@ class CreateClassroomLessonTable extends Migration
     public function up()
     {
         Schema::create('classroom_lesson', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('classroom_id');
             $table->unsignedBigInteger('lesson_id');
-            $table->unsignedBigInteger('teacher_id')->nullable();
             $table->smallInteger('duration');
-//            $table->tinyInteger('position');
         });
     }
 

@@ -283,7 +283,6 @@ class ClassroomController extends Controller
 
         foreach ($lessons as $el) {
             $result[ $el['id'] ] = [
-                'teacher_id' => $el['teacher_id'] ?? null,
                 'duration' => $el['duration'],
             ];
         }

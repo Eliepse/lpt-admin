@@ -5,7 +5,6 @@
 
         <div class="col-4 panel-side border-right" v-bind:class="{ 'overflow-hidden': loading }">
             <loader :active="loading"></loader>
-
             <div class="lessonList mt-2" v-bind:class="{'d-none' : editingLesson}">
                 <ul class="p-0 mb-5 mt-3" v-for="(lessonGroup, key) in groupedLessons">
                     <h4 class="h-4 text-uppercase text-muted">{{ key }}</h4>
@@ -19,39 +18,12 @@
                     </li>
                 </ul>
             </div>
-
-            <div class="lessonEditor" v-bind:class="{'d-none' : !editingLesson}" v-if="editLesson">
-                <div class="form-group mt-3">
-                    <label for="teacherSelect">Enseignant</label>
-                    <select id="teacherSelect" class="form-control" v-model="editingLesson.teacher_id">
-                        <option value="">Aucun</option>
-                        <option v-for="teacher in teachers" :value="teacher.id">
-                            {{ teacher.lastname + ' ' + teacher.firstname }}
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Durée de la leçon</label>
-                    <div class="input-group mb-3">
-                        <input type="number" min="0" max="65000" class="form-control text-right"
-                               placeholder="Durée de la leçon" aria-label="Lesson's duration"
-                               aria-describedby="duration-addon2" v-model.number="editingLesson.duration">
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="duration-addon2">min</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="">
-                    <button class="btn btn-secondary" v-on:click="closeEditor()">Fermer</button>
-                </div>
-            </div>
         </div>
 
-        <main class="flex-fill">
+        <main class="col">
             <form v-on:submit.prevent="save()">
                 <div class="container">
                     <loader :active="loading"></loader>
-
                     <div class="card mt-3 mb-3">
                         <div class="card-body">
                             <div class="form-group">
@@ -71,26 +43,33 @@
                             </div>
                         </div>
                         <div class="card-table">
-                            <table class="table table-hover" v-bind:class="{'table-danger' : errors.lessons}">
+                            <table class="table table-hover table-vcenter" v-bind:class="{'table-danger' : errors.lessons}">
                                 <thead>
                                 <tr>
                                     <th>Nom</th>
-                                    <th>Enseignant</th>
-                                    <th>Durée</th>
+                                    <th class="text-right">Durée</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="lesson in this.classroom.lessons" v-bind:class="{'border-left border-info' : editingLesson.id === lesson.id}">
-                                    <td>{{ lesson.name }}</td>
-                                    <td>{{ printTeacher(lesson.teacher_id) }}</td>
-                                    <td>{{ minToHuman(lesson.duration) }}</td>
+                                <tr v-for="lesson in this.classroom.lessons">
+                                    <td>
+                                        <span class="text-uppercase text-muted" style="font-size: .75em">{{ lesson.category }}</span><br>
+                                        {{ lesson.name }}
+                                    </td>
+                                    <td>
+                                        <div class="input-group ml-auto" style="max-width: 15rem">
+                                            <input type="number" min="0" max="65000" class="form-control text-right"
+                                                   placeholder="Durée de la leçon" aria-label="Lesson's duration"
+                                                   aria-describedby="duration-addon2" v-model.number="lesson.duration">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="duration-addon2">min</span>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="text-right">
-                                        <button type="button" class="btn btn-icon btn-sm" v-on:click="editLesson(lesson)">
-                                            <i class="fe fe-edit-2"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-icon btn-sm" v-on:click="removeLesson(lesson)">
-                                            <i class="fe fe-x"></i>
+                                        <button type="button" class="btn btn-icon" v-on:click="removeLesson(lesson)">
+                                            <i class="fe fe-trash-2"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -98,9 +77,8 @@
                                 <tfoot>
                                 <tr>
                                     <td></td>
+                                    <td class="text-right">{{ minToHuman(totalDuration) }}</td>
                                     <td></td>
-                                    <td></td>
-                                    <td>{{ minToHuman(totalDuration) }}</td>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -141,10 +119,8 @@
                     lessons: []
                 },
                 lessons: [],
-                teachers: [],
                 loading: true,
                 saving: false,
-                editingLesson: false,
                 errors: {}
             }
         },
@@ -164,23 +140,15 @@
             let requests = []
 
             requests.push(axios.get('/lessons'))
-            requests.push(axios.get('/staff', {
-                params: {
-                    fields: ['id', 'firstname', 'lastname', 'roles'],
-                    has_role: ['teacher']
-                }
-            }))
 
             if (this.id)
                 requests.push(axios.get('/classrooms/' + this.id))
 
             axios.all(requests)
-                .then(axios.spread((lessonsReq, StaffReq, classroomReq) => {
+                .then(axios.spread((lessonsReq, classroomReq) => {
                     this.lessons = lessonsReq.data
-                    this.teachers = StaffReq.data
 
                     if (classroomReq && classroomReq.status === 200) {
-                        console.log(classroomReq.data)
                         let classroom = classroomReq.data
                         this.classroom.name = classroom.name
                         classroom.lessons.forEach((lesson) => {
@@ -188,7 +156,6 @@
                                 id: lesson.id,
                                 name: lesson.name,
                                 category: lesson.category,
-                                teacher_id: lesson.pivot.teacher_id,
                                 duration: lesson.pivot.duration
                             })
                         })
@@ -203,37 +170,19 @@
                     id: lesson.id,
                     name: lesson.name,
                     category: lesson.category,
-                    teacher_id: undefined,
                     duration: 30
                 }
                 this.classroom.lessons.push(new_lesson)
-                this.editLesson(new_lesson)
-            },
-            editLesson: function (lesson) {
-                this.editingLesson = lesson
-                this.errors.lessons = undefined
             },
             removeLesson: function (lesson) {
                 this.classroom.lessons = this.classroom.lessons.filter((el) => {
                     return lesson.id !== el.id
                 })
-
-                // Close the editor when deleting the edited element
-                if (this.editingLesson.id === lesson.id)
-                    this.closeEditor()
-
                 this.errors.lessons = undefined
-            },
-            printTeacher: function (id) {
-                let teacher = this.teachers.find(function (el) { return id === el.id })
-                return teacher ? teacher.lastname + ' ' + teacher.firstname : ''
             },
             minToHuman: function (time) {
                 let seconds = time % 60
                 return Math.floor(time / 60) + ' h ' + (seconds < 10 ? '0' + seconds : seconds) + ' min'
-            },
-            closeEditor: function () {
-                this.editingLesson = false
             },
             save: function () {
                 if (this.saving)

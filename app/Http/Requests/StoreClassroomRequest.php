@@ -29,7 +29,6 @@ class StoreClassroomRequest extends FormRequest
             'name' => 'required|string|max:50',
             'lessons' => 'required|array',
             'lessons.*.id' => 'required|min:1|exists:lessons,id',
-            'lessons.*.teacher_id' => 'nullable|exists:users,id',
             'lessons.*.duration' => 'required|integer|between:0,65000',
         ];
     }

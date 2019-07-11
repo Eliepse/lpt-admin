@@ -30,7 +30,7 @@ class Classroom extends Model
     {
         return $this->belongsToMany(Lesson::class)
             ->using(ClassroomLesson::class)
-            ->withPivot(['teacher_id', 'duration']);
+            ->withPivot(['duration']);
     }
 
 

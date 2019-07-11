@@ -11,20 +11,12 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 /**
  * Class ParentStudent
  * @package App\Pivots
- * @property int teacher_id
  * @property int duration
- * @property StaffUser|null teacher
  * @property string relation
  */
 class ClassroomLesson extends Pivot
 {
-    protected $fillable = ['teacher_id', 'duration'];
-
-
-    public function teacher(): BelongsTo
-    {
-        return $this->belongsTo(StaffUser::class, 'teacher_id');
-    }
+    protected $fillable = ['duration'];
 
 
     /**
