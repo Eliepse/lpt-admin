@@ -24,7 +24,10 @@ use \Illuminate\Support\Str;
                 {{ $classroom->name }}
             </h1>
             <div>
-                <a class="btn btn-secondary" href="{{ route('classrooms.edit', $classroom) }}">Modifier la classe</a>
+                <a class="btn btn-outline-secondary" href="{{ route('classrooms.edit', $classroom) }}">
+                    <i class="fe fe-edit-3"></i>
+                    Modifier la classe
+                </a>
             </div>
         </div>
 
