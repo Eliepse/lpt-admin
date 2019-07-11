@@ -39,9 +39,6 @@ use \Illuminate\Support\Str;
                         <small>Leçon</small>
                     </th>
                     <th>
-                        <small>Enseignant</small>
-                    </th>
-                    <th>
                         <small>Durée</small>
                     </th>
                 </tr>
@@ -54,7 +51,6 @@ use \Illuminate\Support\Str;
                             <br>
                             {{ $lesson->name }}
                         </td>
-                        <td>{{ optional($lesson->pivot->teacher)->getFullname() }}</td>
                         <td>{{ $lesson->pivot->getDuration(true) }}</td>
                     </tr>
                 @endforeach
