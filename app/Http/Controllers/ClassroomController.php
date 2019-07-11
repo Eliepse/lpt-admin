@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Classroom;
 use App\Enums\LocationEnum;
-use App\Grade;
 use App\Http\Requests\StoreClassroomRequest;
 use App\Sets\DaysSet;
 use App\Student;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class ClassroomController extends Controller
 {
+    use AuthorizesRequests, ValidatesRequests;
+
+
     public function __construct()
     {
         $this->middleware('auth');
