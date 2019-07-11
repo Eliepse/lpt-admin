@@ -57,6 +57,13 @@ use \Illuminate\Support\Str;
                 </tbody>
             </table>
         </div>
+
+        <div class="d-flex justify-content-between mt-5">
+            <h4>Horaires</h4>
+            <button class="btn btn-outline-secondary"><i class="fe fe-calendar"></i> Ajouter</button>
+        </div>
+
+        <schedule-calendar :schedules="{{ $classroom->schedules()->get()->toJson() }}"></schedule-calendar>
     </div>
 
 @endsection

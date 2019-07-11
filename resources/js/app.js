@@ -15,6 +15,10 @@ if (document.querySelector('#app')) {
             require(['./components/ClassroomForm'], resolve)
         })
 
+        Vue.component('schedule-calendar', function (resolve) {
+            require(['./components/ScheduleCalendar'], resolve)
+        })
+
         const app = new Vue({
             el: '#app',
         })

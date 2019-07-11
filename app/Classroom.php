@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Pivots\ClassroomLesson;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +38,14 @@ class Classroom extends Model
     public function schedules(): HasMany
     {
         return $this->hasMany(Schedule::class);
+    }
+
+
+    public function activeSchedules(): HasMany
+    {
+        return $this->schedules()
+            ->whereDate('start_at', '<=', Carbon::now())
+            ->whereDate('end_at', '>', Carbon::now());
     }
 
 

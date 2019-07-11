@@ -33,6 +33,8 @@ class Schedule extends Model
 
     protected $dates = ['first_day', 'last_day', 'booking_open_at', 'booking_close_at'];
 
+    protected $withCount = ['students'];
+
 
     public function classroom(): BelongsTo
     {
