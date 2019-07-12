@@ -18,13 +18,13 @@ class LessonTableSeeder extends Seeder
 
         // Chinese
 
-        DB::table('lessons')->insert([
+        DB::table('lessons')->updateOrInsert([
             'name' => '中文课',
             'description' => '《LPT新编教材识字本》1-14课',
             'category' => 'language',
         ]);
 
-        DB::table('lessons')->insert([
+        DB::table('lessons')->updateOrInsert([
             'name' => '中文课',
             'description' => '《LPT新编教材识字本》15-28课',
             'category' => 'language',
@@ -32,25 +32,25 @@ class LessonTableSeeder extends Seeder
 
         // English
 
-        DB::table('lessons')->insert([
+        DB::table('lessons')->updateOrInsert([
             'name' => '英文课',
             'description' => '25%外教课',
             'category' => 'language',
         ]);
 
-        DB::table('lessons')->insert([
+        DB::table('lessons')->updateOrInsert([
             'name' => '英文课',
             'description' => '50%外教课',
             'category' => 'language',
         ]);
 
-        DB::table('lessons')->insert([
+        DB::table('lessons')->updateOrInsert([
             'name' => '英文课',
             'description' => '75%外教课',
             'category' => 'language',
         ]);
 
-        DB::table('lessons')->insert([
+        DB::table('lessons')->updateOrInsert([
             'name' => '英文课',
             'description' => '100%外教课',
             'category' => 'language',
@@ -60,7 +60,7 @@ class LessonTableSeeder extends Seeder
          * Creative
          */
 
-        DB::table('lessons')->insert([
+        DB::table('lessons')->updateOrInsert([
             'name' => '手工课',
             'description' => '',
             'category' => 'creative',
@@ -70,7 +70,7 @@ class LessonTableSeeder extends Seeder
          * Science
          */
 
-        DB::table('lessons')->insert([
+        DB::table('lessons')->updateOrInsert([
             'name' => '科学小实验',
             'description' => '',
             'category' => 'science',
