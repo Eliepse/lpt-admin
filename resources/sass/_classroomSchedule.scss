@@ -1,0 +1,128 @@
+.day {
+  min-height: 15rem;
+}
+
+
+.day:nth-child(-n + 6) {
+  border-right: 1px solid #edf2f7;
+}
+
+
+.day-header {
+  padding: 1rem;
+  background-color: #edf2f7;
+  font-size: .75em;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  color: #a0aec0;
+}
+
+
+.schedule {
+  font-size: .875em;
+  min-height: 3rem;
+  margin: .3rem;
+  padding: .3rem .5rem;
+  color: #718096;
+  background-color: #bee3f8;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
+.schedule-active,
+.schedule:hover {
+  background-color: #90cdf4;
+}
+
+
+.schedule-hour {
+  font-weight: bold;
+}
+
+
+.schedule-location {
+  text-transform: capitalize;
+}
+
+
+.schedule-studentCount {
+  float: right;
+}
+
+
+.schedule-popup {
+  position: fixed;
+  width: 15rem;
+  min-height: 10rem;
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  opacity: 1;
+  left: -16rem;
+  top: 102vh;
+  color: #1a202c;
+  overflow: hidden;
+  transition: opacity .1s, left .2s, top .2s;
+}
+
+
+.schedule-popup-hide {
+  opacity: 0;
+}
+
+
+.popSchedule-header {
+  padding: 1rem 1rem .75rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+
+.popSchedule-body {
+  padding: .75rem 1rem;
+}
+
+
+.popSchedule-footer {
+  padding: 0.5rem 1rem;
+  background-color: #e2e8f0;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  color: #718096;
+}
+
+
+.popSchedule-bgCurrent {
+  background-color: #9ae6b4;
+  color: #38a169;
+}
+
+
+.popSchedule-location {
+  text-transform: uppercase;
+  font-size: .75em;
+  color: #718096;
+}
+
+
+.popSchedule-hour {
+  font-weight: bold;
+}
+
+
+.popSchedule-day {
+  text-transform: capitalize;
+}
+
+
+.popSchedule-period {
+  line-height: 1.1em;
+  span {
+    font-size: .75em;
+    color: #718096;
+  }
+}

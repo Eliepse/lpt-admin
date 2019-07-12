@@ -63,7 +63,11 @@ use \Illuminate\Support\Str;
             <button class="btn btn-outline-secondary"><i class="fe fe-calendar"></i> Ajouter</button>
         </div>
 
-        <schedule-calendar :schedules="{{ $classroom->schedules()->get()->toJson() }}"></schedule-calendar>
+        <schedule-calendar
+                :schedules="{{ $classroom->schedules()->get()->toJson() }}"
+                :classroom="{{ $classroom->toJson() }}">
+
+        </schedule-calendar>
     </div>
 
 @endsection
