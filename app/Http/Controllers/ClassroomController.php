@@ -85,6 +85,8 @@ class ClassroomController extends Controller
      */
     public function show(Request $request, Classroom $classroom)
     {
+        $classroom->load('schedules.teachers:id,firstname,lastname');
+
         if ($request->ajax())
             return response()->json($classroom);
 

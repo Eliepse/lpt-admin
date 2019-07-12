@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Pivots\ScheduleTeacher;
 use App\Pivots\StudentSchedule;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -50,5 +51,12 @@ class Schedule extends Model
                 'price',
                 'paid',
             ]);
+    }
+
+
+    public function teachers(): BelongsToMany
+    {
+        return $this->belongsToMany(StaffUser::class, 'schedule_teacher', 'schedule_id', 'teacher_id')
+            ->using(ScheduleTeacher::class);
     }
 }

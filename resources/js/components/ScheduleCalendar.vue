@@ -42,8 +42,14 @@
                     <span>{{ Math.round(popSchedule.end_at.diff(popSchedule.start_at, 'day') / 7) }} semaines</span><br>
                     {{ popSchedule.start_at.format('YYYY-MM-DD') }} - {{ popSchedule.end_at.format('YYYY-MM-DD') }}
                 </div>
-                <div class="mb-2">
+                <div class="mb-3">
                     <div class="">{{ popSchedule.students_count }}/{{ popSchedule.max_students }} étudiants</div>
+                </div>
+                <div v-if="popSchedule.teachers.length">
+                    <h6>Enseignants :</h6>
+                    <ul class="pl-2 list-unstyled">
+                        <li v-for="teacher in popSchedule.teachers">{{ teacher.lastname }} {{ teacher.firstname }}</li>
+                    </ul>
                 </div>
             </div>
             <div class="popSchedule-footer"

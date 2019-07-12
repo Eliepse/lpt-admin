@@ -3,8 +3,9 @@
 namespace App;
 
 
+use App\Pivots\ScheduleTeacher;
 use App\Scopes\StaffUserScope;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class StaffUser extends User
 {
@@ -16,8 +17,9 @@ class StaffUser extends User
     }
 
 
-    public function classrooms(): HasMany
+    public function schedules(): BelongsToMany
     {
-        return $this->hasMany(Classroom::class);
+        return $this->belongsToMany(Schedule::class, 'schedule_teacher', 'teacher_id', 'schedule_id')
+            ->using(ScheduleTeacher::class);
     }
 }

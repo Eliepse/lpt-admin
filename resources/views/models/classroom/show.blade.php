@@ -64,7 +64,7 @@ use \Illuminate\Support\Str;
         </div>
 
         <schedule-calendar
-                :schedules="{{ $classroom->schedules()->get()->toJson() }}"
+                :schedules="{{ $classroom->schedules->toJson() }}"
                 :classroom="{{ $classroom->toJson() }}">
 
         </schedule-calendar>
