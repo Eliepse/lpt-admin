@@ -31,9 +31,40 @@
 }
 
 
+.popSchedule-bgEnded {
+  background-color: #b2f5ea;
+  color: #38b2ac;
+}
+
+
+.popSchedule-bgCurrent {
+  background-color: #c6f6d5;
+  color: #48bb78;
+}
+
+
+.popSchedule-bgSoon {
+  background-color: #bee3f8;
+  color: #4299e1;
+}
+
+
 .schedule-active,
 .schedule:hover {
-  background-color: #90cdf4;
+  &.popSchedule-bgEnded {
+    background-color: #81e6d9;
+    color: #319795;
+  }
+
+  &.popSchedule-bgCurrent {
+    background-color: #9ae6b4;
+    color: #38a169;
+  }
+
+  &.popSchedule-bgSoon {
+    background-color: #90cdf4;
+    color: #3182ce;
+  }
 }
 
 
@@ -87,18 +118,10 @@
 
 .popSchedule-footer {
   padding: 0.5rem 1rem;
-  background-color: #e2e8f0;
   font-size: 0.8em;
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
-  color: #718096;
-}
-
-
-.popSchedule-bgCurrent {
-  background-color: #9ae6b4;
-  color: #38a169;
 }
 
 

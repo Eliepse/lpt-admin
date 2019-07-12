@@ -8,7 +8,8 @@
                     <div class="col day" v-for="(day, key) in days.long">
                         <div class="day-header">{{ day }}</div>
                         <div class="day-body">
-                            <div class="schedule" :class="{ 'schedule-active' : popSchedule === schedule }"
+                            <div class="schedule"
+                                 :class="[{ 'schedule-active' : popSchedule === schedule }, getBackground(schedule.status)]"
                                  v-for="schedule in schedulesOn(day)" v-bind:key="schedule.id" ref="schedules"
                                  :data-id="schedule.id" @click="openPop(schedule)">
                                 <!--<div class="schedule-studentCount">{{ schedule.students_count }}/{{ schedule.max_students }}</div>-->
@@ -29,7 +30,7 @@
                 </div>
                 <div class="mt-2">
                     <!--<button type="button" class="btn btn-icon btn-sm">-->
-                        <!--<i class="fe fe-edit"></i> Edit-->
+                    <!--<i class="fe fe-edit"></i> Edit-->
                     <!--</button>-->
                     <button type="button" class="btn btn-icon btn-sm" @click="closePop()">
                         <i class="fe fe-x"></i> Close
@@ -45,11 +46,13 @@
                     <div class="">{{ popSchedule.students_count }}/{{ popSchedule.max_students }} étudiants</div>
                 </div>
             </div>
-            <div class="popSchedule-footer" :class="{'popSchedule-bgCurrent': popSchedule.statut === 0}" v-if="popSchedule">
-                <div v-if="popSchedule.statut === 1">
+            <div class="popSchedule-footer"
+                 :class="[getBackground(popSchedule.status)]"
+                 v-if="popSchedule">
+                <div v-if="popSchedule.status === 1">
                     Début dans {{ popSchedule.start_at.diff(dayjs(), 'day') }} jours
                 </div>
-                <div v-else-if="popSchedule.statut === 0">En cours</div>
+                <div v-else-if="popSchedule.status === 0">En cours</div>
                 <div v-else>Terminé</div>
             </div>
         </div>
@@ -98,11 +101,11 @@
 
                 // Current statut of the schedule
                 if (schedule.start_at.isAfter(dayjs()))
-                    schedule.statut = 1 // In the future
+                    schedule.status = 1 // In the future
                 else if (schedule.end_at.isAfter(dayjs()))
-                    schedule.statut = 0 // Active
+                    schedule.status = 0 // Active
                 else
-                    schedule.statut = -1 // In the past
+                    schedule.status = -1 // In the past
             })
         },
         mounted: function () {
@@ -153,6 +156,16 @@
                 // reset popup position
                 this.$refs.schPop.style.left = ''
                 this.$refs.schPop.style.top = ''
+            },
+            getBackground: function (status) {
+                switch (status) {
+                    case 0:
+                        return 'popSchedule-bgCurrent'
+                    case 1:
+                        return 'popSchedule-bgSoon'
+                    default:
+                        return 'popSchedule-bgEnded'
+                }
             }
         }
     }
