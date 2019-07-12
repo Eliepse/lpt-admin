@@ -4,6 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+
 require('./bootstrap')
 
 if (document.querySelector('#app')) {
@@ -25,6 +27,9 @@ if (document.querySelector('#app')) {
 
     })
 }
+
+window.dayjs = require('dayjs')
+dayjs.extend(customParseFormat)
 
 //window.List = require('list.js')
 
