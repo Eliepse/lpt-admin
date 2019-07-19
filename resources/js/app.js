@@ -6,6 +6,7 @@
 
 import daysjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import VCalendar from 'v-calendar';
 
 require('./bootstrap')
 
@@ -16,6 +17,10 @@ if (document.querySelector('#app')) {
     require(['vue'], function (Vue) {
 
         window.Vue = require('vue')
+
+        Vue.use(VCalendar, {
+            firstDayOfWeek: 2,
+        });
 
         Vue.use(daysjs);
 

@@ -29,6 +29,7 @@
         "dragula": "^3.7.2",
         "holmes.js": "^1.17.3",
         "list.js": "^1.5.0",
-        "tabler-ui": "0.0.34"
+        "tabler-ui": "0.0.34",
+        "v-calendar": "^1.0.0-beta.16"
     }
 }
