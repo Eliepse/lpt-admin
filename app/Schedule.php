@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Timetable
+ *
  * @package App
+ * @property-read int id
  * @property int classroom_id
  * @property string day
  * @property Carbon hour

@@ -1,0 +1,30 @@
+.sidebar-modal {
+
+  .modal-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+  }
+
+  .modal-content {
+    height: 100%;
+  }
+
+  .modal-body {
+    overflow-y: auto;
+
+    form {
+      margin-bottom: 6rem;
+    }
+  }
+
+  .modal-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+  }
+
+}

@@ -25,6 +25,7 @@
         </div>
 
         <schedule-popup ref="popup" :classroomDuration="classroomDuration"/>
+        <schedule-modal ref="modal"></schedule-modal>
 
     </div>
 </template>
@@ -33,10 +34,12 @@
     import dayjs from 'dayjs'
     import ScheduleItem from './ScheduleItem'
     import SchedulePopup from './SchedulePopup'
+    import ScheduleModal from './ScheduleModal'
 
     export default {
         name: "schedule-calendar",
         components: {
+            ScheduleModal,
             ScheduleItem,
             SchedulePopup
         },
@@ -92,6 +95,11 @@
             hide: function () {
                 this.$refs.popup.close()
             },
+
+            edit: function (schedule) {
+                this.$refs.modal.open(schedule)
+            },
+
             // Get schedules on a specific day
             schedulesByDay: function (day) {
                 return this.schedules.filter((schedule) => {
