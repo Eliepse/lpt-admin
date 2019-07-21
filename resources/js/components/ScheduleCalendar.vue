@@ -80,10 +80,9 @@
                 this.$set(schedule.study, 'start', dayjs(schedule.start_at))
                 this.$set(schedule.study, 'end', dayjs(schedule.end_at))
 
-                this.$set(schedule, 'signup', {
-                    start: dayjs(schedule.signup_end_at),
-                    end: dayjs(schedule.signup_start_at)
-                })
+                this.$set(schedule, 'signup', {})
+                this.$set(schedule.signup, 'start', schedule.signup_start_at ? dayjs(schedule.signup_start_at) : undefined)
+                this.$set(schedule.signup, 'end', schedule.signup_end_at ? dayjs(schedule.signup_end_at) : undefined)
 
             })
         },
