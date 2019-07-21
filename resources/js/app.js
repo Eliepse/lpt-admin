@@ -4,14 +4,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import daysjs from 'dayjs'
+//const dayjs = require('dayjs')
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import VCalendar from 'v-calendar';
 
 require('./bootstrap')
 
 window.dayjs = require('dayjs')
-dayjs.extend(customParseFormat)
+window.dayjs.extend(customParseFormat)
 
 if (document.querySelector('#app')) {
     require(['vue'], function (Vue) {
@@ -22,7 +22,7 @@ if (document.querySelector('#app')) {
             firstDayOfWeek: 2,
         });
 
-        Vue.use(daysjs);
+        //Vue.use(window.dayjs);
 
         Vue.component('classroom-form', function (resolve) {
             require(['./components/ClassroomForm'], resolve)

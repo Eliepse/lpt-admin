@@ -95,7 +95,7 @@
   left: -16rem;
   top: 102vh;
   color: #1a202c;
-  overflow: hidden;
+  //overflow: hidden;
   transition: opacity .2s, left .2s, top .2s, height .2s;
 }
 
@@ -118,6 +118,7 @@
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
+  border-radius: 0 0 20px 20px;
 }
 
 
@@ -140,6 +141,7 @@
 
 .popSchedule-period {
   line-height: 1.1em;
+
   span {
     font-size: .75em;
     color: #718096;

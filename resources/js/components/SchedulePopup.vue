@@ -8,20 +8,15 @@
                     <span class="popSchedule-day">{{ schedule.day.substring(0, 3) }}</span>
                     {{ schedule.hour.format("HH:mm") }} - {{ schedule.hour.add(classroomDuration, "minute").format("HH:mm") }}
                 </div>
-                <div class="mt-2">
-                    <button type="button" class="btn btn-icon btn-sm" @click="mode = 'edit'">
-                        <i class="fe fe-edit"></i> Edit
-                    </button>
-                    <button type="button" class="btn btn-icon btn-sm" @click="close()">
-                        <i class="fe fe-x"></i> Close
-                    </button>
+                <div class="">
+                    {{ schedule.price }}&nbsp;€
                 </div>
             </div>
 
             <div class="popSchedule-body">
                 <div class="mb-3 popSchedule-period">
-                    <span>{{ Math.round(schedule.end_at.diff(schedule.start_at, "day") / 7) }} semaines</span><br/>
-                    {{ schedule.start_at.format("YYYY-MM-DD") }} - {{ schedule.end_at.format("YYYY-MM-DD") }}
+                    <span>{{ Math.round(schedule.study.end.diff(schedule.study.start, "day") / 7) }} semaines</span><br/>
+                    {{ schedule.study.start.format("YYYY-MM-DD") }} - {{ schedule.study.end.format("YYYY-MM-DD") }}
                 </div>
                 <div class="mb-3">
                     <div class>
@@ -38,11 +33,11 @@
                 </div>
             </div>
 
-            <div class="popSchedule-footer" :class="[getBackground(schedule.status)]">
-                <div v-if="schedule.status === 1">
-                    Début dans {{ schedule.start_at.diff(dayjs(), "day") }} jours
+            <div class="popSchedule-footer" :class="[background]">
+                <div v-if="status === 1">
+                    Début dans {{ schedule.study.start.diff(dayjs(), "day") }} jours
                 </div>
-                <div v-else-if="schedule.status === 0">En cours</div>
+                <div v-else-if="status === 0">En cours</div>
                 <div v-else>Terminé</div>
             </div>
         </div>
@@ -51,6 +46,8 @@
 </template>
 
 <script>
+    import dayjs from 'dayjs'
+
     export default {
         name: "schedule-popup",
         props: {
@@ -61,11 +58,31 @@
         },
         data: function () {
             return {
-                mode: '',
                 schedule: undefined,
                 position: {x: 0, y: 0},
+                closing: false,
                 dayjs: dayjs
             };
+        },
+        computed: {
+
+            status() {
+                if (this.schedule.study.start.isAfter(dayjs()))
+                    return 1
+                else if (this.schedule.study.end.isAfter(dayjs()))
+                    return 0
+                else
+                    return -1
+            },
+
+            background() {
+                if (this.schedule.study.start.isAfter(dayjs()))
+                    return 'popSchedule-bgSoon'
+                else if (this.schedule.study.end.isAfter(dayjs()))
+                    return 'popSchedule-bgCurrent'
+                else
+                    return 'popSchedule-bgEnded'
+            }
         },
         methods: {
             toggle: function (schedule) {
@@ -76,11 +93,12 @@
 
                 this.open(schedule)
             },
-            open: function (schedule, mode = 'show') {
+
+            open: function (schedule) {
 
                 this.schedule = schedule
-                schedule.active = true
-                this.mode = mode
+
+                this.closing = false
 
                 this.$nextTick(() => {
 
@@ -103,29 +121,22 @@
                 })
 
             },
+
             close: function () {
+                this.closing = true
+
                 this.$el.style.opacity = 0
 
                 setTimeout(() => {
-                    this.schedule.active = false
+                    if (!this.closing)
+                        return
+
                     this.schedule = undefined
-                    this.mode = ''
 
                     this.$emit('closed')
                 }, 200)
 
-
             },
-            getBackground: function (status) {
-                switch (status) {
-                    case 0:
-                        return 'popSchedule-bgCurrent'
-                    case 1:
-                        return 'popSchedule-bgSoon'
-                    default:
-                        return 'popSchedule-bgEnded'
-                }
-            }
         }
     };
 </script>

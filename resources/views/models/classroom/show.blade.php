@@ -8,7 +8,7 @@ use \Illuminate\Support\Str;
  */
 ?>
 
-@section('title', "LPT - Classe: {$classroom->name}")
+@section('title', "Classe: {$classroom->name} - ")
 
 @section('main')
 
