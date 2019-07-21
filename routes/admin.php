@@ -14,6 +14,7 @@
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 // Auth
@@ -59,11 +60,13 @@ Route::get('classrooms/create', [ClassroomController::class, 'create'])->name('c
 Route::get('/classrooms/{classroom}', [ClassroomController::class, 'show'])->name('classrooms.show');
 Route::put('/classrooms/{classroom}', [ClassroomController::class, 'update'])->name('classrooms.update');
 Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('classrooms.edit');
-
 //Route::get('/classrooms/{classroom}/students/select', 'ClassroomController@selectStudent')->name('classrooms.students.select');
 //Route::get('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudentForm')->name('classrooms.students.link');
 //Route::put('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudent');
 //Route::put('/classrooms/{classroom}/students/{student}/unlink', 'ClassroomController@unlinkStudent')->name('classrooms.students.unlink');
+
+// Schedules
+Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedule.update');
 
 // Other
 Route::get('/home', 'Administration\\MainController@home')->name('home');
