@@ -1,33 +1,35 @@
 <template>
-    <div class="loaderScreen" :class="{'d-flex' : active}">
+    <div class="loaderScreen" v-show="active">
         <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
         </div>
-        <div v-if="!message">{{ label }}</div>
-        <div v-if="message" :class="{ 'text-danger' : message.type === 'error' }">Envoie des données...</div>
+        <div v-if="!message">{{ message.label }}</div>
+        <div v-if="message" :class="{ 'text-danger' : message.type === 'error' }">{{ message.label }}</div>
     </div>
 </template>
 
 <script>
     export default {
         name: "loader",
-        props: {
-            active: {
-                type: Boolean,
-                required: true
-            },
-            label: {
-                type: String,
-                required: false,
-                default: 'Chargement...'
-            },
-            message: {
-                type: Object,
-                required: false,
-                validator: function (message) {
-                    return message.type
+        data: function () {
+            return {
+                active: false,
+                message: {
+                    label: 'Chargement...',
+                    type: undefined
                 }
-
+            }
+        },
+        methods: {
+            open: function (label, type) {
+                this.active = true
+                this.message.label = label ? label : 'Chargement...'
+                this.message.type = type
+            },
+            close: function () {
+                this.active = false
+                this.message.label = 'Chargement...'
+                this.message.type = undefined
             }
         }
     }
@@ -35,8 +37,7 @@
 
 <style scoped>
     .loaderScreen {
-        display: none;
-        /*display: flex;*/
+        display: flex;
         position: absolute;
         top: 0;
         left: 0;
