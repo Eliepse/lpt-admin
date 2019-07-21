@@ -1,10 +1,7 @@
 <template>
     <div class="loaderScreen" v-show="active">
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div v-if="!message">{{ message.label }}</div>
-        <div v-if="message" :class="{ 'text-danger' : message.type === 'error' }">{{ message.label }}</div>
+        <div v-if="message.type !== 'error'" class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>
+        <div :class="{ 'text-danger' : message.type === 'error' }">{{ message.label }}</div>
     </div>
 </template>
 
@@ -23,13 +20,17 @@
         methods: {
             open: function (label, type) {
                 this.active = true
-                this.message.label = label ? label : 'Chargement...'
-                this.message.type = type
+                this.setMessage(label, type)
             },
+
             close: function () {
                 this.active = false
-                this.message.label = 'Chargement...'
-                this.message.type = undefined
+                this.setMessage('Chargement...')
+            },
+
+            setMessage: function (label, type) {
+                this.message.label = label
+                this.message.type = type
             }
         }
     }
