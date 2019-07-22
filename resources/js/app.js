@@ -6,6 +6,7 @@
 
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import VCalendar from 'v-calendar';
+import DatePeriodInput from './components/DatePeriodInput'
 
 require('./bootstrap')
 
@@ -27,8 +28,13 @@ Vue.component('schedule-calendar', function (resolve) {
     require(['./components/ScheduleCalendar'], resolve)
 })
 
+//Vue.component('date-period-input', require('./components/DatePeriodInput'))
+
 const app = new Vue({
     el: '#app',
+    components: {
+        DatePeriodInput
+    }
 })
 
 
