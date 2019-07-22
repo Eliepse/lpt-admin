@@ -65,7 +65,7 @@
 
                 this.$set(schedule, 'active', false)
 
-                schedule.hour = dayjs(schedule.hour, 'HH:mm:ss')
+                schedule.hour = dayjs(schedule.hour)
 
                 this.$set(schedule, 'study', {})
                 this.$set(schedule.study, 'start', dayjs(schedule.start_at))

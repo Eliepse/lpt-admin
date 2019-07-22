@@ -5,6 +5,7 @@ namespace App;
 use App\Pivots\ScheduleTeacher;
 use App\Pivots\StudentSchedule;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -77,5 +78,16 @@ class Schedule extends Model
     public function getDurationAttribute(): int
     {
         return $this->classroom->getDuration();
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return bool|DateTime
+     */
+    public function getHourAttribute($value)
+    {
+        return Carbon::createFromFormat("H:i:s", $value);
     }
 }

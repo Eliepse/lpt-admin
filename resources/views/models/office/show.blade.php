@@ -1,11 +1,13 @@
 @extends('dashboard-master')
 
 <?php
-use App\Office;
 use \Illuminate\Support\Str;
+use App\Office;
+use App\Schedule;
 
 /**
  * @var Office $office
+ * @var Schedule $schedule
  */
 ?>
 
@@ -26,13 +28,31 @@ use \Illuminate\Support\Str;
 
         <div class="d-flex justify-content-between mt-5">
             <h4>Horaires</h4>
-{{--            <button class="btn btn-outline-secondary"><i class="fe fe-calendar"></i> Ajouter</button>--}}
+            {{--            <button class="btn btn-outline-secondary"><i class="fe fe-calendar"></i> Ajouter</button>--}}
         </div>
 
-        <!--suppress HtmlUnknownTag -->
-        <!--suppress CheckEmptyScriptTag -->
-        {{-- TODO(eliepse): remove editable possibility? --}}
-        <schedule-calendar :schedules="{{ $office->schedules->toJson() }}"/>
+        <div class="row mt-3 mb-5">
+            <div class="col">
+                <div class="card">
+                    <div class="row no-gutters">
+                        @foreach(\App\Sets\DaysSet::getKeys() as $day)
+                            <div class="col day">
+                                <div class="day-header">{{ $day }}</div>
+                                <div class="day-body">
+                                    @foreach($schedules[$day] ?? [] as $schedule)
+                                        <div class="schedule">
+                                            {{--                                            <div class="schedule-studentCount">{{ schedule.students_count }}/{{ schedule.max_students }}</div>--}}
+                                            <div class="schedule-hour">{{ $schedule->hour->format("H:i") }}</div>
+                                            <div class="schedule-location">{{ $schedule->classroom->name }}</div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
