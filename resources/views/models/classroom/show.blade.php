@@ -1,10 +1,13 @@
 @extends('dashboard-master')
 
 <?php
+use App\Classroom;
+use App\Student;
 use \Illuminate\Support\Str;
+
 /**
- * @var \App\Classroom $classroom
- * @var \App\Student $student
+ * @var Classroom $classroom
+ * @var Student $student
  */
 ?>
 
@@ -58,10 +61,7 @@ use \Illuminate\Support\Str;
             </table>
         </div>
 
-        <div class="d-flex justify-content-between mt-5">
-            <h4>Horaires</h4>
-            <button class="btn btn-outline-secondary"><i class="fe fe-calendar"></i> Ajouter</button>
-        </div>
+        <div class="d-flex justify-content-between mt-5"><h4>Horaires</h4></div>
 
         <schedule-calendar
                 :schedules="{{ $classroom->schedules->toJson() }}"

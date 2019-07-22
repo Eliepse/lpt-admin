@@ -16,7 +16,7 @@
                             {{-- TODO(eliepse): show a calendar visualization to see where are the active schedules --}}
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-primary disabled">Ouvrir</a>
+                            <a href="{{ route('office.show', $office) }}" class="btn btn-primary">Ouvrir</a>
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
@@ -67,6 +68,9 @@ Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('cl
 
 // Schedules
 Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedule.update');
+
+// Offices
+Route::get('/offices/{office}', [OfficeController::class, 'show'])->name('office.show');
 
 // Other
 Route::get('/home', 'Administration\\MainController@home')->name('home');
