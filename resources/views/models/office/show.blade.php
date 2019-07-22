@@ -41,7 +41,8 @@ use App\Schedule;
                                 <div class="day-body">
                                     @foreach($schedules[$day] ?? [] as $schedule)
                                         <div class="schedule">
-                                            {{--                                            <div class="schedule-studentCount">{{ schedule.students_count }}/{{ schedule.max_students }}</div>--}}
+                                            <div class="schedule-studentCount">{{ $schedule->students_count }}
+                                                <i class="fe fe-users"></i></div>
                                             <div class="schedule-hour">{{ $schedule->hour->format("H:i") }}</div>
                                             <div class="schedule-location">{{ $schedule->classroom->name }}</div>
                                         </div>

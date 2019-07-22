@@ -28,8 +28,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Carbon signup_end_at
  * @property Carbon created_at
  * @property Carbon updated_at
+ * Relations:
  * @property Classroom classroom
  * @property Collection students
+ * @property int students_count
  */
 class Schedule extends Model
 {
