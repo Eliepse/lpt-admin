@@ -16,11 +16,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @package App
  * @property-read int id
  * @property int classroom_id
+ * @property int office_id
  * @property string day
  * @property Carbon hour
  * @property int price
  * @property int max_students
- * @property string location
  * @property Carbon start_at
  * @property Carbon end_at
  * @property Carbon signup_start_at
@@ -36,7 +36,7 @@ class Schedule extends Model
 
     protected $dates = ['first_day', 'last_day', 'booking_open_at', 'booking_close_at'];
 
-    protected $withCount = ['students'];
+    protected $withCount = ['students', 'office'];
 
 
     public function classroom(): BelongsTo
@@ -60,5 +60,14 @@ class Schedule extends Model
     {
         return $this->belongsToMany(StaffUser::class, 'schedule_teacher', 'schedule_id', 'teacher_id')
             ->using(ScheduleTeacher::class);
+    }
+
+
+    /**
+     * @return BelongsTo
+     */
+    public function office(): BelongsTo
+    {
+        return $this->belongsTo(Office::class);
     }
 }

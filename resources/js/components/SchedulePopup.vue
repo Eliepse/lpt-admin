@@ -3,7 +3,7 @@
 
         <div v-if="schedule">
             <div class="popSchedule-header">
-                <div class="popSchedule-location">{{ schedule.location }}</div>
+                <div class="popSchedule-location">{{ schedule.office.location }}</div>
                 <div class="popSchedule-hour">
                     <span class="popSchedule-day">{{ schedule.day.substring(0, 3) }}</span>
                     {{ schedule.hour.format("HH:mm") }} - {{ schedule.hour.add(classroomDuration, "minute").format("HH:mm") }}
