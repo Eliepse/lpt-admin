@@ -4,7 +4,6 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-//const dayjs = require('dayjs')
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import VCalendar from 'v-calendar';
 
@@ -12,32 +11,25 @@ require('./bootstrap')
 
 window.dayjs = require('dayjs')
 window.dayjs.extend(customParseFormat)
+window.Vue = require('vue')
 
-if (document.querySelector('#app')) {
-    require(['vue'], function (Vue) {
+Vue.use(VCalendar, {
+    firstDayOfWeek: 2,
+});
 
-        window.Vue = require('vue')
+Vue.use(window.dayjs);
 
-        Vue.use(VCalendar, {
-            firstDayOfWeek: 2,
-        });
+Vue.component('classroom-form', function (resolve) {
+    require(['./components/ClassroomForm'], resolve)
+})
 
-        //Vue.use(window.dayjs);
+Vue.component('schedule-calendar', function (resolve) {
+    require(['./components/ScheduleCalendar'], resolve)
+})
 
-        Vue.component('classroom-form', function (resolve) {
-            require(['./components/ClassroomForm'], resolve)
-        })
-
-        Vue.component('schedule-calendar', function (resolve) {
-            require(['./components/ScheduleCalendar'], resolve)
-        })
-
-        const app = new Vue({
-            el: '#app',
-        })
-
-    })
-}
+const app = new Vue({
+    el: '#app',
+})
 
 
 //window.List = require('list.js')
