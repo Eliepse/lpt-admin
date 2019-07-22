@@ -5,8 +5,8 @@
             <div class="popSchedule-header">
                 <div class="popSchedule-location">{{ schedule.office.location }}</div>
                 <div class="popSchedule-hour">
-                    <span class="popSchedule-day">{{ schedule.day.substring(0, 3) }}</span>
-                    {{ schedule.hour.format("HH:mm") }} - {{ schedule.hour.add(classroomDuration, "minute").format("HH:mm") }}
+                    <span class="popSchedule-day">
+                        {{ schedule.day.substring(0, 3) }}</span>{{ schedule.hour.format("HH:mm") }}
                 </div>
                 <div class="">
                     {{ schedule.price }}&nbsp;€
@@ -50,12 +50,6 @@
 
     export default {
         name: "schedule-popup",
-        props: {
-            classroomDuration: {
-                type: Number,
-                required: true
-            }
-        },
         data: function () {
             return {
                 schedule: undefined,

@@ -36,7 +36,9 @@ class Schedule extends Model
 
     protected $dates = ['first_day', 'last_day', 'booking_open_at', 'booking_close_at'];
 
-    protected $withCount = ['students', 'office'];
+//    protected $with = ['office'];
+
+    protected $withCount = ['students'];
 
 
     public function classroom(): BelongsTo
@@ -69,5 +71,11 @@ class Schedule extends Model
     public function office(): BelongsTo
     {
         return $this->belongsTo(Office::class);
+    }
+
+
+    public function getDurationAttribute(): int
+    {
+        return $this->classroom->getDuration();
     }
 }

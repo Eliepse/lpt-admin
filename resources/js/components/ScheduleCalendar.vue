@@ -24,34 +24,32 @@
             </div>
         </div>
 
-        <schedule-popup ref="popup" :classroomDuration="classroomDuration"/>
+        <schedule-popup ref="popup"/>
         <schedule-modal ref="modal"></schedule-modal>
+        <loader ref="loader"/>
 
     </div>
 </template>
 
 <script>
-    import dayjs from 'dayjs'
     import ScheduleItem from './ScheduleItem'
     import SchedulePopup from './SchedulePopup'
     import ScheduleModal from './ScheduleModal'
+    import Loader from './Loader'
 
     export default {
         name: "schedule-calendar",
         components: {
             ScheduleModal,
             ScheduleItem,
-            SchedulePopup
+            SchedulePopup,
+            Loader
         },
         props: {
             schedules: {
                 type: Array,
                 required: true
             },
-            classroom: {
-                type: Object,
-                required: true
-            }
         },
         data: function () {
             return {
@@ -61,15 +59,8 @@
                 }
             }
         },
-        computed: {
-            // Calculate the duration of the classroom
-            classroomDuration: function () {
-                return this.classroom.lessons.reduce((acc, lesson) => {
-                    return acc + lesson.pivot.duration
-                }, 0)
-            }
-        },
         created: function () {
+            console.log(this.schedules)
             this.schedules.forEach((schedule) => {
 
                 this.$set(schedule, 'active', false)
