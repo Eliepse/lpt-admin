@@ -50,7 +50,7 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
                             <div class="col day {{ $today === $day ? 'day-active' : '' }}">
                                 <div class="day-header">{{ $day }}</div>
                                 <div class="day-body">
-                                    @foreach(($schedules[$day] ?? collect())->sortBy('hour') as $schedule)
+                                    @foreach($schedules[$day] ?? collect() as $schedule)
 
                                         @component('models.office.schedule-item')
                                             @slot('schedule', $schedule)

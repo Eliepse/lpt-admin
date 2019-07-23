@@ -53,9 +53,9 @@ class OfficeController extends Controller
      */
     public function show(Office $office)
     {
-        $office->loadMissing(["schedules", "schedules.office", "schedules.classroom", "schedules.teachers"]);
-
-        $schedules = $office->activeSchedules->groupBy("day");
+        $schedules = $office->activeSchedules
+            ->sortBy('hour')
+            ->groupBy("day");
 
         return view('models.office.show', compact('office', 'schedules'));
     }

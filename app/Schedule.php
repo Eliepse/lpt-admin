@@ -5,7 +5,6 @@ namespace App;
 use App\Pivots\ScheduleTeacher;
 use App\Pivots\StudentSchedule;
 use Carbon\Carbon;
-use Carbon\CarbonInterval;
 use DateTime;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -47,7 +46,7 @@ class Schedule extends Model
 
     protected $dates = ['start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
 
-//    protected $with = ['office'];
+    protected $with = ['classroom.lessons', 'students', 'teachers'];
 
     protected $withCount = ['students'];
 
