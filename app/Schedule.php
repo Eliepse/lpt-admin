@@ -5,7 +5,9 @@ namespace App;
 use App\Pivots\ScheduleTeacher;
 use App\Pivots\StudentSchedule;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use DateTime;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Carbon signup_end_at
  * @property Carbon created_at
  * @property Carbon updated_at
+ * @property int duration
  * Relations:
  * @property Classroom classroom
  * @property Collection students
@@ -35,9 +38,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Schedule extends Model
 {
+    public const SCHEDULE_IS_INCOMMING = 0;
+    public const SCHEDULE_IS_SIGNUP = 2;
+    public const SCHEDULE_IS_STUDY = 3;
+    public const SCHEDULE_IS_OVER = 1;
+
     protected $guarded = [];
 
-    protected $dates = ['first_day', 'last_day', 'booking_open_at', 'booking_close_at'];
+    protected $dates = ['start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
 
 //    protected $with = ['office'];
 
@@ -91,5 +99,35 @@ class Schedule extends Model
     public function getHourAttribute($value)
     {
         return Carbon::createFromFormat("H:i:s", $value);
+    }
+
+
+    public function isSignupPeriod(): bool
+    {
+        if (empty($this->signup_start_at) || empty($this->signup_end_at))
+            return false;
+
+        return Carbon::now()->isBetween($this->signup_start_at, $this->signup_end_at->endOfDay(), true);
+    }
+
+
+    public function isStudyPeriod(): bool
+    {
+        return Carbon::now()->isBetween($this->start_at->startOfDay(), $this->end_at->endOfDay(), true);
+    }
+
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public function isClassNow(): bool
+    {
+        if (!$this->isStudyPeriod())
+            return false;
+
+        $end = $this->hour->clone()->addMinutes($this->duration);
+
+        return Carbon::now()->isBetween($this->hour, $end, true);
     }
 }

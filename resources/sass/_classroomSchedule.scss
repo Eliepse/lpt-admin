@@ -7,6 +7,9 @@
   border-right: 1px solid #edf2f7;
 }
 
+.day-active {
+  background-color: #f5f7f7;
+}
 
 .day-header {
   padding: 1rem;
@@ -23,13 +26,23 @@
   font-size: .875em;
   min-height: 3rem;
   margin: .3rem;
-  padding: .3rem .5rem;
   color: #718096;
   background-color: #bee3f8;
   border-radius: 10px;
   cursor: pointer;
 }
 
+.schedule-header {
+  padding: .3rem .5rem;
+}
+
+.schedule-body {
+  padding: .3rem .5rem;
+}
+
+.schedule-footer {
+  padding: .3rem .5rem;
+}
 
 .popSchedule-bgEnded {
   background-color: #b2f5ea;
@@ -39,7 +52,7 @@
 
 .popSchedule-bgCurrent {
   background-color: #c6f6d5;
-  color: #48bb78;
+  color: #38A169;
 }
 
 

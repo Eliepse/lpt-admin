@@ -33,10 +33,25 @@ class Office extends Model
         return $this->hasMany(Schedule::class);
     }
 
+
+    /**
+     * Prepare a query to retreive schedules that are currently active,
+     * or with an active registration process
+     *
+     * @return HasMany
+     */
     public function activeSchedules(): HasMany
     {
+        $today = Carbon::now()->toDateString();
+
         return $this->schedules()
-            ->whereDate('start_at', '<=', Carbon::now())
-            ->whereDate('end_at', '>=', Carbon::now());
+            ->where([
+                ['start_at', '<=', $today],
+                ['end_at', '>=', $today],
+            ])
+            ->orWhere([
+                ['signup_start_at', '<=', $today],
+                ['signup_end_at', '>=', $today],
+            ]);
     }
 }
