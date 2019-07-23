@@ -18,8 +18,8 @@
             </div>
         </v-date-picker>
 
-        <input type="hidden" :name="names[0]" :required="required" v-model="range.start"/>
-        <input type="hidden" :name="names[1]" :required="required" v-model="range.end"/>
+        <input type="hidden" :name="names[0]" :required="required" :value="range.start ? formatDate(range.start) : ''"/>
+        <input type="hidden" :name="names[1]" :required="required" :value="range.end ? formatDate(range.end) : ''"/>
     </div>
 </template>
 
@@ -73,6 +73,16 @@
                     },
                 };
             },
+        },
+        methods: {
+            formatDate: function (date) {
+
+                function twoDigits(number) { return number < 10 ? '0' + number : number }
+
+                return date.getFullYear()
+                    + '-' + twoDigits(date.getMonth() + 1)
+                    + '-' + twoDigits(date.getDate())
+            }
         }
     }
 </script>
