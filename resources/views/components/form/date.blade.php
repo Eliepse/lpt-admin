@@ -26,16 +26,19 @@ $defaults = [old($name[0], $default[0] ?? null), old($name[1], $default[1] ?? nu
             @isset($required) :required='true' @endisset
             @isset($placeholder) :placeholder='{{ $placeholder }}' @endisset
             :classes='@json([ $errors->has($name[0]) ? 'is-invalid' : '' ])'
-    />
+    ></date-period-input>
+
 
     @error($name[0])
+    <input type="hidden" class="custom-control-input is-invalid" disabled/>
     @foreach($errors->get($name[0]) as $message)
         <div class="invalid-feedback">{{ $message }}</div>
     @endforeach
     @enderror
 
-    @error($name[0])
-    @foreach($errors->get($name[0]) as $message)
+    @error($name[1])
+    <input type="hidden" class="custom-control-input is-invalid" disabled/>
+    @foreach($errors->get($name[1]) as $message)
         <div class="invalid-feedback">{{ $message }}</div>
     @endforeach
     @enderror
