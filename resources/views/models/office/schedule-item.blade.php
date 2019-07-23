@@ -50,7 +50,7 @@ if (!function_exists('scheduleClass')) {
 
     <div class="schedule-footer text-center">
 
-        @if($schedule->isClassNow() && $today === $day)
+        @if($schedule->isClassNow())
             <div><i class="fe fe-book-open"></i> Classe en cours</div>
         @elseif($schedule->isStudyPeriod() && $today === $day && $schedule->hour->isFuture())
             <div>

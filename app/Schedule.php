@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Enums\DaysEnum;
 use App\Pivots\ScheduleTeacher;
 use App\Pivots\StudentSchedule;
 use Carbon\Carbon;
@@ -123,6 +124,9 @@ class Schedule extends Model
     public function isClassNow(): bool
     {
         if (!$this->isStudyPeriod())
+            return false;
+
+        if (DaysEnum::getKey(Carbon::now()->dayOfWeek) !== $this->day)
             return false;
 
         $end = $this->hour->clone()->addMinutes($this->duration);
