@@ -28,7 +28,9 @@ use App\Schedule;
 
         <div class="d-flex justify-content-between mt-5">
             <h4>Horaires</h4>
-            {{--            <button class="btn btn-outline-secondary"><i class="fe fe-calendar"></i> Ajouter</button>--}}
+            <a href="{{ route('office.schedule.create', $office) }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fe fe-calendar"></i> Ajouter
+            </a>
         </div>
 
         <div class="row mt-3 mb-5">

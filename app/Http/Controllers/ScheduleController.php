@@ -6,6 +6,8 @@ use App\Classroom;
 use App\Enums\LocationEnum;
 use App\Http\Requests\StoreClassroomRequest;
 use App\Http\Requests\StoreScheduleRequest;
+use App\Http\Requests\UpdateScheduleRequest;
+use App\Office;
 use App\Schedule;
 use App\Sets\DaysSet;
 use App\Student;
@@ -31,17 +33,42 @@ class ScheduleController extends Controller
     }
 
 
+    public function create(Office $office)
+    {
+        $classrooms = Classroom::all();
+
+        return view('models.schedule.create', compact('office', 'classrooms'));
+    }
+
+
+    public function store(StoreScheduleRequest $request)
+    {
+        $schedule = new Schedule($request->all(['day', 'hour', 'start_at', 'end_at', 'signup_start_at',
+            'signup_end_at', 'price', 'max_students']));
+
+        $schedule->office()->associate($request->get('office'));
+        $schedule->classroom()->associate($request->get('classroom'));
+
+        // TODO(eliepse): add teachers
+
+        $schedule->save();
+
+        return redirect()->route('office.show', $request->get('office'));
+    }
+
+
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreScheduleRequest $request
+     * @param UpdateScheduleRequest $request
      * @param Schedule $schedule
      *
      * @return RedirectResponse|Redirector
      */
-    public function update(StoreScheduleRequest $request, Schedule $schedule)
+    public function update(UpdateScheduleRequest $request, Schedule $schedule)
     {
-        $schedule->fill($request->all());
+        $schedule->fill($request->all(['day', 'hour', 'start_at', 'end_at', 'signup_start_at',
+            'signup_end_at', 'price', 'max_students']));
         $schedule->teachers()->sync($request->get('teachers', []));
         $schedule->save();
 

@@ -13,8 +13,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Classroom
+ *
  * @package App
+ * @property-read int id
  * @property string name
+ * @property-read Carbon created_at
+ * @property-read Carbon updated_at
  * @property Collection $lessons
  * @property Collection $schedules
  */
@@ -51,6 +55,7 @@ class Classroom extends Model
 
     /**
      * @param bool $toString
+     *
      * @return int|string
      */
     public function getDuration(bool $toString = false)

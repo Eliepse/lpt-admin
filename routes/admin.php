@@ -14,6 +14,7 @@
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\Schedule;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
@@ -67,10 +68,12 @@ Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('cl
 //Route::put('/classrooms/{classroom}/students/{student}/unlink', 'ClassroomController@unlinkStudent')->name('classrooms.students.unlink');
 
 // Schedules
+Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedule.update');
 
 // Offices
 Route::get('/offices/{office}', [OfficeController::class, 'show'])->name('office.show');
+Route::get('/offices/{office}/schedule/create', [ScheduleController::class, 'create'])->name('office.schedule.create');
 
 // Other
 Route::get('/home', 'Administration\\MainController@home')->name('home');

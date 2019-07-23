@@ -18,16 +18,20 @@ class StoreScheduleRequest extends FormRequest
      */
     public function rules()
     {
+        $isoDate = 'Y-m-d';
+
         return [
-            'day' => 'required|string|in:' . join(',', DaysSet::getKeys()),
-            'hour' => 'required|date_format:H:i',
-            'start_at' => 'required|date:Y-m-d',
-            'end_at' => 'required|date:Y-m-d|after:start_at',
-            'signup_start_at' => 'nullable|date:Y-m-d|before:start_at',
-            'signup_end_at' => 'nullable|date:Y-m-d|before:start_at|after:signup_start_at',
-            'price' => 'required|integer|between:0,65000',
-            'max_students' => 'required|integer|max:250',
-            'teachers' => 'exists:users,id',
+            "office" => "required|exists:offices,id",
+            "classroom" => "required|exists:classrooms,id",
+            "day" => "required|string|in:" . join(",", DaysSet::getKeys()),
+            "hour" => "required|date_format:H:i",
+            'start_at' => "required|date_format:$isoDate",
+            "end_at" => "required|date_format:$isoDate|after:start_at",
+            "signup_start_at" => "nullable|date:$isoDate|before:start_at",
+            "signup_end_at" => "nullable|date:$isoDate|before:start_at|after:signup_start_at",
+            "price" => "required|integer|between:0,65000",
+            "max_students" => "required|integer|max:250",
+            "teachers" => "array|exists:users,id",
         ];
     }
 }
