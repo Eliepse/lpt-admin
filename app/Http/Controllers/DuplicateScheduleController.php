@@ -34,4 +34,10 @@ class DuplicateScheduleController
 
         return redirect()->route('office.show', $schedule->office);
     }
+
+
+    public function prompt(Schedule $schedule)
+    {
+        return view('models.schedule.propose-duplicate', compact('schedule'));
+    }
 }

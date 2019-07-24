@@ -71,6 +71,7 @@ Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('cl
 // Schedules
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedule.update');
+Route::get('/schedules/{schedule}/promptDuplicate', [DuplicateScheduleController::class, 'prompt'])->name('schedule.promptDuplicate');
 Route::get('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'form'])->name('schedule.duplicate');
 Route::post('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'store']);
 

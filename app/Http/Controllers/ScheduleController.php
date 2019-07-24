@@ -53,7 +53,7 @@ class ScheduleController extends Controller
 
         $schedule->save();
 
-        return redirect()->route('office.show', $request->get('office'));
+        return redirect()->route('schedule.promptDuplicate', $schedule);
     }
 
 
