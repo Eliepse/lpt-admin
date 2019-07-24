@@ -3,44 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Office;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class OfficeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $this->middleware('auth');
+        $this->middleware('roles:admin,manager');
+        $this->authorizeResource(Office::class, 'office');
     }
 
 
@@ -58,45 +29,5 @@ class OfficeController extends Controller
             ->groupBy("day");
 
         return view('models.office.show', compact('office', 'schedules'));
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Office $office
-     *
-     * @return Response
-     */
-    public function edit(Office $office)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param Office $office
-     *
-     * @return Response
-     */
-    public function update(Request $request, Office $office)
-    {
-        //
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Office $office
-     *
-     * @return Response
-     */
-    public function destroy(Office $office)
-    {
-        //
     }
 }
