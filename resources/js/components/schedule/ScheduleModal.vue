@@ -96,7 +96,7 @@
 </template>
 
 <script>
-    import Loader from './Loader'
+    import Loader from '../Loader'
     import dayjs from 'dayjs'
 
     export default {

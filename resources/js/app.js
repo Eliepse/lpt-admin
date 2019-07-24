@@ -25,7 +25,7 @@ Vue.component('classroom-form', function (resolve) {
 })
 
 Vue.component('schedule-calendar', function (resolve) {
-    require(['./components/ScheduleCalendar'], resolve)
+    require(['./components/schedule/ScheduleCalendar'], resolve)
 })
 
 //Vue.component('date-period-input', require('./components/DatePeriodInput'))

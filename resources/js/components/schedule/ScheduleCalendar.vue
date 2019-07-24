@@ -35,7 +35,7 @@
     import ScheduleItem from './ScheduleItem'
     import SchedulePopup from './SchedulePopup'
     import ScheduleModal from './ScheduleModal'
-    import Loader from './Loader'
+    import Loader from '../Loader'
 
     export default {
         name: "schedule-calendar",
