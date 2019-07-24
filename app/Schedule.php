@@ -30,8 +30,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Carbon signup_end_at
  * @property Carbon created_at
  * @property Carbon updated_at
+ * /
  * @property int duration
  * Relations:
+ * @property Office office
  * @property Classroom classroom
  * @property Collection students
  * @property int students_count
@@ -43,7 +45,8 @@ class Schedule extends Model
     public const SCHEDULE_IS_STUDY = 3;
     public const SCHEDULE_IS_OVER = 1;
 
-    protected $guarded = [];
+    protected $fillable = ['day', 'hour', 'price', 'max_students',
+        'start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
 
     protected $dates = ['start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
 

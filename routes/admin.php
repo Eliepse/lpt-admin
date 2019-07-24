@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\DuplicateScheduleController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\Schedule;
@@ -70,6 +71,8 @@ Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('cl
 // Schedules
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedule.update');
+Route::get('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'form'])->name('schedule.duplicate');
+Route::post('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'store']);
 
 // Offices
 Route::get('/offices/{office}', [OfficeController::class, 'show'])->name('office.show');

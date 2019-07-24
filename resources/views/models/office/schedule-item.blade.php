@@ -29,6 +29,8 @@ if (!function_exists('scheduleClass')) {
     }
 }
 
+$today = $today ?? null;
+$day = $day ?? null;
 ?>
 
 <div class="schedule {{ scheduleClass($schedule) }} {{ $today === $day && $schedule->isClassNow() ? 'schedule-active' : '' }}">
