@@ -29,7 +29,8 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
         {{-- TODO(eliepse): Add link to index --}}
         {{--<a href="#" class="btn btn-link"><i class="fe fe-arrow-left"></i> Retour</a>--}}
 
-        <h1 class="my-3">Famille <i>{{ $family->parents->pluck('lastname')->unique()->join('-') }}</i></h1>
+        <h1 class="mt-3" style="margin-bottom: 3rem">Famille
+            <i>{{ $family->parents->pluck('lastname')->unique()->join('-') }}</i></h1>
 
         <div class="my-3 d-flex justify-content-between">
             <h2 class="mb-0">Parents</h2>
@@ -72,7 +73,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
             @endforeach
         </div>
 
-        <div class="my-3 d-flex justify-content-between">
+        <div class="mb-3 d-flex justify-content-between" style="margin-top: 2rem;">
             <h2 class="mb-0">Étudiants</h2>
             <div class="text-right">
                 <a href="{{ route('student.create', $family) }}" class="btn btn-sm btn-outline-secondary">
