@@ -1,20 +1,20 @@
 @extends('dashboard-master')
 
-@section('title', "Ajout d'un étudiant - ")
+@section('title', "Ajout d'un parent - ")
 
 @section('main')
     <div class="container mt-3">
 
         <div class="row justify-content-center">
 
-            <form class="col-12 col-md-8 col-lg-6" action="{{ route('student.store', $family) }}" method="POST">
+            <form class="col-12 col-md-8 col-lg-6" action="{{ route('parent.store', $family) }}" method="POST">
 
                 @csrf
 
                 <div class="card">
 
                     <div class="card-header">
-                        <h3 class="card-title">Ajout d'un étudiant</h3>
+                        <h3 class="card-title">Ajout d'un parent</h3>
                     </div>
 
                     <div class="card-body">
@@ -34,16 +34,35 @@
                         @endcomponent
 
                         @component('components.form.input')
-                            @slot('title', 'Date de naissance')
-                            @slot('type', 'date')
-                            @slot('name', 'birthday')
+                            @slot('title', 'Email')
+                            @slot('name', 'email')
+                            @slot('type', 'email')
                             @slot('required', true)
+                            @slot('attrs', ['max' => 250])
                         @endcomponent
 
-                        @component('components.form.textarea-input')
-                            @slot('title', 'Notes')
-                            @slot('name', 'notes')
-                            @slot('attrs', ['max' => 1000])
+                        @component('components.form.input')
+                            @slot('title', 'Wechat ID')
+                            @slot('name', 'wechat_id')
+                            @slot('type', 'text')
+                            @slot('required', true)
+                            @slot('attrs', ['max' => 50])
+                        @endcomponent
+
+                        @component('components.form.input')
+                            @slot('title', 'Téléphone')
+                            @slot('name', 'phone')
+                            @slot('type', 'phone')
+                            @slot('required', true)
+                            @slot('attrs', ['max' => 16])
+                        @endcomponent
+
+                        @component('components.form.input')
+                            @slot('title', 'Adresse postale')
+                            @slot('name', 'address')
+                            @slot('type', 'text')
+                            @slot('required', true)
+                            @slot('attrs', ['max' => 150])
                         @endcomponent
 
                     </div>

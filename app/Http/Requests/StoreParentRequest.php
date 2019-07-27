@@ -8,15 +8,6 @@ use Illuminate\Validation\Rule;
 
 class StoreParentRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-//    public function authorize()
-//    {
-//        return false;
-//    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -25,24 +16,11 @@ class StoreParentRequest extends FormRequest
      */
     public function rules()
     {
-        $email_unique = Rule::unique('users', 'email');
-
-        /** @var User|mixed $parent */
-        $parent = $this->route('parent');
-
-        if (is_a($parent, User::class) && $this->isMethod('put')) {
-            $email_unique->ignoreModel($parent);
-        }
-
         return [
             'firstname' => 'required|string|max:50',
             'lastname' => 'required|string|max:50',
-            'email' => [
-                'required',
-                'email',
-                $email_unique,
-            ],
-            'wechat_id' => 'nullable|string|max:20',
+            'email' => 'required|email|unique:users,email',
+            'wechat_id' => 'required|string|max:50',
             'phone' => 'required|string|max:16',
             'address' => 'required|string|max:150',
         ];

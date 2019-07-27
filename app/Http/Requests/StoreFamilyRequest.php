@@ -21,7 +21,7 @@ class StoreFamilyRequest extends FormRequest
             'parent.email' => 'required|email',
             'parent.wechat_id' => 'required|string|max:50',
             'parent.phone' => 'required|string|max:16',
-            'parent.address' => 'required|string|max:250',
+            'parent.address' => 'required|string|max:150',
             // Student
             'student.firstname' => 'required|string|max:50',
             'student.lastname' => 'required|string|max:50',

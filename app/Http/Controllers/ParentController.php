@@ -2,32 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\ClientUser;
 use App\Family;
 use App\Http\Requests\StoreParentRequest;
-use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class ParentController extends Controller
 {
+    use AuthorizesRequests;
+
+
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('roles:admin,manager');
-        $this->authorizeResource(User::class, 'parent');
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $users = User::query()->where('type', 'client')->get();
-
-        return view('users.index-parent', compact('users'));
     }
 
 
@@ -35,11 +32,15 @@ class ParentController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Family|null $family
-     * @return \Illuminate\Http\Response
+     *
+     * @return Response
+     * @throws AuthorizationException
      */
     public function create(Family $family)
     {
-        return view('parents.create', compact('family'));
+        $this->authorize('update', Family::class);
+
+        return view('models.clientUser.create', compact('family'));
     }
 
 
@@ -47,40 +48,32 @@ class ParentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreParentRequest $request
-     * @param Family|null $family
-     * @return \Illuminate\Http\Response
+     * @param Family $family
+     *
+     * @return Response
+     * @throws AuthorizationException
      */
     public function store(StoreParentRequest $request, Family $family)
     {
-        $parent = new User($request->all());
-        $parent->password = Hash::make(Str::random(24));
-        $parent->type = 'client';
-        $parent->family()->associate($family);
-        $parent->save();
+        $this->authorize('update', Family::class);
 
-        return redirect(route('parents.index'));
-    }
+        $parent = new ClientUser($request->all());
+        $parent->password = Hash::make(Str::random(64));
 
+        $family->parents()->save($parent);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User $parent
-     * @return void
-     */
-    public function show(User $parent)
-    {
-        //
+        return redirect(route('family.show', $family));
     }
 
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User $parent
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param ClientUser $parent
+     *
+     * @return Factory|View
      */
-    public function edit(User $parent)
+    public function edit(ClientUser $parent)
     {
         return view('parents.edit', compact('parent'));
     }
@@ -90,26 +83,15 @@ class ParentController extends Controller
      * Update the specified resource in storage.
      *
      * @param StoreParentRequest $request
-     * @param  \App\User $parent
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param ClientUser $parent
+     *
+     * @return RedirectResponse|Redirector
      */
-    public function update(StoreParentRequest $request, User $parent)
+    public function update(StoreParentRequest $request, ClientUser $parent)
     {
         $parent->fill($request->all());
         $parent->save();
 
         return redirect(route('family.show', $parent->family));
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User $parent
-     * @return void
-     */
-    public function destroy(User $parent)
-    {
-        //
     }
 }

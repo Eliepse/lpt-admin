@@ -67,7 +67,7 @@
                                 @slot('name', 'parent[address]')
                                 @slot('type', 'text')
                                 @slot('required', true)
-                                @slot('attrs', ['max' => 250])
+                                @slot('attrs', ['max' => 150])
                             @endcomponent
 
                         </div>

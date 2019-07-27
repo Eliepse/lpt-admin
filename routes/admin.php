@@ -16,6 +16,7 @@ use App\Http\Controllers\DuplicateScheduleController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\ParentController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
@@ -48,8 +49,8 @@ Route::post('/families', [FamilyController::class, 'store'])->name('family.store
 Route::get('/families/{family}', [FamilyController::class, 'show'])->name('family.show');
 Route::get('/families/{family}/student/create', [StudentController::class, 'create'])->name('student.create');
 Route::post('/families/{family}/student', [StudentController::class, 'store'])->name('student.store');
-//Route::get('/families/{family}/parent/create', 'ParentController@create')->name('family.parent.create');
-//Route::post('/families/{family}/parent', 'ParentController@store')->name('family.parent.store');
+Route::get('/families/{family}/parent/create', [ParentController::class, 'create'])->name('parent.create');
+Route::post('/families/{family}/parent', [ParentController::class, 'store'])->name('parent.store');
 
 // Lessons
 Route::get('/lessons', [LessonController::class, 'index'])->name('lessons.index');

@@ -33,6 +33,11 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
 
         <div class="my-3 d-flex justify-content-between">
             <h2 class="mb-0">Parents</h2>
+            <div class="text-right">
+                <a href="{{ route('parent.create', $family) }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="fe fe-plus"></i> Ajouter
+                </a>
+            </div>
         </div>
         <hr>
 
