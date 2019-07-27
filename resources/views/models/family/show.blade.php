@@ -46,8 +46,13 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
             @foreach($family->parents as $parent)
                 <div class="col">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between">
                             <div class="card-title text-capitalize mb-0">{{ $parent->getFullname(true) }}</div>
+                            <div>
+                                <a href="{{ route('parent.edit', $parent) }}" class="btn btn-sm btn-icon">
+                                    <i class="fe fe-edit"></i>
+                                </a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <p class="text-muted">{{ $parent->address }}</p>

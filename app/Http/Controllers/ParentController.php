@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ClientUser;
 use App\Family;
 use App\Http\Requests\StoreParentRequest;
+use App\Http\Requests\UpdateParentRequest;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -75,19 +76,19 @@ class ParentController extends Controller
      */
     public function edit(ClientUser $parent)
     {
-        return view('parents.edit', compact('parent'));
+        return view('models.clientUser.edit', compact('parent'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreParentRequest $request
+     * @param UpdateParentRequest $request
      * @param ClientUser $parent
      *
      * @return RedirectResponse|Redirector
      */
-    public function update(StoreParentRequest $request, ClientUser $parent)
+    public function update(UpdateParentRequest $request, ClientUser $parent)
     {
         $parent->fill($request->all());
         $parent->save();

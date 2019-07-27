@@ -22,26 +22,31 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
+
 // Auth
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
 
 // Users
 //Route::get('/users', 'UserController@index')->name('users.index');
 //Route::get('/users/create', 'UserController@create')->name('users.create');
 //Route::post('/users', 'UserController@store')->name('users.store');
 
+
 // Staff
 Route::get('/staff', [StaffController::class, 'index']);
 
+
 // Parents
-//Route::get('/parents', 'ParentController@index')->name('parents.index');
-//Route::get('/parents/{parent}/edit', 'ParentController@edit')->name('parents.edit');
-//Route::put('/parents/{parent}', 'ParentController@update')->name('parents.update');
+Route::get('/parents/{parent}/edit', [ParentController::class, 'edit'])->name('parent.edit');
+Route::put('/parents/{parent}', [ParentController::class, 'update'])->name('parent.update');
+
 
 // Students
 //Route::get('/students', 'StudentController@index')->name('students.index');
 //Route::get('/students/{student}/edit', 'StudentController@edit')->name('students.edit');
 //Route::put('/students/{student}', 'StudentController@update')->name('students.update');
+
 
 // Family, Parents and students (children)
 Route::get('/families/create', [FamilyController::class, 'create'])->name('family.create');
@@ -52,12 +57,14 @@ Route::post('/families/{family}/student', [StudentController::class, 'store'])->
 Route::get('/families/{family}/parent/create', [ParentController::class, 'create'])->name('parent.create');
 Route::post('/families/{family}/parent', [ParentController::class, 'store'])->name('parent.store');
 
+
 // Lessons
 Route::get('/lessons', [LessonController::class, 'index'])->name('lessons.index');
 Route::get('/lessons/create', 'LessonController@create')->name('lessons.create');
 Route::get('/lessons/{lesson}/edit', 'LessonController@edit')->name('lessons.edit');
 Route::post('/lessons', 'LessonController@store')->name('lessons.store');
 Route::put('/lessons/{lesson}', 'LessonController@update')->name('lessons.update');
+
 
 // Classrooms
 Route::post('classrooms', [ClassroomController::class, 'store'])->name('classroom.store');
@@ -70,6 +77,7 @@ Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('cl
 //Route::put('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudent');
 //Route::put('/classrooms/{classroom}/students/{student}/unlink', 'ClassroomController@unlinkStudent')->name('classrooms.students.unlink');
 
+
 // Schedules
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedule.update');
@@ -77,9 +85,11 @@ Route::get('/schedules/{schedule}/promptDuplicate', [DuplicateScheduleController
 Route::get('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'form'])->name('schedule.duplicate');
 Route::post('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'store']);
 
+
 // Offices
 Route::get('/offices/{office}', [OfficeController::class, 'show'])->name('office.show');
 Route::get('/offices/{office}/schedule/create', [ScheduleController::class, 'create'])->name('office.schedule.create');
+
 
 // Other
 Route::get('/home', 'Administration\\MainController@home')->name('home');
