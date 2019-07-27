@@ -30,7 +30,7 @@ class FamilyController extends Controller
 
     public function show(Family $family)
     {
-        return response('Work in progress');
+        return view('models.family.show', compact('family'));
     }
 
 

@@ -1,21 +1,12 @@
-<?php
+<?php /** @noinspection PhpUndefinedMethodInspection */
 
 namespace Tests\Feature\Http\Controllers;
 
 use App\ClientUser;
-use App\Enums\UserTypeEnum;
 use App\Family;
-use App\Sets\UserRolesSet;
 use App\StaffUser;
 use App\Student;
-use App\User;
-use Eliepse\Set\Exceptions\UnknownMemberException;
-use http\Client;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FamilyControllerTest extends TestCase
@@ -90,7 +81,7 @@ class FamilyControllerTest extends TestCase
         $admin = factory(StaffUser::class, 1)->create()->first();
 
         /** @var ClientUser $parent */
-        $parent = factory(ClientUser::class, 1)->create($this->getFakeParent())->first();
+        factory(ClientUser::class, 1)->create($this->getFakeParent())->first();
 
         $response = $this->actingAs($admin, 'admin')
             ->post(route('family.store'), [
