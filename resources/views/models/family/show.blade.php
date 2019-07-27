@@ -36,7 +36,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
             <div class="col-12 col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Parents</div>
+                        <div class="card-title mb-0">Parents</div>
                     </div>
                     <div class="card-table">
                         <table class="table">
@@ -66,8 +66,13 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
 
             <div class="col-12 col-md-6">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Enfants</div>
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title mb-0">Enfants</div>
+                        <div>
+                            <a href="{{ route('student.create', $family) }}" class="btn btn-sm btn-outline-secondary">
+                                <i class="fe fe-plus"></i> Ajouter
+                            </a>
+                        </div>
                     </div>
                     <div class="card-table">
                         <table class="table">

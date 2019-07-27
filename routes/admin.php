@@ -18,6 +18,7 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 // Auth
@@ -45,10 +46,10 @@ Route::get('/staff', [StaffController::class, 'index']);
 Route::get('/families/create', [FamilyController::class, 'create'])->name('family.create');
 Route::post('/families', [FamilyController::class, 'store'])->name('family.store');
 Route::get('/families/{family}', [FamilyController::class, 'show'])->name('family.show');
-//Route::get('/family/{family}/parent/create', 'ParentController@create')->name('family.parent.create');
-//Route::get('/family/{family}/children/create', 'StudentController@create')->name('family.children.create');
-//Route::post('/family/{family}/parent', 'ParentController@store')->name('family.parent.store');
-//Route::post('/family/{family}/children', 'StudentController@store')->name('family.children.store');
+Route::get('/families/{family}/student/create', [StudentController::class, 'create'])->name('student.create');
+Route::post('/families/{family}/student', [StudentController::class, 'store'])->name('student.store');
+//Route::get('/families/{family}/parent/create', 'ParentController@create')->name('family.parent.create');
+//Route::post('/families/{family}/parent', 'ParentController@store')->name('family.parent.store');
 
 // Lessons
 Route::get('/lessons', [LessonController::class, 'index'])->name('lessons.index');
