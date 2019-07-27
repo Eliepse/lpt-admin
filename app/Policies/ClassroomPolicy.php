@@ -22,8 +22,9 @@ class ClassroomPolicy
     /**
      * Determine whether the user can view the classroom.
      *
-     * @param  \App\User $user
-     * @param  \App\Classroom $classroom
+     * @param User $user
+     * @param Classroom $classroom
+     *
      * @return mixed
      */
     public function view(User $user, Classroom $classroom)
@@ -35,7 +36,8 @@ class ClassroomPolicy
     /**
      * Determine whether the user can create classrooms.
      *
-     * @param  \App\User $user
+     * @param User $user
+     *
      * @return mixed
      */
     public function create(User $user)
@@ -47,8 +49,9 @@ class ClassroomPolicy
     /**
      * Determine whether the user can update the classroom.
      *
-     * @param  \App\User $user
-     * @param  \App\Classroom $classroom
+     * @param User $user
+     * @param Classroom $classroom
+     *
      * @return mixed
      */
     public function update(User $user, Classroom $classroom)
@@ -60,8 +63,9 @@ class ClassroomPolicy
     /**
      * Determine whether the user can delete the classroom.
      *
-     * @param  \App\User $user
-     * @param  \App\Classroom $classroom
+     * @param User $user
+     * @param Classroom $classroom
+     *
      * @return mixed
      */
     public function delete(User $user, Classroom $classroom)
@@ -73,8 +77,9 @@ class ClassroomPolicy
     /**
      * Determine whether the user can restore the classroom.
      *
-     * @param  \App\User $user
-     * @param  \App\Classroom $classroom
+     * @param User $user
+     * @param Classroom $classroom
+     *
      * @return mixed
      */
     public function restore(User $user, Classroom $classroom)
@@ -86,8 +91,9 @@ class ClassroomPolicy
     /**
      * Determine whether the user can permanently delete the classroom.
      *
-     * @param  \App\User $user
-     * @param  \App\Classroom $classroom
+     * @param User $user
+     * @param Classroom $classroom
+     *
      * @return mixed
      */
     public function forceDelete(User $user, Classroom $classroom)

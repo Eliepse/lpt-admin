@@ -16,6 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class User
+ *
  * @package App
  * @property int id
  * @property string firstname
@@ -33,7 +34,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Family family
  * @property Carbon created_at
  * @property Carbon updated_at
- *
  * @method static Builder teacher
  * @method static Builder parent
  */
@@ -57,6 +57,7 @@ class User extends Authenticatable
 
     /**
      * @param $value
+     *
      * @return UserRolesSet
      * @throws \Eliepse\Set\Exceptions\UnknownMemberException
      */
@@ -120,6 +121,7 @@ class User extends Authenticatable
 
     /**
      * @param Builder $query
+     *
      * @return Builder
      */
     public function scopeStaff(Builder $query): Builder
@@ -129,7 +131,8 @@ class User extends Authenticatable
 
 
     /**
-     * @param  Builder $query
+     * @param Builder $query
+     *
      * @return Builder
      */
     public function scopeTeacher(Builder $query): Builder
@@ -140,7 +143,8 @@ class User extends Authenticatable
 
 
     /**
-     * @param  Builder $query
+     * @param Builder $query
+     *
      * @return Builder
      */
     public function scopeParent(Builder $query): Builder
