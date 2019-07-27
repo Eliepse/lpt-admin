@@ -29,71 +29,70 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
         {{-- TODO(eliepse): Add link to index --}}
         {{--<a href="#" class="btn btn-link"><i class="fe fe-arrow-left"></i> Retour</a>--}}
 
-        <h1>Famille</h1>
+        <h1 class="my-3">Famille <i>{{ $family->parents->pluck('lastname')->unique()->join('-') }}</i></h1>
 
-        <div class="row mt-3">
+        <div class="my-3 d-flex justify-content-between">
+            <h2 class="mb-0">Parents</h2>
+        </div>
+        <hr>
 
-            <div class="col-12 col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title mb-0">Parents</div>
-                    </div>
-                    <div class="card-table">
-                        <table class="table">
-                            <tbody>
-                            @foreach($family->parents as $parent)
-                                <tr>
-                                    <td>
-                                        <strong class="text-capitalize">{{ $parent->getFullname(true) }}</strong><br>
-                                        <span class="text-muted">{{ $parent->address }}</span>
-                                    </td>
-                                    <td>
-                                        <a href="tel:{{ $parent->phone }}">{{ $parent->phone }}</a><br>
-                                        <a href="weixin://dl/chat?{{ $parent->wechat_id }}">{{ $parent->wechat_id }}</a><br>
-                                        <a href="mailto:{{ $parent->email }}">{{ $parent->email }}</a>
-                                    </td>
-                                    <td class="text-right">
-                                        {{-- TODO(eliepse): add action to parent --}}
-                                        {{--<a href="javascript:void(0)" class="btn btn-link">test</a>--}}
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="card-title mb-0">Enfants</div>
-                        <div>
-                            <a href="{{ route('student.create', $family) }}" class="btn btn-sm btn-outline-secondary">
-                                <i class="fe fe-plus"></i> Ajouter
-                            </a>
+        <div class="row my-3">
+            @foreach($family->parents as $parent)
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title text-capitalize mb-0">{{ $parent->getFullname(true) }}</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">{{ $parent->address }}</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <i class="fe fe-phone"></i>&nbsp;
+                                    <a href="tel:{{ $parent->phone }}">{{ $parent->phone }}</a>
+                                </li>
+                                <li>
+                                    <i class="fe fe-hash"></i>&nbsp;
+                                    <a href="weixin://dl/chat?{{ $parent->wechat_id }}">{{ $parent->wechat_id }}</a>
+                                </li>
+                                <li>
+                                    <i class="fe fe-mail"></i>&nbsp;
+                                    <a href="mailto:{{ $parent->email }}">{{ $parent->email }}</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="card-table">
-                        <table class="table">
-                            <tbody>
-                            @foreach($family->students as $student)
-                                <tr>
-                                    <td>
-                                        <strong class="text-capitalize">{{ $student->getFullname(true) }}</strong><br>
-                                        <span class="text-muted">{{ $student->birthday->diffInYears() }} ans</span>
-                                    </td>
-                                    <td class="text-right">
-                                        {{-- TODO(eliepse): add action to student --}}
-                                        {{--<a href="javascript:void(0)" class="btn btn-link">test</a>--}}
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="my-3 d-flex justify-content-between">
+            <h2 class="mb-0">Étudiants</h2>
+            <div class="text-right">
+                <a href="{{ route('student.create', $family) }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="fe fe-plus"></i> Ajouter
+                </a>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row my-3">
+            @foreach($family->students as $student)
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="card-title mb-0">
+                                <span class="text-capitalize">{{ $student->getFullname(true) }}</span>
+                            </div>
+                            <div class="text-muted">{{ $student->birthday->diffInYears() }} ans</div>
+                        </div>
+                        <div class="card-body">
+                            @if($student->notes)<p class="font-italic">{{ $student->notes }}</p>@endif
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
 
         </div>
 
