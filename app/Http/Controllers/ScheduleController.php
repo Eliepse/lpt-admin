@@ -3,20 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Classroom;
-use App\Enums\LocationEnum;
-use App\Http\Requests\StoreClassroomRequest;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Office;
 use App\Schedule;
-use App\Sets\DaysSet;
-use App\Student;
-use Eliepse\Alert\AlertError;
 use Eliepse\Alert\AlertSuccess;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
 

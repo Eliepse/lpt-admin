@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classroom;
-use App\Enums\LocationEnum;
 use App\Http\Requests\StoreClassroomRequest;
-use App\Sets\DaysSet;
-use App\Student;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -15,7 +12,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
-use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class ClassroomController extends Controller
@@ -127,146 +123,6 @@ class ClassroomController extends Controller
             return response()->json(['redirect' => route('classrooms.show', $classroom)]);
 
         return redirect(route('classrooms.show', $classroom));
-    }
-
-
-    /**
-     * @param Classroom $classroom
-     *
-     * @return Factory|View
-     * @throws AuthorizationException
-     */
-    public function selectStudent(Classroom $classroom)
-    {
-        $this->authorize('update', $classroom);
-
-        $students = Student::query()
-            ->whereNotIn('id', $classroom->students->pluck('id'))
-            ->get(['id', 'firstname', 'lastname', 'birthday']);
-
-        return view('models.classroom.select-student', compact('classroom', 'students'));
-    }
-
-
-    /**
-     * @param Classroom $classroom
-     * @param Student $student
-     *
-     * @return Factory|View
-     * @throws AuthorizationException
-     */
-    public function linkStudentForm(Classroom $classroom, Student $student)
-    {
-        $this->authorize('update', $classroom);
-
-        $grade = $classroom->grades()->first(['id', 'title', 'price']);
-        $student = $classroom->students()->where('id', $student->id)->first() ?: $student;
-
-        return view('models.classroom.link-student', compact('classroom', 'student', 'grade'));
-    }
-
-
-    /**
-     * @param Request $request
-     * @param Classroom $classroom
-     * @param Student $student
-     *
-     * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
-     * @throws ValidationException
-     */
-    public function linkStudent(Request $request, Classroom $classroom, Student $student)
-    {
-        $this->authorize('update', $classroom);
-
-        $this->validate($request, [
-            'price' => 'required|integer|between:-32500,32500',
-            'paid' => 'required|integer|between:-32500,32500',
-        ]);
-
-        if ($classroom->students()->where('id', $student->id)->exists()) {
-            $classroom->students()->updateExistingPivot($student->id, $request->all(['price', 'paid']));
-        } else {
-            $classroom->students()->attach($student->id, $request->all(['price', 'paid']));
-        }
-
-
-        return redirect(route('classrooms.show', $classroom));
-    }
-
-
-    /**
-     * @param Request $request
-     * @param Classroom $classroom
-     * @param Student $student
-     *
-     * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
-     */
-    public function unlinkStudent(Request $request, Classroom $classroom, Student $student)
-    {
-        $this->authorize('update', $classroom);
-
-        $classroom->students()->detach($student->id);
-
-        return redirect(route('classrooms.show', $classroom));
-    }
-
-
-    /**
-     * @param Grade $grade
-     *
-     * @return Factory|View
-     * @throws AuthorizationException
-     */
-    public function benchForm(Grade $grade)
-    {
-        $this->authorize('update', $grade);
-
-        return view('models.classroom.create-bench', compact('grade'));
-    }
-
-
-    /**
-     * @param Request $request
-     * @param Grade $grade
-     *
-     * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
-     * @throws ValidationException
-     */
-    public function bench(Request $request, Grade $grade)
-    {
-        $this->authorize('update', $grade);
-        $classrooms = collect();
-
-        $this->validate($request, [
-            'location' => ['required', 'enum_key:' . LocationEnum::class],
-            'max_students' => 'required|integer|min:1|max:250',
-            'days' => 'required|array|min:1',
-            'days.*' => 'required|in:' . join(',', DaysSet::getKeys()),
-            'hours' => 'required|json',
-            'first_day' => 'required|date|before:last_day',
-            'last_day' => 'required|date|after:first_day',
-            'booking_open_at' => 'sometimes|nullable|date|before:last_day|before:last_day',
-            'booking_close_at' => 'sometimes|nullable|date|after:first_day|before:last_day',
-        ]);
-
-        $days = $request->get('days', []);
-        $hours = json_decode($request->get('hours', "[]"));
-
-        foreach ($days as $day) {
-            foreach ($hours as $hour) {
-                $classroom = new Classroom($request->all(['location', 'max_students', 'first_day', 'last_day',
-                    'booking_open_at', 'booking_close_at']));
-                $classroom->schedules = [$day => [$hour]];
-                $classrooms->push($classroom);
-            }
-        }
-
-        $grade->classrooms()->saveMany($classrooms);
-
-        return redirect(route('grades.show', $grade));
     }
 
 

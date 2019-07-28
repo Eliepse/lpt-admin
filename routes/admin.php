@@ -27,12 +27,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
-// Users
-//Route::get('/users', 'UserController@index')->name('users.index');
-//Route::get('/users/create', 'UserController@create')->name('users.create');
-//Route::post('/users', 'UserController@store')->name('users.store');
-
-
 // Staff
 Route::get('/staff', [StaffController::class, 'index']);
 
@@ -71,10 +65,6 @@ Route::get('classrooms/create', [ClassroomController::class, 'create'])->name('c
 Route::get('/classrooms/{classroom}', [ClassroomController::class, 'show'])->name('classrooms.show');
 Route::put('/classrooms/{classroom}', [ClassroomController::class, 'update'])->name('classrooms.update');
 Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('classrooms.edit');
-//Route::get('/classrooms/{classroom}/students/select', 'ClassroomController@selectStudent')->name('classrooms.students.select');
-//Route::get('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudentForm')->name('classrooms.students.link');
-//Route::put('/classrooms/{classroom}/students/{student}/link', 'ClassroomController@linkStudent');
-//Route::put('/classrooms/{classroom}/students/{student}/unlink', 'ClassroomController@unlinkStudent')->name('classrooms.students.unlink');
 
 
 // Schedules
