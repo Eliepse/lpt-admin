@@ -43,9 +43,8 @@ Route::put('/parents/{parent}', [ParentController::class, 'update'])->name('pare
 
 
 // Students
-//Route::get('/students', 'StudentController@index')->name('students.index');
-//Route::get('/students/{student}/edit', 'StudentController@edit')->name('students.edit');
-//Route::put('/students/{student}', 'StudentController@update')->name('students.update');
+Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('student.edit');
+Route::put('/students/{student}', [StudentController::class, 'update'])->name('student.update');
 
 
 // Family, Parents and students (children)

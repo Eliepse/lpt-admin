@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Family;
 use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 use App\Student;
-use App\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
@@ -61,19 +59,19 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('students.edit', compact('student'));
+        return view('models.student.edit', compact('student'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreStudentRequest $request
+     * @param UpdateStudentRequest $request
      * @param Student $student
      *
      * @return RedirectResponse|Redirector
      */
-    public function update(StoreStudentRequest $request, Student $student)
+    public function update(UpdateStudentRequest $request, Student $student)
     {
         $student->fill($request->all());
         $student->save();

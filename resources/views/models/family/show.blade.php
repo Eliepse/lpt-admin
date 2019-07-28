@@ -96,7 +96,10 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                             <div class="card-title mb-0">
                                 <span class="text-capitalize">{{ $student->getFullname(true) }}</span>
                             </div>
-                            <div class="text-muted">{{ $student->birthday->diffInYears() }} ans</div>
+                            <div class="text-muted">
+                                {{ $student->birthday->diffInYears() }} ans
+                                <a href="{{ route('student.edit', $student) }}" class="btn btn-icon"><i class="fe fe-edit"></i></a>
+                            </div>
                         </div>
                         <div class="card-body">
                             @if($student->notes)<p class="font-italic">{{ $student->notes }}</p>@endif
