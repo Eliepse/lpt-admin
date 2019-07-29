@@ -19,7 +19,7 @@
 
                     <form class="card" action="{{ route('login') }}" method="post">
 
-                        {{ csrf_field() }}
+                        @csrf
 
                         <div class="card-body p-6">
                             <div class="card-title">Connexion à LPT</div>
