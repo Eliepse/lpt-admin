@@ -32,7 +32,7 @@
 <body class="d-flex flex-column">
 
 <header class="header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="z-index: 100">
         <a class="navbar-brand" href="/">
             <img src="{{ asset("images/logo-2.png") }}" class="navbar-brand-img" alt="LPT logo">
         </a>

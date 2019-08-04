@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Classroom;
 use App\Http\Requests\StoreClassroomRequest;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
@@ -28,9 +27,20 @@ class ClassroomController extends Controller
 
 
     /**
+     * @return View
+     */
+    public function index()
+    {
+        $classrooms = Classroom::all();
+
+        return view("models.classroom.index", compact('classrooms'));
+    }
+
+
+    /**
      * Show the form for creating a new resource.
      *
-     * @return Factory|View
+     * @return View
      * @throws AuthorizationException
      */
     public function create()
@@ -73,7 +83,7 @@ class ClassroomController extends Controller
      * @param Request $request
      * @param Classroom $classroom
      *
-     * @return Factory|View
+     * @return View
      */
     public function show(Request $request, Classroom $classroom)
     {
@@ -91,7 +101,7 @@ class ClassroomController extends Controller
      *
      * @param Classroom $classroom
      *
-     * @return Factory|View
+     * @return View
      */
     public function edit(Classroom $classroom)
     {

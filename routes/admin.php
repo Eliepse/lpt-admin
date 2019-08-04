@@ -60,6 +60,7 @@ Route::put('/lessons/{lesson}', 'LessonController@update')->name('lessons.update
 
 
 // Classrooms
+Route::get('classrooms', [ClassroomController::class, 'index'])->name('classrooms.index');
 Route::post('classrooms', [ClassroomController::class, 'store'])->name('classroom.store');
 Route::get('classrooms/create', [ClassroomController::class, 'create'])->name('classroom.create');
 Route::get('/classrooms/{classroom}', [ClassroomController::class, 'show'])->name('classrooms.show');
