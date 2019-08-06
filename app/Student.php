@@ -10,16 +10,19 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Student
+ *
  * @package App
  * @property int id
  * @property string firstname
  * @property string lastname
  * @property Carbon birthday
  * @property string notes
+ * @property int family_id
  * @property Collection parents
  * @property Collection classrooms
  * @property StudentSchedule subscription
@@ -39,13 +42,9 @@ class Student extends Model
     ];
 
 
-    public function parents(): BelongsToMany
+    public function parents(): HasMany
     {
-        return $this->belongsToMany(User::class, 'parent_student')
-            ->using(ParentStudent::class)
-            ->withPivot([
-                'relation',
-            ]);
+        return $this->hasMany(ClientUser::class, 'family_id', 'family_id');
     }
 
 
