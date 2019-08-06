@@ -22,6 +22,17 @@ class StudentController extends Controller
 
 
     /**
+     * @return View
+     */
+    public function index()
+    {
+        $students = Student::with(['family', 'parents'])->get();
+
+        return view("models.student.index", compact("students"));
+    }
+
+
+    /**
      * Show the form for creating a new resource.
      *
      * @param Family $family

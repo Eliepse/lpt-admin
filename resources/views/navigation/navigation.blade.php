@@ -17,9 +17,9 @@
         {{--<li class="nav-item">--}}
         {{--<a href="{{ route('users.index') }}" class="nav-link"><i class="fe fe-users"></i> Équipe</a>--}}
         {{--</li>--}}
-        {{--<li class="nav-item">--}}
-        {{--<a href="{{ route('students.index') }}" class="nav-link"><i class="fe fe-users"></i> Étudiants</a>--}}
-        {{--</li>--}}
+        <li class="nav-item">
+            <a href="{{ route('students.index') }}" class="nav-link"><i class="fe fe-users"></i> Étudiants</a>
+        </li>
         @if(auth()->user()->isAdmin())
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="javascript:void()" id="settingsDropdown"
