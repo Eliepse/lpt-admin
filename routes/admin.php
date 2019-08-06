@@ -79,6 +79,9 @@ Route::post('/schedules/{schedule}/duplicate', [DuplicateScheduleController::cla
 
 
 // Offices
+Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
+Route::get('/offices/create', [OfficeController::class, 'create'])->name('offices.create');
+Route::post('/offices', [OfficeController::class, 'store'])->name('offices.store');
 Route::get('/offices/{office}', [OfficeController::class, 'show'])->name('office.show');
 Route::get('/offices/{office}/schedule/create', [ScheduleController::class, 'create'])->name('office.schedule.create');
 
