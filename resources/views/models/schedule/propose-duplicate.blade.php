@@ -20,6 +20,9 @@ use App\Sets\DaysSet;
 
                 <div class="card">
                     <div class="card-body">
+                        <h2 class="text-center">Classe enregistré !</h2>
+                    </div>
+                    <div class="card-body">
                         <p>Souhaitez-vous ajouter des horaires ?</p>
                         <p class="text-muted">
                             En cliquant sur <i>Oui</i>, vous pourrez créer une nouvelle
