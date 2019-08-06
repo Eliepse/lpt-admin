@@ -27,15 +27,15 @@
                     <div class="card mt-3 mb-3">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="classroomName">Nom de la classe</label>
+                                <label for="classroomName">Nom du cours</label>
                                 <input type="text" class="form-control" v-bind:class="{'is-invalid' : errors.name}"
                                        v-on:change="errors.name = undefined"
                                        id="classroomName"
                                        aria-describedby="nameHelp"
-                                       placeholder="Utilisez un nom qui decrit bien le contenu de cette classe"
+                                       placeholder="Utilisez un nom qui decrit bien le contenu de cette cours"
                                        v-model="classroom.name">
                                 <small id="nameHelp" class="form-text text-muted">
-                                    Le nom de la classe sera également affiché aux parents (lors de l'inscription par exemple)
+                                    Le nom du cours sera également affiché aux parents (lors de l'inscription par exemple)
                                 </small>
                                 <div class="invalid-feedback" v-for="message in errors.name">
                                     {{ message }}

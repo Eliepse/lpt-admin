@@ -1,6 +1,6 @@
 @extends('dashboard-master')
 
-@section('title', 'LPT - Créer une classe')
+@section('title', 'LPT - Créer un cours')
 
 @section('main')
 

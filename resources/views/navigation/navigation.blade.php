@@ -31,7 +31,7 @@
                         <i class="fe fe-grid"></i> Général
                     </a>
                     <a href="{{ route('classrooms.index') }}" class="nav-link">
-                        <i class="fe fe-book"></i> Classes
+                        <i class="fe fe-book"></i> Cours
                     </a>
                     <a href="{{ route('offices.index') }}" class="nav-link">
                         <i class="fe fe-home"></i> Bureaux

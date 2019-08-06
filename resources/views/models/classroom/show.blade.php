@@ -11,7 +11,7 @@ use \Illuminate\Support\Str;
  */
 ?>
 
-@section('title', "Classe: {$classroom->name} - ")
+@section('title', "Cours: {$classroom->name} - ")
 
 @section('main')
 
@@ -19,7 +19,7 @@ use \Illuminate\Support\Str;
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
             <h1>
                 <small class="text-muted h6">
-                    Classe
+                    Cours
                     &middot; {{ $classroom->getDuration(true) }}
                     &middot; {{ $classroom->lessons->count() . ' ' . Str::plural('leçon', $classroom->lessons->count()) }}
                 </small>
@@ -29,7 +29,7 @@ use \Illuminate\Support\Str;
             <div>
                 <a class="btn btn-outline-secondary" href="{{ route('classrooms.edit', $classroom) }}">
                     <i class="fe fe-edit-3"></i>
-                    Modifier la classe
+                    Modifier la cours
                 </a>
             </div>
         </div>
@@ -61,7 +61,7 @@ use \Illuminate\Support\Str;
             </table>
         </div>
 
-        <div class="d-flex justify-content-between mt-5"><h4>Horaires</h4></div>
+        <div class="d-flex justify-content-between mt-5"><h4>Classes</h4></div>
 
         <schedule-calendar
                 :schedules="{{ $classroom->schedules->toJson() }}"

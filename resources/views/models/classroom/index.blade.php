@@ -18,10 +18,10 @@ use \Illuminate\Support\Str;
     <div class="container justify-content-center">
 
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
-            <h1>Classes</h1>
+            <h1>Cours</h1>
             <div>
                 <a class="btn btn-outline-secondary" href="{{ route('classroom.create') }}">
-                    <i class="fe fe-plus"></i> Nouvelle classe
+                    <i class="fe fe-plus"></i> Nouveau cours
                 </a>
             </div>
         </div>
