@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\Administration\SettingsController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\DuplicateScheduleController;
 use App\Http\Controllers\FamilyController;
@@ -80,6 +81,10 @@ Route::post('/schedules/{schedule}/duplicate', [DuplicateScheduleController::cla
 // Offices
 Route::get('/offices/{office}', [OfficeController::class, 'show'])->name('office.show');
 Route::get('/offices/{office}/schedule/create', [ScheduleController::class, 'create'])->name('office.schedule.create');
+
+// Settings
+Route::get('/settings', [SettingsController::class, 'general'])->name('settings');
+//Route::put('/settings/action/maintenance', [SettingsController::class, 'toggleMaintenance'])->name('settings.action.toggleMaintenance');
 
 
 // Other

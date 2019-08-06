@@ -27,6 +27,9 @@
                     <i class="fe fe-settings"></i> Paramètres
                 </a>
                 <div class="dropdown-menu" aria-labelledby="settingsDropdown">
+                    <a href="{{ route('settings') }}" class="nav-link">
+                        <i class="fe fe-grid"></i> Général
+                    </a>
                     <a href="{{ route('classrooms.index') }}" class="nav-link">
                         <i class="fe fe-book"></i> Classes
                     </a>
