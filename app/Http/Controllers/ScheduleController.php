@@ -27,6 +27,12 @@ class ScheduleController extends Controller
     }
 
 
+    public function show(Schedule $schedule)
+    {
+        return view("models.schedule.show", compact("schedule"));
+    }
+
+
     public function create(Office $office)
     {
         $classrooms = Classroom::all();

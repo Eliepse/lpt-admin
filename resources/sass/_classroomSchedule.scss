@@ -21,6 +21,9 @@
   color: #a0aec0;
 }
 
+.schedule-link:hover {
+    text-decoration: none;
+}
 
 .schedule {
   font-size: .875em;
@@ -62,6 +65,8 @@
 }
 
 
+.schedule-link:hover,
+.schedule-link:active,
 .schedule-active,
 .schedule:hover {
   &.popSchedule-bgEnded {
