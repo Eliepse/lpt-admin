@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Family family
  * @property Carbon created_at
  * @property Carbon updated_at
+ * @property StudentSchedule pivot
  */
 class Student extends Model
 {

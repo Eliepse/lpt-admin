@@ -136,4 +136,18 @@ class Schedule extends Model
 
         return Carbon::now()->isBetween($this->hour, $end, true);
     }
+
+
+    public function getTheoricalPaidAmount(): int
+    {
+        return $this->price * $this->students_count;
+    }
+
+
+    public function getActualPaidAmount(): int
+    {
+        return $this->students->reduce(function (int $val, Student $student) {
+            return $val + $student->pivot->paid;
+        }, 0);
+    }
 }

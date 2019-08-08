@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 
 /**
  * Class StudentParent
+ *
  * @package App\Pivots
  * @property int timetable_id
  * @property int student_id
@@ -26,8 +27,14 @@ class StudentSchedule extends Pivot
     }
 
 
-    public function hasPaid(): bool
+    public function isPaid(): bool
     {
         return $this->paid >= $this->price;
+    }
+
+
+    public function isOverPaid(): bool
+    {
+        return $this->paid > $this->price;
     }
 }

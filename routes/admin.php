@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\Administration\ScheduleStudentController;
 use App\Http\Controllers\Administration\SettingsController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\DuplicateScheduleController;
@@ -77,6 +78,9 @@ Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name
 Route::get('/schedules/{schedule}/promptDuplicate', [DuplicateScheduleController::class, 'prompt'])->name('schedule.promptDuplicate');
 Route::get('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'form'])->name('schedule.duplicate');
 Route::post('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'store']);
+Route::get('/schedules/{schedule}/students/select', [ScheduleStudentController::class, 'select'])->name('schedules.students.select');
+Route::put('/schedules/{schedule}/students/{student}', [ScheduleStudentController::class, 'link'])->name('schedules.students.link');
+Route::get('/schedules/{schedule}/students/{student}/edit', [ScheduleStudentController::class, 'edit'])->name('schedules.students.edit');
 
 
 // Offices

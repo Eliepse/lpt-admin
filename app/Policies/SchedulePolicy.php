@@ -100,4 +100,18 @@ class SchedulePolicy
     {
         //
     }
+
+
+    /**
+     * Determine whether the user can update the classroom.
+     *
+     * @param User $user
+     * @param Schedule $schedule
+     *
+     * @return mixed
+     */
+    public function updateStudents(User $user, Schedule $schedule)
+    {
+        //
+    }
 }

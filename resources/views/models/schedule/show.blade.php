@@ -37,12 +37,13 @@ use App\Student;
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <div class="card-title">Étudiants</div>
-                {{--<div>
-                    <a class="btn btn-sm btn-outline-secondary" href="#">Ajouter</a>
-                </div>--}}
+                <div>
+                    <a class="btn btn-sm btn-outline-secondary"
+                       href="{{ route('schedules.students.select', $schedule) }}">Ajouter</a>
+                </div>
             </div>
             <div class="card-table">
-                <table class="table table-borderless table-striped table-vcenter">
+                <table class="table table-vcenter">
                     <thead>
                     <tr class="text-uppercase text-muted small border-bottom">
                         <th>Nom</th>
@@ -54,22 +55,46 @@ use App\Student;
                     @foreach($schedule->students as $student)
                         <tr>
                             <td>
-                                {{ $student->getFullname(true) }}
+                                <a href="{{ route('family.show', $student->family) }}">
+                                    {{ $student->getFullname(true) }}
+                                </a>
                                 <br>
                                 <small class="text-muted">{{ $student->getAge() }} ans</small>
                             </td>
-                            <td></td>
-                            <td></td>
+                            <td>
+                                @if($student->pivot->isOverPaid())
+                                    <span class="text-info">+&nbsp;{{ $student->pivot->paid - $student->pivot->price }}&nbsp;€</span>
+                                @elseif($student->pivot->isPaid())
+                                    <span class="text-muted">Payé</span>
+                                @else
+                                    <span class="text-danger">-&nbsp;{{ $student->pivot->unpaidAmount() }}&nbsp;€</span>
+                                @endif
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ route('schedules.students.edit', [$schedule, $student]) }}"
+                                   class="btn btn-sm btn-icon"><i class="fe fe-edit"></i></a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
+                    <tfoot>
+                    <tr class="small text-muted">
+                        <th></th>
+                        <th>
+                            {{ $schedule->getActualPaidAmount() }}&nbsp;€ / {{ $schedule->getTheoricalPaidAmount() }}&nbsp;€
+                        </th>
+                        <th>
+                            <i class="fe fe-users"></i> {{ $schedule->students->count() }} / {{ $schedule->max_students }}
+                        </th>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
-            <div class="card-footer">
-                <div class="text-right">
-                    <i class="fe fe-users"></i> {{ $schedule->students->count() }} / {{ $schedule->max_students }}
-                </div>
-            </div>
+            {{--            <div class="card-footer">--}}
+            {{--                <div class="text-right">--}}
+
+            {{--                </div>--}}
+            {{--            </div>--}}
         </div>
 
     </div>
