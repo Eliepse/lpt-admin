@@ -4,13 +4,16 @@
 namespace Eliepse\Set;
 
 use Eliepse\Set\Exceptions\UnknownMemberException;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 
-class Set implements SetInterface
+class Set implements SetInterface, Arrayable, \JsonSerializable, Jsonable
 {
     /**
      * The active members of the Set stored
+     *
      * @var array
      */
     private $values = [];
@@ -22,6 +25,7 @@ class Set implements SetInterface
 
     /**
      * Is the Set nullable
+     *
      * @var bool
      */
     protected static $nullable = false;
@@ -29,7 +33,9 @@ class Set implements SetInterface
 
     /**
      * Set constructor.
+     *
      * @param array $values
+     *
      * @throws UnknownMemberException
      */
     public function __construct($values = [])
@@ -42,6 +48,7 @@ class Set implements SetInterface
 
     /**
      * Get members of the Set
+     *
      * @return array
      */
     public static function getKeys(): array
@@ -52,6 +59,7 @@ class Set implements SetInterface
 
     /**
      * Is the Set nullable
+     *
      * @return bool
      */
     public static function isNullbale(): bool
@@ -62,6 +70,7 @@ class Set implements SetInterface
 
     /**
      * Get active members of the Set
+     *
      * @return array|null
      */
     public function getValues(): ?array
@@ -79,7 +88,9 @@ class Set implements SetInterface
 
     /**
      * Check if a single member is active
+     *
      * @param string $member
+     *
      * @return bool
      */
     public function has(string $member): bool
@@ -90,7 +101,9 @@ class Set implements SetInterface
 
     /**
      * Check if at least one of the given members is active
+     *
      * @param array $members
+     *
      * @return bool
      */
     public function hasOne(array $members): bool
@@ -109,7 +122,9 @@ class Set implements SetInterface
 
     /**
      * Check if every given members are active
+     *
      * @param array $members
+     *
      * @return bool
      */
     public function hasAll(array $members): bool
@@ -132,7 +147,9 @@ class Set implements SetInterface
 
     /**
      * To set (or activate) a member of the Set
+     *
      * @param string|array $member
+     *
      * @return void
      * @throws UnknownMemberException
      */
@@ -148,7 +165,9 @@ class Set implements SetInterface
 
     /**
      * To unset (or unactivate) a member of the Set
+     *
      * @param string|array $member
+     *
      * @return void
      * @throws UnknownMemberException
      */
@@ -164,6 +183,7 @@ class Set implements SetInterface
 
     /**
      * To unset all members of the Set
+     *
      * @return void
      */
     public function unsetAll(): void
@@ -175,7 +195,9 @@ class Set implements SetInterface
 
     /**
      * Check if the member exists
+     *
      * @param string $key
+     *
      * @return bool
      */
     public static function hasKey(string $key): bool
@@ -186,6 +208,7 @@ class Set implements SetInterface
 
     /**
      * @param string $member
+     *
      * @return void
      * @throws UnknownMemberException
      */
@@ -200,6 +223,7 @@ class Set implements SetInterface
 
     /**
      * @param string $member
+     *
      * @return void
      * @throws UnknownMemberException
      */
@@ -214,8 +238,10 @@ class Set implements SetInterface
 
     /**
      * Handle the creation of the table for the Set
+     *
      * @param Blueprint $table
      * @param string $column_name
+     *
      * @return ColumnDefinition
      */
     public static function createTableColumn(Blueprint $table, string $column_name): ColumnDefinition
@@ -227,5 +253,43 @@ class Set implements SetInterface
     public function __toString(): string
     {
         return join(',', $this->getValues());
+    }
+
+
+    /**
+     * Get the instance as an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->getValues();
+    }
+
+
+    /**
+     * Convert the object to its JSON representation.
+     *
+     * @param int $options
+     *
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->jsonSerialize(), $options);
+    }
+
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }
