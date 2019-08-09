@@ -96,4 +96,4 @@ Route::get('/settings', [SettingsController::class, 'general'])->name('settings'
 
 
 // Other
-Route::get('/home', 'Administration\\MainController@home')->name('home');
+Route::get('/', 'Administration\\MainController@home')->name('home');
