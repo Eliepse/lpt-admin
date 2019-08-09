@@ -13,13 +13,13 @@
 
 use App\Http\Controllers\Administration\ScheduleStudentController;
 use App\Http\Controllers\Administration\SettingsController;
+use App\Http\Controllers\Administration\StaffController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\DuplicateScheduleController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\ParentController;
-use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +30,9 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 // Staff
-Route::get('/staff', [StaffController::class, 'index']);
+Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
+Route::get('/staff/create', [StaffController::class, 'create'])->name('staff.create');
+Route::post('/staff', [StaffController::class, 'store'])->name('staff.store');
 
 
 // Parents

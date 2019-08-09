@@ -5,10 +5,12 @@ namespace App;
 
 use App\Pivots\ScheduleTeacher;
 use App\Scopes\StaffUserScope;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class StaffUser extends User
 {
+
     protected static function boot()
     {
         parent::boot();

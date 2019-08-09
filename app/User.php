@@ -47,7 +47,6 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname', 'lastname', 'email',
         'type', 'phone', 'address', 'wechat_id',
-        'roles',
     ];
 
     protected $hidden = [
