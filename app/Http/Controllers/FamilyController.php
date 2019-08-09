@@ -87,6 +87,6 @@ class FamilyController extends Controller
 
         $family->students()->create(Arr::get($request->all('student'), 'student', []));
 
-        return redirect()->route('family.show', $parent->family);
+        return redirect()->route('families.show', $parent->family);
     }
 }

@@ -63,7 +63,7 @@ class ParentController extends Controller
 
         $family->parents()->save($parent);
 
-        return redirect(route('family.show', $family));
+        return redirect(route('families.show', $family));
     }
 
 
@@ -93,6 +93,6 @@ class ParentController extends Controller
         $parent->fill($request->all());
         $parent->save();
 
-        return redirect(route('family.show', $parent->family));
+        return redirect(route('families.show', $parent->family));
     }
 }

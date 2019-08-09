@@ -39,7 +39,7 @@ use \Illuminate\Database\Eloquent\Collection;
                         <tr>
                             <td>{{ \Illuminate\Support\Str::title($office->name) }}</td>
                             <td class="text-right">
-                                <a href="{{ route('office.show', $office) }}"
+                                <a href="{{ route('offices.show', $office) }}"
                                    class="btn btn-sm btn-outline-secondary">Afficher</a>
                             </td>
                         </tr>

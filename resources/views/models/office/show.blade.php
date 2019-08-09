@@ -35,7 +35,7 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
             <h4>Horaires</h4>
             <div class="">
                 <div class="">
-                    <a href="{{ route('office.schedule.create', $office) }}" class="btn btn-sm btn-outline-secondary">
+                    <a href="{{ route('offices.schedules.create', $office) }}" class="btn btn-sm btn-outline-secondary">
                         <i class="fe fe-calendar"></i> Ajouter
                     </a>
                 </div>

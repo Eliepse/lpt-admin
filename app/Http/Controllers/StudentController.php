@@ -57,7 +57,7 @@ class StudentController extends Controller
     {
         $family->students()->create($request->all(['firstname', 'lastname', 'birthday', 'notes']));
 
-        return redirect(route('family.show', $family));
+        return redirect(route('families.show', $family));
     }
 
 
@@ -87,6 +87,6 @@ class StudentController extends Controller
         $student->fill($request->all());
         $student->save();
 
-        return redirect(route('family.show', $student->family));
+        return redirect(route('families.show', $student->family));
     }
 }

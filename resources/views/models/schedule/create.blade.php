@@ -21,7 +21,7 @@ $days = DaysSet::getKeys();
         <div class="row justify-content-center">
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
                 <form class="card"
-                      action="{{ route('schedule.store')  }}"
+                      action="{{ route('schedules.store')  }}"
                       method="POST">
 
                     {{ csrf_field() }}
@@ -102,7 +102,7 @@ $days = DaysSet::getKeys();
 
                     <div class="card-footer text-right">
                         <div class="d-flex">
-                            <a href="{{ route('office.show', $office    ) }}" class="btn btn-link">Annuler</a>
+                            <a href="{{ route('offices.show', $office    ) }}" class="btn btn-link">Annuler</a>
                             <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                         </div>
                     </div>

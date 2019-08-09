@@ -7,7 +7,7 @@
 
         <div class="row justify-content-center">
 
-            <form class="col-12 col-md-8 col-lg-6" action="{{ route('parent.store', $family) }}" method="POST">
+            <form class="col-12 col-md-8 col-lg-6" action="{{ route('parents.store', $family) }}" method="POST">
 
                 @csrf
 
@@ -68,7 +68,7 @@
                     </div>
 
                     <div class="card-footer text-right">
-                        <a href="{{ route('family.show', $family) }}" class="btn btn-link">Annuler</a>
+                        <a href="{{ route('families.show', $family) }}" class="btn btn-link">Annuler</a>
                         <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
 

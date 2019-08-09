@@ -57,7 +57,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                                         }}
                                     </td>
                                     <td class="text-right">
-                                        <a href="{{ route('family.show', $student->family) }}"
+                                        <a href="{{ route('families.show', $student->family) }}"
                                            class="btn btn-sm btn-outline-secondary">Famille</a>
                                     </td>
                                 </tr>

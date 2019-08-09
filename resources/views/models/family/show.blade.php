@@ -35,7 +35,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
         <div class="my-3 d-flex justify-content-between">
             <h2 class="mb-0">Parents</h2>
             <div class="text-right">
-                <a href="{{ route('parent.create', $family) }}" class="btn btn-sm btn-outline-secondary">
+                <a href="{{ route('parents.create', $family) }}" class="btn btn-sm btn-outline-secondary">
                     <i class="fe fe-plus"></i> Ajouter
                 </a>
             </div>
@@ -49,7 +49,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                         <div class="card-header d-flex justify-content-between">
                             <div class="card-title text-capitalize mb-0">{{ $parent->getFullname(true) }}</div>
                             <div>
-                                <a href="{{ route('parent.edit', $parent) }}" class="btn btn-sm btn-icon">
+                                <a href="{{ route('parents.edit', $parent) }}" class="btn btn-sm btn-icon">
                                     <i class="fe fe-edit"></i>
                                 </a>
                             </div>
@@ -81,7 +81,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
         <div class="mb-3 d-flex justify-content-between" style="margin-top: 2rem;">
             <h2 class="mb-0">Étudiants</h2>
             <div class="text-right">
-                <a href="{{ route('student.create', $family) }}" class="btn btn-sm btn-outline-secondary">
+                <a href="{{ route('students.create', $family) }}" class="btn btn-sm btn-outline-secondary">
                     <i class="fe fe-plus"></i> Ajouter
                 </a>
             </div>
@@ -98,7 +98,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                             </div>
                             <div class="text-muted">
                                 {{ $student->birthday->diffInYears() }} ans
-                                <a href="{{ route('student.edit', $student) }}" class="btn btn-icon"><i class="fe fe-edit"></i></a>
+                                <a href="{{ route('students.edit', $student) }}" class="btn btn-icon"><i class="fe fe-edit"></i></a>
                             </div>
                         </div>
                         <div class="card-body">

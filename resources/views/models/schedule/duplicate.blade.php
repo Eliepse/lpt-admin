@@ -19,7 +19,7 @@ $days = DaysSet::getKeys();
         <div class="row justify-content-center">
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
                 <form class="card"
-                      action="{{ route('schedule.duplicate', $schedule)  }}"
+                      action="{{ route('schedules.duplicate', $schedule)  }}"
                       method="POST">
 
                     {{ csrf_field() }}
@@ -51,7 +51,7 @@ $days = DaysSet::getKeys();
                     <div class="card-footer text-right">
                         <div class="d-flex">
                             {{-- TODO(eliepse): change to schedule page when created --}}
-                            <a href="{{ route('office.show', $schedule->office) }}" class="btn btn-link">Annuler</a>
+                            <a href="{{ route('offices.show', $schedule->office) }}" class="btn btn-link">Annuler</a>
                             <button type="submit" class="btn btn-primary ml-auto">Dupliquer</button>
                         </div>
                     </div>

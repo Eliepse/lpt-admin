@@ -32,8 +32,8 @@ use App\Sets\DaysSet;
 
                     <div class="card-footer text-right">
                         <div class="d-flex">
-                            <a href="{{ route('office.show', $schedule->office) }}" class="btn btn-outline-secondary">Non</a>
-                            <a href="{{ route('schedule.duplicate', $schedule) }}" class="btn btn-primary ml-auto">Oui</a>
+                            <a href="{{ route('offices.show', $schedule->office) }}" class="btn btn-outline-secondary">Non</a>
+                            <a href="{{ route('schedules.duplicate', $schedule) }}" class="btn btn-primary ml-auto">Oui</a>
                         </div>
                     </div>
                 </div>

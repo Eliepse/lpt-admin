@@ -53,7 +53,7 @@ class ScheduleController extends Controller
 
         $schedule->save();
 
-        return redirect()->route('schedule.promptDuplicate', $schedule);
+        return redirect()->route('schedules.promptDuplicate', $schedule);
     }
 
 

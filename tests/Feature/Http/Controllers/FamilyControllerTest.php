@@ -50,7 +50,7 @@ class FamilyControllerTest extends TestCase
         $admin = factory(StaffUser::class, 1)->create()->first();
 
         $response = $this->actingAs($admin, 'admin')
-            ->post(route('family.store'), [
+            ->post(route('families.store'), [
                 'parent' => $this->getFakeParent(),
                 'student' => $this->getFakeStudent(),
             ]);
@@ -65,7 +65,7 @@ class FamilyControllerTest extends TestCase
         $this->assertCount(1, $family->students);
         $this->assertCount(1, $family->parents);
 
-        $response->assertRedirect(route('family.show', $family));
+        $response->assertRedirect(route('families.show', $family));
     }
 
 
@@ -84,13 +84,13 @@ class FamilyControllerTest extends TestCase
         factory(ClientUser::class, 1)->create($this->getFakeParent())->first();
 
         $response = $this->actingAs($admin, 'admin')
-            ->post(route('family.store'), [
+            ->post(route('families.store'), [
                 'parent' => $this->getFakeParent(),
                 'student' => $this->getFakeStudent(),
             ]);
 
         $this->assertEquals(1, ClientUser::count());
-        $response->assertRedirect(route('family.show', Family::first()));
+        $response->assertRedirect(route('families.show', Family::first()));
     }
 
 
@@ -113,12 +113,12 @@ class FamilyControllerTest extends TestCase
         $parent->save();
 
         $response = $this->actingAs($admin, 'admin')
-            ->post(route('family.store'), [
+            ->post(route('families.store'), [
                 'parent' => $this->getFakeParent(),
                 'student' => $this->getFakeStudent(),
             ]);
 
         $this->assertEquals(1, Family::count());
-        $response->assertRedirect(route('family.show', Family::first()));
+        $response->assertRedirect(route('families.show', Family::first()));
     }
 }

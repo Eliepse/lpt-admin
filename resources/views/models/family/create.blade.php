@@ -5,7 +5,7 @@
 @section('main')
     <div class="container mt-3">
 
-        <form action="{{ route('family.store') }}" method="POST">
+        <form action="{{ route('families.store') }}" method="POST">
 
             @csrf
 
@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="card-footer text-right">
-                    {{--                <a href="{{ route('family.index') }}" class="btn btn-link">Annuler</a>--}}
+                    {{--                <a href="{{ route('families.index') }}" class="btn btn-link">Annuler</a>--}}
                     <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                 </div>
 

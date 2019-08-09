@@ -55,7 +55,7 @@ use App\Student;
                     @foreach($schedule->students as $student)
                         <tr>
                             <td>
-                                <a href="{{ route('family.show', $student->family) }}">
+                                <a href="{{ route('families.show', $student->family) }}">
                                     {{ $student->getFullname(true) }}
                                 </a>
                                 <br>

@@ -63,7 +63,7 @@ class DuplicateScheduleController extends Controller
         $new->day = $request->get('day');
         $new->save();
 
-        return redirect()->route('schedule.promptDuplicate', $schedule);
+        return redirect()->route('schedules.promptDuplicate', $schedule);
     }
 
 

@@ -16,7 +16,7 @@ use App\Student;
 
         <div class="row justify-content-center">
 
-            <form class="col-12 col-md-8 col-lg-6" action="{{ route('student.update', $student) }}" method="POST">
+            <form class="col-12 col-md-8 col-lg-6" action="{{ route('students.update', $student) }}" method="POST">
 
                 @csrf
                 @method('PUT')
@@ -63,7 +63,7 @@ use App\Student;
                     </div>
 
                     <div class="card-footer text-right">
-                        <a href="{{ route('family.show', $student->family) }}" class="btn btn-link">Annuler</a>
+                        <a href="{{ route('families.show', $student->family) }}" class="btn btn-link">Annuler</a>
                         <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
 
