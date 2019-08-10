@@ -6,11 +6,12 @@ use App\Pivots\ParentStudent;
 use App\Sets\UserRolesSet;
 use App\Traits\HasHumanNames;
 use Carbon\Carbon;
+use Eliepse\Set\Exceptions\UnknownMemberException;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -39,8 +40,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
-    use HasHumanNames;
+    use Notifiable, HasHumanNames, CanResetPassword;
 
     protected $table = 'users';
 
@@ -58,7 +58,7 @@ class User extends Authenticatable
      * @param $value
      *
      * @return UserRolesSet
-     * @throws \Eliepse\Set\Exceptions\UnknownMemberException
+     * @throws UnknownMemberException
      */
     public function getRolesAttribute($value): UserRolesSet
     {

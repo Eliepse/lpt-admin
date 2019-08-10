@@ -14,6 +14,9 @@
 use App\Http\Controllers\Administration\ScheduleStudentController;
 use App\Http\Controllers\Administration\SettingsController;
 use App\Http\Controllers\Administration\StaffController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\DuplicateScheduleController;
 use App\Http\Controllers\FamilyController;
@@ -26,13 +29,13 @@ use Illuminate\Support\Facades\Route;
 
 
 // Auth
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 // Staff
 Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
 Route::get('/staff/create', [StaffController::class, 'create'])->name('staff.create');
 Route::post('/staff', [StaffController::class, 'store'])->name('staff.store');
+//Route::post('/staff/{staffUser}', [StaffController::class, 'show'])->name('staff.show');
 
 
 // Parents
@@ -98,4 +101,4 @@ Route::get('/settings', [SettingsController::class, 'general'])->name('settings'
 
 
 // Other
-Route::get('/', 'Administration\\MainController@home')->name('home');
+Route::get('/', 'Administration\\MainController@home')->name('dashboard');

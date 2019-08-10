@@ -40,6 +40,14 @@ class StaffController
     }
 
 
+    public function show(StaffUser $staffUser)
+    {
+        $this->authorize('view', $staffUser);
+
+        return view("", compact("staffUser"));
+    }
+
+
     public function create()
     {
         $this->authorize('create', StaffUser::class);

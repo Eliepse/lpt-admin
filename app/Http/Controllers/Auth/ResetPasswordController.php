@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\StaffUser;
+use App\User;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
@@ -21,11 +26,10 @@ class ResetPasswordController extends Controller
     use ResetsPasswords;
 
     /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
+     * @var User
      */
-    protected $redirectTo = '/home';
+    protected $userToReset;
+
 
     /**
      * Create a new controller instance.
@@ -36,4 +40,42 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+
+    /**
+     * @return StatefulGuard
+     */
+    public function guard()
+    {
+        return $this->isStaffUser() ? Auth::guard('admin') : Auth::guard();
+    }
+
+
+    public function redirectPath()
+    {
+        return $this->isStaffUser() ? route('dashboard') : route('home');
+    }
+
+
+    public function isStaffUser()
+    {
+        // A boolean is used when the user does not exists, in case this method is called before
+        // email validation has been made
+        if (empty($this->userToReset) && !is_bool($this->userToReset))
+            $this->userToReset = User::query()->where('email', request('email'))->first() ?? false;
+
+        return is_bool($this->userToReset) ? $this->userToReset : $this->userToReset->isStaff();
+    }
+
+
+    protected function rules()
+    {
+        return [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|' . ($this->isStaffUser() ? 'min:12' : 'min:8'),
+        ];
+    }
+
+
 }

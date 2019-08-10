@@ -9,7 +9,7 @@
 @auth
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a href="{{ route('home') }}" class="nav-link"><i class="fe fe-home"></i> Accueil</a>
+            <a href="{{ route('dashboard') }}" class="nav-link"><i class="fe fe-home"></i> Accueil</a>
         </li>
         {{--<li class="nav-item">--}}
         {{--<a href="{{ route('lessons.index') }}" class="nav-link"><i class="fe fe-book"></i> Cours</a>--}}
