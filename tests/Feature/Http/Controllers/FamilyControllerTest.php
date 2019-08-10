@@ -47,7 +47,7 @@ class FamilyControllerTest extends TestCase
     public function testCreateFamilyAndRedirect()
     {
         /** @var StaffUser $admin */
-        $admin = factory(StaffUser::class, 1)->create()->first();
+        $admin = factory(StaffUser::class)->create();
 
         $response = $this->actingAs($admin, 'admin')
             ->post(route('families.store'), [
@@ -78,10 +78,10 @@ class FamilyControllerTest extends TestCase
     public function testCreateFamilyWithoutParentDuplicates()
     {
         /** @var StaffUser $admin */
-        $admin = factory(StaffUser::class, 1)->create()->first();
+        $admin = factory(StaffUser::class)->create();
 
         /** @var ClientUser $parent */
-        factory(ClientUser::class, 1)->create($this->getFakeParent())->first();
+        factory(ClientUser::class)->create($this->getFakeParent());
 
         $response = $this->actingAs($admin, 'admin')
             ->post(route('families.store'), [
@@ -103,10 +103,10 @@ class FamilyControllerTest extends TestCase
     public function testCreateFamilyWithoutFamilyDuplicates()
     {
         /** @var StaffUser $admin */
-        $admin = factory(StaffUser::class, 1)->create()->first();
+        $admin = factory(StaffUser::class)->create();
 
         /** @var ClientUser $parent */
-        $parent = factory(ClientUser::class, 1)->create($this->getFakeParent())->first();
+        $parent = factory(ClientUser::class)->create($this->getFakeParent());
 
         $family = Family::create();
         $parent->family()->associate($family);
