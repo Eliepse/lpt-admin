@@ -4,38 +4,41 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import customParseFormat from 'dayjs/plugin/customParseFormat'
-import VCalendar from 'v-calendar';
-import DatePeriodInput from './components/DatePeriodInput'
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import VCalendar from "v-calendar";
+import DatePeriodInput from "./components/DatePeriodInput";
+import Loader from "./components/Loader";
+import ClassroomForm from "./components/ClassroomForm";
+import ScheduleCalendar from "./components/schedule/ScheduleCalendar";
 
-require('./bootstrap')
+require("./bootstrap");
 
-window.dayjs = require('dayjs')
-window.dayjs.extend(customParseFormat)
-window.Vue = require('vue')
+window.dayjs = require("dayjs");
+window.dayjs.extend(customParseFormat);
+window.Vue = require("vue");
 
-Vue.use(VCalendar, {
-    firstDayOfWeek: 2,
-});
+Vue.use(VCalendar, {firstDayOfWeek: 2});
 
 Vue.use(window.dayjs);
 
-Vue.component('classroom-form', function (resolve) {
-    require(['./components/ClassroomForm'], resolve)
-})
-
-Vue.component('schedule-calendar', function (resolve) {
-    require(['./components/schedule/ScheduleCalendar'], resolve)
-})
-
-//Vue.component('date-period-input', require('./components/DatePeriodInput'))
+//Vue.component("classroom-form", function (resolve) {
+//    require(["./components/ClassroomForm"], resolve);
+//});
+//
+//Vue.component("schedule-calendar", function (resolve) {
+//    require(["./components/schedule/ScheduleCalendar"], resolve);
+//});
 
 const app = new Vue({
-    el: '#app',
+    el: "#app",
     components: {
-        DatePeriodInput
+        DatePeriodInput,
+        ClassroomForm,
+        ScheduleCalendar,
+        Loader
     }
-})
+});
+
 
 
 //window.List = require('list.js')

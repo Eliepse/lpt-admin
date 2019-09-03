@@ -1,6 +1,7 @@
 <template>
     <div class="loaderScreen" v-show="active">
-        <div v-if="message.type !== 'error'" class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>
+        <div v-if="message.type !== 'error'" class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span></div>
         <div :class="{ 'text-danger' : message.type === 'error' }">{{ message.label }}</div>
     </div>
 </template>
@@ -8,9 +9,16 @@
 <script>
     export default {
         name: "loader",
+        props: {
+            active: {
+                type: Boolean,
+                required: false,
+                default: false,
+            }
+        },
         data: function () {
             return {
-                active: false,
+                //active: false,
                 message: {
                     label: 'Chargement...',
                     type: undefined

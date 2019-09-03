@@ -5,7 +5,7 @@
 
         <div class="col-4 panel-side border-right" v-bind:class="{ 'overflow-hidden': loading }">
             <loader :active="loading"></loader>
-            <div class="lessonList mt-2" v-bind:class="{'d-none' : editingLesson}">
+            <div class="lessonList mt-2">
                 <ul class="p-0 mb-5 mt-3" v-for="(lessonGroup, key) in groupedLessons">
                     <h4 class="h-4 text-uppercase text-muted">{{ key }}</h4>
                     <li class="card lessonElement mb-3"
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-    import Loader from './Loader'
+    import Loader from "./Loader";
 
     export default {
         name: "classroom-form",
@@ -139,10 +139,10 @@
         created: function () {
             let requests = []
 
-            requests.push(axios.get('/lessons'))
+            requests.push(axios.get('/admin/lessons'))
 
             if (this.id)
-                requests.push(axios.get('/classrooms/' + this.id))
+                requests.push(axios.get('/admin/classrooms/' + this.id))
 
             axios.all(requests)
                 .then(axios.spread((lessonsReq, classroomReq) => {
@@ -193,14 +193,14 @@
 
                 axios({
                     method: this.id ? 'put' : 'post',
-                    url: this.id ? '/classrooms/' + this.id : '/classrooms',
+                    url: this.id ? '/admin/classrooms/' + this.id : '/admin/classrooms',
                     data: this.classroom
                 })
                     .then((response) => {
                         window.location = response.data.redirect
                     })
                     .catch((error) => {
-                        this.errors = error.response.data.errors
+                        this.errors = error.response.data.errors || []
                         this.loading = false
                         this.saving = false
                         // TODO(eliepse): manage errors in general (specific treatment for 422, print error message for others)
