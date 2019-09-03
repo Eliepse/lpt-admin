@@ -61,10 +61,10 @@ Route::post('/families/{family}/parents', [ParentController::class, 'store'])->n
 
 // Lessons
 Route::get('/lessons', [LessonController::class, 'index'])->name('lessons.index');
-Route::get('/lessons/create', 'LessonController@create')->name('lessons.create');
-Route::get('/lessons/{lesson}/edit', 'LessonController@edit')->name('lessons.edit');
-Route::post('/lessons', 'LessonController@store')->name('lessons.store');
-Route::put('/lessons/{lesson}', 'LessonController@update')->name('lessons.update');
+Route::get('/lessons/create', [LessonController::class, 'create'])->name('lessons.create');
+Route::get('/lessons/{lesson}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
+Route::post('/lessons', [LessonController::class, 'store'])->name('lessons.store');
+Route::put('/lessons/{lesson}', [LessonController::class, 'update'])->name('lessons.update');
 
 
 // Classrooms

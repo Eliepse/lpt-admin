@@ -29,7 +29,7 @@ use \Illuminate\Support\Str;
             <div>
                 <a class="btn btn-outline-secondary" href="{{ route('classrooms.edit', $classroom) }}">
                     <i class="fe fe-edit-3"></i>
-                    Modifier la cours
+                    Modifier le cours
                 </a>
             </div>
         </div>

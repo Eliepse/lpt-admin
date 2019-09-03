@@ -24,7 +24,7 @@ class Lesson extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'description', 'duration', 'category'];
+    protected $fillable = ['name', 'description', 'category'];
 
 
     public function classrooms(): BelongsToMany
