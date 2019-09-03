@@ -28,7 +28,16 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
 
     <div class="container justify-content-center mt-3">
 
-        <h1 class="mt-3" style="margin-bottom: 3rem">Étudiants</h1>
+        <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
+            <h1>Étudiants</h1>
+            <div>
+                @can('create', \App\Family::class)
+                    <a class="btn btn-outline-secondary" href="{{ route('families.create') }}">
+                        <i class="fe fe-plus"></i> Nouvelle famille
+                    </a>
+                @endcan
+            </div>
+        </div>
 
         <div class="row my-3">
             <div class="col">
