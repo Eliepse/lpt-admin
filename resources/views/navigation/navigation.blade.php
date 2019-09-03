@@ -33,6 +33,9 @@
                     <a href="{{ route('classrooms.index') }}" class="nav-link">
                         <i class="fe fe-book"></i> Cours
                     </a>
+                    <a href="{{ route('lessons.index') }}" class="nav-link">
+                        <i class="fe fe-layers"></i> Leçons
+                    </a>
                     <a href="{{ route('offices.index') }}" class="nav-link">
                         <i class="fe fe-home"></i> Bureaux
                     </a>
