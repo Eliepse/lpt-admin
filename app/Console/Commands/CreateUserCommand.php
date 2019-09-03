@@ -41,9 +41,11 @@ class CreateUserCommand extends Command
         $this->addArgument('email',
             InputArgument::REQUIRED,
             'The email used by the user');
+
         $this->addArgument('firstname',
             InputArgument::REQUIRED,
             'The firstname of the user');
+
         $this->addArgument('lastname',
             InputArgument::REQUIRED,
             'The firstname of the user');
@@ -110,9 +112,7 @@ class CreateUserCommand extends Command
         // Confirmation
         $this->info("This user is about to be created:");
 
-        foreach ($user->toArray() as $attribute => $value) {
-            $this->info("$attribute: $value");
-        }
+        $this->comment("[$user->roles] {$user->getFullname()} ($user->email, $user->wechat_id)");
 
         if (!$this->confirm("Do you confirm the creation of this user ?")) {
             $this->info("Creation aborted.");

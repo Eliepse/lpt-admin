@@ -8,8 +8,9 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
+use JsonSerializable;
 
-class Set implements SetInterface, Arrayable, \JsonSerializable, Jsonable
+class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
 {
     /**
      * The active members of the Set stored
