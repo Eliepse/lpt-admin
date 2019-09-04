@@ -20,6 +20,18 @@ class OfficePolicy
 
 
     /**
+     * @param User $user
+     * @param Office $office
+     *
+     * @return mixed
+     */
+    public function viewAny(User $user, Office $office)
+    {
+        return false;
+    }
+
+
+    /**
      * Determine whether the user can view the classroom.
      *
      * @param User $user
@@ -29,7 +41,7 @@ class OfficePolicy
      */
     public function view(User $user, Office $office)
     {
-        //
+        return false;
     }
 
 
@@ -42,7 +54,7 @@ class OfficePolicy
      */
     public function create(User $user)
     {
-        //
+        return false;
     }
 
 
@@ -56,7 +68,7 @@ class OfficePolicy
      */
     public function update(User $user, Office $office)
     {
-        //
+        return false;
     }
 
 
@@ -70,7 +82,7 @@ class OfficePolicy
      */
     public function delete(User $user, Office $office)
     {
-        //
+        return false;
     }
 
 
@@ -84,7 +96,7 @@ class OfficePolicy
      */
     public function restore(User $user, Office $office)
     {
-        //
+        return false;
     }
 
 
@@ -98,6 +110,6 @@ class OfficePolicy
      */
     public function forceDelete(User $user, Office $office)
     {
-        //
+        return false;
     }
 }

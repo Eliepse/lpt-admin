@@ -22,95 +22,95 @@ class StaffUserPolicy
     /**
      * Determine whether the user can view any staff users.
      *
-     * @param \App\User $user
+     * @param User $user
      *
      * @return mixed
      */
     public function viewAny(User $user)
     {
-        //
+        return false;
     }
 
 
     /**
      * Determine whether the user can view the staff user.
      *
-     * @param \App\User $user
-     * @param \App\StaffUser $staffUser
+     * @param User $user
+     * @param StaffUser $staffUser
      *
      * @return mixed
      */
     public function view(User $user, StaffUser $staffUser)
     {
-        //
+        return false;
     }
 
 
     /**
      * Determine whether the user can create staff users.
      *
-     * @param \App\User $user
+     * @param User $user
      *
      * @return mixed
      */
     public function create(User $user)
     {
-        //
+        return false;
     }
 
 
     /**
      * Determine whether the user can update the staff user.
      *
-     * @param \App\User $user
-     * @param \App\StaffUser $staffUser
+     * @param User $user
+     * @param StaffUser $staffUser
      *
      * @return mixed
      */
     public function update(User $user, StaffUser $staffUser)
     {
-        //
+        return false;
     }
 
 
     /**
      * Determine whether the user can delete the staff user.
      *
-     * @param \App\User $user
-     * @param \App\StaffUser $staffUser
+     * @param User $user
+     * @param StaffUser $staffUser
      *
      * @return mixed
      */
     public function delete(User $user, StaffUser $staffUser)
     {
-        //
+        return false;
     }
 
 
     /**
      * Determine whether the user can restore the staff user.
      *
-     * @param \App\User $user
-     * @param \App\StaffUser $staffUser
+     * @param User $user
+     * @param StaffUser $staffUser
      *
      * @return mixed
      */
     public function restore(User $user, StaffUser $staffUser)
     {
-        //
+        return false;
     }
 
 
     /**
      * Determine whether the user can permanently delete the staff user.
      *
-     * @param \App\User $user
-     * @param \App\StaffUser $staffUser
+     * @param User $user
+     * @param StaffUser $staffUser
      *
      * @return mixed
      */
     public function forceDelete(User $user, StaffUser $staffUser)
     {
-        //
+        return false;
     }
 }

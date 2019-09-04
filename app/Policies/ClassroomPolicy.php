@@ -29,7 +29,19 @@ class ClassroomPolicy
      */
     public function view(User $user, Classroom $classroom)
     {
-        //
+        return false;
+    }
+
+
+    /**
+     * @param User $user
+     * @param Classroom $classroom
+     *
+     * @return mixed
+     */
+    public function viewAny(User $user, Classroom $classroom)
+    {
+        return false;
     }
 
 
@@ -42,7 +54,7 @@ class ClassroomPolicy
      */
     public function create(User $user)
     {
-        //
+        return false;
     }
 
 
@@ -56,7 +68,7 @@ class ClassroomPolicy
      */
     public function update(User $user, Classroom $classroom)
     {
-        //
+        return false;
     }
 
 
@@ -70,7 +82,7 @@ class ClassroomPolicy
      */
     public function delete(User $user, Classroom $classroom)
     {
-        //
+        return false;
     }
 
 
@@ -84,7 +96,7 @@ class ClassroomPolicy
      */
     public function restore(User $user, Classroom $classroom)
     {
-        //
+        return false;
     }
 
 
@@ -98,6 +110,6 @@ class ClassroomPolicy
      */
     public function forceDelete(User $user, Classroom $classroom)
     {
-        //
+        return false;
     }
 }

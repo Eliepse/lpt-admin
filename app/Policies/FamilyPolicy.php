@@ -28,7 +28,7 @@ class FamilyPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return false;
     }
 
 
@@ -42,7 +42,7 @@ class FamilyPolicy
      */
     public function view(User $user, Family $family)
     {
-        //User
+        return false;
     }
 
 
@@ -55,7 +55,7 @@ class FamilyPolicy
      */
     public function create(User $user)
     {
-        //
+        return false;
     }
 
 
@@ -69,7 +69,7 @@ class FamilyPolicy
      */
     public function update(User $user, Family $family)
     {
-        //
+        return false;
     }
 
 
@@ -83,7 +83,7 @@ class FamilyPolicy
      */
     public function delete(User $user, Family $family)
     {
-        //
+        return false;
     }
 
 
@@ -97,7 +97,7 @@ class FamilyPolicy
      */
     public function restore(User $user, Family $family)
     {
-        //
+        return false;
     }
 
 
@@ -111,6 +111,6 @@ class FamilyPolicy
      */
     public function forceDelete(User $user, Family $family)
     {
-        //
+        return false;
     }
 }

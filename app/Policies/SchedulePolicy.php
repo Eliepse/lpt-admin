@@ -20,6 +20,18 @@ class SchedulePolicy
 
 
     /**
+     * @param User $user
+     * @param Schedule $schedule
+     *
+     * @return mixed
+     */
+    public function viewAny(User $user, Schedule $schedule)
+    {
+        return false;
+    }
+
+
+    /**
      * Determine whether the user can view the classroom.
      *
      * @param User $user
@@ -29,7 +41,7 @@ class SchedulePolicy
      */
     public function view(User $user, Schedule $schedule)
     {
-        //
+        return false;
     }
 
 
@@ -42,7 +54,7 @@ class SchedulePolicy
      */
     public function create(User $user)
     {
-        //
+        return false;
     }
 
 
@@ -56,7 +68,7 @@ class SchedulePolicy
      */
     public function update(User $user, Schedule $schedule)
     {
-        //
+        return false;
     }
 
 
@@ -70,7 +82,7 @@ class SchedulePolicy
      */
     public function delete(User $user, Schedule $schedule)
     {
-        //
+        return false;
     }
 
 
@@ -84,7 +96,7 @@ class SchedulePolicy
      */
     public function restore(User $user, Schedule $schedule)
     {
-        //
+        return false;
     }
 
 
@@ -98,7 +110,7 @@ class SchedulePolicy
      */
     public function forceDelete(User $user, Schedule $schedule)
     {
-        //
+        return false;
     }
 
 
@@ -112,6 +124,6 @@ class SchedulePolicy
      */
     public function updateStudents(User $user, Schedule $schedule)
     {
-        //
+        return false;
     }
 }
