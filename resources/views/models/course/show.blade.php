@@ -1,17 +1,17 @@
 @extends('dashboard-master')
 
 <?php
-use App\Classroom;
+use App\Course;
 use App\Student;
 use \Illuminate\Support\Str;
 
 /**
- * @var Classroom $classroom
+ * @var Course $course
  * @var Student $student
  */
 ?>
 
-@section('title', "Cours: {$classroom->name} - ")
+@section('title', "Cours: {$course->name} - ")
 
 @section('main')
 
@@ -20,14 +20,14 @@ use \Illuminate\Support\Str;
             <h1>
                 <small class="text-muted h6">
                     Cours
-                    &middot; {{ $classroom->getDuration(true) }}
-                    &middot; {{ $classroom->lessons->count() . ' ' . Str::plural('leçon', $classroom->lessons->count()) }}
+                    &middot; {{ $course->getDuration(true) }}
+                    &middot; {{ $course->lessons->count() . ' ' . Str::plural('leçon', $course->lessons->count()) }}
                 </small>
                 <br>
-                {{ $classroom->name }}
+                {{ $course->name }}
             </h1>
             <div>
-                <a class="btn btn-outline-secondary" href="{{ route('classrooms.edit', $classroom) }}">
+                <a class="btn btn-outline-secondary" href="{{ route('courses.edit', $course) }}">
                     <i class="fe fe-edit-3"></i>
                     Modifier le cours
                 </a>
@@ -47,7 +47,7 @@ use \Illuminate\Support\Str;
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($classroom->lessons as $lesson)
+                @foreach($course->lessons as $lesson)
                     <tr>
                         <td>
                             <small class="text-uppercase text-muted text-gray">{{ $lesson->category }}</small>
@@ -64,8 +64,8 @@ use \Illuminate\Support\Str;
         <div class="d-flex justify-content-between mt-5"><h4>Classes</h4></div>
 
         <schedule-calendar
-                :schedules="{{ $classroom->schedules->toJson() }}"
-                :classroom="{{ $classroom->toJson() }}">
+                :schedules="{{ $course->schedules->toJson() }}"
+                :course="{{ $course->toJson() }}">
 
         </schedule-calendar>
     </div>

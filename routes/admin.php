@@ -17,7 +17,7 @@ use App\Http\Controllers\Administration\StaffController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DuplicateScheduleController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\LessonController;
@@ -67,13 +67,13 @@ Route::post('/lessons', [LessonController::class, 'store'])->name('lessons.store
 Route::put('/lessons/{lesson}', [LessonController::class, 'update'])->name('lessons.update');
 
 
-// Classrooms
-Route::get('classrooms', [ClassroomController::class, 'index'])->name('classrooms.index');
-Route::post('classrooms', [ClassroomController::class, 'store'])->name('classrooms.store');
-Route::get('classrooms/create', [ClassroomController::class, 'create'])->name('classrooms.create');
-Route::get('/classrooms/{classroom}', [ClassroomController::class, 'show'])->name('classrooms.show');
-Route::put('/classrooms/{classroom}', [ClassroomController::class, 'update'])->name('classrooms.update');
-Route::get('/classrooms/{classroom}/edit', 'ClassroomController@edit')->name('classrooms.edit');
+// Courses
+Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
+Route::post('courses', [CourseController::class, 'store'])->name('courses.store');
+Route::get('courses/create', [CourseController::class, 'create'])->name('courses.create');
+Route::get('/courses/{course}', [CourseController::class, 'show'])->name('courses.show');
+Route::put('/courses/{course}', [CourseController::class, 'update'])->name('courses.update');
+Route::get('/courses/{course}/edit', [CourseController::class, 'edit'])->name('courses.edit');
 
 
 // Schedules

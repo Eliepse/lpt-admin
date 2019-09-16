@@ -4,6 +4,6 @@
 
 @section('main')
 
-    <classroom-form></classroom-form>
+    <course-form></course-form>
 
 @endsection

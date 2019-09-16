@@ -8,7 +8,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import VCalendar from "v-calendar";
 import DatePeriodInput from "./components/DatePeriodInput";
 import Loader from "./components/Loader";
-import ClassroomForm from "./components/ClassroomForm";
+import CourseForm from "./components/CourseForm";
 import ScheduleCalendar from "./components/schedule/ScheduleCalendar";
 
 require("./bootstrap");
@@ -21,8 +21,8 @@ Vue.use(VCalendar, {firstDayOfWeek: 2});
 
 Vue.use(window.dayjs);
 
-//Vue.component("classroom-form", function (resolve) {
-//    require(["./components/ClassroomForm"], resolve);
+//Vue.component("course-form", function (resolve) {
+//    require(["./components/CourseForm"], resolve);
 //});
 //
 //Vue.component("schedule-calendar", function (resolve) {
@@ -33,7 +33,7 @@ const app = new Vue({
     el: "#app",
     components: {
         DatePeriodInput,
-        ClassroomForm,
+        CourseForm,
         ScheduleCalendar,
         Loader
     }

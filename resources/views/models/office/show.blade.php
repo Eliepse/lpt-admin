@@ -24,7 +24,7 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
             <h1>{{ ucfirst($office->name) }}</h1>
             {{--            <div>--}}
-            {{--                <a class="btn btn-outline-secondary" href="{{ route('classrooms.edit', $classroom) }}">--}}
+            {{--                <a class="btn btn-outline-secondary" href="{{ route('courses.edit', $course) }}">--}}
             {{--                    <i class="fe fe-edit-3"></i>--}}
             {{--                    Modifier la classe--}}
             {{--                </a>--}}

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @var Office $office
  * @var \App\Schedule $schedule
  * @var \App\Student $student
- * @var Collection $classrooms
+ * @var Collection $courses
  * @var Collection $students
  */
 

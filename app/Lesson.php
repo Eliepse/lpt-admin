@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
  * @property string name
  * @property string description
  * @property string category
- * @property Collection classroom
+ * @property Collection course
  * @property \stdClass pivot
  * @property Carbon created_at
  * @property Carbon updated_at
@@ -27,9 +27,9 @@ class Lesson extends Model
     protected $fillable = ['name', 'description', 'category'];
 
 
-    public function classrooms(): BelongsToMany
+    public function courses(): BelongsToMany
     {
-        return $this->belongsToMany(Classroom::class)
+        return $this->belongsToMany(Course::class)
             ->withPivot(['teacher_id', 'duration', 'position']);
     }
 }

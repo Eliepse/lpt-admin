@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Classroom;
+use App\Course;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Office;
@@ -35,9 +35,9 @@ class ScheduleController extends Controller
 
     public function create(Office $office)
     {
-        $classrooms = Classroom::all();
+        $courses = Course::all();
 
-        return view('models.schedule.create', compact('office', 'classrooms'));
+        return view('models.schedule.create', compact('office', 'courses'));
     }
 
 
@@ -47,7 +47,7 @@ class ScheduleController extends Controller
             'signup_end_at', 'price', 'max_students']));
 
         $schedule->office()->associate($request->get('office'));
-        $schedule->classroom()->associate($request->get('classroom'));
+        $schedule->course()->associate($request->get('course'));
 
         // TODO(eliepse): add teachers
 

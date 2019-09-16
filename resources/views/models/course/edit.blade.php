@@ -8,10 +8,10 @@ use \Illuminate\Support\Str;
 ?>
 
 
-@section('title', 'LPT - ' . $classroom->name . ' (edition)')
+@section('title', 'LPT - ' . $course->name . ' (edition)')
 
 @section('main')
 
-    <classroom-form :id="{{ $classroom->id }}"></classroom-form>
+    <course-form :id="{{ $course->id }}"></course-form>
 
 @endsection

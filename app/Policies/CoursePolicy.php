@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\User;
-use App\Classroom;
+use App\Course;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ClassroomPolicy
+class CoursePolicy
 {
     use HandlesAuthorization;
 
@@ -20,14 +20,14 @@ class ClassroomPolicy
 
 
     /**
-     * Determine whether the user can view the classroom.
+     * Determine whether the user can view the course.
      *
      * @param User $user
-     * @param Classroom $classroom
+     * @param Course $course
      *
      * @return mixed
      */
-    public function view(User $user, Classroom $classroom)
+    public function view(User $user, Course $course)
     {
         return false;
     }
@@ -35,18 +35,18 @@ class ClassroomPolicy
 
     /**
      * @param User $user
-     * @param Classroom $classroom
+     * @param Course $course
      *
      * @return mixed
      */
-    public function viewAny(User $user, Classroom $classroom)
+    public function viewAny(User $user, Course $course)
     {
         return false;
     }
 
 
     /**
-     * Determine whether the user can create classrooms.
+     * Determine whether the user can create courses.
      *
      * @param User $user
      *
@@ -59,56 +59,56 @@ class ClassroomPolicy
 
 
     /**
-     * Determine whether the user can update the classroom.
+     * Determine whether the user can update the course.
      *
      * @param User $user
-     * @param Classroom $classroom
+     * @param Course $course
      *
      * @return mixed
      */
-    public function update(User $user, Classroom $classroom)
+    public function update(User $user, Course $course)
     {
         return false;
     }
 
 
     /**
-     * Determine whether the user can delete the classroom.
+     * Determine whether the user can delete the course.
      *
      * @param User $user
-     * @param Classroom $classroom
+     * @param Course $course
      *
      * @return mixed
      */
-    public function delete(User $user, Classroom $classroom)
+    public function delete(User $user, Course $course)
     {
         return false;
     }
 
 
     /**
-     * Determine whether the user can restore the classroom.
+     * Determine whether the user can restore the course.
      *
      * @param User $user
-     * @param Classroom $classroom
+     * @param Course $course
      *
      * @return mixed
      */
-    public function restore(User $user, Classroom $classroom)
+    public function restore(User $user, Course $course)
     {
         return false;
     }
 
 
     /**
-     * Determine whether the user can permanently delete the classroom.
+     * Determine whether the user can permanently delete the course.
      *
      * @param User $user
-     * @param Classroom $classroom
+     * @param Course $course
      *
      * @return mixed
      */
-    public function forceDelete(User $user, Classroom $classroom)
+    public function forceDelete(User $user, Course $course)
     {
         return false;
     }

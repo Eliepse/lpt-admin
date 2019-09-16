@@ -30,7 +30,7 @@
                     <a href="{{ route('settings') }}" class="nav-link">
                         <i class="fe fe-grid"></i> Général
                     </a>
-                    <a href="{{ route('classrooms.index') }}" class="nav-link">
+                    <a href="{{ route('courses.index') }}" class="nav-link">
                         <i class="fe fe-book"></i> Cours
                     </a>
                     <a href="{{ route('lessons.index') }}" class="nav-link">

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Administration;
 
-use App\Classroom;
+use App\Course;
 use App\Schedule;
 use App\Sets\UserRolesSet;
 use App\StaffUser;

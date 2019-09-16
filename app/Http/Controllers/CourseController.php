@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Classroom;
-use App\Http\Requests\StoreClassroomRequest;
+use App\Course;
+use App\Http\Requests\StoreCourseRequest;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
-class ClassroomController extends Controller
+class CourseController extends Controller
 {
     use AuthorizesRequests, ValidatesRequests;
 
@@ -22,7 +22,7 @@ class ClassroomController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('roles:admin,manager');
-        $this->authorizeResource(Classroom::class, 'classroom');
+        $this->authorizeResource(Course::class, 'course');
     }
 
 
@@ -31,9 +31,9 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        $classrooms = Classroom::all();
+        $courses = Course::all();
 
-        return view("models.classroom.index", compact('classrooms'));
+        return view("models.course.index", compact('courses'));
     }
 
 
@@ -45,35 +45,35 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Classroom::class);
+        $this->authorize('create', Course::class);
 
-        return view('models.classroom.create');
+        return view('models.course.create');
     }
 
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreClassroomRequest $request
+     * @param StoreCourseRequest $request
      *
      * @return RedirectResponse|Redirector
      * @throws AuthorizationException
      */
-    public function store(StoreClassroomRequest $request)
+    public function store(StoreCourseRequest $request)
     {
-        $this->authorize('create', Classroom::class);
+        $this->authorize('create', Course::class);
 
-        $classroom = new Classroom($request->all(['name']));
-        $classroom->save();
+        $course = new Course($request->all(['name']));
+        $course->save();
 
-        $classroom->lessons()->sync(
+        $course->lessons()->sync(
             $this->prepareLessonsToSync($request->get('lessons', []))
         );
 
         if ($request->ajax())
-            return response()->json(['redirect' => route('classrooms.show', $classroom)]);
+            return response()->json(['redirect' => route('courses.show', $course)]);
 
-        return redirect(route('classrooms.show', $classroom));
+        return redirect(route('courses.show', $course));
     }
 
 
@@ -81,58 +81,58 @@ class ClassroomController extends Controller
      * Display the specified resource.
      *
      * @param Request $request
-     * @param Classroom $classroom
+     * @param Course $course
      *
      * @return View
      */
-    public function show(Request $request, Classroom $classroom)
+    public function show(Request $request, Course $course)
     {
-        $classroom->loadMissing(['schedules.teachers:id,firstname,lastname', "schedules.office"]);
+        $course->loadMissing(['schedules.teachers:id,firstname,lastname', "schedules.office"]);
 
         if ($request->ajax())
-            return response()->json($classroom);
+            return response()->json($course);
 
-        return view('models.classroom.show', compact('classroom'));
+        return view('models.course.show', compact('course'));
     }
 
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Classroom $classroom
+     * @param Course $course
      *
      * @return View
      */
-    public function edit(Classroom $classroom)
+    public function edit(Course $course)
     {
-        return view('models.classroom.edit', compact('classroom'));
+        return view('models.course.edit', compact('course'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreClassroomRequest $request
-     * @param Classroom $classroom
+     * @param StoreCourseRequest $request
+     * @param Course $course
      *
      * @return RedirectResponse|Redirector
      * @throws AuthorizationException
      */
-    public function update(StoreClassroomRequest $request, Classroom $classroom)
+    public function update(StoreCourseRequest $request, Course $course)
     {
-        $this->authorize('update', $classroom);
+        $this->authorize('update', $course);
 
-        $classroom->fill($request->all(['name']));
-        $classroom->save();
+        $course->fill($request->all(['name']));
+        $course->save();
 
-        $classroom->lessons()->sync(
+        $course->lessons()->sync(
             $this->prepareLessonsToSync($request->get('lessons', []))
         );
 
         if ($request->ajax())
-            return response()->json(['redirect' => route('classrooms.show', $classroom)]);
+            return response()->json(['redirect' => route('courses.show', $course)]);
 
-        return redirect(route('classrooms.show', $classroom));
+        return redirect(route('courses.show', $course));
     }
 
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ClassroomTableSeeder extends Seeder
+class CourseTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,19 +12,19 @@ class ClassroomTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('classrooms')->updateOrInsert([
+        DB::table('courses')->updateOrInsert([
             'name' => '学前班',
         ]);
 
-        DB::table('classrooms')->updateOrInsert([
+        DB::table('courses')->updateOrInsert([
             'name' => '一年级',
         ]);
 
-        DB::table('classrooms')->updateOrInsert([
+        DB::table('courses')->updateOrInsert([
             'name' => '二年级',
         ]);
 
-        DB::table('classrooms')->updateOrInsert([
+        DB::table('courses')->updateOrInsert([
             'name' => '英语外教版',
         ]);
     }

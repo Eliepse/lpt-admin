@@ -6,7 +6,7 @@ use App\Enums\LocationEnum;
 use App\Rules\TimetableRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreClassroomRequest extends FormRequest
+class StoreCourseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

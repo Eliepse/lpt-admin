@@ -2,7 +2,7 @@
 
 /* @var $factory Factory */
 
-use App\Classroom;
+use App\Course;
 use App\Office;
 use App\Schedule;
 use App\Sets\DaysSet;
@@ -16,8 +16,8 @@ $factory->define(Schedule::class, function (Faker $faker) {
     $start_at = Carbon::rawParse($faker->dateTimeBetween("-30 days", "+30 days"));
 
     return [
-        'classroom_id' => function () {
-            return factory(Classroom::class)->create()->id;
+        'course_id' => function () {
+            return factory(Course::class)->create()->id;
         },
         'office_id' => function () {
             return factory(Office::class)->create()->id;

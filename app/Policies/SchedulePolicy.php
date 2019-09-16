@@ -32,7 +32,7 @@ class SchedulePolicy
 
 
     /**
-     * Determine whether the user can view the classroom.
+     * Determine whether the user can view the course.
      *
      * @param User $user
      * @param Schedule $schedule
@@ -46,7 +46,7 @@ class SchedulePolicy
 
 
     /**
-     * Determine whether the user can create classrooms.
+     * Determine whether the user can create courses.
      *
      * @param User $user
      *
@@ -59,7 +59,7 @@ class SchedulePolicy
 
 
     /**
-     * Determine whether the user can update the classroom.
+     * Determine whether the user can update the course.
      *
      * @param User $user
      * @param Schedule $schedule
@@ -73,7 +73,7 @@ class SchedulePolicy
 
 
     /**
-     * Determine whether the user can delete the classroom.
+     * Determine whether the user can delete the course.
      *
      * @param User $user
      * @param Schedule $schedule
@@ -87,7 +87,7 @@ class SchedulePolicy
 
 
     /**
-     * Determine whether the user can restore the classroom.
+     * Determine whether the user can restore the course.
      *
      * @param User $user
      * @param Schedule $schedule
@@ -101,7 +101,7 @@ class SchedulePolicy
 
 
     /**
-     * Determine whether the user can permanently delete the classroom.
+     * Determine whether the user can permanently delete the course.
      *
      * @param User $user
      * @param Schedule $schedule
@@ -115,7 +115,7 @@ class SchedulePolicy
 
 
     /**
-     * Determine whether the user can update the classroom.
+     * Determine whether the user can update the course.
      *
      * @param User $user
      * @param Schedule $schedule

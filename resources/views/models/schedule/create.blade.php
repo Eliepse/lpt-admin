@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @var Office $office
- * @var Collection $classrooms
+ * @var Collection $courses
  */
 
 $days = DaysSet::getKeys();
@@ -37,9 +37,9 @@ $days = DaysSet::getKeys();
 
                         @component('components.form.select')
                             @slot('title', 'Cours')
-                            @slot('name', 'classroom')
-                            @slot('options', $classrooms->map(function ($classroom){
-                                    return ["value" => $classroom->id, "name" => $classroom->name];
+                            @slot('name', 'course')
+                            @slot('options', $courses->map(function ($course){
+                                    return ["value" => $course->id, "name" => $course->name];
                                 })->toArray());
                         @endcomponent
 

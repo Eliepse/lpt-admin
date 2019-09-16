@@ -2,9 +2,8 @@
 
 namespace App;
 
-use App\Pivots\ClassroomLesson;
+use App\Pivots\CourseLesson;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Classroom
+ * Class Course
  *
  * @package App
  * @property-read int id
@@ -22,7 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Collection $lessons
  * @property Collection $schedules
  */
-class Classroom extends Model
+class Course extends Model
 {
     use SoftDeletes;
 
@@ -34,7 +33,7 @@ class Classroom extends Model
     public function lessons(): BelongsToMany
     {
         return $this->belongsToMany(Lesson::class)
-            ->using(ClassroomLesson::class)
+            ->using(CourseLesson::class)
             ->withPivot(['duration']);
     }
 

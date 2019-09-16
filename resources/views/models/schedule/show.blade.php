@@ -1,12 +1,12 @@
 @extends('dashboard-master')
 
 <?php
-use App\Classroom;
+use App\Course;
 use App\Student;
 
 /**
  * @var \App\Schedule $schedule
- * @var Classroom $classroom
+ * @var Course $course
  * @var Student $student
  */
 ?>
@@ -21,13 +21,13 @@ use App\Student;
                 <small class="text-muted h6">
                     {{ \Illuminate\Support\Str::title($schedule->office->name) }}
                     &middot; le {{ __($schedule->day) }} à {{ $schedule->hour->format("H \h i") }}
-                    &middot; {{ $schedule->classroom->getDuration(true) }}
+                    &middot; {{ $schedule->course->getDuration(true) }}
                 </small>
                 <br>
-                {{ $schedule->classroom->name }}
+                {{ $schedule->course->name }}
             </h1>
             {{--<div>
-                <a class="btn btn-outline-secondary" href="{{ route('classrooms.edit', $classroom) }}">
+                <a class="btn btn-outline-secondary" href="{{ route('courses.edit', $course) }}">
                     <i class="fe fe-edit-3"></i>
                     Modifier le cours
                 </a>

@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string notes
  * @property int family_id
  * @property Collection parents
- * @property Collection classrooms
+ * @property Collection courses
  * @property StudentSchedule subscription
  * @property Family family
  * @property Carbon created_at

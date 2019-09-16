@@ -27,13 +27,13 @@
                     <div class="card mt-3 mb-3">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="classroomName">Nom du cours</label>
+                                <label for="courseName">Nom du cours</label>
                                 <input type="text" class="form-control" v-bind:class="{'is-invalid' : errors.name}"
                                        v-on:change="errors.name = undefined"
-                                       id="classroomName"
+                                       id="courseName"
                                        aria-describedby="nameHelp"
                                        placeholder="Utilisez un nom qui decrit bien le contenu de cette cours"
-                                       v-model="classroom.name">
+                                       v-model="course.name">
                                 <small id="nameHelp" class="form-text text-muted">
                                     Le nom du cours sera également affiché aux parents (lors de l'inscription par exemple)
                                 </small>
@@ -52,7 +52,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="lesson in this.classroom.lessons">
+                                <tr v-for="lesson in this.course.lessons">
                                     <td>
                                         <span class="text-uppercase text-muted" style="font-size: .75em">{{ lesson.category }}</span><br>
                                         {{ lesson.name }}
@@ -102,7 +102,7 @@
     import Loader from "./Loader";
 
     export default {
-        name: "classroom-form",
+        name: "course-form",
         components: {
             Loader
         },
@@ -114,7 +114,7 @@
         },
         data: function () {
             return {
-                classroom: {
+                course: {
                     name: '',
                     lessons: []
                 },
@@ -126,7 +126,7 @@
         },
         computed: {
             totalDuration: function () {
-                return this.classroom.lessons.reduce((acc, lesson) => {
+                return this.course.lessons.reduce((acc, lesson) => {
                     return acc + lesson.duration
                 }, 0)
             },
@@ -142,17 +142,17 @@
             requests.push(axios.get('/admin/lessons'))
 
             if (this.id)
-                requests.push(axios.get('/admin/classrooms/' + this.id))
+                requests.push(axios.get('/admin/courses/' + this.id))
 
             axios.all(requests)
-                .then(axios.spread((lessonsReq, classroomReq) => {
+                .then(axios.spread((lessonsReq, courseReq) => {
                     this.lessons = lessonsReq.data
 
-                    if (classroomReq && classroomReq.status === 200) {
-                        let classroom = classroomReq.data
-                        this.classroom.name = classroom.name
-                        classroom.lessons.forEach((lesson) => {
-                            this.classroom.lessons.push({
+                    if (courseReq && courseReq.status === 200) {
+                        let course = courseReq.data
+                        this.course.name = course.name
+                        course.lessons.forEach((lesson) => {
+                            this.course.lessons.push({
                                 id: lesson.id,
                                 name: lesson.name,
                                 category: lesson.category,
@@ -172,10 +172,10 @@
                     category: lesson.category,
                     duration: 30
                 }
-                this.classroom.lessons.push(new_lesson)
+                this.course.lessons.push(new_lesson)
             },
             removeLesson: function (lesson) {
-                this.classroom.lessons = this.classroom.lessons.filter((el) => {
+                this.course.lessons = this.course.lessons.filter((el) => {
                     return lesson.id !== el.id
                 })
                 this.errors.lessons = undefined
@@ -193,8 +193,8 @@
 
                 axios({
                     method: this.id ? 'put' : 'post',
-                    url: this.id ? '/admin/classrooms/' + this.id : '/admin/classrooms',
-                    data: this.classroom
+                    url: this.id ? '/admin/courses/' + this.id : '/admin/courses',
+                    data: this.course
                 })
                     .then((response) => {
                         window.location = response.data.redirect

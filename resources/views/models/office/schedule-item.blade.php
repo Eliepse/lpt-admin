@@ -48,7 +48,7 @@ $day = $day ?? null;
             <div class="schedule-hour">
                 {{ $schedule->hour->format("H:i") }} - {{ $schedule->hour->clone()->addMinutes($schedule->duration)->format("H:i") }}
             </div>
-            <div class="schedule-location">{{ $schedule->classroom->name }}</div>
+            <div class="schedule-location">{{ $schedule->course->name }}</div>
         </div>
 
         <div class="schedule-footer text-center">

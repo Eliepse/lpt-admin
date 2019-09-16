@@ -4,8 +4,6 @@
 namespace App\Pivots;
 
 
-use App\StaffUser;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
@@ -14,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property int duration
  * @property string relation
  */
-class ClassroomLesson extends Pivot
+class CourseLesson extends Pivot
 {
     protected $fillable = ['duration'];
 

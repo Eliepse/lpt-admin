@@ -1,17 +1,17 @@
 @extends('dashboard-master')
 
 <?php
-use App\Classroom;
+use App\Course;
 use \Illuminate\Database\Eloquent\Collection;
 use \Illuminate\Support\Str;
 
 /**
- * @var Collection $classrooms
- * @var Classroom $classroom
+ * @var Collection $courses
+ * @var Course $course
  */
 ?>
 
-@section('title', "Classes - ")
+@section('title', "Cours - ")
 
 @section('main')
 
@@ -20,7 +20,7 @@ use \Illuminate\Support\Str;
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
             <h1>Cours</h1>
             <div>
-                <a class="btn btn-outline-secondary" href="{{ route('classrooms.create') }}">
+                <a class="btn btn-outline-secondary" href="{{ route('courses.create') }}">
                     <i class="fe fe-plus"></i> Nouveau cours
                 </a>
             </div>
@@ -37,14 +37,14 @@ use \Illuminate\Support\Str;
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($classrooms as $classroom)
+                    @foreach($courses as $course)
                         <tr>
-                            <td>{{ $classroom->name }}</td>
-                            <td>{{ $classroom->getDuration(true) }}</td>
+                            <td>{{ $course->name }}</td>
+                            <td>{{ $course->getDuration(true) }}</td>
                             <td class="text-right">
-                                <a href="{{ route('classrooms.show', $classroom) }}"
+                                <a href="{{ route('courses.show', $course) }}"
                                    class="btn btn-sm btn-outline-secondary">Ouvrir</a>
-                                <a href="{{ route('classrooms.edit', $classroom) }}"
+                                <a href="{{ route('courses.edit', $course) }}"
                                    class="btn btn-sm btn-outline-secondary">Modifier</a>
                             </td>
                         </tr>

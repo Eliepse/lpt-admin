@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  *
  * @package App
  * @property-read int id
- * @property int classroom_id
+ * @property int course_id
  * @property int office_id
  * @property string day
  * @property Carbon hour
@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int duration
  * Relations:
  * @property Office office
- * @property Classroom classroom
+ * @property Course course
  * @property Collection students
  * @property int students_count
  */
@@ -50,14 +50,14 @@ class Schedule extends Model
 
     protected $dates = ['start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
 
-    protected $with = ['classroom.lessons', 'students', 'teachers'];
+    protected $with = ['course.lessons', 'students', 'teachers'];
 
     protected $withCount = ['students'];
 
 
-    public function classroom(): BelongsTo
+    public function course(): BelongsTo
     {
-        return $this->belongsTo(Classroom::class);
+        return $this->belongsTo(Course::class);
     }
 
 
@@ -90,7 +90,7 @@ class Schedule extends Model
 
     public function getDurationAttribute(): int
     {
-        return $this->classroom->getDuration();
+        return $this->course->getDuration();
     }
 
 
