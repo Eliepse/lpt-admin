@@ -55,15 +55,17 @@ class Student extends Model
     }
 
 
-    public function schedules(): BelongsToMany
+    public function subscriptions(): HasMany
     {
-        return $this->belongsToMany(Schedule::class)
-            ->using(StudentSchedule::class)
-            ->as('subscription')
-            ->withPivot([
-                'price',
-                'paid',
-            ]);
+        return $this->hasMany(Subscription::class);
+    }
+
+
+    public function getSchedules(): Collection
+    {
+        return Schedule::query()
+            ->whereIn('id', $this->subscriptions()->getQuery()->select(['id']))
+            ->get();
     }
 
 

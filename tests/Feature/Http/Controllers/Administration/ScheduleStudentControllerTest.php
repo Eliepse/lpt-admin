@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controllers\Administration;
 
-use App\Course;
 use App\Schedule;
 use App\Sets\UserRolesSet;
 use App\StaffUser;
@@ -39,9 +38,10 @@ class ScheduleStudentControllerTest extends TestCase
             ->put(route('schedules.students.link', [$schedule, $student]));
 
         $response->assertRedirect(route('schedules.students.edit', [$schedule, $student]));
-        $this->assertDatabaseHas('schedule_student', [
-            'schedule_id' => $schedule->id,
+        $this->assertDatabaseHas('subscriptions', [
             'student_id' => $student->id,
+            'marketable_id' => $schedule->id,
+            'marketable_type' => Schedule::class,
             'price' => $schedule->price,
             'paid' => 0,
         ]);
@@ -98,25 +98,21 @@ class ScheduleStudentControllerTest extends TestCase
             ->put(route('schedules.students.link', [$schedule, $student]));
 
         $response->assertRedirect(route('schedules.students.edit', [$schedule, $student]));
-        $this->assertDatabaseHas('schedule_student', [
-            'schedule_id' => $schedule->id,
+        $this->assertDatabaseHas('subscriptions', $subAttrs = [
             'student_id' => $student->id,
+            'marketable_id' => $schedule->id,
+            'marketable_type' => Schedule::class,
             'price' => $schedule->price,
             'paid' => 0,
         ]);
 
         $response = $this->actingAs($admin, 'admin')
-            ->put(route('schedules.students.link', [$schedule, $student]), [
+            ->put(route('schedules.students.link', [$schedule, $student]), $changes = [
                 'price' => 450,
                 'paid' => 350,
             ]);
 
         $response->assertRedirect(route('schedules.show', $schedule));
-        $this->assertDatabaseHas('schedule_student', [
-            'schedule_id' => $schedule->id,
-            'student_id' => $student->id,
-            'price' => 450,
-            'paid' => 350,
-        ]);
+        $this->assertDatabaseHas('subscriptions', array_merge($subAttrs, $changes));
     }
 }

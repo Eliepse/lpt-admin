@@ -1,7 +1,7 @@
 <template>
     <div class="schedule" :class="[{ 'schedule-active' : schedule.active }, background]">
         <div class="schedule-body">
-            <!--<div class="schedule-studentCount">{{ schedule.students_count }}/{{ schedule.max_students }}</div>-->
+            <!--<div class="schedule-studentCount">{{ schedule.subscriptions_count }}/{{ schedule.max_students }}</div>-->
             <div class="schedule-hour">{{ schedule.hour.format('HH:mm') }}</div>
             <div class="schedule-location">{{ schedule.office.name }}</div>
         </div>

@@ -39,9 +39,9 @@ $day = $day ?? null;
         <div class="schedule-body">
             <div class="schedule-studentCount">
                 @if($schedule->isSignupPeriod())
-                    {{ $schedule->students_count }}/{{ $schedule->max_students }}
+                    {{ $schedule->subscriptions_count }}/{{ $schedule->max_students }}
                 @else
-                    {{ $schedule->students_count }}
+                    {{ $schedule->subscriptions_count }}
                 @endif
                 <i class="fe fe-users"></i>
             </div>

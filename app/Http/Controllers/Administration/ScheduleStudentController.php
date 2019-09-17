@@ -8,6 +8,7 @@ use App\Http\Requests\LinkStudentToScheduleRequest;
 use App\Pivots\StudentSchedule;
 use App\Schedule;
 use App\Student;
+use Facade\FlareClient\Http\Exceptions\NotFound;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -56,20 +57,13 @@ class ScheduleStudentController extends Controller
     {
         $this->authorize('updateStudents', $schedule);
 
-        $pivot = new StudentSchedule([
-            'paid' => $request->get('paid', 0),
-            'price' => $request->get('price', $schedule->price),
-        ]);
-
         if (!$schedule->students->containsStrict('id', $student->id)) {
-            $schedule->students()->attach($student->id, $pivot->getAttributes());
-            $schedule->save();
+            $schedule->subscribe($student);
 
             return redirect()->action([ScheduleStudentController::class, 'edit'], [$schedule, $student]);
         }
 
-        $schedule->students()->updateExistingPivot($student->id, $pivot->getAttributes());
-        $schedule->save();
+        $schedule->updateSubscription($student, $request->only(['price', 'paid']));
 
         return redirect()->route('schedules.show', $schedule);
     }
@@ -86,9 +80,10 @@ class ScheduleStudentController extends Controller
     {
         $this->authorize('updateStudents', $schedule);
 
-        // Find student from schedule to have the associated pivot attributes
-        $student = $schedule->students->firstWhere('id', $student->id);
+        // Abort if the student and the schedule does not belongs together
+        if (!$subscription = $schedule->findSubscription($student))
+            return abort(404);
 
-        return view("models.schedule.edit-student", compact("schedule", "student"));
+        return view("models.schedule.edit-student", compact("schedule", "student", "subscription"));
     }
 }

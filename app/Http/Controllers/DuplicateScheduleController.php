@@ -58,7 +58,7 @@ class DuplicateScheduleController extends Controller
             'day' => 'required|in:' . join(',', DaysSet::getKeys()),
         ]);
 
-        $new = $schedule->replicate(['students_count']);
+        $new = $schedule->replicate(['subscriptions_count']);
         $new->hour = $request->get('hour');
         $new->day = $request->get('day');
         $new->save();

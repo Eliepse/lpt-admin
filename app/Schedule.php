@@ -5,6 +5,7 @@ namespace App;
 use App\Enums\DaysEnum;
 use App\Pivots\ScheduleTeacher;
 use App\Pivots\StudentSchedule;
+use App\Relations\Marketable;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
@@ -12,6 +13,10 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Class Timetable
@@ -35,10 +40,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Relations:
  * @property Office office
  * @property Course course
- * @property Collection students
- * @property int students_count
+ * @property \Illuminate\Support\Collection students
+ * @property Collection subscriptions
+ * @property int subscriptions_count
  */
-class Schedule extends Model
+class Schedule extends Model implements Marketable
 {
     public const SCHEDULE_IS_INCOMMING = 0;
     public const SCHEDULE_IS_SIGNUP = 2;
@@ -50,9 +56,10 @@ class Schedule extends Model
 
     protected $dates = ['start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
 
-    protected $with = ['course.lessons', 'students', 'teachers'];
+    protected $with = ['course.lessons', 'subscriptions.student', 'teachers'];
 
-    protected $withCount = ['students'];
+    // TODO(eliepse): optimize it by using already loaded relation (removes a sql query)
+    protected $withCount = ['subscriptions'];
 
 
     public function course(): BelongsTo
@@ -61,14 +68,9 @@ class Schedule extends Model
     }
 
 
-    public function students(): BelongsToMany
+    public function subscriptions(): MorphMany
     {
-        return $this->belongsToMany(Student::class)
-            ->using(StudentSchedule::class)
-            ->withPivot([
-                'price',
-                'paid',
-            ]);
+        return $this->morphMany(Subscription::class, "marketable");
     }
 
 
@@ -140,14 +142,64 @@ class Schedule extends Model
 
     public function getTheoricalPaidAmount(): int
     {
-        return $this->price * $this->students_count;
+        return $this->price * $this->subscriptions->count();
     }
 
 
     public function getActualPaidAmount(): int
     {
-        return $this->students->reduce(function (int $val, Student $student) {
-            return $val + $student->pivot->paid;
+        return $this->subscriptions->reduce(function (int $val, Subscription $sub) {
+            return $val + $sub->paid;
         }, 0);
+    }
+
+
+    public function getStudents(): \Illuminate\Support\Collection
+    {
+        return $this->subscriptions->pluck('student');
+    }
+
+
+    public function getStudentsAttribute(): \Illuminate\Support\Collection
+    {
+        return $this->getStudents();
+    }
+
+
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+
+    public function subscribe(Student $student): Subscription
+    {
+        $sub = new Subscription();
+        $sub->student()->associate($student);
+        $sub->price = $this->price;
+        $sub->paid = 0;
+        $sub->validity_start_at = $this->start_at;
+        $sub->validity_end_at = $this->end_at;
+        $this->subscriptions()->save($sub);
+
+        return $sub;
+    }
+
+
+    public function findSubscription(Student $student): ?Subscription
+    {
+        return $this->subscriptions->firstWhere('student_id', $student->id);
+    }
+
+
+    public function updateSubscription(Student $student, array $attributes = []): ?Subscription
+    {
+        if (!$sub = $this->findSubscription($student))
+            return null;
+
+        $sub->fill($attributes);
+        $sub->save();
+
+        return $sub;
     }
 }
