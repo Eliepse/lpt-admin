@@ -6,6 +6,7 @@ namespace App\Relations;
 
 use App\Student;
 use App\Subscription;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 
