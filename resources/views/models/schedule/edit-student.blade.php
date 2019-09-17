@@ -6,6 +6,7 @@ use App\Sets\DaysSet;
 /**
  * @var \App\Schedule $schedule
  * @var \App\Student $student
+ * @var \App\Subscription $subscription
  */
 
 $days = DaysSet::getKeys();
@@ -39,14 +40,14 @@ $days = DaysSet::getKeys();
                             @slot('title', 'Prix')
                             @slot('name', 'price')
                             @slot('type', 'number')
-                            @slot('default', $student->pivot->price)
+                            @slot('default', $subscription->price)
                         @endcomponent
 
                         @component('components.form.input')
                             @slot('title', 'Payé')
                             @slot('name', 'paid')
                             @slot('type', 'number')
-                            @slot('default', $student->pivot->paid)
+                            @slot('default', $subscription->paid)
                         @endcomponent
 
                     </div>

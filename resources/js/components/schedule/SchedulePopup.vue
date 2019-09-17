@@ -20,7 +20,7 @@
                 </div>
                 <div class="mb-3">
                     <div class>
-                        {{ schedule.students_count }}/{{ schedule.max_students }} étudiants
+                        {{ schedule.subscriptions_count }}/{{ schedule.max_students }} étudiants
                     </div>
                 </div>
                 <div v-if="schedule.teachers.length">

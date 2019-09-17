@@ -4,11 +4,10 @@ namespace App;
 
 use App\Enums\DaysEnum;
 use App\Pivots\ScheduleTeacher;
-use App\Pivots\StudentSchedule;
+use App\Relations\HasSubscribers;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -35,11 +34,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Relations:
  * @property Office office
  * @property Course course
- * @property Collection students
- * @property int students_count
+ * @property \Illuminate\Support\Collection students
+ * @property int subscriptions_count
  */
 class Schedule extends Model
 {
+    use HasSubscribers;
+
     public const SCHEDULE_IS_INCOMMING = 0;
     public const SCHEDULE_IS_SIGNUP = 2;
     public const SCHEDULE_IS_STUDY = 3;
@@ -50,25 +51,13 @@ class Schedule extends Model
 
     protected $dates = ['start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
 
-    protected $with = ['course.lessons', 'students', 'teachers'];
-
-    protected $withCount = ['students'];
+    // TODO(eliepse): optimize it by using already loaded relation (removes a sql query)
+    protected $withCount = ['subscriptions'];
 
 
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
-    }
-
-
-    public function students(): BelongsToMany
-    {
-        return $this->belongsToMany(Student::class)
-            ->using(StudentSchedule::class)
-            ->withPivot([
-                'price',
-                'paid',
-            ]);
     }
 
 
@@ -140,14 +129,32 @@ class Schedule extends Model
 
     public function getTheoricalPaidAmount(): int
     {
-        return $this->price * $this->students_count;
+        return $this->price * $this->subscriptions->count();
     }
 
 
     public function getActualPaidAmount(): int
     {
-        return $this->students->reduce(function (int $val, Student $student) {
-            return $val + $student->pivot->paid;
+        return $this->subscriptions->reduce(function (int $val, Subscription $sub) {
+            return $val + $sub->paid;
         }, 0);
+    }
+
+
+    public function getStudents(): \Illuminate\Support\Collection
+    {
+        return $this->getSubscribers();
+    }
+
+
+    public function getStudentsAttribute(): \Illuminate\Support\Collection
+    {
+        return $this->getStudents();
+    }
+
+
+    public function getPrice(): int
+    {
+        return $this->price;
     }
 }
