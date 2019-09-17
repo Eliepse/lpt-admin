@@ -16,7 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 
-class ScheduleStudentController extends Controller
+class ScheduleSubscriptionController extends Controller
 {
     use AuthorizesRequests;
 
@@ -60,7 +60,7 @@ class ScheduleStudentController extends Controller
         if (!$schedule->students->containsStrict('id', $student->id)) {
             $schedule->subscribe($student);
 
-            return redirect()->action([ScheduleStudentController::class, 'edit'], [$schedule, $student]);
+            return redirect()->action([ScheduleSubscriptionController::class, 'edit'], [$schedule, $student]);
         }
 
         $schedule->updateSubscription($student, $request->only(['price', 'paid']));

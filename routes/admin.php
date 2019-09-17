@@ -11,7 +11,7 @@
 |
 */
 
-use App\Http\Controllers\Administration\ScheduleStudentController;
+use App\Http\Controllers\Administration\ScheduleSubscriptionController;
 use App\Http\Controllers\Administration\SettingsController;
 use App\Http\Controllers\Administration\StaffController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -83,9 +83,9 @@ Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name
 Route::get('/schedules/{schedule}/promptDuplicate', [DuplicateScheduleController::class, 'prompt'])->name('schedules.promptDuplicate');
 Route::get('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'form'])->name('schedules.duplicate');
 Route::post('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'store']);
-Route::get('/schedules/{schedule}/students/select', [ScheduleStudentController::class, 'select'])->name('schedules.students.select');
-Route::put('/schedules/{schedule}/students/{student}', [ScheduleStudentController::class, 'link'])->name('schedules.students.link');
-Route::get('/schedules/{schedule}/students/{student}/edit', [ScheduleStudentController::class, 'edit'])->name('schedules.students.edit');
+Route::get('/schedules/{schedule}/students/select', [ScheduleSubscriptionController::class, 'select'])->name('schedules.students.select');
+Route::put('/schedules/{schedule}/students/{student}', [ScheduleSubscriptionController::class, 'link'])->name('schedules.students.link');
+Route::get('/schedules/{schedule}/students/{student}/edit', [ScheduleSubscriptionController::class, 'edit'])->name('schedules.students.edit');
 
 
 // Offices

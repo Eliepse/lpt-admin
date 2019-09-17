@@ -9,7 +9,7 @@ use App\Student;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ScheduleStudentControllerTest extends TestCase
+class ScheduleSubscriptionControllerTest extends TestCase
 {
     use RefreshDatabase;
 
