@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property Carbon $updated_at
  * Relations
  * @property Student $student
- * @property HasSubscribers $marketable
+ * @property Model|HasSubscribers $marketable
  */
 class Subscription extends Model
 {

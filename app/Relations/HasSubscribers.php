@@ -32,7 +32,7 @@ trait HasSubscribers
     }
 
 
-    public function subscribe(HasSubscriptions $model)
+    public function subscribe(Model $model): Subscription
     {
         $sub = new Subscription();
         $sub->student()->associate($model);
