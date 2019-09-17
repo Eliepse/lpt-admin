@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Timetable
@@ -39,7 +40,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Schedule extends Model
 {
-    use HasSubscribers;
+    use HasSubscribers,
+        SoftDeletes;
 
     public const SCHEDULE_IS_INCOMMING = 0;
     public const SCHEDULE_IS_SIGNUP = 2;

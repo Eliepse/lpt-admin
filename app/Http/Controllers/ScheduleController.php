@@ -8,11 +8,14 @@ use App\Http\Requests\UpdateScheduleRequest;
 use App\Office;
 use App\Schedule;
 use Eliepse\Alert\AlertSuccess;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 
 class ScheduleController extends Controller
 {
@@ -80,5 +83,35 @@ class ScheduleController extends Controller
             ]);
 
         return redirect(route('lessons.index'));
+    }
+
+
+    /**
+     * @param Schedule $schedule
+     *
+     * @return Factory|View
+     * @throws AuthorizationException
+     */
+    public function delete(Schedule $schedule)
+    {
+        $this->authorize("delete", $schedule);
+
+        return view("models.schedule.delete", ["schedule" => $schedule]);
+    }
+
+
+    /**
+     * @param Schedule $schedule
+     *
+     * @throws AuthorizationException
+     * @throws \Exception
+     */
+    public function trash(Schedule $schedule)
+    {
+        $this->authorize("delete", $schedule);
+
+        $schedule->delete();
+
+        return redirect(route('dashboard'));
     }
 }
