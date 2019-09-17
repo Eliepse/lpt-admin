@@ -20,5 +20,11 @@ interface Marketable
     public function subscribe(Student $student): Subscription;
 
 
-    public function students(): Collection;
+    public function getStudents(): Collection;
+
+
+    public function findSubscription(Student $student): ?Subscription;
+
+
+    public function updateSubscription(Student $student): ?Subscription;
 }
