@@ -5,7 +5,8 @@ namespace App;
 use App\Enums\DaysEnum;
 use App\Pivots\ScheduleTeacher;
 use App\Pivots\StudentSchedule;
-use App\Relations\Marketable;
+use App\Relations\HasSubscribers;
+use App\Relations\CanBeSubscribe;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
@@ -41,11 +42,12 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property Office office
  * @property Course course
  * @property \Illuminate\Support\Collection students
- * @property Collection subscriptions
  * @property int subscriptions_count
  */
-class Schedule extends Model implements Marketable
+class Schedule extends Model implements CanBeSubscribe
 {
+    use HasSubscribers;
+
     public const SCHEDULE_IS_INCOMMING = 0;
     public const SCHEDULE_IS_SIGNUP = 2;
     public const SCHEDULE_IS_STUDY = 3;
@@ -65,12 +67,6 @@ class Schedule extends Model implements Marketable
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
-    }
-
-
-    public function subscriptions(): MorphMany
-    {
-        return $this->morphMany(Subscription::class, "marketable");
     }
 
 
@@ -156,7 +152,7 @@ class Schedule extends Model implements Marketable
 
     public function getStudents(): \Illuminate\Support\Collection
     {
-        return $this->subscriptions->pluck('student');
+        return $this->getSubscribers();
     }
 
 
@@ -169,37 +165,5 @@ class Schedule extends Model implements Marketable
     public function getPrice(): int
     {
         return $this->price;
-    }
-
-
-    public function subscribe(Student $student): Subscription
-    {
-        $sub = new Subscription();
-        $sub->student()->associate($student);
-        $sub->price = $this->price;
-        $sub->paid = 0;
-        $sub->validity_start_at = $this->start_at;
-        $sub->validity_end_at = $this->end_at;
-        $this->subscriptions()->save($sub);
-
-        return $sub;
-    }
-
-
-    public function findSubscription(Student $student): ?Subscription
-    {
-        return $this->subscriptions->firstWhere('student_id', $student->id);
-    }
-
-
-    public function updateSubscription(Student $student, array $attributes = []): ?Subscription
-    {
-        if (!$sub = $this->findSubscription($student))
-            return null;
-
-        $sub->fill($attributes);
-        $sub->save();
-
-        return $sub;
     }
 }

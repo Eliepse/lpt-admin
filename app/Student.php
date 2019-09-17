@@ -4,6 +4,7 @@ namespace App;
 
 use App\Pivots\ParentStudent;
 use App\Pivots\StudentSchedule;
+use App\Relations\HasSubscriptions;
 use App\Traits\HasHumanNames;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -25,16 +26,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int family_id
  * @property Collection parents
  * @property Collection courses
- * @property StudentSchedule subscription
  * @property Family family
  * @property Carbon created_at
  * @property Carbon updated_at
- * @property StudentSchedule pivot
  */
 class Student extends Model
 {
-    use SoftDeletes;
-    use HasHumanNames;
+    use SoftDeletes,
+        HasHumanNames,
+        HasSubscriptions;
 
     protected $fillable = ['firstname', 'lastname', 'birthday', 'notes'];
 
@@ -52,12 +52,6 @@ class Student extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
-    }
-
-
-    public function subscriptions(): HasMany
-    {
-        return $this->hasMany(Subscription::class);
     }
 
 

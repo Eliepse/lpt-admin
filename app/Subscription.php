@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Relations\HasSubscribers;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,7 +24,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property Carbon $updated_at
  * Relations
  * @property Student $student
- * @property Marketable $marketable
+ * @property HasSubscribers $marketable
  */
 class Subscription extends Model
 {
@@ -44,5 +45,23 @@ class Subscription extends Model
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
+    }
+
+
+    public function unpaidAmount(): int
+    {
+        return $this->price - $this->paid;
+    }
+
+
+    public function isPaid(): bool
+    {
+        return $this->paid >= $this->price;
+    }
+
+
+    public function isOverPaid(): bool
+    {
+        return $this->paid > $this->price;
     }
 }
