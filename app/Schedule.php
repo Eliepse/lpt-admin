@@ -51,8 +51,6 @@ class Schedule extends Model
 
     protected $dates = ['start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
 
-    protected $with = ['course.lessons', 'subscriptions.student', 'teachers'];
-
     // TODO(eliepse): optimize it by using already loaded relation (removes a sql query)
     protected $withCount = ['subscriptions'];
 
