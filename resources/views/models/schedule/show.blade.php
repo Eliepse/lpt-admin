@@ -53,6 +53,7 @@ use App\Student;
                     </thead>
                     <tbody>
                     @foreach($schedule->students as $student)
+                        <?php $sub = $student->findSubscription($schedule); ?>
                         <tr>
                             <td>
                                 <a href="{{ route('families.show', $student->family) }}">
@@ -62,12 +63,12 @@ use App\Student;
                                 <small class="text-muted">{{ $student->getAge() }} ans</small>
                             </td>
                             <td>
-                                @if($student->pivot->isOverPaid())
-                                    <span class="text-info">+&nbsp;{{ $student->pivot->paid - $student->pivot->price }}&nbsp;€</span>
-                                @elseif($student->pivot->isPaid())
+                                @if($sub->isOverPaid())
+                                    <span class="text-info">+&nbsp;{{ $sub->paid - $sub->price }}&nbsp;€</span>
+                                @elseif($sub->isPaid())
                                     <span class="text-muted">Payé</span>
                                 @else
-                                    <span class="text-danger">-&nbsp;{{ $student->pivot->unpaidAmount() }}&nbsp;€</span>
+                                    <span class="text-danger">-&nbsp;{{ $sub->unpaidAmount() }}&nbsp;€</span>
                                 @endif
                             </td>
                             <td class="text-right">
