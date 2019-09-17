@@ -4,20 +4,13 @@ namespace App;
 
 use App\Enums\DaysEnum;
 use App\Pivots\ScheduleTeacher;
-use App\Pivots\StudentSchedule;
 use App\Relations\HasSubscribers;
-use App\Relations\CanBeSubscribe;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Class Timetable
@@ -44,7 +37,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property \Illuminate\Support\Collection students
  * @property int subscriptions_count
  */
-class Schedule extends Model implements CanBeSubscribe
+class Schedule extends Model
 {
     use HasSubscribers;
 
