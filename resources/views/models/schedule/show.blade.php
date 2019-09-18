@@ -27,9 +27,11 @@ use App\Student;
                 {{ $schedule->course->name }}
             </h1>
             <div>
+                <a class="btn btn-outline-secondary" href="{{ route('schedules.promptDuplicate', $schedule) }}">
+                    <i class="fe fe-copy"></i> Dupliquer
+                </a>
                 <a class="btn btn-outline-secondary" href="{{ route('schedules.delete', $schedule) }}">
-                    <i class="fe fe-trash"></i>
-                    Supprimer
+                    <i class="fe fe-trash"></i> Supprimer
                 </a>
             </div>
         </div>
