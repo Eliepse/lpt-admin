@@ -26,12 +26,14 @@ use App\Student;
                 <br>
                 {{ $schedule->course->name }}
             </h1>
-            {{--<div>
-                <a class="btn btn-outline-secondary" href="{{ route('courses.edit', $course) }}">
-                    <i class="fe fe-edit-3"></i>
-                    Modifier le cours
+            <div>
+                <a class="btn btn-outline-secondary" href="{{ route('schedules.promptDuplicate', $schedule) }}">
+                    <i class="fe fe-copy"></i> Dupliquer
                 </a>
-            </div>--}}
+                <a class="btn btn-outline-secondary" href="{{ route('schedules.delete', $schedule) }}">
+                    <i class="fe fe-trash"></i> Supprimer
+                </a>
+            </div>
         </div>
 
         <div class="card">
@@ -53,7 +55,7 @@ use App\Student;
                     </thead>
                     <tbody>
                     @foreach($schedule->students as $student)
-                        <?php $sub = $student->findSubscription($schedule); ?>
+						<?php $sub = $student->findSubscription($schedule); ?>
                         <tr>
                             <td>
                                 <a href="{{ route('families.show', $student->family) }}">

@@ -122,7 +122,7 @@ class CourseController extends Controller
     {
         $this->authorize('update', $course);
 
-        $course->fill($request->all(['name']));
+        $course->fill($request->only(['name', 'description']));
         $course->save();
 
         $course->lessons()->sync(

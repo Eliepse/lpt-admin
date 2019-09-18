@@ -16,18 +16,23 @@ use \Illuminate\Support\Str;
 @section('main')
 
     <div class="container justify-content-center">
-        <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
-            <h1>
-                <small class="text-muted h6">
-                    Cours
-                    &middot; {{ $course->getDuration(true) }}
-                    &middot; {{ $course->lessons->count() . ' ' . Str::plural('leçon', $course->lessons->count()) }}
-                </small>
-                <br>
-                {{ $course->name }}
-            </h1>
+        <div class="d-flex mb-3 mt-3 justify-content-between align-items-start">
             <div>
-                <a class="btn btn-outline-secondary" href="{{ route('courses.edit', $course) }}">
+                <h1>
+                    <small class="text-muted h6">
+                        Cours
+                        &middot; {{ $course->getDuration(true) }}
+                        &middot; {{ $course->lessons->count() . ' ' . Str::plural('leçon', $course->lessons->count()) }}
+                    </small>
+                    <br>
+                    {{ $course->name }}
+                </h1>
+                <p>
+                    <small>{{ $course->description }}</small>
+                </p>
+            </div>
+            <div>
+                <a class="btn btn-link" href="{{ route('courses.edit', $course) }}">
                     <i class="fe fe-edit-3"></i>
                     Modifier le cours
                 </a>
@@ -64,8 +69,8 @@ use \Illuminate\Support\Str;
         <div class="d-flex justify-content-between mt-5"><h4>Classes</h4></div>
 
         <schedule-calendar
-                :schedules="{{ $course->schedules->toJson() }}"
-                :course="{{ $course->toJson() }}">
+            :schedules="{{ $course->schedules->toJson() }}"
+            :course="{{ $course->toJson() }}">
 
         </schedule-calendar>
     </div>

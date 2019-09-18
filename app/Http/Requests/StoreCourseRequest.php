@@ -27,6 +27,7 @@ class StoreCourseRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:50',
+            'description' => 'nullable|string|max:250',
             'lessons' => 'required|array',
             'lessons.*.id' => 'required|min:1|exists:lessons,id',
             'lessons.*.duration' => 'required|integer|between:0,65000',
