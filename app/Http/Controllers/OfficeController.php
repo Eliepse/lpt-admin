@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOfficeRequest;
+use App\Http\Requests\UpdateOfficeRequest;
 use App\Office;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class OfficeController extends Controller
 {
@@ -53,5 +57,31 @@ class OfficeController extends Controller
             ->groupBy("day");
 
         return view('models.office.show', compact('office', 'schedules'));
+    }
+
+
+    /**
+     * @param Office $office
+     *
+     * @return Factory|View
+     */
+    public function edit(Office $office)
+    {
+        return view("models.office.edit", ['office' => $office]);
+    }
+
+
+    /**
+     * @param UpdateOfficeRequest $request
+     * @param Office $office
+     *
+     * @return RedirectResponse
+     */
+    public function update(UpdateOfficeRequest $request, Office $office)
+    {
+        $office->fill($request->only(["name", "postal_address"]));
+        $office->save();
+
+        return redirect()->route('offices.show', $office);
     }
 }

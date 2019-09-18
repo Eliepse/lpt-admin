@@ -92,10 +92,13 @@ Route::delete('/schedules/{schedule}', [ScheduleController::class, 'trash'])->na
 
 // Offices
 Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
+Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
 Route::get('/offices/create', [OfficeController::class, 'create'])->name('offices.create');
 Route::post('/offices', [OfficeController::class, 'store'])->name('offices.store');
 Route::get('/offices/{office}', [OfficeController::class, 'show'])->name('offices.show');
 Route::get('/offices/{office}/schedules/create', [ScheduleController::class, 'create'])->name('offices.schedules.create');
+Route::get('/offices/{office}/edit', [OfficeController::class, 'edit'])->name('offices.edit');
+Route::put('/offices//{office}', [OfficeController::class, 'update'])->name('offices.update');
 
 // Settings
 Route::get('/settings', [SettingsController::class, 'general'])->name('settings');
