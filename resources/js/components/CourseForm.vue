@@ -26,13 +26,14 @@
                     <loader :active="loading"></loader>
                     <div class="card mt-3 mb-3">
                         <div class="card-body">
+
                             <div class="form-group">
                                 <label for="courseName">Nom du cours</label>
                                 <input type="text" class="form-control" v-bind:class="{'is-invalid' : errors.name}"
                                        v-on:change="errors.name = undefined"
                                        id="courseName"
                                        aria-describedby="nameHelp"
-                                       placeholder="Utilisez un nom qui decrit bien le contenu de cette cours"
+                                       placeholder="Utilisez un nom qui decrit bien le contenu de ce cours"
                                        v-model="course.name">
                                 <small id="nameHelp" class="form-text text-muted">
                                     Le nom du cours sera également affiché aux parents (lors de l'inscription par exemple)
@@ -41,6 +42,23 @@
                                     {{ message }}
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="courseDescription">Description du cours</label>
+                                <input type="text" class="form-control" v-bind:class="{'is-invalid' : errors.description}"
+                                       v-on:change="errors.description = undefined"
+                                       id="courseDescription"
+                                       aria-describedby="descriptionHelp"
+                                       placeholder="Décrivez ce que ce cours apporte aux étudiants qui y participent."
+                                       v-model="course.description">
+                                <small id="descriptionHelp" class="form-text text-muted">
+                                    Le nom du cours sera également affiché aux parents (lors de l'inscription par exemple)
+                                </small>
+                                <div class="invalid-feedback" v-for="message in errors.description">
+                                    {{ message }}
+                                </div>
+                            </div>
+
                         </div>
                         <div class="card-table">
                             <table class="table table-hover table-vcenter" v-bind:class="{'table-danger' : errors.lessons}">
@@ -116,6 +134,7 @@
             return {
                 course: {
                     name: '',
+                    description: '',
                     lessons: []
                 },
                 lessons: [],

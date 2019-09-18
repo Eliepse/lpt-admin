@@ -38,8 +38,8 @@ $days = DaysSet::getKeys();
                         @component('components.form.select')
                             @slot('title', 'Cours')
                             @slot('name', 'course')
-                            @slot('options', $courses->map(function ($course){
-                                    return ["value" => $course->id, "name" => $course->name];
+                            @slot('options', $courses->map(function (App\Course $course){
+                                    return ["value" => $course->id, "name" => $course->name . " ({$course->getDuration(true)})"];
                                 })->toArray());
                         @endcomponent
 

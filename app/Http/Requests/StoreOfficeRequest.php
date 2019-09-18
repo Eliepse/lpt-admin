@@ -14,7 +14,8 @@ class StoreOfficeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:offices,name',
+            'name' => 'required|string|unique:offices,name|max:50',
+            'postal_address' => 'nullable|string|max:150',
         ];
     }
 }

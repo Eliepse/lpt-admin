@@ -1,13 +1,18 @@
 @extends('dashboard-master')
-
-@section('title', "Nouveau bureau - ")
+<?php
+/**
+ * @var App\Office $office
+ */
+?>
+@section('title', "Modifier un bureau - ")
 
 @section('main')
     <div class="container mt-3">
 
-        <form action="{{ route('offices.store') }}" method="POST">
+        <form action="{{ route('offices.update', $office) }}" method="POST">
 
             @csrf
+            @method('put')
 
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
@@ -15,7 +20,7 @@
                     <div class="card">
 
                         <div class="card-header">
-                            <h3 class="card-title">Nouveau bureau</h3>
+                            <h3 class="card-title">Modifier un bureau</h3>
                             {{--<p class="card-subtitle"></p>--}}
                         </div>
 
@@ -26,12 +31,14 @@
                                 @slot('name', 'name')
                                 @slot('required', true)
                                 @slot('attrs', ['max' => 50])
+                                @slot('default', $office->name)
                             @endcomponent
 
                             @component('components.form.input')
                                 @slot('title', 'Adresse postale (optionel)')
                                 @slot('name', 'postal_address')
                                 @slot('attrs', ['max' => 150])
+                                @slot('default', $office->postal_address)
                             @endcomponent
 
                         </div>
@@ -39,7 +46,7 @@
                     </div>
 
                     <div class="card-footer text-right">
-                        <a href="{{ route('offices.index') }}" class="btn btn-link">Annuler</a>
+                        <a href="{{ route('offices.show', $office) }}" class="btn btn-link">Annuler</a>
                         <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
 
