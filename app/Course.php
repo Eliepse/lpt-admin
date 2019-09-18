@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App
  * @property-read int id
  * @property string name
+ * @property string description
  * @property-read Carbon created_at
  * @property-read Carbon updated_at
  * @property Collection $lessons
