@@ -63,10 +63,9 @@
                             @endcomponent
 
                             @component('components.form.input')
-                                @slot('title', 'Adresse postale')
+                                @slot('title', 'Adresse postale (optionel)')
                                 @slot('name', 'parent[address]')
                                 @slot('type', 'text')
-                                @slot('required', true)
                                 @slot('attrs', ['max' => 150])
                             @endcomponent
 
@@ -97,7 +96,7 @@
                             @endcomponent
 
                             @component('components.form.textarea-input')
-                                @slot('title', 'Notes')
+                                @slot('title', 'Notes (optionel)')
                                 @slot('name', 'student[notes]')
                                 @slot('attrs', ['max' => 1000])
                             @endcomponent
