@@ -37,7 +37,10 @@ use \Illuminate\Database\Eloquent\Collection;
                     <tbody>
                     @foreach($officies as $office)
                         <tr>
-                            <td>{{ \Illuminate\Support\Str::title($office->name) }}</td>
+                            <td>
+                                {{ \Illuminate\Support\Str::title($office->name) }}<br>
+                                <small class="text-muted">{{ $office->postal_address }}</small>
+                            </td>
                             <td class="text-right">
                                 <a href="{{ route('offices.show', $office) }}"
                                    class="btn btn-sm btn-outline-secondary">Afficher</a>

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @package App
  * @property-read int id
  * @property string name
+ * @property string|null postal_address
  * @property-read Carbon updated_at
  * @property-read Carbon created_at
  * @property-read Collection schedules

@@ -28,6 +28,12 @@
                                 @slot('attrs', ['max' => 50])
                             @endcomponent
 
+                            @component('components.form.input')
+                                @slot('title', 'Adresse postale (optionel)')
+                                @slot('name', 'postal_address')
+                                @slot('attrs', ['max' => 150])
+                            @endcomponent
+
                         </div>
 
                     </div>
