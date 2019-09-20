@@ -72,9 +72,7 @@ trait HasSubscribers
      */
     public function getIncome(): int
     {
-        return $this->subscriptions->reduce(function (int $val, Subscription $sub) {
-            return $val + $sub->paid;
-        }, 0);
+        return $this->subscriptions->sum('paid');
     }
 
 
