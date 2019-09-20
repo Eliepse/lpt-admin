@@ -129,20 +129,6 @@ class Schedule extends Model
     }
 
 
-    public function getTheoricalPaidAmount(): int
-    {
-        return $this->price * $this->subscriptions->count();
-    }
-
-
-    public function getActualPaidAmount(): int
-    {
-        return $this->subscriptions->reduce(function (int $val, Subscription $sub) {
-            return $val + $sub->paid;
-        }, 0);
-    }
-
-
     public function getStudents(): \Illuminate\Support\Collection
     {
         return $this->getSubscribers();

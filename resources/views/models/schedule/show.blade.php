@@ -84,7 +84,7 @@ use App\Student;
                     <tr class="small text-muted">
                         <th></th>
                         <th>
-                            {{ $schedule->getActualPaidAmount() }}&nbsp;€ / {{ $schedule->getTheoricalPaidAmount() }}&nbsp;€
+                            {{ $schedule->getIncome() }}&nbsp;€ / {{ $schedule->getTheoricalTotalIncome() }}&nbsp;€
                         </th>
                         <th>
                             <i class="fe fe-users"></i> {{ $schedule->students->count() }} / {{ $schedule->max_students }}
