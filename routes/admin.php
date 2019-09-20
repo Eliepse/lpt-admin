@@ -85,6 +85,8 @@ Route::get('/schedules/{schedule}/duplicate', [DuplicateScheduleController::clas
 Route::post('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'store']);
 Route::get('/schedules/{schedule}/students/select', [ScheduleSubscriptionController::class, 'select'])->name('schedules.students.select');
 Route::put('/schedules/{schedule}/students/{student}', [ScheduleSubscriptionController::class, 'link'])->name('schedules.students.link');
+Route::get('/schedules/{schedule}/students/{student}/unlink', [ScheduleSubscriptionController::class, 'confirmUnlink'])->name('schedules.students.unlink');
+Route::delete('/schedules/{schedule}/students/{student}', [ScheduleSubscriptionController::class, 'unlink']);
 Route::get('/schedules/{schedule}/students/{student}/edit', [ScheduleSubscriptionController::class, 'edit'])->name('schedules.students.edit');
 Route::get('/schedules/{schedule}/delete', [ScheduleController::class, 'delete'])->name('schedules.delete');
 Route::delete('/schedules/{schedule}', [ScheduleController::class, 'trash'])->name('schedules.trash');

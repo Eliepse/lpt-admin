@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ScheduleSubscriptionController extends Controller
@@ -85,5 +86,37 @@ class ScheduleSubscriptionController extends Controller
             return abort(404);
 
         return view("models.schedule.edit-student", compact("schedule", "student", "subscription"));
+    }
+
+
+    public function confirmUnlink(Schedule $schedule, Student $student)
+    {
+        if (!Auth::user('admin')->isAdmin())
+            abort(403);
+
+        if (!$schedule->students->containsStrict('id', $student->id))
+            abort(404);
+
+        return view('models.schedule.deleteSubscription', ['schedule' => $schedule, 'student' => $student]);
+    }
+
+
+    /**
+     * @param Schedule $schedule
+     * @param Student $student
+     *
+     * @throws \Exception
+     */
+    public function unlink(Schedule $schedule, Student $student)
+    {
+        if (!Auth::user('admin')->isAdmin())
+            abort(403);
+
+        if (!$schedule->students->containsStrict('id', $student->id))
+            abort(404);
+
+        $schedule->findSubscription($student)->delete();
+
+        return redirect()->route('schedules.show', $schedule);
     }
 }

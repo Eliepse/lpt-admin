@@ -3,6 +3,7 @@
 <?php
 use App\Course;
 use App\Student;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @var \App\Schedule $schedule
@@ -76,6 +77,10 @@ use App\Student;
                             <td class="text-right">
                                 <a href="{{ route('schedules.students.edit', [$schedule, $student]) }}"
                                    class="btn btn-sm btn-icon"><i class="fe fe-edit"></i></a>
+                                @if(Auth::user('admin')->isAdmin())
+                                    <a href="{{ route('schedules.students.unlink', [$schedule, $student]) }}"
+                                       class="btn btn-sm btn-icon"><i class="fe fe-trash"></i></a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
