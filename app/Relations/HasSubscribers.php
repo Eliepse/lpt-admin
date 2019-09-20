@@ -96,6 +96,6 @@ trait HasSubscribers
      */
     public function getTheoricalTotalIncome(): int
     {
-        return $this->getPrice() * $this->subscriptions->count();
+        return $this->getPrice() * $this->max_students;
     }
 }
