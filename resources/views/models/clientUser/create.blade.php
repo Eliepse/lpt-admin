@@ -58,10 +58,9 @@
                         @endcomponent
 
                         @component('components.form.input')
-                            @slot('title', 'Adresse postale')
+                            @slot('title', 'Adresse postale (optional)')
                             @slot('name', 'address')
                             @slot('type', 'text')
-                            @slot('required', true)
                             @slot('attrs', ['max' => 150])
                         @endcomponent
 
