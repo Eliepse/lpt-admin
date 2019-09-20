@@ -7,7 +7,6 @@
                 :select-attribute="selectDragAttribute"
                 :drag-attribute="selectDragAttribute"
                 :input-props="{
-                    disabled: true,
                     placeholder: placeholder,
                     class: 'form-control ' + classes.join(' ')
                 }"
