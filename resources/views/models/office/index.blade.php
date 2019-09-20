@@ -10,17 +10,17 @@ use \Illuminate\Database\Eloquent\Collection;
  */
 ?>
 
-@section('title', "Bureaux - ")
+@section('title', "Campus - ")
 
 @section('main')
 
     <div class="container justify-content-center">
 
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
-            <h1>Bureaux</h1>
+            <h1>Campus</h1>
             <div>
                 <a class="btn btn-outline-secondary" href="{{ route('offices.create') }}">
-                    <i class="fe fe-plus"></i> Nouveau bureau
+                    <i class="fe fe-plus"></i> Nouveau campus
                 </a>
             </div>
         </div>
