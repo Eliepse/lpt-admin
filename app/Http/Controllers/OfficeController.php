@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\DaysEnum;
 use App\Http\Requests\StoreOfficeRequest;
 use App\Http\Requests\UpdateOfficeRequest;
 use App\Office;
+use App\Schedule;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class OfficeController extends Controller
@@ -54,11 +58,34 @@ class OfficeController extends Controller
     {
         $schedules = $office->activeSchedules()
             ->with(['course.lessons'])
-            ->get()
-            ->sortBy('hour')
-            ->groupBy("day");
+            ->get();
 
-        return view('models.office.show', compact('office', 'schedules'));
+        /** @var Carbon $min */
+        $min = $schedules->min(function (Schedule $schedule) { return $schedule->hour; });
+        $min = $min->isBefore(Carbon::createFromTime(10)) ? $min : Carbon::createFromTime(10);
+
+        /** @var Carbon $max */
+        $max = $schedules->max(function (Schedule $schedule) { return $schedule->hour; });
+        $max = $max->isAfter(Carbon::createFromTime(18)) ? $max : Carbon::createFromTime(18);
+
+        $days = $schedules
+            ->sortBy('hour')
+            ->groupBy('day')
+            ->sortBy(function ($coll, $key) {
+                return DaysEnum::getValue($key);
+            })
+            ->map(function (Collection $schedules) {
+                return $schedules->groupBy(function (Schedule $schedule) {
+                    return $schedule->hour->hour;
+                });
+            });
+
+        return view('models.office.show', [
+            'office' => $office,
+            'days' => $days,
+            'min' => $min,
+            'max' => $max,
+        ]);
     }
 
 
