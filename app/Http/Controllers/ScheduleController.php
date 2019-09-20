@@ -46,7 +46,7 @@ class ScheduleController extends Controller
 
     public function store(StoreScheduleRequest $request)
     {
-        $schedule = new Schedule($request->all(['day', 'hour', 'start_at', 'end_at', 'signup_start_at',
+        $schedule = new Schedule($request->all(['room', 'day', 'hour', 'start_at', 'end_at', 'signup_start_at',
             'signup_end_at', 'price', 'max_students']));
 
         $schedule->office()->associate($request->get('office'));
@@ -70,7 +70,7 @@ class ScheduleController extends Controller
      */
     public function update(UpdateScheduleRequest $request, Schedule $schedule)
     {
-        $schedule->fill($request->all(['day', 'hour', 'start_at', 'end_at', 'signup_start_at',
+        $schedule->fill($request->all(['room', 'day', 'hour', 'start_at', 'end_at', 'signup_start_at',
             'signup_end_at', 'price', 'max_students']));
         $schedule->teachers()->sync($request->get('teachers', []));
         $schedule->save();

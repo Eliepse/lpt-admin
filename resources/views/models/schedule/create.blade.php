@@ -43,6 +43,13 @@ $days = DaysSet::getKeys();
                                 })->toArray());
                         @endcomponent
 
+                        @component('components.form.input')
+                            @slot('title', 'Salle de classe (optionel)')
+                            @slot('name', 'room')
+                            @slot('attrs', ['max' => 30])
+                            @slot('type', 'string')
+                        @endcomponent
+
                         @component('components.form.list')
                             @slot('title', 'Jour de cours')
                             @slot('name', 'day')

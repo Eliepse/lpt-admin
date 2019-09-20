@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int id
  * @property int course_id
  * @property int office_id
+ * @property string|null $room
  * @property string day
  * @property Carbon hour
  * @property int price

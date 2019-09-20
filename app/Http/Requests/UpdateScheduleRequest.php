@@ -19,6 +19,7 @@ class UpdateScheduleRequest extends FormRequest
     public function rules()
     {
         return [
+            "room" => "nullable|string|max:30",
             'day' => 'required|string|in:' . join(',', DaysSet::getKeys()),
             'hour' => 'required|date_format:H:i',
             'start_at' => 'required|date:Y-m-d',
