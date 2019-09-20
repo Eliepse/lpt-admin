@@ -52,7 +52,9 @@ class OfficeController extends Controller
      */
     public function show(Office $office)
     {
-        $schedules = $office->activeSchedules
+        $schedules = $office->activeSchedules()
+            ->with(['course.lessons'])
+            ->get()
             ->sortBy('hour')
             ->groupBy("day");
 
