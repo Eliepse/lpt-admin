@@ -88,7 +88,7 @@ $days = DaysSet::getKeys();
                             @slot('name', 'max_students')
                             @slot('type', 'number')
                             @slot('classes', 'text-right')
-                            @slot('default', 15)
+                            @slot('default', 12)
                             @slot('after')
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon2"><i class="fe fe-users"></i></span>
