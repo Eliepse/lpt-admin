@@ -21,11 +21,11 @@ $defaults = [old($name[0], $default[0] ?? null), old($name[1], $default[1] ?? nu
 
 <!--suppress CheckEmptyScriptTag -->
     <date-period-input
-            :names='@json($name)'
-            :defaults='@json( $defaults )'
-            @isset($required) :required='true' @endisset
-            @isset($placeholder) :placeholder='{{ $placeholder }}' @endisset
-            :classes='@json([ $errors->has($name[0]) ? 'is-invalid' : '' ])'
+        :names='@json($name)'
+        :defaults='@json( $defaults )'
+        @isset($required) :required='true' @endisset
+        @isset($placeholder) :placeholder='{{ $placeholder }}' @endisset
+        :classes='@json([ $errors->has($name[0]) ? 'is-invalid' : '' ])'
     ></date-period-input>
 
 
