@@ -77,8 +77,20 @@ trait HasSubscribers
 
 
     /**
+     * Returns the income that the model will brings.
+     * This method consider subscribers' custom price.
+     *
+     * @return int
+     */
+    public function getTotalIncome(): int
+    {
+        return $this->subscriptions->sum('price');
+    }
+
+
+    /**
      * Returns the income that the model could potentially brings.
-     * This method does not consider subscribers' custom price
+     * This method does not consider subscribers' custom price.
      *
      * @return int
      */
