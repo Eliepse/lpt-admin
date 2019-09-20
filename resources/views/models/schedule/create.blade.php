@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($office->name) . ": ajout d'horaire ")
+@section('title', ucfirst($office->name) . ": ajout de classe ")
 
 @section('main')
     <div class="container mt-3">

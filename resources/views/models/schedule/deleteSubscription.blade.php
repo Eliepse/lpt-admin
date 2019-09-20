@@ -11,7 +11,7 @@ use App\Sets\DaysSet;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($schedule->office->name) . ": duplication d'horaire ")
+@section('title', ucfirst($schedule->office->name) . ": désinscription")
 
 @section('main')
     <div class="container mt-3">

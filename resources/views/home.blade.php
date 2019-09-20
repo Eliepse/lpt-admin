@@ -12,7 +12,7 @@
                             <div class="card-title">{{ ucfirst($office->name) }}</div>
                         </div>
                         <div class="card-body">
-                            {{ $office->schedules->count() }} horaires
+                            {{ $office->schedules->count() }} classes
                             {{-- TODO(eliepse): show a calendar visualization to see where are the active schedules --}}
                         </div>
                         <div class="card-footer">

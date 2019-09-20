@@ -10,7 +10,7 @@ use App\Sets\DaysSet;
 
 ?>
 
-@section('title', ucfirst($schedule->office->name) . ": duplication d'horaire ")
+@section('title', ucfirst($schedule->office->name) . ": duplication d'une classe ")
 
 @section('main')
     <div class="container mt-3">
@@ -23,7 +23,7 @@ use App\Sets\DaysSet;
                         <h2 class="text-center">Classe enregistré !</h2>
                     </div>
                     <div class="card-body">
-                        <p>Souhaitez-vous ajouter des horaires ?</p>
+                        <p>Souhaitez-vous ajouter des classes similaires ?</p>
                         <p class="text-muted">
                             En cliquant sur <i>Oui</i>, vous pourrez créer une nouvelle
                             classe à partir de celle que vous venez de créer.
