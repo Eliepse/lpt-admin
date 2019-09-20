@@ -43,7 +43,6 @@
                             @component('components.form.textarea-input')
                                 @slot('title', 'Description')
                                 @slot('name', 'description')
-                                @slot('required', true)
                                 @slot('default', $lesson->description)
                                 @slot('attrs', ['max' => 250])
                             @endcomponent

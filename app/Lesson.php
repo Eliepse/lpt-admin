@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
  * @package App
  * @property int id
  * @property string name
- * @property string description
+ * @property string|null description
  * @property string category
  * @property Collection course
  * @property \stdClass pivot
