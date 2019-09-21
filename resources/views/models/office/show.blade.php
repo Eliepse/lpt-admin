@@ -29,10 +29,10 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
                 <p>{{ $office->postal_address }}</p>
             </div>
             <div>
-                <a class="btn btn-link" href="{{ route('offices.edit', $office) }}">
+                {{--<a class="btn btn-link" href="{{ route('offices.edit', $office) }}">
                     <i class="fe fe-edit-3"></i>
                     Modifier
-                </a>
+                </a>--}}
             </div>
         </div>
 
