@@ -10,9 +10,10 @@ $user = auth()->user()
            data-toggle="dropdown"
            aria-haspopup="true"
            aria-expanded="false">
-            {{ $user->getFullname() }}
+            <span class="d-none d-md-inline">{{ $user->getFullname() }}</span>
+            <span class="d-md-none">{{ $user->getInitials() }}</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarUserDropdown">
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUserDropdown">
             <form action="{{ route('logout') }}" method="POST">
                 {{ csrf_field() }}
                 <button type="submit" class="dropdown-item">
