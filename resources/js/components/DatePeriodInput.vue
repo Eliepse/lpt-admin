@@ -7,11 +7,12 @@
                 :select-attribute="selectDragAttribute"
                 :drag-attribute="selectDragAttribute"
                 :input-props="{
-                    disabled: true,
                     placeholder: placeholder,
                     class: 'form-control ' + classes.join(' ')
                 }"
                 @drag="dragValue = $event"
+                is-inline
+                is-expanded
         >
             <div slot="day-popover" slot-scope="{format}">
                 {{ dragValue ? Math.round(dayjs(dragValue.end).diff(dayjs(dragValue.start), "day") / 7) : 0 }} semaines

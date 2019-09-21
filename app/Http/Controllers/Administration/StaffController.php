@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Administration;
 
 use App\Enums\UserTypeEnum;
 use App\Http\Requests\StoreStaffRequest;
+use App\Http\Requests\UpdateStaffUserRequest;
 use App\Sets\UserRolesSet;
 use App\StaffUser;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -65,6 +66,31 @@ class StaffController
         $member->roles = new UserRolesSet($request->get('roles', []));
         $member->type = 'staff';
         $member->save();
+
+        return redirect()->route('staff.index');
+    }
+
+
+    public function edit(StaffUser $staff)
+    {
+        $this->authorize('update', $staff);
+
+        return view("admin.staff.edit", ['staff' => $staff]);
+    }
+
+
+    public function update(UpdateStaffUserRequest $request, StaffUser $staff)
+    {
+        $this->authorize('update', $staff);
+
+        $staff->fill($request->only(['firstname', 'lastname', 'email', 'wechat_id', 'phone', 'address']));
+
+        if ($staff->isAdmin()) {
+            $staff->roles = new UserRolesSet($request->get('roles', []));
+
+        }
+
+        $staff->save();
 
         return redirect()->route('staff.index');
     }

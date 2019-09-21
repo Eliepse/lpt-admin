@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int id
  * @property int course_id
  * @property int office_id
+ * @property string|null $room
  * @property string day
  * @property Carbon hour
  * @property int price
@@ -48,7 +49,7 @@ class Schedule extends Model
     public const SCHEDULE_IS_STUDY = 3;
     public const SCHEDULE_IS_OVER = 1;
 
-    protected $fillable = ['day', 'hour', 'price', 'max_students',
+    protected $fillable = ['room', 'day', 'hour', 'price', 'max_students',
         'start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
 
     protected $dates = ['start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
@@ -126,20 +127,6 @@ class Schedule extends Model
         $end = $this->hour->clone()->addMinutes($this->duration);
 
         return Carbon::now()->isBetween($this->hour, $end, true);
-    }
-
-
-    public function getTheoricalPaidAmount(): int
-    {
-        return $this->price * $this->subscriptions->count();
-    }
-
-
-    public function getActualPaidAmount(): int
-    {
-        return $this->subscriptions->reduce(function (int $val, Subscription $sub) {
-            return $val + $sub->paid;
-        }, 0);
     }
 
 

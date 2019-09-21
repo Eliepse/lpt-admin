@@ -23,6 +23,7 @@ class StoreScheduleRequest extends FormRequest
         return [
             "office" => "required|exists:offices,id",
             "course" => "required|exists:courses,id",
+            "room" => "nullable|string|max:30",
             "day" => "required|string|in:" . join(",", DaysSet::getKeys()),
             "hour" => "required|date_format:H:i",
             'start_at' => "required|date_format:$isoDate",

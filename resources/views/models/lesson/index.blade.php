@@ -19,8 +19,8 @@ use \Illuminate\Database\Eloquent\Collection;
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
             <h1>Leçons</h1>
             <div>
-                <a class="btn btn-outline-secondary" href="{{ route('lessons.create') }}">
-                    <i class="fe fe-plus"></i> Nouvelle leçon
+                <a class="btn btn-sm btn-link" href="{{ route('lessons.create') }}">
+                    <i class="fe fe-plus"></i> Ajouter une leçon
                 </a>
             </div>
         </div>

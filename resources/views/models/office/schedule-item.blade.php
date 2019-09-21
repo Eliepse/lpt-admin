@@ -45,10 +45,10 @@ $day = $day ?? null;
                 @endif
                 <i class="fe fe-users"></i>
             </div>
-            <div class="schedule-hour">
+            <div class="">
                 {{ $schedule->hour->format("H:i") }} - {{ $schedule->hour->clone()->addMinutes($schedule->duration)->format("H:i") }}
             </div>
-            <div class="schedule-location">{{ $schedule->course->name }}</div>
+            <div class="schedule-location">{{ $schedule->course->name }} <small>{{ $schedule->room }}</small></div>
         </div>
 
         <div class="schedule-footer text-center">

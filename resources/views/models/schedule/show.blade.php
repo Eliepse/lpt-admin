@@ -3,6 +3,7 @@
 <?php
 use App\Course;
 use App\Student;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @var \App\Schedule $schedule
@@ -16,23 +17,33 @@ use App\Student;
 @section('main')
 
     <div class="container justify-content-center">
-        <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
-            <h1>
-                <small class="text-muted h6">
-                    {{ \Illuminate\Support\Str::title($schedule->office->name) }}
+        <div class="d-flex mb-3 mt-3 justify-content-between align-items-start">
+            <div>
+                <h1>
+                    {{ $schedule->course->name }}
+                    <small class="text-muted">{{ $schedule->room }}</small>
+                </h1>
+                <p class="text-muted">
+                    <a href="{{ route('offices.show', $schedule->office) }}">
+                        {{ \Illuminate\Support\Str::title($schedule->office->name) }}</a>
                     &middot; le {{ __($schedule->day) }} à {{ $schedule->hour->format("H \h i") }}
                     &middot; {{ $schedule->course->getDuration(true) }}
-                </small>
-                <br>
-                {{ $schedule->course->name }}
-            </h1>
+                    &middot; {{ $schedule->price }} €
+                    <br>
+                    Du {{ $schedule->start_at->toDateString() }} au {{ $schedule->end_at->toDateString() }}
+                </p>
+                <p>
+                </p>
+            </div>
             <div>
-                <a class="btn btn-outline-secondary" href="{{ route('schedules.promptDuplicate', $schedule) }}">
-                    <i class="fe fe-copy"></i> Dupliquer
-                </a>
-                <a class="btn btn-outline-secondary" href="{{ route('schedules.delete', $schedule) }}">
-                    <i class="fe fe-trash"></i> Supprimer
-                </a>
+                <a class="btn btn-sm btn-link" href="{{ route('schedules.duplicate', $schedule) }}">
+                    <i class="fe fe-copy"></i> Dupliquer</a>
+                <br>
+                <a class="btn btn-sm btn-link"
+                   href="{{ route('schedules.edit', $schedule) }}"><i class="fe fe-edit"></i> Modifier</a>
+                <br>
+                <a class="btn btn-sm btn-link" href="{{ route('schedules.delete', $schedule) }}">
+                    <i class="fe fe-trash"></i> Supprimer</a>
             </div>
         </div>
 
@@ -40,8 +51,9 @@ use App\Student;
             <div class="card-header d-flex justify-content-between">
                 <div class="card-title">Étudiants</div>
                 <div>
-                    <a class="btn btn-sm btn-outline-secondary"
-                       href="{{ route('schedules.students.select', $schedule) }}">Ajouter</a>
+                    <a class="btn btn-sm btn-link"
+                       href="{{ route('schedules.students.select', $schedule) }}">
+                        <i class="fe fe-user-plus"></i> Ajouter un étudiant</a>
                 </div>
             </div>
             <div class="card-table">
@@ -76,6 +88,10 @@ use App\Student;
                             <td class="text-right">
                                 <a href="{{ route('schedules.students.edit', [$schedule, $student]) }}"
                                    class="btn btn-sm btn-icon"><i class="fe fe-edit"></i></a>
+                                @if(Auth::guard('admin')->user()->isAdmin())
+                                    <a href="{{ route('schedules.students.unlink', [$schedule, $student]) }}"
+                                       class="btn btn-sm btn-icon"><i class="fe fe-trash"></i></a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -84,7 +100,7 @@ use App\Student;
                     <tr class="small text-muted">
                         <th></th>
                         <th>
-                            {{ $schedule->getActualPaidAmount() }}&nbsp;€ / {{ $schedule->getTheoricalPaidAmount() }}&nbsp;€
+                            {{ $schedule->getIncome() }}&nbsp;€ / {{ $schedule->subscriptions->isEmpty() ? $schedule->getTheoricalTotalIncome() : $schedule->getTotalIncome() }}&nbsp;€
                         </th>
                         <th>
                             <i class="fe fe-users"></i> {{ $schedule->students->count() }} / {{ $schedule->max_students }}
@@ -93,11 +109,6 @@ use App\Student;
                     </tfoot>
                 </table>
             </div>
-            {{--            <div class="card-footer">--}}
-            {{--                <div class="text-right">--}}
-
-            {{--                </div>--}}
-            {{--            </div>--}}
         </div>
 
     </div>

@@ -8,12 +8,14 @@ use App\Http\Requests\LinkStudentToScheduleRequest;
 use App\Pivots\StudentSchedule;
 use App\Schedule;
 use App\Student;
+use Exception;
 use Facade\FlareClient\Http\Exceptions\NotFound;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ScheduleSubscriptionController extends Controller
@@ -84,6 +86,39 @@ class ScheduleSubscriptionController extends Controller
         if (!$subscription = $schedule->findSubscription($student))
             return abort(404);
 
-        return view("models.schedule.edit-student", compact("schedule", "student", "subscription"));
+        return view("models.schedule.edit-subscription", compact("schedule", "student", "subscription"));
+    }
+
+
+    public function confirmUnlink(Schedule $schedule, Student $student)
+    {
+        if (!Auth::guard('admin')->user()->isAdmin())
+            abort(403);
+
+        if (!$schedule->students->containsStrict('id', $student->id))
+            abort(404);
+
+        return view('models.schedule.delete-subscription', ['schedule' => $schedule, 'student' => $student]);
+    }
+
+
+    /**
+     * @param Schedule $schedule
+     * @param Student $student
+     *
+     * @return RedirectResponse
+     * @throws Exception
+     */
+    public function unlink(Schedule $schedule, Student $student)
+    {
+        if (!Auth::guard('admin')->user()->isAdmin())
+            abort(403);
+
+        if (!$schedule->students->containsStrict('id', $student->id))
+            abort(404);
+
+        $schedule->findSubscription($student)->delete();
+
+        return redirect()->route('schedules.show', $schedule);
     }
 }
