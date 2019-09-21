@@ -10,6 +10,9 @@ import DatePeriodInput from "./components/DatePeriodInput";
 import Loader from "./components/Loader";
 import CourseForm from "./components/CourseForm";
 import ScheduleCalendar from "./components/schedule/ScheduleCalendar";
+import xray from "x-ray";
+
+//import feather from "feather-icons";
 
 require("./bootstrap");
 
@@ -39,7 +42,8 @@ const app = new Vue({
     }
 });
 
-
+xray.init();
+//feather.replace();
 
 //window.List = require('list.js')
 
