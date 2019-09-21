@@ -17,21 +17,30 @@ use Illuminate\Support\Facades\Auth;
 @section('main')
 
     <div class="container justify-content-center">
-        <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
-            <h1>
-                <small class="text-muted h6">
+        <div class="d-flex mb-3 mt-3 justify-content-between align-items-start">
+            <div>
+                <h1>
+                    {{ $schedule->course->name }}
+                    <small class="text-muted">{{ $schedule->room }}</small>
+                </h1>
+                <p class="text-muted">
                     {{ \Illuminate\Support\Str::title($schedule->office->name) }}
                     &middot; le {{ __($schedule->day) }} à {{ $schedule->hour->format("H \h i") }}
                     &middot; {{ $schedule->course->getDuration(true) }}
-                </small>
-                <br>
-                {{ $schedule->course->name }}
-            </h1>
+                    &middot; {{ $schedule->price }} €
+                    <br>
+                    Du {{ $schedule->start_at->toDateString() }} au {{ $schedule->end_at->toDateString() }}
+                </p>
+                <p>
+                </p>
+            </div>
             <div>
                 <a class="btn btn-sm btn-outline-secondary" href="{{ route('schedules.duplicate', $schedule) }}">
                     <i class="fe fe-copy"></i> Dupliquer</a>
+                <br>
                 <a class="btn btn-sm btn-link"
                    href="{{ route('schedules.edit', $schedule) }}"><i class="fe fe-edit"></i> Modifier</a>
+                <br>
                 <a class="btn btn-sm btn-link" href="{{ route('schedules.delete', $schedule) }}">
                     <i class="fe fe-trash"></i> Supprimer</a>
             </div>
