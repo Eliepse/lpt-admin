@@ -62,11 +62,11 @@ class OfficeController extends Controller
 
         /** @var Carbon $min */
         $min = $schedules->min(function (Schedule $schedule) { return $schedule->hour; });
-        $min = $min->isBefore(Carbon::createFromTime(10)) ? $min : Carbon::createFromTime(10);
+        $min = $min && $min->isBefore(Carbon::createFromTime(10)) ? $min : Carbon::createFromTime(10);
 
         /** @var Carbon $max */
         $max = $schedules->max(function (Schedule $schedule) { return $schedule->hour; });
-        $max = $max->isAfter(Carbon::createFromTime(18)) ? $max : Carbon::createFromTime(18);
+        $max = $max && $max->isAfter(Carbon::createFromTime(18)) ? $max : Carbon::createFromTime(18);
 
         $days = $schedules
             ->sortBy('hour')
