@@ -50,7 +50,6 @@ $days = DaysSet::getKeys();
 
                     <div class="card-footer text-right">
                         <div class="d-flex">
-                            {{-- TODO(eliepse): change to schedule page when created --}}
                             <a href="{{ route('offices.show', $schedule->office) }}" class="btn btn-link">Annuler</a>
                             <button type="submit" class="btn btn-primary ml-auto">Dupliquer</button>
                         </div>

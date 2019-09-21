@@ -20,8 +20,8 @@ use \Illuminate\Support\Str;
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
             <h1>Cours</h1>
             <div>
-                <a class="btn btn-outline-secondary" href="{{ route('courses.create') }}">
-                    <i class="fe fe-plus"></i> Nouveau cours
+                <a class="btn btn-sm btn-link" href="{{ route('courses.create') }}">
+                    <i class="fe fe-plus"></i> Ajouter un cours
                 </a>
             </div>
         </div>

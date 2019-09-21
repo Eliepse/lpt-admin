@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Auth;
                 </p>
             </div>
             <div>
-                <a class="btn btn-sm btn-outline-secondary" href="{{ route('schedules.duplicate', $schedule) }}">
+                <a class="btn btn-sm btn-link" href="{{ route('schedules.duplicate', $schedule) }}">
                     <i class="fe fe-copy"></i> Dupliquer</a>
                 <br>
                 <a class="btn btn-sm btn-link"
@@ -51,8 +51,9 @@ use Illuminate\Support\Facades\Auth;
             <div class="card-header d-flex justify-content-between">
                 <div class="card-title">Étudiants</div>
                 <div>
-                    <a class="btn btn-sm btn-outline-secondary"
-                       href="{{ route('schedules.students.select', $schedule) }}">Ajouter</a>
+                    <a class="btn btn-sm btn-link"
+                       href="{{ route('schedules.students.select', $schedule) }}">
+                        <i class="fe fe-user-plus"></i> Ajouter un étudiant</a>
                 </div>
             </div>
             <div class="card-table">
