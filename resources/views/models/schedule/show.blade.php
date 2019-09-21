@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Auth;
                     <small class="text-muted">{{ $schedule->room }}</small>
                 </h1>
                 <p class="text-muted">
-                    {{ \Illuminate\Support\Str::title($schedule->office->name) }}
+                    <a href="{{ route('offices.show', $schedule->office) }}">
+                        {{ \Illuminate\Support\Str::title($schedule->office->name) }}</a>
                     &middot; le {{ __($schedule->day) }} à {{ $schedule->hour->format("H \h i") }}
                     &middot; {{ $schedule->course->getDuration(true) }}
                     &middot; {{ $schedule->price }} €
@@ -107,11 +108,6 @@ use Illuminate\Support\Facades\Auth;
                     </tfoot>
                 </table>
             </div>
-            {{--            <div class="card-footer">--}}
-            {{--                <div class="text-right">--}}
-
-            {{--                </div>--}}
-            {{--            </div>--}}
         </div>
 
     </div>

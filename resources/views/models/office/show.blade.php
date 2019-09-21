@@ -36,7 +36,7 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
             </div>
         </div>
 
-        <div class="d-flex justify-content-between mt-5">
+        <div class="d-flex justify-content-between mt-5 border-bottom">
             <h4>Classes</h4>
             <div class="">
                 <div class="">
