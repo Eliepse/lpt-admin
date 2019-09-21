@@ -85,7 +85,7 @@ class ScheduleSubscriptionController extends Controller
         if (!$subscription = $schedule->findSubscription($student))
             return abort(404);
 
-        return view("models.schedule.edit-student", compact("schedule", "student", "subscription"));
+        return view("models.schedule.edit-subscription", compact("schedule", "student", "subscription"));
     }
 
 
@@ -97,7 +97,7 @@ class ScheduleSubscriptionController extends Controller
         if (!$schedule->students->containsStrict('id', $student->id))
             abort(404);
 
-        return view('models.schedule.deleteSubscription', ['schedule' => $schedule, 'student' => $student]);
+        return view('models.schedule.delete-subscription', ['schedule' => $schedule, 'student' => $student]);
     }
 
 
