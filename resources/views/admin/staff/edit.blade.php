@@ -6,7 +6,7 @@
  */
 ?>
 
-@section('title', "Nouveau membre de l'équipe - ")
+@section('title', "Modification d'un membre de l'équipe - ")
 
 @section('main')
     <div class="container mt-3">

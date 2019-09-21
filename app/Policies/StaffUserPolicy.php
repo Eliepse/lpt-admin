@@ -74,6 +74,20 @@ class StaffUserPolicy
 
 
     /**
+     * Determine whether the user can update the password of the staff user.
+     *
+     * @param User $user
+     * @param StaffUser $staffUser
+     *
+     * @return mixed
+     */
+    public function updatePassword(User $user, StaffUser $staffUser)
+    {
+        return $user->is($staffUser);
+    }
+
+
+    /**
      * Determine whether the user can delete the staff user.
      *
      * @param User $user

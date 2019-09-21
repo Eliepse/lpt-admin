@@ -57,6 +57,11 @@ use \Illuminate\Database\Eloquent\Collection;
                                         <i class="fe fe-edit"></i>
                                     </a>
                                 @endcan
+                                @can('updatePassword', $member)
+                                    <a href="{{ route('staff.edit.password', $member) }}" class="btn btn-icon">
+                                        <i class="fe fe-lock"></i>
+                                    </a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

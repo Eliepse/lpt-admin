@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\Admin\StaffUserPasswordController;
 use App\Http\Controllers\Administration\ScheduleSubscriptionController;
 use App\Http\Controllers\Administration\SettingsController;
 use App\Http\Controllers\Administration\StaffController;
@@ -37,7 +38,8 @@ Route::get('/staff/create', [StaffController::class, 'create'])->name('staff.cre
 Route::post('/staff', [StaffController::class, 'store'])->name('staff.store');
 Route::get('/staff/{staff}/edit', [StaffController::class, 'edit'])->name('staff.edit');
 Route::put('/staff/{staff}', [StaffController::class, 'update'])->name('staff.update');
-//Route::post('/staff/{staffUser}', [StaffController::class, 'show'])->name('staff.show');
+Route::get('/staff/{staff}/password', [StaffUserPasswordController::class, 'form'])->name('staff.edit.password');
+Route::put('/staff/{staff}/password', [StaffUserPasswordController::class, 'update']);
 
 
 // Parents
