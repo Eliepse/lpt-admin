@@ -19,8 +19,6 @@ use \App\Enums\DaysEnum;
  * @var Student $student
  */
 
-$today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
-
 ?>
 
 
@@ -32,8 +30,8 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
             <h1>Étudiants</h1>
             <div>
                 @can('create', \App\Family::class)
-                    <a class="btn btn-outline-secondary" href="{{ route('families.create') }}">
-                        <i class="fe fe-plus"></i> Nouvelle famille
+                    <a class="btn btn-sm btn-link" href="{{ route('families.create') }}">
+                        <i class="fe fe-plus"></i> Ajouter une famille
                     </a>
                 @endcan
             </div>
@@ -67,7 +65,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                                     </td>
                                     <td class="text-right">
                                         <a href="{{ route('families.show', $student->family) }}"
-                                           class="btn btn-sm btn-outline-secondary">Famille</a>
+                                           class="btn btn-sm btn-outline-secondary">Voir la famille</a>
                                     </td>
                                 </tr>
                             @endforeach

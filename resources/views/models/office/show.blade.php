@@ -3,13 +3,15 @@
 <?php
 
 use Carbon\Carbon;
-use \Illuminate\Support\Str;
+use Illuminate\Support\Collection;use \Illuminate\Support\Str;
 use App\Office;
 use App\Schedule;
 
 /**
  * @var Office $office
  * @var Schedule $schedule
+ * @var Collection $days
+ * @var Collection $hours
  */
 
 $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
@@ -27,19 +29,19 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
                 <p>{{ $office->postal_address }}</p>
             </div>
             <div>
-                <a class="btn btn-link" href="{{ route('offices.edit', $office) }}">
+                {{--<a class="btn btn-link" href="{{ route('offices.edit', $office) }}">
                     <i class="fe fe-edit-3"></i>
                     Modifier
-                </a>
+                </a>--}}
             </div>
         </div>
 
-        <div class="d-flex justify-content-between mt-5">
-            <h4>Horaires</h4>
+        <div class="d-flex justify-content-between mt-5 border-bottom">
+            <h4>Classes</h4>
             <div class="">
                 <div class="">
-                    <a href="{{ route('offices.schedules.create', $office) }}" class="btn btn-sm btn-outline-secondary">
-                        <i class="fe fe-calendar"></i> Ajouter
+                    <a href="{{ route('offices.schedules.create', $office) }}" class="btn btn-sm btn-link">
+                        <i class="fe fe-calendar"></i> Ajouter un classe
                     </a>
                 </div>
             </div>
@@ -47,26 +49,50 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
 
         <div class="row mt-3 mb-5">
             <div class="col">
-                <div class="card">
-                    <div class="row no-gutters">
-                        @foreach(\App\Sets\DaysSet::getKeys() as $day)
-                            <div class="col day {{ $today === $day ? 'day-active' : '' }}">
-                                <div class="day-header">{{ $day }}</div>
-                                <div class="day-body">
-                                    @foreach($schedules[$day] ?? collect() as $schedule)
+                @foreach($days as $day => $hours)
+                    <h5 class="mt-3">{{ Illuminate\Support\Str::ucfirst(__($day)) }}</h5>
+                    <div class="card">
+                        <div class="row no-gutters">
 
-                                        @component('models.office.schedule-item')
-                                            @slot('schedule', $schedule)
-                                            @slot('today', $today)
-                                            @slot('day', $day)
-                                        @endcomponent
+                            @for($h = $min->hour; $h <= $max->hour; $h++)
+								<?php $schedules = $hours[ $h ] ?? []; ?>
+                                <div class="day {{ empty($schedules) ? 'col' : 'col-2' }} {{--'day-active'--}}">
+                                    <div class="day-header">{{ $h }}h</div>
+                                    <div class="day-body">
 
-                                    @endforeach
+                                        @foreach($schedules as $schedule)
+                                            @component('models.office.schedule-item')
+                                                @slot('schedule', $schedule)
+                                                @slot('today', $today)
+                                                @slot('day', $day)
+                                            @endcomponent
+                                        @endforeach
+
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endfor
+
+                        </div>
                     </div>
-                </div>
+                @endforeach
+                {{--<div class="row no-gutters">
+                    @foreach(\App\Sets\DaysSet::getKeys() as $day)
+                        <div class="col day {{ $today === $day ? 'day-active' : '' }}">
+                            <div class="day-header">{{ $day }}</div>
+                            <div class="day-body">
+                                @foreach($schedules[$day] ?? collect() as $schedule)
+
+                                    @component('models.office.schedule-item')
+                                        @slot('schedule', $schedule)
+                                        @slot('today', $today)
+                                        @slot('day', $day)
+                                    @endcomponent
+
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+                </div>--}}
             </div>
         </div>
 

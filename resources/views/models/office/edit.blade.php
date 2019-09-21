@@ -4,7 +4,7 @@
  * @var App\Office $office
  */
 ?>
-@section('title', "Modifier un bureau - ")
+@section('title', "Modifier un campus - ")
 
 @section('main')
     <div class="container mt-3">
@@ -20,7 +20,7 @@
                     <div class="card">
 
                         <div class="card-header">
-                            <h3 class="card-title">Modifier un bureau</h3>
+                            <h3 class="card-title">Modifier un campus</h3>
                             {{--<p class="card-subtitle"></p>--}}
                         </div>
 

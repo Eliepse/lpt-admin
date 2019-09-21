@@ -63,4 +63,39 @@ trait HasSubscribers
 
         return $sub;
     }
+
+
+    /**
+     * Returns the amount that has been already paid
+     *
+     * @return int
+     */
+    public function getIncome(): int
+    {
+        return $this->subscriptions->sum('paid');
+    }
+
+
+    /**
+     * Returns the income that the model will brings.
+     * This method consider subscribers' custom price.
+     *
+     * @return int
+     */
+    public function getTotalIncome(): int
+    {
+        return $this->subscriptions->sum('price');
+    }
+
+
+    /**
+     * Returns the income that the model could potentially brings.
+     * This method does not consider subscribers' custom price.
+     *
+     * @return int
+     */
+    public function getTheoricalTotalIncome(): int
+    {
+        return $this->getPrice() * $this->max_students;
+    }
 }

@@ -35,6 +35,8 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
 Route::get('/staff/create', [StaffController::class, 'create'])->name('staff.create');
 Route::post('/staff', [StaffController::class, 'store'])->name('staff.store');
+Route::get('/staff/{staff}/edit', [StaffController::class, 'edit'])->name('staff.edit');
+Route::put('/staff/{staff}', [StaffController::class, 'update'])->name('staff.update');
 //Route::post('/staff/{staffUser}', [StaffController::class, 'show'])->name('staff.show');
 
 
@@ -79,12 +81,15 @@ Route::get('/courses/{course}/edit', [CourseController::class, 'edit'])->name('c
 // Schedules
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules.store');
 Route::get('/schedules/{schedule}', [ScheduleController::class, 'show'])->name('schedules.show');
+Route::get('/schedules/{schedule}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
 Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedules.update');
 Route::get('/schedules/{schedule}/promptDuplicate', [DuplicateScheduleController::class, 'prompt'])->name('schedules.promptDuplicate');
 Route::get('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'form'])->name('schedules.duplicate');
 Route::post('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'store']);
 Route::get('/schedules/{schedule}/students/select', [ScheduleSubscriptionController::class, 'select'])->name('schedules.students.select');
 Route::put('/schedules/{schedule}/students/{student}', [ScheduleSubscriptionController::class, 'link'])->name('schedules.students.link');
+Route::get('/schedules/{schedule}/students/{student}/unlink', [ScheduleSubscriptionController::class, 'confirmUnlink'])->name('schedules.students.unlink');
+Route::delete('/schedules/{schedule}/students/{student}', [ScheduleSubscriptionController::class, 'unlink']);
 Route::get('/schedules/{schedule}/students/{student}/edit', [ScheduleSubscriptionController::class, 'edit'])->name('schedules.students.edit');
 Route::get('/schedules/{schedule}/delete', [ScheduleController::class, 'delete'])->name('schedules.delete');
 Route::delete('/schedules/{schedule}', [ScheduleController::class, 'trash'])->name('schedules.trash');

@@ -69,7 +69,7 @@ class StaffUserPolicy
      */
     public function update(User $user, StaffUser $staffUser)
     {
-        return false;
+        return $user->is($staffUser);
     }
 
 

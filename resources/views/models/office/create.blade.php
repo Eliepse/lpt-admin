@@ -1,6 +1,6 @@
 @extends('dashboard-master')
 
-@section('title', "Nouveau bureau - ")
+@section('title', "Nouveau campus - ")
 
 @section('main')
     <div class="container mt-3">
@@ -15,7 +15,7 @@
                     <div class="card">
 
                         <div class="card-header">
-                            <h3 class="card-title">Nouveau bureau</h3>
+                            <h3 class="card-title">Nouveau campus</h3>
                             {{--<p class="card-subtitle"></p>--}}
                         </div>
 

@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Collection;
 /**
  * @var Office $office
  * @var Collection $courses
+ * @var App\Schedule $schedule
  */
 
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($office->name) . ": ajout de classe ")
+@section('title', ucfirst($office->name) . ": modification de classe ")
 
 @section('main')
     <div class="container mt-3">
@@ -21,14 +22,14 @@ $days = DaysSet::getKeys();
         <div class="row justify-content-center">
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
                 <form class="card"
-                      action="{{ route('schedules.store')  }}"
+                      action="{{ route('schedules.update', $schedule)  }}"
                       method="POST">
 
-                    {{ csrf_field() }}
-
+                    @csrf
+                    @method('put')
 
                     <div class="card-header">
-                        <h3 class="card-title">Ajouter une classe à {{ ucfirst($office->name) }}</h3>
+                        <h3 class="card-title">Modifier une classe à {{ ucfirst($office->name) }}</h3>
                     </div>
 
                     <div class="card-body">
@@ -38,9 +39,8 @@ $days = DaysSet::getKeys();
                         @component('components.form.select')
                             @slot('title', 'Cours')
                             @slot('name', 'course')
-                            @slot('options', $courses->map(function (App\Course $course){
-                                    return ["value" => $course->id, "name" => $course->name . " ({$course->getDuration(true)})"];
-                                })->toArray());
+                            @slot('attrs', ['disabled' => true])
+                            @slot('options', [["value" => "", "name" => $schedule->course->name . " ({$schedule->course->getDuration(true)})"]]);
                         @endcomponent
 
                         @component('components.form.input')
@@ -48,13 +48,14 @@ $days = DaysSet::getKeys();
                             @slot('name', 'room')
                             @slot('attrs', ['max' => 30])
                             @slot('type', 'string')
+                            @slot('default', $schedule->room)
                         @endcomponent
 
                         @component('components.form.list')
                             @slot('title', 'Jour de cours')
                             @slot('name', 'day')
                             @slot('options', array_combine($days, $days));
-                            @slot('default', 'monday')
+                            @slot('default', $schedule->day)
                         @endcomponent
 
                         @component('components.form.input')
@@ -62,19 +63,27 @@ $days = DaysSet::getKeys();
                             @slot('name', 'hour')
                             @slot('type', 'time')
                             @slot('attrs', ["step" => "60"])
-                            @slot('default', '10:00')
+                            @slot('default', $schedule->hour->format("H:i"))
                         @endcomponent
 
                         @component('components.form.date')
                             @slot('title', 'Période de cours')
                             @slot('name', ['start_at', 'end_at'])
                             @slot('required', true)
+                            @slot('default', [
+                                $schedule->start_at->toDateString(),
+                                $schedule->end_at->toDateString()
+                            ])
                         @endcomponent
 
                         @component('components.form.date')
                             @slot('title', 'Période d\'inscription')
                             @slot('name', ['signin_start_at', 'signin_end_at'])
                             @slot('required', false)
+                            @slot('default', [
+                                optional($schedule->signin_start_at)->toDateString(),
+                                optional($schedule->signin_end_at)->toDateString()
+                            ])
                         @endcomponent
 
                         @component('components.form.input-group')
@@ -82,7 +91,7 @@ $days = DaysSet::getKeys();
                             @slot('name', 'price')
                             @slot('type', 'number')
                             @slot('classes', 'text-right')
-                            @slot('default', 0)
+                            @slot('default', $schedule->price)
                             @slot('after')
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon2">€</span>
@@ -95,7 +104,7 @@ $days = DaysSet::getKeys();
                             @slot('name', 'max_students')
                             @slot('type', 'number')
                             @slot('classes', 'text-right')
-                            @slot('default', 12)
+                            @slot('default', $schedule->max_students)
                             @slot('after')
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon2"><i class="fe fe-users"></i></span>
@@ -109,7 +118,7 @@ $days = DaysSet::getKeys();
 
                     <div class="card-footer text-right">
                         <div class="d-flex">
-                            <a href="{{ route('offices.show', $office    ) }}" class="btn btn-link">Annuler</a>
+                            <a href="{{ route('schedules.show', $schedule) }}" class="btn btn-link">Annuler</a>
                             <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                         </div>
                     </div>

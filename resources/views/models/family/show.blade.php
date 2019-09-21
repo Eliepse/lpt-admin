@@ -35,8 +35,9 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
         <div class="my-3 d-flex justify-content-between">
             <h2 class="mb-0">Parents</h2>
             <div class="text-right">
-                <a href="{{ route('parents.create', $family) }}" class="btn btn-sm btn-outline-secondary">
-                    <i class="fe fe-plus"></i> Ajouter
+                <a href="{{ route('parents.create', $family) }}"
+                   class="btn btn-sm btn-link">
+                    <i class="fe fe-plus"></i> Ajouter un parent
                 </a>
             </div>
         </div>
@@ -81,8 +82,9 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
         <div class="mb-3 d-flex justify-content-between" style="margin-top: 2rem;">
             <h2 class="mb-0">Étudiants</h2>
             <div class="text-right">
-                <a href="{{ route('students.create', $family) }}" class="btn btn-sm btn-outline-secondary">
-                    <i class="fe fe-plus"></i> Ajouter
+                <a href="{{ route('students.create', $family) }}"
+                   class="btn btn-sm btn-link">
+                    <i class="fe fe-plus"></i> Ajouter un enfant
                 </a>
             </div>
         </div>

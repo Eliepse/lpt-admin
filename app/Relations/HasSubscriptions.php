@@ -49,7 +49,7 @@ trait HasSubscriptions
     public function findSubscription(Model $model): ?Subscription
     {
         return $this->subscriptions->first(function (Subscription $subscription) use ($model) {
-            return $subscription->marketable->is($model);
+            return optional($subscription->marketable)->is($model);
         });
     }
 }
