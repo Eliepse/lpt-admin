@@ -51,7 +51,13 @@ use \Illuminate\Database\Eloquent\Collection;
                                 @endif
                             </td>
                             <td>{{ \Illuminate\Support\Str::title($member->roles) }}</td>
-                            <td class="text-right"></td>
+                            <td class="text-right">
+                                @can('update', $member)
+                                    <a href="{{ route('staff.edit', $member) }}" class="btn btn-icon">
+                                        <i class="fe fe-edit"></i>
+                                    </a>
+                                @endcan
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
