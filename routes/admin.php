@@ -79,6 +79,7 @@ Route::get('/courses/{course}/edit', [CourseController::class, 'edit'])->name('c
 // Schedules
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules.store');
 Route::get('/schedules/{schedule}', [ScheduleController::class, 'show'])->name('schedules.show');
+Route::get('/schedules/{schedule}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
 Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedules.update');
 Route::get('/schedules/{schedule}/promptDuplicate', [DuplicateScheduleController::class, 'prompt'])->name('schedules.promptDuplicate');
 Route::get('/schedules/{schedule}/duplicate', [DuplicateScheduleController::class, 'form'])->name('schedules.duplicate');

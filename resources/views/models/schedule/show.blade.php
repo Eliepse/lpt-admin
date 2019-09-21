@@ -28,12 +28,12 @@ use Illuminate\Support\Facades\Auth;
                 {{ $schedule->course->name }}
             </h1>
             <div>
-                <a class="btn btn-outline-secondary" href="{{ route('schedules.duplicate', $schedule) }}">
-                    <i class="fe fe-copy"></i> Dupliquer
-                </a>
-                <a class="btn btn-outline-secondary" href="{{ route('schedules.delete', $schedule) }}">
-                    <i class="fe fe-trash"></i> Supprimer
-                </a>
+                <a class="btn btn-sm btn-outline-secondary" href="{{ route('schedules.duplicate', $schedule) }}">
+                    <i class="fe fe-copy"></i> Dupliquer</a>
+                <a class="btn btn-sm btn-link"
+                   href="{{ route('schedules.edit', $schedule) }}"><i class="fe fe-edit"></i> Modifier</a>
+                <a class="btn btn-sm btn-link" href="{{ route('schedules.delete', $schedule) }}">
+                    <i class="fe fe-trash"></i> Supprimer</a>
             </div>
         </div>
 

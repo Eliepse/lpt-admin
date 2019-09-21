@@ -59,6 +59,10 @@ class ScheduleController extends Controller
         return redirect()->route('schedules.promptDuplicate', $schedule);
     }
 
+    public function edit(Schedule $schedule)
+    {
+        return view("models.schedule.edit", ['schedule' => $schedule, 'office' => $schedule->office]);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -70,19 +74,19 @@ class ScheduleController extends Controller
      */
     public function update(UpdateScheduleRequest $request, Schedule $schedule)
     {
-        $schedule->fill($request->all(['room', 'day', 'hour', 'start_at', 'end_at', 'signup_start_at',
-            'signup_end_at', 'price', 'max_students']));
+        $schedule->fill($request->all(['room', 'day', 'hour', 'start_at', 'end_at',
+            'signup_start_at', 'signup_end_at', 'price', 'max_students']));
         $schedule->teachers()->sync($request->get('teachers', []));
         $schedule->save();
 
         if ($request->ajax())
             return response()->json([
                 "alerts" => [
-                    new AlertSuccess("Lesson updated."),
+                    new AlertSuccess("Class updated."),
                 ],
             ]);
 
-        return redirect(route('lessons.index'));
+        return redirect(route('schedules.show', $schedule));
     }
 
 
