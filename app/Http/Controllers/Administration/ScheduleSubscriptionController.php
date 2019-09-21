@@ -8,6 +8,7 @@ use App\Http\Requests\LinkStudentToScheduleRequest;
 use App\Pivots\StudentSchedule;
 use App\Schedule;
 use App\Student;
+use Exception;
 use Facade\FlareClient\Http\Exceptions\NotFound;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
@@ -91,7 +92,7 @@ class ScheduleSubscriptionController extends Controller
 
     public function confirmUnlink(Schedule $schedule, Student $student)
     {
-        if (!Auth::user('admin')->isAdmin())
+        if (!Auth::guard('admin')->user()->isAdmin())
             abort(403);
 
         if (!$schedule->students->containsStrict('id', $student->id))
@@ -105,11 +106,12 @@ class ScheduleSubscriptionController extends Controller
      * @param Schedule $schedule
      * @param Student $student
      *
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function unlink(Schedule $schedule, Student $student)
     {
-        if (!Auth::user('admin')->isAdmin())
+        if (!Auth::guard('admin')->user()->isAdmin())
             abort(403);
 
         if (!$schedule->students->containsStrict('id', $student->id))

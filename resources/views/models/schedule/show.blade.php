@@ -77,7 +77,7 @@ use Illuminate\Support\Facades\Auth;
                             <td class="text-right">
                                 <a href="{{ route('schedules.students.edit', [$schedule, $student]) }}"
                                    class="btn btn-sm btn-icon"><i class="fe fe-edit"></i></a>
-                                @if(Auth::user('admin')->isAdmin())
+                                @if(Auth::guard('admin')->user()->isAdmin())
                                     <a href="{{ route('schedules.students.unlink', [$schedule, $student]) }}"
                                        class="btn btn-sm btn-icon"><i class="fe fe-trash"></i></a>
                                 @endif
