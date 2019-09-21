@@ -49,7 +49,7 @@ class Schedule extends Model
     public const SCHEDULE_IS_STUDY = 3;
     public const SCHEDULE_IS_OVER = 1;
 
-    protected $fillable = ['day', 'hour', 'price', 'max_students',
+    protected $fillable = ['room', 'day', 'hour', 'price', 'max_students',
         'start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
 
     protected $dates = ['start_at', 'end_at', 'signup_start_at', 'signup_end_at'];
