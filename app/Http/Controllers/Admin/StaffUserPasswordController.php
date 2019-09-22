@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UpdateStaffUserPasswordRequest;
 use App\StaffUser;
+use Eliepse\Alert\AlertSuccess;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -44,6 +45,10 @@ class StaffUserPasswordController
         $staff->password = Hash::make($request->get('password'));
         $staff->save();
 
-        return redirect()->route('staff.index');
+        return redirect()
+            ->route('staff.index')
+            ->with('alerts', [
+                new AlertSuccess('Le mot de passe a été modifié.'),
+            ]);
     }
 }

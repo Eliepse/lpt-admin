@@ -8,6 +8,8 @@ use App\Http\Requests\LinkStudentToScheduleRequest;
 use App\Pivots\StudentSchedule;
 use App\Schedule;
 use App\Student;
+use Eliepse\Alert\Alert;
+use Eliepse\Alert\AlertSuccess;
 use Exception;
 use Facade\FlareClient\Http\Exceptions\NotFound;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -59,15 +61,24 @@ class ScheduleSubscriptionController extends Controller
     {
         $this->authorize('updateStudents', $schedule);
 
+        // If it is a new subscription
         if (!$schedule->students->containsStrict('id', $student->id)) {
             $schedule->subscribe($student);
 
-            return redirect()->action([ScheduleSubscriptionController::class, 'edit'], [$schedule, $student]);
+            return redirect()
+                ->action([ScheduleSubscriptionController::class, 'edit'], [$schedule, $student])
+                ->with('alerts', [
+                    new AlertSuccess('Élève ajouté à la classe.'),
+                ]);
         }
 
         $schedule->updateSubscription($student, $request->only(['price', 'paid']));
 
-        return redirect()->route('schedules.show', $schedule);
+        return redirect()
+            ->route('schedules.show', $schedule)
+            ->with('alerts', [
+                new AlertSuccess('Inscription de l\'élève a mise à jour.'),
+            ]);
     }
 
 
@@ -119,6 +130,9 @@ class ScheduleSubscriptionController extends Controller
 
         $schedule->findSubscription($student)->delete();
 
-        return redirect()->route('schedules.show', $schedule);
+        return redirect()->route('schedules.show', $schedule)
+            ->with('alerts', [
+                new Alert('L\'élève a été désinscrit.'),
+            ]);
     }
 }

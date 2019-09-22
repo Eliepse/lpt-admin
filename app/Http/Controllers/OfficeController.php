@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateOfficeRequest;
 use App\Office;
 use App\Schedule;
 use Carbon\Carbon;
+use Eliepse\Alert\AlertSuccess;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -43,7 +44,11 @@ class OfficeController extends Controller
         $office = new Office($request->all(['name']));
         $office->save();
 
-        return redirect()->route('offices.index');
+        return redirect()
+            ->route('offices.index')
+            ->with('alerts', [
+                new AlertSuccess('Le campus a été ajouté.'),
+            ]);
     }
 
 
@@ -111,6 +116,10 @@ class OfficeController extends Controller
         $office->fill($request->only(["name", "postal_address"]));
         $office->save();
 
-        return redirect()->route('offices.show', $office);
+        return redirect()
+            ->route('offices.show', $office)
+            ->with('alerts', [
+                new AlertSuccess('Le campus a été modifié.'),
+            ]);
     }
 }

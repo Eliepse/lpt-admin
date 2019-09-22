@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Http\Requests\StoreCourseRequest;
+use Eliepse\Alert\Alert;
+use Eliepse\Alert\AlertSuccess;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -73,7 +75,11 @@ class CourseController extends Controller
         if ($request->ajax())
             return response()->json(['redirect' => route('courses.show', $course)]);
 
-        return redirect(route('courses.show', $course));
+        return redirect()
+            ->route('courses.show', $course)
+            ->with('alerts', [
+                new AlertSuccess('Le cours a été ajouté.'),
+            ]);
     }
 
 
@@ -132,7 +138,11 @@ class CourseController extends Controller
         if ($request->ajax())
             return response()->json(['redirect' => route('courses.show', $course)]);
 
-        return redirect(route('courses.show', $course));
+        return redirect()
+            ->route('courses.show', $course)
+            ->with('alerts', [
+                new AlertSuccess('Le cours a été modifié.'),
+            ]);
     }
 
 

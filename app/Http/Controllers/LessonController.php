@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
 use App\Lesson;
+use Eliepse\Alert\AlertSuccess;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -59,7 +60,11 @@ class LessonController extends Controller
         $lesson = new Lesson($request->only(['name', 'description', 'category']));
         $lesson->save();
 
-        return redirect()->route('lessons.index');
+        return redirect()
+            ->route('lessons.index')
+            ->with('alerts', [
+                new AlertSuccess('La leçon a été ajouté.'),
+            ]);
     }
 
 
@@ -74,6 +79,10 @@ class LessonController extends Controller
         $lesson->fill($request->only(['name', 'description', 'category']));
         $lesson->save();
 
-        return redirect()->route('lessons.index');
+        return redirect()
+            ->route('lessons.index')
+            ->with('alerts', [
+                new AlertSuccess('La leçon a été modifiée.'),
+            ]);
     }
 }

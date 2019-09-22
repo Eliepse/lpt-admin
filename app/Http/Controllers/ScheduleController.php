@@ -7,6 +7,7 @@ use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Office;
 use App\Schedule;
+use Eliepse\Alert\Alert;
 use Eliepse\Alert\AlertSuccess;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
@@ -56,13 +57,19 @@ class ScheduleController extends Controller
 
         $schedule->save();
 
-        return redirect()->route('schedules.promptDuplicate', $schedule);
+        return redirect()
+            ->route('schedules.promptDuplicate', $schedule)
+            ->with('alerts', [
+                new AlertSuccess('La classe a été ajoutée.'),
+            ]);
     }
+
 
     public function edit(Schedule $schedule)
     {
         return view("models.schedule.edit", ['schedule' => $schedule, 'office' => $schedule->office]);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -86,7 +93,11 @@ class ScheduleController extends Controller
                 ],
             ]);
 
-        return redirect(route('schedules.show', $schedule));
+        return redirect()
+            ->route('schedules.show', $schedule)
+            ->with('alerts', [
+                new AlertSuccess('La classe a été modifée.'),
+            ]);
     }
 
 
@@ -107,6 +118,7 @@ class ScheduleController extends Controller
     /**
      * @param Schedule $schedule
      *
+     * @return RedirectResponse
      * @throws AuthorizationException
      * @throws \Exception
      */
@@ -116,6 +128,10 @@ class ScheduleController extends Controller
 
         $schedule->delete();
 
-        return redirect(route('dashboard'));
+        return redirect()
+            ->route('dashboard')
+            ->with('alerts', [
+                new Alert('La classe a été supprimée.'),
+            ]);
     }
 }
