@@ -26,7 +26,7 @@ class Alert implements Jsonable, Arrayable
     /**
      * @var bool
      */
-    private $dismissible;
+    public $dismissible;
 
 
     /**
