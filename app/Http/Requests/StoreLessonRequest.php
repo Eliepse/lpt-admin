@@ -19,7 +19,7 @@ class StoreLessonRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:50',
-            'description' => 'nullabme|string|max:250',
+            'description' => 'nullable|string|max:250',
             'category' => ['required', 'string', 'enum_key:' . LessonCategoryEnum::class,],
         ];
     }
