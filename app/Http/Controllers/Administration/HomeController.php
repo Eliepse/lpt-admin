@@ -60,7 +60,7 @@ class HomeController extends Controller
         for ($h = $this->dayBoundaries[0]; $h <= $this->dayBoundaries[1]; $h += $this->statsGranularity) {
 
             $hourStats = $office
-                ->activeSchedules
+                ->getActiveSchedules()
                 ->filter(function (Schedule $schedule) use ($h) {
                     $end_at = $schedule->hour->hour + ($schedule->duration / 60);
 
@@ -100,7 +100,7 @@ class HomeController extends Controller
 
     private function scheduleStatsByHour(Office $office): Collection
     {
-        return $office->activeSchedules
+        return $office->getActiveSchedules()
             ->groupBy(function (Schedule $schedule) { return $schedule->hour->hour; })
             ->sortKeys()
             ->map(function (Collection $hour) {

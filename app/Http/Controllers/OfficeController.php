@@ -61,9 +61,8 @@ class OfficeController extends Controller
      */
     public function show(Office $office)
     {
-        $schedules = $office->activeSchedules()
-            ->with(['course.lessons'])
-            ->get();
+        $schedules = $office->getActiveSchedules()
+            ->loadMissing(['course.lessons']);
 
         /** @var Carbon $min */
         $min = $schedules->min(function (Schedule $schedule) { return $schedule->hour; });

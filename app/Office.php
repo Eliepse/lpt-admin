@@ -39,20 +39,16 @@ class Office extends Model
      * Prepare a query to retreive schedules that are currently active,
      * or with an active registration process
      *
-     * @return HasMany
+     * @return Collection
      */
-    public function activeSchedules(): HasMany
+    public function getActiveSchedules(): Collection
     {
-        $today = Carbon::now()->toDateString();
+        $today = Carbon::now();
 
-        return $this->schedules()
-            ->where([
-                ['start_at', '<=', $today],
-                ['end_at', '>=', $today],
-            ])
-            ->orWhere([
-                ['signup_start_at', '<=', $today],
-                ['signup_end_at', '>=', $today],
-            ]);
+        return $this->schedules
+            ->filter(function (Schedule $schedule) use ($today) {
+                return $today->isBetween($schedule->start_at, $schedule->end_at)
+                    || $today->isBetween($schedule->signup_start_at, $schedule->signup_end_at);
+            });
     }
 }
