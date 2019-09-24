@@ -42,8 +42,14 @@ use \Illuminate\Database\Eloquent\Collection;
                                 <small class="text-muted">{{ $office->postal_address }}</small>
                             </td>
                             <td class="text-right">
-                                <a href="{{ route('offices.show', $office) }}"
-                                   class="btn btn-sm btn-outline-secondary">Afficher</a>
+                                @can('view', $office)
+                                    <a href="{{ route('offices.show', $office) }}"
+                                       class="btn btn-sm btn-outline-secondary">Afficher</a>
+                                @endcan
+                                @can('update', $office)
+                                    <a href="{{ route('offices.edit', $office) }}"
+                                       class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
