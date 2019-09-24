@@ -39,7 +39,10 @@ use \Illuminate\Support\Str;
                     <tbody>
                     @foreach($courses as $course)
                         <tr>
-                            <td>{{ $course->name }}</td>
+                            <td>
+                                {{ $course->name }}<br>
+                                <small class="text-muted">{{ $course->description }}</small>
+                            </td>
                             <td>{{ $course->getDuration(true) }}</td>
                             <td class="text-right">
                                 <a href="{{ route('schedules.create', ['course' => $course]) }}"
