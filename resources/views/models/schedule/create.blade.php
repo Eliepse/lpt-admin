@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($office->name) . ": ajout de classe ")
+@section('title', "Ajout de classe ")
 
 @section('main')
     <div class="container mt-3">
@@ -28,12 +28,12 @@ $days = DaysSet::getKeys();
 
 
                     <div class="card-header">
-                        <h3 class="card-title">Ajouter une classe à {{ ucfirst($office->name) }}</h3>
+                        <h3 class="card-title">Ajouter une classe</h3>
                     </div>
 
                     <div class="card-body">
 
-                        <input type="hidden" name="office" value="{{ $office->id }}"/>
+                        {{--                        <input type="hidden" name="office" value="{{ $office->id }}"/>--}}
 
                         @component('components.form.select')
                             @slot('title', 'Cours')
@@ -41,6 +41,16 @@ $days = DaysSet::getKeys();
                             @slot('options', $courses->map(function (App\Course $course){
                                     return ["value" => $course->id, "name" => $course->name . " ({$course->getDuration(true)})"];
                                 })->toArray());
+                            @slot('disabled', $courses->count() === 1)
+                        @endcomponent
+
+                        @component('components.form.select')
+                            @slot('title', 'Campus')
+                            @slot('name', 'office')
+                            @slot('options', $campuses->map(function (App\Office $office){
+                                    return ["value" => $office->id, "name" => $office->name];
+                                })->toArray());
+                            @slot('disabled', $campuses->count() === 1)
                         @endcomponent
 
                         @component('components.form.input')
@@ -109,7 +119,7 @@ $days = DaysSet::getKeys();
 
                     <div class="card-footer text-right">
                         <div class="d-flex">
-                            <a href="{{ route('offices.show', $office    ) }}" class="btn btn-link">Annuler</a>
+                            <a href="{{ redirect()->back()->getTargetUrl() }}" class="btn btn-link">Annuler</a>
                             <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                         </div>
                     </div>

@@ -42,6 +42,9 @@ use \Illuminate\Support\Str;
                             <td>{{ $course->name }}</td>
                             <td>{{ $course->getDuration(true) }}</td>
                             <td class="text-right">
+                                <a href="{{ route('schedules.create', ['course' => $course]) }}"
+                                   class="btn btn-sm btn-link">
+                                    <i class="fe fe-calendar"></i> Nouvelle classe</a>
                                 <a href="{{ route('courses.show', $course) }}"
                                    class="btn btn-sm btn-outline-secondary">Ouvrir</a>
                                 <a href="{{ route('courses.edit', $course) }}"

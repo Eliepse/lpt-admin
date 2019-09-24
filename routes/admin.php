@@ -81,6 +81,7 @@ Route::get('/courses/{course}/edit', [CourseController::class, 'edit'])->name('c
 
 // Schedules
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules.store');
+Route::get('/schedules/create', [ScheduleController::class, 'create'])->name('schedules.create');
 Route::get('/schedules/{schedule}', [ScheduleController::class, 'show'])->name('schedules.show');
 Route::get('/schedules/{schedule}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
 Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedules.update');
@@ -102,7 +103,6 @@ Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index'
 Route::get('/offices/create', [OfficeController::class, 'create'])->name('offices.create');
 Route::post('/offices', [OfficeController::class, 'store'])->name('offices.store');
 Route::get('/offices/{office}', [OfficeController::class, 'show'])->name('offices.show');
-Route::get('/offices/{office}/schedules/create', [ScheduleController::class, 'create'])->name('offices.schedules.create');
 Route::get('/offices/{office}/edit', [OfficeController::class, 'edit'])->name('offices.edit');
 Route::put('/offices//{office}', [OfficeController::class, 'update'])->name('offices.update');
 

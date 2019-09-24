@@ -66,7 +66,16 @@ use \Illuminate\Support\Str;
             </table>
         </div>
 
-        <div class="d-flex justify-content-between mt-5"><h4>Classes</h4></div>
+        <div class="d-flex justify-content-between mt-5 border-bottom">
+            <h4>Classes</h4>
+            <div class="">
+                <div class="">
+                    <a href="{{ route('schedules.create', ['course' => $course]) }}" class="btn btn-sm btn-link">
+                        <i class="fe fe-calendar"></i> Ajouter un classe
+                    </a>
+                </div>
+            </div>
+        </div>
 
         <schedule-calendar
             :schedules="{{ $course->schedules->toJson() }}"

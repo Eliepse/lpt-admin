@@ -14,8 +14,10 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class ScheduleController extends Controller
@@ -37,11 +39,20 @@ class ScheduleController extends Controller
     }
 
 
-    public function create(Office $office)
+    public function create(Request $request)
     {
-        $courses = Course::all();
+        $courses = $request->has('course') ?
+            Course::query()->findOrFail($request->get('course')) :
+            Course::all();
 
-        return view('models.schedule.create', compact('office', 'courses'));
+        $campuses = $request->has('campus') ?
+            Office::query()->findOrFail($request->get('campus')) :
+            Office::all();
+
+        return view('models.schedule.create', [
+            'courses' => Collection::wrap($courses),
+            'campuses' => Collection::wrap($campuses),
+        ]);
     }
 
 
