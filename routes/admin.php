@@ -12,12 +12,11 @@
 */
 
 use App\Http\Controllers\Admin\StaffUserPasswordController;
+use App\Http\Controllers\Administration\HomeController;
 use App\Http\Controllers\Administration\ScheduleSubscriptionController;
 use App\Http\Controllers\Administration\SettingsController;
 use App\Http\Controllers\Administration\StaffController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DuplicateScheduleController;
 use App\Http\Controllers\FamilyController;
@@ -113,4 +112,4 @@ Route::get('/settings', [SettingsController::class, 'general'])->name('settings'
 
 
 // Other
-Route::get('/', 'Administration\\MainController@home')->name('dashboard');
+Route::get('/', HomeController::class)->name('dashboard');
