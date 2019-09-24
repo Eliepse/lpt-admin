@@ -16,6 +16,7 @@
               name="{{ $name }}"
               rows="6"
               autocomplete=""
+              @if($disabled ?? false) disabled @endif
               @if($required ?? false) required @endif
               @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
               placeholder="{{ $placeholder ?? '' }}">{{ old($name, $default ?? '') }}</textarea>

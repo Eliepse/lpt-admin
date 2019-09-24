@@ -16,6 +16,7 @@
            class="form-control @error($name) is-invalid @enderror {{ $classes ?? '' }}"
            @isset($placeholder)placeholder="{{ $placeholder }}" @endisset
            autocomplete
+           @if($disabled ?? false) disabled @endif
            @if($required ?? false) required @endif
            @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
            value="{{ old($name, $default ?? '') }}">

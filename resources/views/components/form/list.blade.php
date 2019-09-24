@@ -38,6 +38,7 @@ if (!function_exists('optionChecked')) {
                 <input type="{{ $type }}" name="{{ $name }}" value="{{ $o_value }}"
                        @if(optionChecked($o_value, $old, $type)) checked @endif
                        autocomplete
+                       @if($disabled ?? false) disabled @endif
                        @if($required ?? false) required @endif
                        class="selectgroup-input @error($name) is-invalid @enderror {{ $classes ?? '' }}">
                 <span class="selectgroup-button">{!! $o_name !!}</span>
