@@ -2,7 +2,7 @@
 
 <?php
 
-use Carbon\Carbon;
+use App\Subscription;use Carbon\Carbon;
 use \Illuminate\Support\Str;
 use App\Schedule;
 use App\Family;
@@ -106,37 +106,24 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                         <div class="card-body">
                             @if($student->notes)<p class="font-italic">{{ $student->notes }}</p>@endif
                         </div>
+                        <div class="card-body">
+                            <ul>
+								<?php /** @var Subscription $subscription */ ?>
+                                @foreach($student->getActiveSubscriptions() as $subscription)
+                                    <li>
+                                        <a href="{{ route('schedules.show', $subscription->marketable) }}">
+                                            {{ $subscription->marketable->course->name }}
+                                            ({{ $subscription->marketable->day }}
+                                            {{ $subscription->marketable->hour->format('H:i') }})</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             @endforeach
 
         </div>
-
-        {{-- TODO(eliepse): add calendar visualization --}}
-        {{--        <div class="row mt-3 mb-5">--}}
-        {{--            <div class="col">--}}
-        {{--                <div class="card">--}}
-        {{--                    <div class="row no-gutters">--}}
-        {{--                        @foreach(\App\Sets\DaysSet::getKeys() as $day)--}}
-        {{--                            <div class="col day {{ $today === $day ? 'day-active' : '' }}">--}}
-        {{--                                <div class="day-header">{{ $day }}</div>--}}
-        {{--                                <div class="day-body">--}}
-        {{--                                    @foreach($schedules[$day] ?? collect() as $schedule)--}}
-
-        {{--                                        @component('models.campus.schedule-item')--}}
-        {{--                                            @slot('schedule', $schedule)--}}
-        {{--                                            @slot('today', $today)--}}
-        {{--                                            @slot('day', $day)--}}
-        {{--                                        @endcomponent--}}
-
-        {{--                                    @endforeach--}}
-        {{--                                </div>--}}
-        {{--                            </div>--}}
-        {{--                        @endforeach--}}
-        {{--                    </div>--}}
-        {{--                </div>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
 
     </div>
 

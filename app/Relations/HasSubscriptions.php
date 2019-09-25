@@ -5,6 +5,7 @@ namespace App\Relations;
 
 
 use App\Subscription;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -50,6 +51,19 @@ trait HasSubscriptions
     {
         return $this->subscriptions->first(function (Subscription $subscription) use ($model) {
             return optional($subscription->marketable)->is($model);
+        });
+    }
+
+
+    public function getActiveSubscriptions(): \Illuminate\Support\Collection
+    {
+        $today = Carbon::now();
+
+        $this->subscriptions->loadMissing(['marketable']);
+
+        return $this->subscriptions->filter(function (Subscription $subscription) use ($today) {
+            return $subscription->marketable
+                && $today->isBetween($subscription->validity_start_at, $subscription->validity_end_at);
         });
     }
 }
