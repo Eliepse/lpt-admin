@@ -24,4 +24,7 @@
     @endif
 
     @yield("main")
+
+    <div style="height: 3.5rem;" role="none"></div>
+
 @endsection
