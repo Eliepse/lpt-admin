@@ -123,7 +123,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
         {{--                                <div class="day-body">--}}
         {{--                                    @foreach($schedules[$day] ?? collect() as $schedule)--}}
 
-        {{--                                        @component('models.office.schedule-item')--}}
+        {{--                                        @component('models.campus.schedule-item')--}}
         {{--                                            @slot('schedule', $schedule)--}}
         {{--                                            @slot('today', $today)--}}
         {{--                                            @slot('day', $day)--}}

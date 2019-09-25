@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
-use App\Office;
+use App\Campus;
 use App\Schedule;
 use Eliepse\Alert\Alert;
 use Eliepse\Alert\AlertSuccess;
@@ -46,8 +46,8 @@ class ScheduleController extends Controller
             Course::all();
 
         $campuses = $request->has('campus') ?
-            Office::query()->findOrFail($request->get('campus')) :
-            Office::all();
+            Campus::query()->findOrFail($request->get('campus')) :
+            Campus::all();
 
         return view('models.schedule.create', [
             'courses' => Collection::wrap($courses),
@@ -61,7 +61,7 @@ class ScheduleController extends Controller
         $schedule = new Schedule($request->all(['room', 'day', 'hour', 'start_at', 'end_at', 'signup_start_at',
             'signup_end_at', 'price', 'max_students']));
 
-        $schedule->office()->associate($request->get('office'));
+        $schedule->campus()->associate($request->get('campus'));
         $schedule->course()->associate($request->get('course'));
 
         // TODO(eliepse): add teachers
@@ -78,7 +78,7 @@ class ScheduleController extends Controller
 
     public function edit(Schedule $schedule)
     {
-        return view("models.schedule.edit", ['schedule' => $schedule, 'office' => $schedule->office]);
+        return view("models.schedule.edit", ['schedule' => $schedule, 'campus' => $schedule->campus]);
     }
 
 

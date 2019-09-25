@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Office;
+use App\Campus;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class OfficePolicy
+class CampusPolicy
 {
     use HandlesAuthorization;
 
@@ -21,11 +21,11 @@ class OfficePolicy
 
     /**
      * @param User $user
-     * @param Office $office
+     * @param Campus $campus
      *
      * @return mixed
      */
-    public function viewAny(User $user, Office $office)
+    public function viewAny(User $user, Campus $campus)
     {
         return false;
     }
@@ -35,11 +35,11 @@ class OfficePolicy
      * Determine whether the user can view the course.
      *
      * @param User $user
-     * @param Office $office
+     * @param Campus $campus
      *
      * @return mixed
      */
-    public function view(User $user, Office $office)
+    public function view(User $user, Campus $campus)
     {
         return false;
     }
@@ -62,11 +62,11 @@ class OfficePolicy
      * Determine whether the user can update the course.
      *
      * @param User $user
-     * @param Office $office
+     * @param Campus $campus
      *
      * @return mixed
      */
-    public function update(User $user, Office $office)
+    public function update(User $user, Campus $campus)
     {
         return false;
     }
@@ -76,11 +76,11 @@ class OfficePolicy
      * Determine whether the user can delete the course.
      *
      * @param User $user
-     * @param Office $office
+     * @param Campus $campus
      *
      * @return mixed
      */
-    public function delete(User $user, Office $office)
+    public function delete(User $user, Campus $campus)
     {
         return false;
     }
@@ -90,11 +90,11 @@ class OfficePolicy
      * Determine whether the user can restore the course.
      *
      * @param User $user
-     * @param Office $office
+     * @param Campus $campus
      *
      * @return mixed
      */
-    public function restore(User $user, Office $office)
+    public function restore(User $user, Campus $campus)
     {
         return false;
     }
@@ -104,11 +104,11 @@ class OfficePolicy
      * Determine whether the user can permanently delete the course.
      *
      * @param User $user
-     * @param Office $office
+     * @param Campus $campus
      *
      * @return mixed
      */
-    public function forceDelete(User $user, Office $office)
+    public function forceDelete(User $user, Campus $campus)
     {
         return false;
     }

@@ -5,7 +5,7 @@
 @section('main')
     <div class="container mt-3">
 
-        <form action="{{ route('offices.store') }}" method="POST">
+        <form action="{{ route('campuses.store') }}" method="POST">
 
             @csrf
 
@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="card-footer text-right">
-                        <a href="{{ route('offices.index') }}" class="btn btn-link">Annuler</a>
+                        <a href="{{ route('campuses.index') }}" class="btn btn-link">Annuler</a>
                         <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
 

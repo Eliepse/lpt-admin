@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class OfficeTableSeeder extends Seeder
+class CampusTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,11 +12,11 @@ class OfficeTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('offices')->updateOrInsert([
+        DB::table('campuses')->updateOrInsert([
             'name' => 'aubervilliers',
         ]);
 
-        DB::table('offices')->updateOrInsert([
+        DB::table('campuses')->updateOrInsert([
             'name' => 'belleville',
         ]);
     }

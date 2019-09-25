@@ -2,10 +2,10 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Office;
+use App\Campus;
 use Faker\Generator as Faker;
 
-$factory->define(Office::class, function (Faker $faker) {
+$factory->define(Campus::class, function (Faker $faker) {
     return [
         'name' => $faker->city,
     ];

@@ -21,7 +21,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DuplicateScheduleController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\LessonController;
-use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\CampusController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
@@ -97,14 +97,14 @@ Route::get('/schedules/{schedule}/delete', [ScheduleController::class, 'delete']
 Route::delete('/schedules/{schedule}', [ScheduleController::class, 'trash'])->name('schedules.trash');
 
 
-// Offices
-Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
-Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
-Route::get('/offices/create', [OfficeController::class, 'create'])->name('offices.create');
-Route::post('/offices', [OfficeController::class, 'store'])->name('offices.store');
-Route::get('/offices/{office}', [OfficeController::class, 'show'])->name('offices.show');
-Route::get('/offices/{office}/edit', [OfficeController::class, 'edit'])->name('offices.edit');
-Route::put('/offices//{office}', [OfficeController::class, 'update'])->name('offices.update');
+// Campuses
+Route::get('/campuses', [CampusController::class, 'index'])->name('campuses.index');
+Route::get('/campuses', [CampusController::class, 'index'])->name('campuses.index');
+Route::get('/campuses/create', [CampusController::class, 'create'])->name('campuses.create');
+Route::post('/campuses', [CampusController::class, 'store'])->name('campuses.store');
+Route::get('/campuses/{campus}', [CampusController::class, 'show'])->name('campuses.show');
+Route::get('/campuses/{campus}/edit', [CampusController::class, 'edit'])->name('campuses.edit');
+Route::put('/campuses//{campus}', [CampusController::class, 'update'])->name('campuses.update');
 
 // Settings
 Route::get('/settings', [SettingsController::class, 'general'])->name('settings');

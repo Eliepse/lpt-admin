@@ -11,7 +11,7 @@ use App\Sets\DaysSet;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($schedule->office->name) . ": suppression de classe ")
+@section('title', ucfirst($schedule->campus->name) . ": suppression de classe ")
 
 @section('main')
     <div class="container mt-3">
@@ -36,7 +36,7 @@ $days = DaysSet::getKeys();
                     <div class="card-footer text-right">
                         <div class="d-flex">
                             {{-- TODO(eliepse): change to schedule page when created --}}
-                            <a href="{{ route('offices.show', $schedule->office) }}" class="btn btn-secondary">Annuler</a>
+                            <a href="{{ route('campuses.show', $schedule->campus) }}" class="btn btn-secondary">Annuler</a>
                             <button type="submit" class="btn btn-link ml-auto text-uppercase">Supprimer la classe</button>
                         </div>
                     </div>

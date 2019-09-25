@@ -11,7 +11,7 @@ use App\Sets\DaysSet;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($schedule->office->name) . ": duplication de classe ")
+@section('title', ucfirst($schedule->campus->name) . ": duplication de classe ")
 
 @section('main')
     <div class="container mt-3">
@@ -25,7 +25,7 @@ $days = DaysSet::getKeys();
                     {{ csrf_field() }}
 
                     <div class="card-header">
-                        <h3 class="card-title">Dupliquer une classe à {{ ucfirst($schedule->office->name) }}</h3>
+                        <h3 class="card-title">Dupliquer une classe à {{ ucfirst($schedule->campus->name) }}</h3>
                         <p>Permet de dupliquer une classe à un horaire différent.</p>
                     </div>
 
@@ -50,7 +50,7 @@ $days = DaysSet::getKeys();
 
                     <div class="card-footer text-right">
                         <div class="d-flex">
-                            <a href="{{ route('offices.show', $schedule->office) }}" class="btn btn-link">Annuler</a>
+                            <a href="{{ route('campuses.show', $schedule->campus) }}" class="btn btn-link">Annuler</a>
                             <button type="submit" class="btn btn-primary ml-auto">Dupliquer</button>
                         </div>
                     </div>

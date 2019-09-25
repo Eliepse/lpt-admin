@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Class Office
+ * Class Campus
  *
  * @package App
  * @property-read int id
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read Collection schedules
  * @property-read Collection activeSchedules
  */
-class Office extends Model
+class Campus extends Model
 {
     protected $guarded = [];
 

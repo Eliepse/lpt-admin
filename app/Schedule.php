@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App
  * @property-read int id
  * @property int course_id
- * @property int office_id
+ * @property int campus_id
  * @property string|null $room
  * @property string day
  * @property Carbon hour
@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * /
  * @property int duration
  * Relations:
- * @property Office office
+ * @property Campus campus
  * @property Course course
  * @property \Illuminate\Support\Collection students
  * @property int subscriptions_count
@@ -74,9 +74,9 @@ class Schedule extends Model
     /**
      * @return BelongsTo
      */
-    public function office(): BelongsTo
+    public function campus(): BelongsTo
     {
-        return $this->belongsTo(Office::class);
+        return $this->belongsTo(Campus::class);
     }
 
 

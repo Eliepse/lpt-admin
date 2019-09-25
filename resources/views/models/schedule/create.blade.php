@@ -1,12 +1,12 @@
 @extends('dashboard-master')
 
 <?php
-use App\Office;
+use App\Campus;
 use App\Sets\DaysSet;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @var Office $office
+ * @var Campus $campus
  * @var Collection $courses
  */
 
@@ -33,7 +33,7 @@ $days = DaysSet::getKeys();
 
                     <div class="card-body">
 
-                        {{--                        <input type="hidden" name="office" value="{{ $office->id }}"/>--}}
+                        {{--                        <input type="hidden" name="campus" value="{{ $campus->id }}"/>--}}
 
                         @component('components.form.select')
                             @slot('title', 'Cours')
@@ -46,9 +46,9 @@ $days = DaysSet::getKeys();
 
                         @component('components.form.select')
                             @slot('title', 'Campus')
-                            @slot('name', 'office')
-                            @slot('options', $campuses->map(function (App\Office $office){
-                                    return ["value" => $office->id, "name" => $office->name];
+                            @slot('name', 'campus')
+                            @slot('options', $campuses->map(function (App\Campus $campus){
+                                    return ["value" => $campus->id, "name" => $campus->name];
                                 })->toArray());
                             @slot('disabled', $campuses->count() === 1)
                         @endcomponent

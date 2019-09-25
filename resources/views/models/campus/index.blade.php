@@ -1,12 +1,12 @@
 @extends('dashboard-master')
 
 <?php
-use App\Office;
+use App\Campus;
 use \Illuminate\Database\Eloquent\Collection;
 
 /**
  * @var Collection $officies
- * @var Office $office
+ * @var Campus $campus
  */
 ?>
 
@@ -19,7 +19,7 @@ use \Illuminate\Database\Eloquent\Collection;
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
             <h1>Campus</h1>
             <div>
-                <a class="btn btn-sm btn-link" href="{{ route('offices.create') }}">
+                <a class="btn btn-sm btn-link" href="{{ route('campuses.create') }}">
                     <i class="fe fe-plus"></i> Ajouter un campus
                 </a>
             </div>
@@ -35,14 +35,14 @@ use \Illuminate\Database\Eloquent\Collection;
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($officies as $office)
+                    @foreach($campuses as $campus)
                         <tr>
                             <td>
-                                {{ \Illuminate\Support\Str::title($office->name) }}<br>
-                                <small class="text-muted">{{ $office->postal_address }}</small>
+                                {{ \Illuminate\Support\Str::title($campus->name) }}<br>
+                                <small class="text-muted">{{ $campus->postal_address }}</small>
                             </td>
                             <td class="text-right">
-                                <a href="{{ route('offices.show', $office) }}"
+                                <a href="{{ route('campuses.show', $campus) }}"
                                    class="btn btn-sm btn-outline-secondary">Afficher</a>
                             </td>
                         </tr>

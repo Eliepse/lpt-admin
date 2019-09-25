@@ -12,7 +12,7 @@ use App\Sets\DaysSet;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', "Classe du " . __($schedule->day) . " {$schedule->hour->format("H \h i")} à {$schedule->office->name} - ")
+@section('title', "Classe du " . __($schedule->day) . " {$schedule->hour->format("H \h i")} à {$schedule->campus->name} - ")
 
 @section('main')
     <div class="container mt-3">
@@ -30,7 +30,7 @@ $days = DaysSet::getKeys();
                         <h3 class="card-title">{{
                             "Classe du "
                              . __($schedule->day)
-                            . " {$schedule->hour->format("H \h i")} à {$schedule->office->name}"
+                            . " {$schedule->hour->format("H \h i")} à {$schedule->campus->name}"
                         }}</h3>
                     </div>
 

@@ -10,7 +10,7 @@ use App\Sets\DaysSet;
 
 ?>
 
-@section('title', ucfirst($schedule->office->name) . ": duplication d'une classe ")
+@section('title', ucfirst($schedule->campus->name) . ": duplication d'une classe ")
 
 @section('main')
     <div class="container mt-3">
@@ -32,7 +32,7 @@ use App\Sets\DaysSet;
 
                     <div class="card-footer text-right">
                         <div class="d-flex">
-                            <a href="{{ route('offices.show', $schedule->office) }}"
+                            <a href="{{ route('campuses.show', $schedule->campus) }}"
                                class="btn btn-outline-secondary">J'ai terminé</a>
                             <a href="{{ route('schedules.duplicate', $schedule) }}"
                                class="btn btn-outline-primary ml-auto">Ajouter un horaire</a>

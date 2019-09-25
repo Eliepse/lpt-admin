@@ -2,7 +2,7 @@
 
 <?php
 /**
- * @var App\Office $office
+ * @var App\Campus $campus
  */
 ?>
 
@@ -11,17 +11,17 @@
     <div class="container mt-3">
         <div class="row">
 
-            @foreach($offices as $office)
+            @foreach($campuses as $campus)
                 <div class="col col-lg-4">
                     <div class="card mb-3">
                         <div class="card-header">
                             <div class="card-title">
-                                {{ ucfirst($office->name) }}<br>
-                                <small>{!! $office->postal_address ?? '&nbsp;' !!}</small>
+                                {{ ucfirst($campus->name) }}<br>
+                                <small>{!! $campus->postal_address ?? '&nbsp;' !!}</small>
                             </div>
                         </div>
                         <div class="card-body">
-                            {{ $office->schedules->count() }} classes
+                            {{ $campus->schedules->count() }} classes
                         </div>
                         <div class="card-table">
                             <table class="w-100" style="table-layout: fixed" border="0">
@@ -51,7 +51,7 @@
                                 </tr>
                                 </thead>
                                 <tbody style="background-color: #F7FAFC">
-                                @foreach($stats[$office->id] as $hour => $days)
+                                @foreach($stats[$campus->id] as $hour => $days)
                                     <tr>
                                         @foreach(App\Enums\DaysEnum::getKeys() as $day)
                                             @if(isset($days[$day]))
@@ -73,7 +73,7 @@
                             </table>
                         </div>
                         <div class="card-footer text-right">
-                            <a href="{{ route('offices.show', $office) }}" class="btn btn-outline-primary">Afficher</a>
+                            <a href="{{ route('campuses.show', $campus) }}" class="btn btn-outline-primary">Afficher</a>
                         </div>
                     </div>
                 </div>

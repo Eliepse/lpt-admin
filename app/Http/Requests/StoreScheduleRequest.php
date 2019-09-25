@@ -21,7 +21,7 @@ class StoreScheduleRequest extends FormRequest
         $isoDate = 'Y-m-d';
 
         return [
-            "office" => "required|exists:offices,id",
+            "campus" => "required|exists:campuses,id",
             "course" => "required|exists:courses,id",
             "room" => "nullable|string|max:30",
             "day" => "required|string|in:" . join(",", DaysSet::getKeys()),

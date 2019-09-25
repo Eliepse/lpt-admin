@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
-class UpdateOfficeRequest extends FormRequest
+class UpdateCampusRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -20,7 +20,7 @@ class UpdateOfficeRequest extends FormRequest
                 'required',
                 'string',
                 'max:50',
-                Rule::unique('offices', 'name')->ignoreModel($this->route('office')),
+                Rule::unique('campuses', 'name')->ignoreModel($this->route('campus')),
             ],
             'postal_address' => 'nullable|string|max:150',
         ];

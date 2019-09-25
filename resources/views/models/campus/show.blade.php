@@ -4,11 +4,11 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;use \Illuminate\Support\Str;
-use App\Office;
+use App\Campus;
 use App\Schedule;
 
 /**
- * @var Office $office
+ * @var Campus $campus
  * @var Schedule $schedule
  * @var Collection $days
  * @var Collection $hours
@@ -18,18 +18,18 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
 
 ?>
 
-@section('title', ucfirst($office->name) . " - ")
+@section('title', ucfirst($campus->name) . " - ")
 
 @section('main')
 
     <div class="container justify-content-center">
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-start">
             <div>
-                <h1>{{ ucfirst($office->name) }}</h1>
-                <p>{{ $office->postal_address }}</p>
+                <h1>{{ ucfirst($campus->name) }}</h1>
+                <p>{{ $campus->postal_address }}</p>
             </div>
             <div>
-                {{--<a class="btn btn-link" href="{{ route('offices.edit', $office) }}">
+                {{--<a class="btn btn-link" href="{{ route('campuses.edit', $campus) }}">
                     <i class="fe fe-edit-3"></i>
                     Modifier
                 </a>--}}
@@ -40,7 +40,7 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
             <h4>Classes</h4>
             <div class="">
                 <div class="">
-                    <a href="{{ route('schedules.create', ['campus' => $office]) }}" class="btn btn-sm btn-link">
+                    <a href="{{ route('schedules.create', ['campus' => $campus]) }}" class="btn btn-sm btn-link">
                         <i class="fe fe-calendar"></i> Ajouter un classe
                     </a>
                 </div>
@@ -61,7 +61,7 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
                                     <div class="day-body">
 
                                         @foreach($schedules as $schedule)
-                                            @component('models.office.schedule-item')
+                                            @component('models.campus.schedule-item')
                                                 @slot('schedule', $schedule)
                                                 @slot('today', $today)
                                                 @slot('day', $day)
@@ -82,7 +82,7 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
                             <div class="day-body">
                                 @foreach($schedules[$day] ?? collect() as $schedule)
 
-                                    @component('models.office.schedule-item')
+                                    @component('models.campus.schedule-item')
                                         @slot('schedule', $schedule)
                                         @slot('today', $today)
                                         @slot('day', $day)

@@ -1,12 +1,12 @@
 @extends('dashboard-master')
 
 <?php
-use App\Office;
+use App\Campus;
 use App\Sets\DaysSet;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @var Office $office
+ * @var Campus $campus
  * @var \App\Schedule $schedule
  * @var \App\Student $student
  * @var Collection $courses
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Collection;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', "Classe du " . __($schedule->day) . " {$schedule->hour->format("H \h i")} à {$schedule->office->name} - ")
+@section('title', "Classe du " . __($schedule->day) . " {$schedule->hour->format("H \h i")} à {$schedule->campus->name} - ")
 
 @section('main')
 

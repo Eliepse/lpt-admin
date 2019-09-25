@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Administration;
 
-use App\Office;
+use App\Campus;
 use App\Schedule;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
@@ -37,21 +37,21 @@ class HomeController extends Controller
 
     public function __invoke()
     {
-        $offices = Office::with(['schedules.course.lessons'])->get();
+        $campuses = Campus::with(['schedules.course.lessons'])->get();
 
-        $stats = $offices
+        $stats = $campuses
             ->keyBy('id')
-            ->map(function (Office $office) {
-                return $this->officeActivityStats($office);
+            ->map(function (Campus $campus) {
+                return $this->campusActivityStats($campus);
             });
 
 //        dd($stats);
 
-        return view('home', ['offices' => $offices, 'stats' => $stats]);
+        return view('home', ['campuses' => $campuses, 'stats' => $stats]);
     }
 
 
-    private function officeActivityStats(Office $office): Collection
+    private function campusActivityStats(Campus $campus): Collection
     {
         $hoursStats = collect();
         $min = 0;
@@ -59,7 +59,7 @@ class HomeController extends Controller
 
         for ($h = $this->dayBoundaries[0]; $h <= $this->dayBoundaries[1]; $h += $this->statsGranularity) {
 
-            $hourStats = $office
+            $hourStats = $campus
                 ->getActiveSchedules()
                 ->filter(function (Schedule $schedule) use ($h) {
                     $end_at = $schedule->hour->hour + ($schedule->duration / 60);
@@ -98,9 +98,9 @@ class HomeController extends Controller
     }
 
 
-    private function scheduleStatsByHour(Office $office): Collection
+    private function scheduleStatsByHour(Campus $campus): Collection
     {
-        return $office->getActiveSchedules()
+        return $campus->getActiveSchedules()
             ->groupBy(function (Schedule $schedule) { return $schedule->hour->hour; })
             ->sortKeys()
             ->map(function (Collection $hour) {

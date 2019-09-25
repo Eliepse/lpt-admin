@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOfficeRequest extends FormRequest
+class StoreCampusRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,7 +14,7 @@ class StoreOfficeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:offices,name|max:50',
+            'name' => 'required|string|unique:campuses,name|max:50',
             'postal_address' => 'nullable|string|max:150',
         ];
     }

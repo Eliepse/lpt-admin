@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Enums\DaysEnum;
-use App\Http\Requests\StoreOfficeRequest;
-use App\Http\Requests\UpdateOfficeRequest;
-use App\Office;
+use App\Http\Requests\StoreCampusRequest;
+use App\Http\Requests\UpdateCampusRequest;
+use App\Campus;
 use App\Schedule;
 use Carbon\Carbon;
 use Eliepse\Alert\AlertSuccess;
@@ -15,37 +15,37 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
-class OfficeController extends Controller
+class CampusController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('roles:admin,manager');
-        $this->authorizeResource(Office::class, 'office');
+        $this->authorizeResource(Campus::class, 'campus');
     }
 
 
     public function index()
     {
-        $officies = Office::all();
+        $campuses = Campus::all();
 
-        return view("models.office.index", compact("officies"));
+        return view("models.campus.index", compact("campuses"));
     }
 
 
     public function create()
     {
-        return view("models.office.create");
+        return view("models.campus.create");
     }
 
 
-    public function store(StoreOfficeRequest $request)
+    public function store(StoreCampusRequest $request)
     {
-        $office = new Office($request->all(['name']));
-        $office->save();
+        $campus = new Campus($request->all(['name']));
+        $campus->save();
 
         return redirect()
-            ->route('offices.index')
+            ->route('campuses.index')
             ->with('alerts', [
                 new AlertSuccess('Le campus a été ajouté.'),
             ]);
@@ -55,13 +55,13 @@ class OfficeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Office $office
+     * @param Campus $campus
      *
      * @return Response
      */
-    public function show(Office $office)
+    public function show(Campus $campus)
     {
-        $schedules = $office->getActiveSchedules()
+        $schedules = $campus->getActiveSchedules()
             ->loadMissing(['course.lessons']);
 
         /** @var Carbon $min */
@@ -84,8 +84,8 @@ class OfficeController extends Controller
                 });
             });
 
-        return view('models.office.show', [
-            'office' => $office,
+        return view('models.campus.show', [
+            'campus' => $campus,
             'days' => $days,
             'min' => $min,
             'max' => $max,
@@ -94,29 +94,29 @@ class OfficeController extends Controller
 
 
     /**
-     * @param Office $office
+     * @param Campus $campus
      *
      * @return Factory|View
      */
-    public function edit(Office $office)
+    public function edit(Campus $campus)
     {
-        return view("models.office.edit", ['office' => $office]);
+        return view("models.campus.edit", ['campus' => $campus]);
     }
 
 
     /**
-     * @param UpdateOfficeRequest $request
-     * @param Office $office
+     * @param UpdateCampusRequest $request
+     * @param Campus $campus
      *
      * @return RedirectResponse
      */
-    public function update(UpdateOfficeRequest $request, Office $office)
+    public function update(UpdateCampusRequest $request, Campus $campus)
     {
-        $office->fill($request->only(["name", "postal_address"]));
-        $office->save();
+        $campus->fill($request->only(["name", "postal_address"]));
+        $campus->save();
 
         return redirect()
-            ->route('offices.show', $office)
+            ->route('campuses.show', $campus)
             ->with('alerts', [
                 new AlertSuccess('Le campus a été modifié.'),
             ]);

@@ -11,7 +11,7 @@ use App\Sets\DaysSet;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($schedule->office->name) . ": désinscription")
+@section('title', ucfirst($schedule->campus->name) . ": désinscription")
 
 @section('main')
     <div class="container mt-3">
@@ -32,7 +32,7 @@ $days = DaysSet::getKeys();
                     <div class="card-body">
                         <p>
                             <strong>Classe</strong><br>
-                            {{ $schedule->course->name }} ({{ $schedule->office->name }})
+                            {{ $schedule->course->name }} ({{ $schedule->campus->name }})
                             <small>{{ $schedule->room }}</small>
                             à {{ $schedule->hour->format("H\hi") }}
                             <br>

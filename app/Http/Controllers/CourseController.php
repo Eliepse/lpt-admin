@@ -93,7 +93,7 @@ class CourseController extends Controller
      */
     public function show(Request $request, Course $course)
     {
-        $course->loadMissing(['schedules.teachers:id,firstname,lastname', "schedules.office"]);
+        $course->loadMissing(['schedules.teachers:id,firstname,lastname', "schedules.campus"]);
 
         if ($request->ajax())
             return response()->json($course);

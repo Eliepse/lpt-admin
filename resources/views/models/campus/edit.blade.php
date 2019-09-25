@@ -1,7 +1,7 @@
 @extends('dashboard-master')
 <?php
 /**
- * @var App\Office $office
+ * @var App\Campus $campus
  */
 ?>
 @section('title', "Modifier un campus - ")
@@ -9,7 +9,7 @@
 @section('main')
     <div class="container mt-3">
 
-        <form action="{{ route('offices.update', $office) }}" method="POST">
+        <form action="{{ route('campuses.update', $campus) }}" method="POST">
 
             @csrf
             @method('put')
@@ -31,14 +31,14 @@
                                 @slot('name', 'name')
                                 @slot('required', true)
                                 @slot('attrs', ['max' => 50])
-                                @slot('default', $office->name)
+                                @slot('default', $campus->name)
                             @endcomponent
 
                             @component('components.form.input')
                                 @slot('title', 'Adresse postale (optionel)')
                                 @slot('name', 'postal_address')
                                 @slot('attrs', ['max' => 150])
-                                @slot('default', $office->postal_address)
+                                @slot('default', $campus->postal_address)
                             @endcomponent
 
                         </div>
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="card-footer text-right">
-                        <a href="{{ route('offices.show', $office) }}" class="btn btn-link">Annuler</a>
+                        <a href="{{ route('campuses.show', $campus) }}" class="btn btn-link">Annuler</a>
                         <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
 

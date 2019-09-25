@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
  */
 ?>
 
-@section('title', "Classe du " . __($schedule->day) . " {$schedule->hour->format("H \h i")} à {$schedule->office->name} - ")
+@section('title', "Classe du " . __($schedule->day) . " {$schedule->hour->format("H \h i")} à {$schedule->campus->name} - ")
 
 @section('main')
 
@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Auth;
                     <small class="text-muted">{{ $schedule->room }}</small>
                 </h1>
                 <p class="text-muted">
-                    <a href="{{ route('offices.show', $schedule->office) }}">
-                        {{ \Illuminate\Support\Str::title($schedule->office->name) }}</a>
+                    <a href="{{ route('campuses.show', $schedule->campus) }}">
+                        {{ \Illuminate\Support\Str::title($schedule->campus->name) }}</a>
                     &middot; le {{ __($schedule->day) }} à {{ $schedule->hour->format("H \h i") }}
                     &middot; {{ $schedule->course->getDuration(true) }}
                     &middot; {{ $schedule->price }} €

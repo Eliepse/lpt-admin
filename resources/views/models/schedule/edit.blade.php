@@ -1,12 +1,12 @@
 @extends('dashboard-master')
 
 <?php
-use App\Office;
+use App\Campus;
 use App\Sets\DaysSet;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @var Office $office
+ * @var Campus $campus
  * @var Collection $courses
  * @var App\Schedule $schedule
  */
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Collection;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($office->name) . ": modification de classe ")
+@section('title', ucfirst($campus->name) . ": modification de classe ")
 
 @section('main')
     <div class="container mt-3">
@@ -29,12 +29,12 @@ $days = DaysSet::getKeys();
                     @method('put')
 
                     <div class="card-header">
-                        <h3 class="card-title">Modifier une classe à {{ ucfirst($office->name) }}</h3>
+                        <h3 class="card-title">Modifier une classe à {{ ucfirst($campus->name) }}</h3>
                     </div>
 
                     <div class="card-body">
 
-                        <input type="hidden" name="office" value="{{ $office->id }}"/>
+                        <input type="hidden" name="campus" value="{{ $campus->id }}"/>
 
                         @component('components.form.select')
                             @slot('title', 'Cours')
