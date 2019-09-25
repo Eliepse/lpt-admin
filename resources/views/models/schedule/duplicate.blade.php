@@ -35,6 +35,15 @@ $days = DaysSet::getKeys();
                         <p>Permet de dupliquer une classe à un horaire différent.</p>
                     </div>
 
+                    <div class="card-body bg-light">
+                        <p>
+                            <strong>Cours&nbsp;: </strong> {{ $schedule->course->name }} ({{ $schedule->course->getDuration(true) }})<br>
+                            <strong>Prix&nbsp;: </strong> {{ $schedule->price }} €<br>
+                            <strong>Salle&nbsp;: </strong> {{ $schedule->room ?? '/' }}<br>
+                            <strong>Effectif&nbsp;: </strong> {{ $schedule->max_students }} élèves max<br>
+                        </p>
+                    </div>
+
                     <div class="card-body">
 
                         @component('components.form.list')
