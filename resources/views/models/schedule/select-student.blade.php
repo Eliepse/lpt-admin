@@ -22,6 +22,11 @@ $days = DaysSet::getKeys();
 
     <div class="container mt-3">
 
+        <div class="mb-3">
+            <a href="{{ route('schedules.show', $schedule) }}">
+                <i class="fe fe-arrow-left"></i> Page de la classe</a>
+        </div>
+
         <div class="card">
 
             <div class="card-header">

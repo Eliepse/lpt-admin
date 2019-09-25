@@ -21,6 +21,11 @@ use App\Student;
                 @csrf
                 @method('PUT')
 
+                <div class="mb-3">
+                    <a href="{{ route('families.show', $student->family) }}">
+                        <i class="fe fe-arrow-left"></i> Page de la famille</a>
+                </div>
+
                 <div class="card">
 
                     <div class="card-header">
@@ -62,8 +67,7 @@ use App\Student;
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <a href="{{ route('families.show', $student->family) }}" class="btn btn-link">Annuler</a>
+                    <div class="card-footer">
                         <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
 

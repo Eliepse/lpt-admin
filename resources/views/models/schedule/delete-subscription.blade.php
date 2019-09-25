@@ -18,6 +18,12 @@ $days = DaysSet::getKeys();
 
         <div class="row justify-content-center">
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
+
+                <div class="mb-3">
+                    <a href="{{ route('schedules.show', $schedule) }}">
+                        <i class="fe fe-arrow-left"></i> Page de la classe</a>
+                </div>
+
                 <form class="card"
                       action="{{ route('schedules.students.link', [$schedule, $student])  }}"
                       method="POST">

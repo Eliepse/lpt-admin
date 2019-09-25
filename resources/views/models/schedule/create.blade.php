@@ -20,6 +20,19 @@ $days = DaysSet::getKeys();
 
         <div class="row justify-content-center">
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
+
+                <div class="mb-3">
+                    @if($campuses->count() === 1)
+                        <a href="{{ route('campuses.show', $campuses->first()) }}">
+                            <i class="fe fe-arrow-left"></i> Page du campus</a>
+                    @elseif($courses->count() === 1)
+                        <a href="{{ route('courses.show', $courses->first()) }}">
+                            <i class="fe fe-arrow-left"></i> Page du cours</a>
+                    @else
+                        <a href="{{ redirect()->back()->getTargetUrl() }}"><i class="fe fe-arrow-left"></i> Retour</a>
+                    @endif
+                </div>
+
                 <form class="card"
                       action="{{ route('schedules.store')  }}"
                       method="POST">
@@ -32,8 +45,6 @@ $days = DaysSet::getKeys();
                     </div>
 
                     <div class="card-body">
-
-                        {{--                        <input type="hidden" name="campus" value="{{ $campus->id }}"/>--}}
 
                         @component('components.form.select')
                             @slot('title', 'Cours')
@@ -117,11 +128,8 @@ $days = DaysSet::getKeys();
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <div class="d-flex">
-                            <a href="{{ redirect()->back()->getTargetUrl() }}" class="btn btn-link">Annuler</a>
-                            <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
-                        </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
                 </form>
             </div>

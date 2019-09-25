@@ -18,6 +18,11 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
 
+                    <div class="mb-3">
+                        <a href="{{ route('lessons.index') }}">
+                            <i class="fe fe-arrow-left"></i> Liste des leçons</a>
+                    </div>
+
                     <div class="card">
 
                         <div class="card-header">
@@ -60,8 +65,7 @@
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <a href="{{ route('lessons.index') }}" class="btn btn-link">Annuler</a>
+                    <div class="card-footer">
                         <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
 

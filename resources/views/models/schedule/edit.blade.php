@@ -21,6 +21,12 @@ $days = DaysSet::getKeys();
 
         <div class="row justify-content-center">
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
+
+                <div class="mb-3">
+                    <a href="{{ route('schedules.show', $schedule) }}">
+                        <i class="fe fe-arrow-left"></i> Page de la classe</a>
+                </div>
+
                 <form class="card"
                       action="{{ route('schedules.update', $schedule)  }}"
                       method="POST">
@@ -116,11 +122,8 @@ $days = DaysSet::getKeys();
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <div class="d-flex">
-                            <a href="{{ route('schedules.show', $schedule) }}" class="btn btn-link">Annuler</a>
-                            <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
-                        </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </div>
                 </form>
             </div>

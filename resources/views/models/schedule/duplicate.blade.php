@@ -18,6 +18,12 @@ $days = DaysSet::getKeys();
 
         <div class="row justify-content-center">
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
+
+                <div class="mb-3">
+                    <a href="{{ route('campuses.show', $schedule->campus) }}">
+                        <i class="fe fe-arrow-left"></i> Page du campus</a>
+                </div>
+
                 <form class="card"
                       action="{{ route('schedules.duplicate', $schedule)  }}"
                       method="POST">
@@ -48,11 +54,8 @@ $days = DaysSet::getKeys();
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <div class="d-flex">
-                            <a href="{{ route('campuses.show', $schedule->campus) }}" class="btn btn-link">Annuler</a>
-                            <button type="submit" class="btn btn-primary ml-auto">Dupliquer</button>
-                        </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary ml-auto">Dupliquer</button>
                     </div>
                 </form>
             </div>
