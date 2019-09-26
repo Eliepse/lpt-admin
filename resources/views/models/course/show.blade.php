@@ -32,12 +32,16 @@ use \Illuminate\Support\Str;
                 </p>
             </div>
             <div>
-                <a class="btn btn-link" href="{{ route('courses.edit', $course) }}">
-                    <i class="fe fe-edit-3"></i> Modifier le cours
-                </a><br>
-                <a class="btn btn-link text-dark" href="{{ route('courses.delete', $course) }}">
-                    <i class="fe fe-trash"></i> Supprimer le cours
-                </a>
+                @can('update', $course)
+                    <a class="btn btn-link" href="{{ route('courses.edit', $course) }}">
+                        <i class="fe fe-edit-3"></i> Modifier le cours
+                    </a><br>
+                @endcan
+                @can('delete', $course)
+                    <a class="btn btn-link text-dark" href="{{ route('courses.delete', $course) }}">
+                        <i class="fe fe-trash"></i> Supprimer le cours
+                    </a>
+                @endcan
             </div>
         </div>
 
