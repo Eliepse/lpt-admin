@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCourseRequest;
 use Eliepse\Alert\Alert;
 use Eliepse\Alert\AlertSuccess;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
@@ -143,6 +144,38 @@ class CourseController extends Controller
             ->with('alerts', [
                 new AlertSuccess('Le cours a été modifié.'),
             ]);
+    }
+
+
+    /**
+     * @param Course $course
+     *
+     * @return Factory|View
+     * @throws AuthorizationException
+     */
+    public function delete(Course $course)
+    {
+        $this->authorize('delete', $course);
+
+        return view('models.course.delete', ['course' => $course]);
+    }
+
+
+    /**
+     * @param Course $course
+     *
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function destroy(Course $course)
+    {
+        $this->authorize('delete', $course);
+
+        $course->delete();
+
+        return redirect()
+            ->route('courses.index')
+            ->with(['alerts' => [new AlertSuccess('Le cours a été supprimé.')]]);
     }
 
 

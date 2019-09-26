@@ -33,8 +33,10 @@ use \Illuminate\Support\Str;
             </div>
             <div>
                 <a class="btn btn-link" href="{{ route('courses.edit', $course) }}">
-                    <i class="fe fe-edit-3"></i>
-                    Modifier le cours
+                    <i class="fe fe-edit-3"></i> Modifier le cours
+                </a><br>
+                <a class="btn btn-link text-dark" href="{{ route('courses.delete', $course) }}">
+                    <i class="fe fe-trash"></i> Supprimer le cours
                 </a>
             </div>
         </div>
