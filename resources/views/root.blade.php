@@ -15,7 +15,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{--<link rel="icon" href="./favicon.ico" type="image/x-icon"/>--}}
     {{--<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>--}}
-    <title>@yield('title')LTP 三语宝贝</title>
+    <title>@yield('title')LPT 三语宝贝</title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
     <!-- <script src="./assets/js/require.min.js"></script> -->
