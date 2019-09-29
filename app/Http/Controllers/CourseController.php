@@ -14,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 
 class CourseController extends Controller
@@ -66,12 +67,13 @@ class CourseController extends Controller
     {
         $this->authorize('create', Course::class);
 
-        $course = new Course($request->all(['name']));
+        $course = new Course($request->only(['name', 'description']));
         $course->save();
-
-        $course->lessons()->sync(
-            $this->prepareLessonsToSync($request->get('lessons', []))
-        );
+        
+        // Workaround to allow models duplicates
+        foreach ($request->get('lessons', []) as $lesson) {
+            $course->lessons()->attach($lesson['id'], Arr::only($lesson, ['duration']));
+        }
 
         if ($request->ajax())
             return response()->json(['redirect' => route('courses.show', $course)]);
@@ -132,9 +134,14 @@ class CourseController extends Controller
         $course->fill($request->only(['name', 'description']));
         $course->save();
 
-        $course->lessons()->sync(
-            $this->prepareLessonsToSync($request->get('lessons', []))
-        );
+        // We start from zero
+        $course->lessons()->sync([]);
+
+        // And then we add back all lessons
+        // Workaround to allow models duplicates
+        foreach ($request->get('lessons', []) as $lesson) {
+            $course->lessons()->attach($lesson['id'], Arr::only($lesson, ['duration']));
+        }
 
         if ($request->ajax())
             return response()->json(['redirect' => route('courses.show', $course)]);
@@ -176,26 +183,5 @@ class CourseController extends Controller
         return redirect()
             ->route('courses.index')
             ->with(['alerts' => [new AlertSuccess('Le cours a été supprimé.')]]);
-    }
-
-
-    /**
-     * Prepare lessons from the requests to match the sync method's requirements
-     *
-     * @param array $lessons The lesson array from the request
-     *
-     * @return array
-     */
-    private function prepareLessonsToSync(array $lessons)
-    {
-        $result = [];
-
-        foreach ($lessons as $el) {
-            $result[ $el['id'] ] = [
-                'duration' => $el['duration'],
-            ];
-        }
-
-        return $result;
     }
 }
