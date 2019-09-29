@@ -113,4 +113,10 @@ class FamilyPolicy
     {
         return false;
     }
+
+
+    public function createChild()
+    {
+        return false;
+    }
 }

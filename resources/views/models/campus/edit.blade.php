@@ -18,8 +18,10 @@
                 <div class="col-12 col-md-6">
 
                     <div class="mb-3">
-                        <a href="{{ route('campuses.show', $campus) }}">
-                            <i class="fe fe-arrow-left"></i> Page du campus</a>
+                        @can('view', $campus)
+                            <a href="{{ route('campuses.show', $campus) }}">
+                                <i class="fe fe-arrow-left"></i> Page du campus</a>
+                        @endcan
                     </div>
 
                     <div class="card">

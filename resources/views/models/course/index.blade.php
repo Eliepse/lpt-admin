@@ -20,9 +20,11 @@ use \Illuminate\Support\Str;
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
             <h1>Cours</h1>
             <div>
-                <a class="btn btn-sm btn-link" href="{{ route('courses.create') }}">
-                    <i class="fe fe-plus"></i> Ajouter un cours
-                </a>
+                @can('create', App\Course::class)
+                    <a class="btn btn-sm btn-link" href="{{ route('courses.create') }}">
+                        <i class="fe fe-plus"></i> Ajouter un cours
+                    </a>
+                @endcan
             </div>
         </div>
 
@@ -45,13 +47,20 @@ use \Illuminate\Support\Str;
                             </td>
                             <td>{{ $course->getDuration(true) }}</td>
                             <td class="text-right">
-                                <a href="{{ route('schedules.create', ['course' => $course]) }}"
-                                   class="btn btn-sm btn-link">
-                                    <i class="fe fe-calendar"></i> Nouvelle classe</a>
-                                <a href="{{ route('courses.show', $course) }}"
-                                   class="btn btn-sm btn-outline-secondary">Ouvrir</a>
-                                <a href="{{ route('courses.edit', $course) }}"
-                                   class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                @can('create', App\Schedule::class)
+                                    <a href="{{ route('schedules.create', ['course' => $course]) }}"
+                                       class="btn btn-sm btn-link">
+                                        <i class="fe fe-calendar"></i> Nouvelle classe
+                                    </a>
+                                @endcan
+                                @can('view', $course)
+                                    <a href="{{ route('courses.show', $course) }}"
+                                       class="btn btn-sm btn-outline-secondary">Ouvrir</a>
+                                @endcan
+                                @can('update', $course)
+                                    <a href="{{ route('courses.edit', $course) }}"
+                                       class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

@@ -35,10 +35,12 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
         <div class="my-3 d-flex justify-content-between">
             <h2 class="mb-0">Parents</h2>
             <div class="text-right">
-                <a href="{{ route('parents.create', $family) }}"
-                   class="btn btn-sm btn-link">
-                    <i class="fe fe-plus"></i> Ajouter un parent
-                </a>
+                @can('create', $family)
+                    <a href="{{ route('parents.create', $family) }}"
+                       class="btn btn-sm btn-link">
+                        <i class="fe fe-plus"></i> Ajouter un parent
+                    </a>
+                @endcan
             </div>
         </div>
         <hr>
@@ -50,9 +52,11 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                         <div class="card-header d-flex justify-content-between">
                             <div class="card-title text-capitalize mb-0">{{ $parent->getFullname(true) }}</div>
                             <div>
-                                <a href="{{ route('parents.edit', $parent) }}" class="btn btn-sm btn-icon">
-                                    <i class="fe fe-edit"></i>
-                                </a>
+                                @can('update', $parent)
+                                    <a href="{{ route('parents.edit', $parent) }}" class="btn btn-sm btn-icon">
+                                        <i class="fe fe-edit"></i>
+                                    </a>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body">
@@ -82,10 +86,12 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
         <div class="mb-3 d-flex justify-content-between" style="margin-top: 2rem;">
             <h2 class="mb-0">Étudiants</h2>
             <div class="text-right">
-                <a href="{{ route('students.create', $family) }}"
-                   class="btn btn-sm btn-link">
-                    <i class="fe fe-plus"></i> Ajouter un enfant
-                </a>
+                @can('createChild', $family)
+                    <a href="{{ route('students.create', $family) }}"
+                       class="btn btn-sm btn-link">
+                        <i class="fe fe-plus"></i> Ajouter un enfant
+                    </a>
+                @endcan
             </div>
         </div>
         <hr>
@@ -100,7 +106,10 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                             </div>
                             <div class="text-muted">
                                 {{ $student->birthday->diffInYears() }} ans
-                                <a href="{{ route('students.edit', $student) }}" class="btn btn-icon"><i class="fe fe-edit"></i></a>
+                                @can('update', $student)
+                                    <a href="{{ route('students.edit', $student) }}" class="btn btn-icon">
+                                        <i class="fe fe-edit"></i></a>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body">
@@ -111,10 +120,17 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
 								<?php /** @var Subscription $subscription */ ?>
                                 @foreach($student->getActiveSubscriptions() as $subscription)
                                     <li>
-                                        <a href="{{ route('schedules.show', $subscription->marketable) }}">
+                                        @can('view', $subscription->marketable)
+                                            <a href="{{ route('schedules.show', $subscription->marketable) }}">
+                                                {{ $subscription->marketable->course->name }}
+                                                ({{ $subscription->marketable->day }}
+                                                {{ $subscription->marketable->hour->format('H:i') }})
+                                            </a>
+                                        @elsecan
                                             {{ $subscription->marketable->course->name }}
                                             ({{ $subscription->marketable->day }}
-                                            {{ $subscription->marketable->hour->format('H:i') }})</a>
+                                            {{ $subscription->marketable->hour->format('H:i') }})
+                                        @endcan
                                     </li>
                                 @endforeach
                             </ul>

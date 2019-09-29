@@ -64,8 +64,10 @@ use \App\Enums\DaysEnum;
                                         }}
                                     </td>
                                     <td class="text-right">
-                                        <a href="{{ route('families.show', $student->family) }}"
-                                           class="btn btn-sm btn-outline-secondary">Voir la famille</a>
+                                        @can('view', $student->family)
+                                            <a href="{{ route('families.show', $student->family) }}"
+                                               class="btn btn-sm btn-outline-secondary">Voir la famille</a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

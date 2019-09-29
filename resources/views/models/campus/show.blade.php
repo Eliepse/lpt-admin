@@ -40,9 +40,11 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
             <h4>Classes</h4>
             <div class="">
                 <div class="">
-                    <a href="{{ route('schedules.create', ['campus' => $campus]) }}" class="btn btn-sm btn-link">
-                        <i class="fe fe-calendar"></i> Ajouter un classe
-                    </a>
+                    @can('create', App\Schedule::class)
+                        <a href="{{ route('schedules.create', ['campus' => $campus]) }}" class="btn btn-sm btn-link">
+                            <i class="fe fe-calendar"></i> Ajouter un classe
+                        </a>
+                    @endcan
                 </div>
             </div>
         </div>

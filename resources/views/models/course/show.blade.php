@@ -76,13 +76,16 @@ use \Illuminate\Support\Str;
             <h4>Classes</h4>
             <div class="">
                 <div class="">
-                    <a href="{{ route('schedules.create', ['course' => $course]) }}" class="btn btn-sm btn-link">
-                        <i class="fe fe-calendar"></i> Ajouter un classe
-                    </a>
+                    @can('create', \App\Schedule::class)
+                        <a href="{{ route('schedules.create', ['course' => $course]) }}" class="btn btn-sm btn-link">
+                            <i class="fe fe-calendar"></i> Ajouter un classe
+                        </a>
+                    @endcan
                 </div>
             </div>
         </div>
 
+        {{-- TODO(eliepse): simplify this calendar, remove vuejs --}}
         <schedule-calendar
             :schedules="{{ $course->schedules->toJson() }}"
             :course="{{ $course->toJson() }}">

@@ -19,9 +19,11 @@ use \Illuminate\Database\Eloquent\Collection;
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
             <h1>Campus</h1>
             <div>
-                <a class="btn btn-sm btn-link" href="{{ route('campuses.create') }}">
-                    <i class="fe fe-plus"></i> Ajouter un campus
-                </a>
+                @can('create', App\Campus::class)
+                    <a class="btn btn-sm btn-link" href="{{ route('campuses.create') }}">
+                        <i class="fe fe-plus"></i> Ajouter un campus
+                    </a>
+                @endcan
             </div>
         </div>
 

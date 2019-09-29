@@ -20,8 +20,10 @@ $days = DaysSet::getKeys();
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
 
                 <div class="mb-3">
-                    <a href="{{ route('schedules.show', $schedule) }}">
-                        <i class="fe fe-arrow-left"></i> Page de la classe</a>
+                    @can('view', $schedule)
+                        <a href="{{ route('schedules.show', $schedule) }}">
+                            <i class="fe fe-arrow-left"></i> Page de la classe</a>
+                    @endcan
                 </div>
 
                 <form class="card"
@@ -50,7 +52,9 @@ $days = DaysSet::getKeys();
 
                     <div class="card-footer text-right">
                         <div class="d-flex">
-                            <a href="{{ route('schedules.show', $schedule) }}" class="btn btn-secondary">Annuler</a>
+                            @can('view', $schedule)
+                                <a href="{{ route('schedules.show', $schedule) }}" class="btn btn-secondary">Annuler</a>
+                            @endcan
                             <button type="submit" class="btn btn-link ml-auto text-uppercase">Désinscrire</button>
                         </div>
                     </div>

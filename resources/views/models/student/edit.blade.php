@@ -22,8 +22,10 @@ use App\Student;
                 @method('PUT')
 
                 <div class="mb-3">
-                    <a href="{{ route('families.show', $student->family) }}">
-                        <i class="fe fe-arrow-left"></i> Page de la famille</a>
+                    @can('view', $student->family)
+                        <a href="{{ route('families.show', $student->family) }}">
+                            <i class="fe fe-arrow-left"></i> Page de la famille</a>
+                    @endcan
                 </div>
 
                 <div class="card">

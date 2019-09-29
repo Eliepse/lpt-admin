@@ -18,9 +18,11 @@ use \Illuminate\Database\Eloquent\Collection;
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
             <h1>Équipe</h1>
             <div>
-                <a class="btn btn-sm btn-link" href="{{ route('staff.create') }}">
-                    <i class="fe fe-plus"></i> Ajouter un membre
-                </a>
+                @can('create', App\StaffUser::class)
+                    <a class="btn btn-sm btn-link" href="{{ route('staff.create') }}">
+                        <i class="fe fe-plus"></i> Ajouter un membre
+                    </a>
+                @endcan
             </div>
         </div>
 

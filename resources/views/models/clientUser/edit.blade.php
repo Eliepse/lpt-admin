@@ -23,8 +23,10 @@ use App\ClientUser;
                 @method('put')
 
                 <div class="mb-3">
-                    <a href="{{ route('families.show', $parent->family) }}">
-                        <i class="fe fe-arrow-left"></i> Page de la famille</a>
+                    @can('view', $parent->family)
+                        <a href="{{ route('families.show', $parent->family) }}">
+                            <i class="fe fe-arrow-left"></i> Page de la famille</a>
+                    @endcan
                 </div>
 
                 <div class="card">

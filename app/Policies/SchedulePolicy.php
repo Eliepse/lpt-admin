@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Student;
 use App\User;
 use App\Schedule;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -109,6 +110,44 @@ class SchedulePolicy
      * @return mixed
      */
     public function forceDelete(User $user, Schedule $schedule)
+    {
+        return false;
+    }
+
+
+    /**
+     * @param User $user
+     * @param Schedule $schedule
+     *
+     * @return mixed
+     */
+    public function subscribe(User $user, Schedule $schedule)
+    {
+        return false;
+    }
+
+
+    /**
+     * @param User $user
+     * @param Schedule $schedule
+     * @param Student $student
+     *
+     * @return mixed
+     */
+    public function editSubscription(User $user, Schedule $schedule, Student $student)
+    {
+        return false;
+    }
+
+
+    /**
+     * @param User $user
+     * @param Schedule $schedule
+     * @param Student $student
+     *
+     * @return mixed
+     */
+    public function unsubscribe(User $user, Schedule $schedule, Student $student)
     {
         return false;
     }
