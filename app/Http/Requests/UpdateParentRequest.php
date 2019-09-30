@@ -27,7 +27,7 @@ class UpdateParentRequest extends FormRequest
             ],
             'wechat_id' => 'sometimes|string|max:50',
             'phone' => 'sometimes|string|max:16',
-            'address' => 'sometimes|string|max:150',
+            'address' => 'sometimes|nullable|string|max:150',
         ];
     }
 }

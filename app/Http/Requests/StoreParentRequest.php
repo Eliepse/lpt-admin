@@ -19,8 +19,8 @@ class StoreParentRequest extends FormRequest
             'lastname' => 'required|string|max:50',
             'email' => 'required|email|unique:users,email',
             'wechat_id' => 'required|string|max:50',
-            'phone' => 'required|string|max:16',
-            'address' => 'required|string|max:150',
+            'phone' => 'sometimes|string|max:16',
+            'address' => 'sometimes|nullable|string|max:150',
         ];
     }
 }
