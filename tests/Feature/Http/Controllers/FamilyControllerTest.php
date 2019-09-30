@@ -97,7 +97,7 @@ class FamilyControllerTest extends TestCase
     public function testCreateFamilyWithoutFamilyDuplicates()
     {
         /** @var ClientUser $parent */
-        $parent = factory(ClientUser::class)->create($this->getFakeParent());
+        $parent = factory(ClientUser::class)->create($this->getFakeParent(['family_id' => null]));
 
         $family = Family::create();
         $parent->family()->associate($family);
