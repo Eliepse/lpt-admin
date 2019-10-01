@@ -149,20 +149,8 @@ class SchedulePolicy
      */
     public function unsubscribe(User $user, Schedule $schedule, Student $student)
     {
-        return false;
-    }
 
 
-    /**
-     * Determine whether the user can update the course.
-     *
-     * @param User $user
-     * @param Schedule $schedule
-     *
-     * @return mixed
-     */
-    public function updateStudents(User $user, Schedule $schedule)
-    {
         return false;
     }
 }

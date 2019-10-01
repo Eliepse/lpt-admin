@@ -39,7 +39,7 @@ class ScheduleSubscriptionController extends Controller
      */
     public function select(Schedule $schedule)
     {
-        $this->authorize('updateStudents', $schedule);
+        $this->authorize('subscribe', $schedule);
 
         $students = Student::query()
             ->whereNotIn('id', $schedule->students->pluck('id'))
@@ -59,10 +59,10 @@ class ScheduleSubscriptionController extends Controller
      */
     public function link(LinkStudentToScheduleRequest $request, Schedule $schedule, Student $student)
     {
-        $this->authorize('updateStudents', $schedule);
-
         // If it is a new subscription
         if (!$schedule->students->containsStrict('id', $student->id)) {
+            $this->authorize('subscribe', $schedule);
+
             $schedule->subscribe($student);
 
             return redirect()
@@ -71,6 +71,8 @@ class ScheduleSubscriptionController extends Controller
                     new AlertSuccess('Élève ajouté à la classe.'),
                 ]);
         }
+
+        $this->authorize('editSubscription', [$schedule, $student]);
 
         $schedule->updateSubscription($student, $request->only(['price', 'paid']));
 
@@ -91,7 +93,7 @@ class ScheduleSubscriptionController extends Controller
      */
     public function edit(Schedule $schedule, Student $student)
     {
-        $this->authorize('updateStudents', $schedule);
+        $this->authorize('editSubscription', $schedule);
 
         // Abort if the student and the schedule does not belongs together
         if (!$subscription = $schedule->findSubscription($student))
