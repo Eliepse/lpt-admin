@@ -237,6 +237,18 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
     }
 
 
+    static public function validate(array $array): bool
+    {
+        foreach ($array as $key) {
+            if (!self::hasKey($key)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
     /**
      * Handle the creation of the table for the Set
      *

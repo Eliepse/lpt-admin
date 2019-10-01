@@ -6,7 +6,7 @@ use App\Pivots\ParentStudent;
 use App\Sets\UserRolesSet;
 use App\Traits\HasHumanNames;
 use Carbon\Carbon;
-use Eliepse\Set\Exceptions\UnknownMemberException;
+use Eliepse\Roles\HasRoles;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,7 +23,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string firstname
  * @property string lastname
  * @property string email
- * @property UserRolesSet roles
  * @property string type
  * @property string wechat_id
  * @property string phone
@@ -40,7 +39,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use Notifiable, HasHumanNames, CanResetPassword;
+    use Notifiable,
+        HasHumanNames,
+        CanResetPassword,
+        HasRoles;
 
     protected $table = 'users';
 
@@ -52,27 +54,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-
-    /**
-     * @param $value
-     *
-     * @return UserRolesSet
-     * @throws UnknownMemberException
-     */
-    public function getRolesAttribute($value): UserRolesSet
-    {
-        return new UserRolesSet($value ? explode(',', $value) : []);
-    }
-
-
-    /**
-     * @param UserRolesSet $value
-     */
-    public function setRolesAttribute(UserRolesSet $value)
-    {
-        $this->attributes['roles'] = join(',', $value->getValues());
-    }
 
 
     /**
