@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Sets\UserRolesSet;
 use App\Student;
 use App\User;
 use App\Schedule;
@@ -28,6 +29,10 @@ class SchedulePolicy
      */
     public function viewAny(User $user, Schedule $schedule)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -42,6 +47,10 @@ class SchedulePolicy
      */
     public function view(User $user, Schedule $schedule)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -55,6 +64,10 @@ class SchedulePolicy
      */
     public function create(User $user)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -69,6 +82,10 @@ class SchedulePolicy
      */
     public function update(User $user, Schedule $schedule)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -83,6 +100,10 @@ class SchedulePolicy
      */
     public function delete(User $user, Schedule $schedule)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -123,6 +144,10 @@ class SchedulePolicy
      */
     public function subscribe(User $user, Schedule $schedule)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -136,6 +161,10 @@ class SchedulePolicy
      */
     public function editSubscription(User $user, Schedule $schedule, Student $student)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -149,7 +178,9 @@ class SchedulePolicy
      */
     public function unsubscribe(User $user, Schedule $schedule, Student $student)
     {
-
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
 
         return false;
     }

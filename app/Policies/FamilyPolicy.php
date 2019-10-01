@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Sets\UserRolesSet;
 use App\User;
 use App\Family;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -28,6 +29,10 @@ class FamilyPolicy
      */
     public function viewAny(User $user)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -42,6 +47,10 @@ class FamilyPolicy
      */
     public function view(User $user, Family $family)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -55,6 +64,10 @@ class FamilyPolicy
      */
     public function create(User $user)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -69,6 +82,10 @@ class FamilyPolicy
      */
     public function update(User $user, Family $family)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 

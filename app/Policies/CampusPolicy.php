@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Campus;
+use App\Sets\UserRolesSet;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -27,6 +28,10 @@ class CampusPolicy
      */
     public function viewAny(User $user, Campus $campus)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -41,6 +46,10 @@ class CampusPolicy
      */
     public function view(User $user, Campus $campus)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -68,6 +77,10 @@ class CampusPolicy
      */
     public function update(User $user, Campus $campus)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 

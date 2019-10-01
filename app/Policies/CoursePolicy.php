@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Sets\UserRolesSet;
 use App\User;
 use App\Course;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -29,6 +30,10 @@ class CoursePolicy
      */
     public function view(User $user, Course $course)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -41,6 +46,10 @@ class CoursePolicy
      */
     public function viewAny(User $user, Course $course)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -54,6 +63,10 @@ class CoursePolicy
      */
     public function create(User $user)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -68,6 +81,10 @@ class CoursePolicy
      */
     public function update(User $user, Course $course)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -82,6 +99,10 @@ class CoursePolicy
      */
     public function delete(User $user, Course $course)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
