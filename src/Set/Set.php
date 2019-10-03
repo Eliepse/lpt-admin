@@ -35,7 +35,7 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
     /**
      * Set constructor.
      *
-     * @param array $values
+     * @param array|string $values
      *
      * @throws UnknownMemberException
      */

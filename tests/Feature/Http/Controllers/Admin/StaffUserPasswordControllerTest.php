@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\StaffUserPasswordController;
+use App\Sets\UserRolesSet;
 use App\StaffUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -46,8 +47,8 @@ class StaffUserPasswordControllerTest extends TestCase
 
     public function testUpdateNotAllowed()
     {
-        $a = factory(StaffUser::class)->create();
-        $b = factory(StaffUser::class)->create();
+        $a = factory(StaffUser::class)->create(['roles' => new UserRolesSet(UserRolesSet::TEACHER)]);
+        $b = factory(StaffUser::class)->create(['roles' => new UserRolesSet(UserRolesSet::TEACHER)]);
 
         $response = $this->actingAs($a, 'admin')
             ->put(
