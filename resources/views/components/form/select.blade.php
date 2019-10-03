@@ -18,6 +18,7 @@
             @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
             autocomplete=""
             @if($disabled ?? false) disabled @endif
+            @if($readonly ?? false) readonly @endif
             @if($required ?? false) required @endif>
         @foreach($options as $option)
             <option value="{{ $option['value'] }}" @if($option['value'] === old($name, $default ?? null)) selected @endif>{{ $option['name'] }}</option>

@@ -52,7 +52,7 @@ $days = DaysSet::getKeys();
                             @slot('options', $courses->map(function (App\Course $course){
                                     return ["value" => $course->id, "name" => $course->name . " ({$course->getDuration(true)})"];
                                 })->toArray());
-                            @slot('disabled', $courses->count() === 1)
+                            @slot('readonly', $courses->count() === 1)
                         @endcomponent
 
                         @component('components.form.select')
@@ -61,7 +61,7 @@ $days = DaysSet::getKeys();
                             @slot('options', $campuses->map(function (App\Campus $campus){
                                     return ["value" => $campus->id, "name" => $campus->name];
                                 })->toArray());
-                            @slot('disabled', $campuses->count() === 1)
+                            @slot('readonly', $campuses->count() === 1)
                         @endcomponent
 
                         @component('components.form.input')

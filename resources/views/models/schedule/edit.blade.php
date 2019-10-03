@@ -47,7 +47,7 @@ $days = DaysSet::getKeys();
                         @component('components.form.select')
                             @slot('title', 'Cours')
                             @slot('name', 'course')
-                            @slot('attrs', ['disabled' => true])
+                            @slot('disabled', true)
                             @slot('options', [["value" => "", "name" => $schedule->course->name . " ({$schedule->course->getDuration(true)})"]]);
                         @endcomponent
 
