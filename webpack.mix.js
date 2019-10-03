@@ -12,9 +12,18 @@ const mix = require("laravel-mix");
  */
 
 mix.sass("resources/sass/app.scss", "public/css")
-    .js("resources/js/app.js", "public/js")
-    .copyDirectory("resources/images", "public/images")
-    .version();
+    .js("resources/js/app.js", "public/js");
+
+
+if (mix.inProduction()) {
+    mix.version()
+        .extract(["vue"])
+        .copyDirectory("resources/images", "public/images");
+}
+
+if (!mix.inProduction()) {
+    mix.sourceMaps();
+}
 
 mix.webpackConfig({
     stats: {
