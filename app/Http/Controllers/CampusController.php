@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Eliepse\Alert\AlertSuccess;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
@@ -55,14 +56,22 @@ class CampusController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param Campus $campus
      *
      * @return Response
      */
-    public function show(Campus $campus)
+    public function show(Request $request, Campus $campus)
     {
-        $schedules = $campus->getActiveSchedules()
-            ->loadMissing(['course.lessons']);
+        switch ($request->get('filter', 'active')) {
+            case 'next':
+                $schedules = $campus->getNextSchedules();
+                break;
+            default:
+                $schedules = $campus->getActiveSchedules();
+        }
+
+        $schedules->loadMissing(['course.lessons']);
 
         /** @var Carbon $min */
         $min = $schedules->min(function (Schedule $schedule) { return $schedule->hour; });

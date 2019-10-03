@@ -23,8 +23,6 @@ class Campus extends Model
 {
     protected $guarded = [];
 
-//    protected $with = ['schedules'];
-
 
     /**
      * @return HasMany
@@ -50,5 +48,12 @@ class Campus extends Model
                 return $today->isBetween($schedule->start_at, $schedule->end_at)
                     || $today->isBetween($schedule->signup_start_at, $schedule->signup_end_at);
             });
+    }
+
+
+    public function getNextSchedules(): Collection
+    {
+        return $this->schedules
+            ->where('start_at', '>', Carbon::now());
     }
 }

@@ -37,9 +37,21 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
         </div>
 
         <div class="d-flex justify-content-between mt-5 border-bottom">
-            <h4>Classes</h4>
-            <div class="">
-                <div class="">
+            <h4 class="mr-3">Classes</h4>
+            <div class="d-flex flex-fill justify-content-between">
+                <div>
+                    @if(request('filter') === 'active' || empty(request('filter')))
+                        <a href="?filter=active" class="btn btn-sm btn-secondary">En cours</a>
+                    @else
+                        <a href="?filter=active" class="btn btn-sm btn-outline-secondary">En cours</a>
+                    @endif
+                    @if(request('filter') === 'next')
+                        <a href="?filter=next" class="btn btn-sm btn-secondary">À venir</a>
+                    @else
+                        <a href="?filter=next" class="btn btn-sm btn-outline-secondary">À venir</a>
+                    @endif
+                </div>
+                <div>
                     @can('create', App\Schedule::class)
                         <a href="{{ route('schedules.create', ['campus' => $campus]) }}" class="btn btn-sm btn-link">
                             <i class="fe fe-calendar"></i> Ajouter un classe
