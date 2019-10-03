@@ -10,6 +10,7 @@ import DatePeriodInput from "./components/DatePeriodInput";
 import Loader from "./components/Loader";
 import CourseForm from "./components/CourseForm";
 import ScheduleCalendar from "./components/schedule/ScheduleCalendar";
+import List from "list.js";
 import xray from "x-ray";
 
 //import feather from "feather-icons";
@@ -43,9 +44,16 @@ const app = new Vue({
 });
 
 xray.init();
-//feather.replace();
 
-//window.List = require('list.js')
+// Initialize list.js in the page (only one instance)
+if (document.querySelector(".listjs")) {
+    let listEl = document.querySelector(".listjs");
+    new List(listEl.closest(".listjs-container"), {
+        valueNames: listEl.dataset.names.split(",")
+    });
+}
+
+//feather.replace();
 
 /**
  * The following block of code may be used to automatically register your
