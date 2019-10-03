@@ -16,17 +16,17 @@ class Alert implements Jsonable, Arrayable
     /**
      * @var string
      */
-    public $message;
+    private $message;
 
     /**
      * @var int
      */
-    public $type;
+    private $type;
 
     /**
      * @var bool
      */
-    public $dismissible;
+    private $dismissible;
 
 
     /**
@@ -77,6 +77,18 @@ class Alert implements Jsonable, Arrayable
     public function setType(int $type): void
     {
         $this->type = $type;
+    }
+
+
+    public function isDissmissible(): bool
+    {
+        return $this->dismissible;
+    }
+
+
+    public function setDismissible(bool $value)
+    {
+        $this->dismissible = $value;
     }
 
 
