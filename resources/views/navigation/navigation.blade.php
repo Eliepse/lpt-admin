@@ -10,10 +10,17 @@
     <ul class="navbar-nav">
         <li class="nav-item">
             <a href="{{ route('dashboard') }}" class="nav-link">
-                <i class="fe fe-home"></i>
+                <i class="fe fe-command"></i>
                 <span class="d-none d-md-inline">Accueil</span>
             </a>
         </li>
+
+        @can('viewAny', \App\Campus::class)
+            <a href="{{ route('campuses.index') }}" class="nav-link">
+                <i class="fe fe-home"></i> Campus
+            </a>
+        @endcan
+
         @can('viewAny', App\Student::class)
             <li class="nav-item">
                 <a href="{{ route('students.index') }}" class="nav-link">
@@ -22,6 +29,7 @@
                 </a>
             </li>
         @endcan
+
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="javascript:void()" id="settingsDropdown"
                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,11 +52,6 @@
                         <i class="fe fe-layers"></i> Leçons
                     </a>
                 @endcan
-                @can('viewAny', \App\Campus::class)
-                    <a href="{{ route('campuses.index') }}" class="nav-link">
-                        <i class="fe fe-home"></i> Campus
-                    </a>
-                @endcan
                 @can('viewAny', \App\StaffUser::class)
                     <a href="{{ route('staff.index') }}" class="nav-link">
                         <i class="fe fe-users"></i> Équipe
@@ -58,6 +61,3 @@
         </li>
     </ul>
 @endauth
-
-{{--</div>--}}
-{{--</div>--}}
