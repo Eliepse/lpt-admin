@@ -18,6 +18,26 @@ use Illuminate\View\View;
 
 class CampusController extends Controller
 {
+    /**
+     * Represent the stats interval in hours
+     *
+     * @var int
+     */
+    private $statsGranularity = 1;
+
+    /**
+     * Day "start at" and "end at" values
+     *
+     * @var array
+     */
+    private $dayBoundaries = [8, 20];
+
+    /**
+     * @var int
+     */
+    private $activityLevels = 3;
+
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -28,9 +48,15 @@ class CampusController extends Controller
 
     public function index()
     {
-        $campuses = Campus::all();
+        $campuses = Campus::with(['schedules.course.lessons'])->get();
 
-        return view("models.campus.index", compact("campuses"));
+        $stats = $campuses
+            ->keyBy('id')
+            ->map(function (Campus $campus) {
+                return $this->campusActivityStats($campus);
+            });
+
+        return view('models.campus.index', ['campuses' => $campuses, 'stats' => $stats]);
     }
 
 
@@ -129,5 +155,52 @@ class CampusController extends Controller
             ->with('alerts', [
                 new AlertSuccess('Le campus a été modifié.'),
             ]);
+    }
+
+
+    private function campusActivityStats(Campus $campus): Collection
+    {
+        $hoursStats = collect();
+        $min = 0;
+        $max = $this->activityLevels - 1;
+
+        for ($h = $this->dayBoundaries[0]; $h <= $this->dayBoundaries[1]; $h += $this->statsGranularity) {
+
+            $hourStats = $campus
+                ->getActiveSchedules()
+                ->filter(function (Schedule $schedule) use ($h) {
+                    $end_at = $schedule->hour->hour + ($schedule->duration / 60);
+
+                    return $schedule->hour->hour <= $h && $end_at >= $h + $this->statsGranularity;
+                })
+                ->groupBy('day')
+                ->map(function (Collection $day) use (&$min, &$max) {
+                    $count = $day->count();
+
+                    $min = $min === 0 ? $count : min($min, $count);
+                    $max = max($max, $count);
+
+                    return $count;
+                });
+
+            $hoursStats->put($h, $hourStats);
+        }
+
+        $levelsDelta = max(1, ($max - $min) / $this->activityLevels);
+
+        // We change to levels of activity to show off the most active periods
+        $hoursStats->transform(function (Collection $hours) use ($min, $max, $levelsDelta) {
+            return $hours->map(function (int $count) use ($min, $max, $levelsDelta) {
+                for ($level = $this->activityLevels - 1; $level > 0; $level--) {
+                    if ($count >= $min + ($level * $levelsDelta)) {
+                        return $level;
+                    }
+                }
+
+                return 0;
+            });
+        });
+
+        return $hoursStats;
     }
 }

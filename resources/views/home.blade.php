@@ -9,29 +9,14 @@
 @section('main')
 
     <div class="container mt-3">
+
+        @component('components.alert.default')
+            @slot('class', 'info')
+            @slot('message', 'Bientôt, votre page d\'accueil sera un espace avec des informations réellement utiles !')
+        @endcomponent
+
         <div class="row">
 
-            @foreach($campuses as $campus)
-                <div class="col col-lg-4">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <div class="card-title">
-                                {{ ucfirst($campus->name) }}<br>
-                                <small>{!! $campus->postal_address ?? '&nbsp;' !!}</small>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            {{ $campus->schedules->count() }} classes
-                        </div>
-                        <div class="card-table">
-                            @include('components.heatCalendar', ['stats' => $stats])
-                        </div>
-                        <div class="card-footer text-right">
-                            <a href="{{ route('campuses.show', $campus) }}" class="btn btn-outline-primary">Afficher</a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
 
         </div>
     </div>

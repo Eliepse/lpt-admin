@@ -27,36 +27,36 @@ use \Illuminate\Database\Eloquent\Collection;
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-table">
-                <table class="table table-borderless table-striped table-vcenter">
-                    <thead>
-                    <tr class="text-uppercase text-muted border-bottom">
-                        <th>Nom</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($campuses as $campus)
-                        <tr>
-                            <td>
-                                {{ \Illuminate\Support\Str::title($campus->name) }}<br>
-                                <small class="text-muted">{{ $campus->postal_address }}</small>
-                            </td>
-                            <td class="text-right">
+        <div class="container mt-3">
+            <div class="row">
+
+                @foreach($campuses as $campus)
+                    <div class="col col-lg-4">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                {{ ucfirst($campus->name) }}<br>
+                                <small class="text-muted">{!! $campus->postal_address ?? '&nbsp;' !!}</small>
+                            </div>
+                            <div class="card-body">
+                                {{ $campus->schedules->count() }} classes
+                            </div>
+                            <div class="card-table">
+                                @include('components.heatCalendar', ['stats' => $stats])
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
                                 @can('view', $campus)
                                     <a href="{{ route('campuses.show', $campus) }}"
-                                       class="btn btn-sm btn-outline-secondary">Afficher</a>
+                                       class="btn btn-outline-primary">Afficher</a>
                                 @endcan
                                 @can('update', $campus)
                                     <a href="{{ route('campuses.edit', $campus) }}"
-                                       class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                       class="btn btn-link">Modifier</a>
                                 @endcan
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
             </div>
         </div>
 
