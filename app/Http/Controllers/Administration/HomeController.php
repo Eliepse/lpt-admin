@@ -17,10 +17,6 @@ class HomeController extends Controller
 
     public function __invoke()
     {
-        $campuses = Campus::all();
-
-        $stats = collect();
-
-        return view('home', ['campuses' => $campuses, 'stats' => $stats]);
+        return view('home');
     }
 }
