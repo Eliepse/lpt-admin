@@ -84,7 +84,7 @@ trait HasRoles
      */
     public function hasRoles($roles): bool
     {
-        return $this->roles->hasAll(Arr::wrap($roles));
+        return $this->roles->hasOne(Arr::wrap($roles));
     }
 
 
