@@ -89,6 +89,17 @@ trait HasRoles
 
 
     /**
+     * @param array|string $roles
+     *
+     * @return bool
+     */
+    public function hasRolesStrict($roles): bool
+    {
+        return $this->roles->hasAll(Arr::wrap($roles));
+    }
+
+
+    /**
      * @param string $role
      *
      * @return bool
