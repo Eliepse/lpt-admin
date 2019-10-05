@@ -22,11 +22,10 @@ class CampusPolicy
 
     /**
      * @param User $user
-     * @param Campus $campus
      *
      * @return mixed
      */
-    public function viewAny(User $user, Campus $campus)
+    public function viewAny(User $user)
     {
         if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
             return true;

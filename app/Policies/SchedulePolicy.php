@@ -23,11 +23,10 @@ class SchedulePolicy
 
     /**
      * @param User $user
-     * @param Schedule $schedule
      *
      * @return mixed
      */
-    public function viewAny(User $user, Schedule $schedule)
+    public function viewAny(User $user)
     {
         if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
             return true;

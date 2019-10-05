@@ -40,11 +40,10 @@ class CoursePolicy
 
     /**
      * @param User $user
-     * @param Course $course
      *
      * @return mixed
      */
-    public function viewAny(User $user, Course $course)
+    public function viewAny(User $user)
     {
         if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
             return true;

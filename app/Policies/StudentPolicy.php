@@ -22,11 +22,10 @@ class StudentPolicy
 
     /**
      * @param User $user
-     * @param Student $student
      *
      * @return mixed
      */
-    public function viewAny(User $user, Student $student)
+    public function viewAny(User $user)
     {
         if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
             return true;

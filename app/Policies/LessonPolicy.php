@@ -21,11 +21,10 @@ class LessonPolicy
 
     /**
      * @param User $user
-     * @param Lesson $lesson
      *
      * @return mixed
      */
-    public function viewAny(User $user, Lesson $lesson)
+    public function viewAny(User $user)
     {
         return $user->isTeacher();
     }
