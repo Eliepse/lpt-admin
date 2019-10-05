@@ -27,8 +27,7 @@ class ScheduleController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('roles:admin,manager');
+        $this->middleware('auth:admin');
         $this->authorizeResource(Schedule::class, 'schedule');
     }
 

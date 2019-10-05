@@ -24,8 +24,7 @@ class CourseController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('roles:admin,manager');
+        $this->middleware('auth:admin');
         $this->authorizeResource(Course::class, 'course');
     }
 
@@ -69,7 +68,7 @@ class CourseController extends Controller
 
         $course = new Course($request->only(['name', 'description']));
         $course->save();
-        
+
         // Workaround to allow models duplicates
         foreach ($request->get('lessons', []) as $lesson) {
             $course->lessons()->attach($lesson['id'], Arr::only($lesson, ['duration']));
