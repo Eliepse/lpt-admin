@@ -130,7 +130,7 @@
                             </tr>
                             @if(auth('admin')->user()->isAdmin())
                                 <tr>
-                                    <td>s
+                                    <td>
                                         Chiffre d'affaire en cours<br>
                                         <small class="text-muted"><i>(not so relevent)</i></small>
                                     </td>
