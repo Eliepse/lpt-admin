@@ -81,13 +81,13 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function isAdmin(): bool { return $this->roles->has(UserRolesSet::ADMIN); }
+    public function isAdmin(): bool { return $this->roles->isAdmin(); }
 
 
     /**
      * @return bool
      */
-    public function isTeacher(): bool { return $this->roles->has(UserRolesSet::TEACHER); }
+    public function isTeacher(): bool { return $this->roles->isTeacher(); }
 
 
     /**
