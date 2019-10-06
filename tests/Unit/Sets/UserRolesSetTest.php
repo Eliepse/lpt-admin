@@ -28,6 +28,7 @@ class UserRolesSetTest extends TestCase
         $this->assertEquals($roles, $set->getValues());
     }
 
+
     /**
      * @test
      */
@@ -38,6 +39,7 @@ class UserRolesSetTest extends TestCase
 
         $this->assertEquals(null, $set->getValues());
     }
+
 
     /**
      * @test
@@ -52,6 +54,7 @@ class UserRolesSetTest extends TestCase
         $set->set(['teacher']);
         $this->assertEquals(['admin', 'teacher'], $set->getValues());
     }
+
 
     /**
      * @test
@@ -68,7 +71,6 @@ class UserRolesSetTest extends TestCase
     }
 
 
-
     /**
      * @test
      */
@@ -77,6 +79,7 @@ class UserRolesSetTest extends TestCase
         $this->assertTrue(UserRolesSet::hasKey('admin'));
         $this->assertFalse(UserRolesSet::hasKey('blah'));
     }
+
 
     /**
      * @test
@@ -88,6 +91,7 @@ class UserRolesSetTest extends TestCase
         $this->assertTrue($set->has('admin'));
         $this->assertFalse($set->has('manager'));
     }
+
 
     /**
      * @test
@@ -101,6 +105,7 @@ class UserRolesSetTest extends TestCase
         $this->assertFalse($set->hasOne(['manager']));
     }
 
+
     /**
      * @test
      */
@@ -111,5 +116,19 @@ class UserRolesSetTest extends TestCase
         $this->assertTrue($set->hasStrict(['admin', 'teacher']));
         $this->assertFalse($set->hasStrict(['admin']));
         $this->assertFalse($set->hasStrict(['manager']));
+    }
+
+
+    /**
+     * @test
+     */
+    public function equals()
+    {
+        $set = new UserRolesSet(['admin', 'teacher']);
+
+        $this->assertTrue($set->equals(new UserRolesSet(['admin', 'teacher'])));
+        $this->assertFalse($set->equals(new UserRolesSet(['admin', 'manager'])));
+        $this->assertFalse($set->equals(new UserRolesSet(['admin'])));
+        $this->assertFalse($set->equals(new UserRolesSet()));
     }
 }
