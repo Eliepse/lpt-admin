@@ -29,7 +29,7 @@
                     @else
                         <div class="card-table" style="overflow:auto; min-height:20rem; max-height:50vh;">
                             <table class="table table-borderless">
-                                @foreach($todaySchedules as $campusSchedules)
+                                @foreach($todaySchedules->groupBy('campus_id') as $campusSchedules)
                                     <thead>
                                     <tr>
                                         <th colspan="2"

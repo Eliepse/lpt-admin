@@ -40,7 +40,7 @@ class HomeController extends Controller
             ->flatten(1);
 
         return view('home', [
-            'todaySchedules' => $activeSchedules->where('day', $today)->groupBy('campus_id'),
+            'todaySchedules' => $activeSchedules->where('day', $today),
             'subscriptions' => $subscriptions,
             'unpaidSubs' => $subscriptions->filter(function (Subscription $s) { return !$s->isPaid(); }),
         ]);
