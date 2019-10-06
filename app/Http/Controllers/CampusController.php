@@ -9,6 +9,7 @@ use App\Campus;
 use App\Schedule;
 use Carbon\Carbon;
 use Eliepse\Alert\AlertSuccess;
+use Eliepse\Charts\HeatWeekCalendar\HeatWeekCalendar;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,13 +50,19 @@ class CampusController extends Controller
     {
         $campuses = Campus::with(['schedules.course.lessons'])->get();
 
-        $stats = $campuses
+        $heatmaps = $campuses
             ->keyBy('id')
             ->map(function (Campus $campus) {
-                return $this->campusActivityStats($campus);
+                $heatmap = new HeatWeekCalendar();
+                $campus->getActiveSchedules()
+                    ->each(function (Schedule $s) use ($heatmap) {
+                        $heatmap->add($s->day, ($s->hour->hour * 60) + $s->hour->minute, $s->course->getDuration());
+                    });
+
+                return $heatmap;
             });
 
-        return view('models.campus.index', ['campuses' => $campuses, 'stats' => $stats]);
+        return view('models.campus.index', ['campuses' => $campuses, 'heatmaps' => $heatmaps]);
     }
 
 
@@ -154,52 +161,5 @@ class CampusController extends Controller
             ->with('alerts', [
                 new AlertSuccess('Le campus a été modifié.'),
             ]);
-    }
-
-
-    private function campusActivityStats(Campus $campus): Collection
-    {
-        $hoursStats = collect();
-        $min = 0;
-        $max = $this->activityLevels - 1;
-
-        for ($h = $this->dayBoundaries[0]; $h <= $this->dayBoundaries[1]; $h += $this->statsGranularity) {
-
-            $hourStats = $campus
-                ->getActiveSchedules()
-                ->filter(function (Schedule $schedule) use ($h) {
-                    $end_at = $schedule->hour->hour + ($schedule->duration / 60);
-
-                    return $schedule->hour->hour <= $h && $end_at >= $h + $this->statsGranularity;
-                })
-                ->groupBy('day')
-                ->map(function (Collection $day) use (&$min, &$max) {
-                    $count = $day->count();
-
-                    $min = $min === 0 ? $count : min($min, $count);
-                    $max = max($max, $count);
-
-                    return $count;
-                });
-
-            $hoursStats->put($h, $hourStats);
-        }
-
-        $levelsDelta = max(1, ($max - $min) / $this->activityLevels);
-
-        // We change to levels of activity to show off the most active periods
-        $hoursStats->transform(function (Collection $hours) use ($min, $max, $levelsDelta) {
-            return $hours->map(function (int $count) use ($min, $max, $levelsDelta) {
-                for ($level = $this->activityLevels - 1; $level > 0; $level--) {
-                    if ($count >= $min + ($level * $levelsDelta)) {
-                        return $level;
-                    }
-                }
-
-                return 0;
-            });
-        });
-
-        return $hoursStats;
     }
 }

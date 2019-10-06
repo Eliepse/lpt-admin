@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var \Eliepse\Charts\HeatWeekCalendar\HeatWeekCalendar $heatmap
+ * @var \Eliepse\Charts\HeatWeekCalendar\HeatRow $hour
+ * @var \Eliepse\Charts\HeatWeekCalendar\HeatCell $day
+ */
+?>
 <table class="w-100" style="table-layout: fixed" border="0">
     <thead>
     <tr class="text-center" style="color: #4FD1C5">
@@ -25,14 +32,14 @@
     </tr>
     </thead>
     <tbody style="background-color: #F7FAFC">
-    @foreach($stats[$campus->id] as $hour => $days)
+    @foreach($heatmap->getData() as $hour)
         <tr>
-            @foreach(App\Enums\DaysEnum::getKeys() as $day)
-                @if(isset($days[$day]))
+            @foreach($hour as $day)
+                @if($day > 0)
                     @php
-                        switch ($days[$day]) {
-                        case 2: $bg = '#63B3ED'; break;
-                        case 1: $bg = '#90CDF4'; break;
+                        switch ($day) {
+                        case 3: $bg = '#63B3ED'; break;
+                        case 2: $bg = '#90CDF4'; break;
                         default: $bg = '#BEE3F8';
                         }
                     @endphp

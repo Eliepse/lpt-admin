@@ -41,7 +41,7 @@ use \Illuminate\Database\Eloquent\Collection;
                                 {{ $campus->schedules->count() }} classes
                             </div>
                             <div class="card-table">
-                                @include('components.heatCalendar', ['stats' => $stats])
+                                @include('components.heatCalendar', ['heatmap' => $heatmaps[$campus->id]])
                             </div>
                             <div class="card-footer d-flex justify-content-between">
                                 @can('view', $campus)
