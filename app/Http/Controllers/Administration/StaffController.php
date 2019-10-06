@@ -56,7 +56,7 @@ class StaffController
 
         $member = new StaffUser($request->all());
         $member->password = Hash::make(Str::random(64));
-        $member->roles = new UserRolesSet($request->get('roles', []));
+        $member->setRoles(new UserRolesSet($request->get('roles', [])));
         $member->type = 'staff';
         $member->save();
 
