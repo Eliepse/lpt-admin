@@ -46,17 +46,23 @@ trait HasRoles
     {
         if (is_string($value)) {
             $this->setRole($value);
+
+            return;
         }
 
         if (is_array($value)) {
             $this->setRoleArray($value);
+
+            return;
         }
 
         if (is_a($value, UserRolesSet::class)) {
             $this->attributes['roles'] = join(',', $value->getValues());
+
+            return;
         }
 
-        throw new \ErrorException("The parameter is not in a valid type (string or UserRoleSet).");
+        throw new \ErrorException("The parameter is not in a valid type (string or UserRolesSet).");
     }
 
 
