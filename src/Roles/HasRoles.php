@@ -101,7 +101,7 @@ trait HasRoles
      */
     public function hasRolesStrict($roles): bool
     {
-        return $this->roles->hasAll(Arr::wrap($roles));
+        return $this->roles->hasStrict(Arr::wrap($roles));
     }
 
 

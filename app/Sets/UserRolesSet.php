@@ -12,7 +12,5 @@ class UserRolesSet extends Set
     public const MANAGER = 'manager';
     public const TEACHER = 'teacher';
 
-    protected static $members = ['admin', 'manager', 'teacher'];
-
     protected static $nullable = true;
 }
