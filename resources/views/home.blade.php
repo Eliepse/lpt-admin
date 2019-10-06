@@ -10,13 +10,9 @@
 
     <div class="container mt-3">
 
-        @component('components.alert.default')
-            @slot('class', 'info')
-            @slot('message', 'Bientôt, votre page d\'accueil sera un espace avec des informations réellement utiles !')
-        @endcomponent
-
         <div class="row">
 
+            <!-- Stats: classes of the day -->
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card">
                     <div class="card-header">
@@ -70,7 +66,8 @@
                 </div>
             </div>
 
-            @if(auth('admin')->user()->isAdmin())
+        @if(auth('admin')->user()->isAdmin())
+            <!-- Stats: unpaid subscriptions -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card">
                         <div class="card-header">
@@ -112,7 +109,53 @@
                         @endif
                     </div>
                 </div>
-            @endif
+        @endif
+
+        <!-- Stats: general -->
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        Statistiques générales
+                    </div>
+                    <div class="card-table">
+                        <table class="table table-condensed table-borderless table-vcenter table-striped">
+                            <tbody>
+                            <tr>
+                                <td>Étudiants</td>
+                                <td>{{ \App\Student::count() }}</td>
+                            </tr>
+                            <tr>
+                                <td>Inscriptions actives</td>
+                                <td>{{ $subscriptions->count() }}</td>
+                            </tr>
+                            @if(auth('admin')->user()->isAdmin())
+                                <tr>
+                                    <td>s
+                                        Chiffre d'affaire en cours<br>
+                                        <small class="text-muted"><i>(not so relevent)</i></small>
+                                    </td>
+                                    <td>{{ $subscriptions->sum('paid') }} €</td>
+                                </tr>
+                            @endif
+                            <tr>
+                                <td>Classes actives</td>
+                                <td>{{ $activeSchedules->count() }}</td>
+                            </tr>
+                            <tr>
+                                <td>Classes aujourd'hui</td>
+                                <td>{{ $todaySchedules->count() }}</td>
+                            </tr>
+                            <tr>
+                                <td>Heures de cours par semaine</td>
+                                <td>
+                                    {{ round($activeSchedules->sum('duration') / 60) }} h
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
