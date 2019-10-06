@@ -21,7 +21,7 @@ class HomeController extends Controller
 
     public function __invoke()
     {
-        $today = DaysEnum::getKey(Carbon::today()->dayOfWeek);
+        $today = DaysEnum::getKey(Carbon::today()->dayOfWeekIso);
         $activeSchedules = Schedule::query()
             ->with([
                 'campus:id,name',
