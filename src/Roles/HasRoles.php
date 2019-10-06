@@ -5,7 +5,6 @@ namespace Eliepse\Roles;
 
 
 use App\Sets\UserRolesSet;
-use Eliepse\Set\Exceptions\UnknownMemberException;
 use Illuminate\Support\Arr;
 
 /**
@@ -20,7 +19,6 @@ trait HasRoles
      * @param $value
      *
      * @return UserRolesSet
-     * @throws UnknownMemberException
      */
     public function getRolesAttribute($value): UserRolesSet
     {

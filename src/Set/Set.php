@@ -3,7 +3,6 @@
 
 namespace Eliepse\Set;
 
-use Eliepse\Set\Exceptions\UnknownMemberException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\Schema\Blueprint;
@@ -32,14 +31,11 @@ abstract class Set implements SetInterface, Arrayable, JsonSerializable, Jsonabl
      * Set constructor.
      *
      * @param array|string $values
-     * TODO(eliepse): skip invalid keys, no error throwing
-     *
-     * @throws UnknownMemberException
      */
     public function __construct($values = [])
     {
         $this->values = array_fill_keys(static::getKeys(), false);
-        $this->set($values ?? []);
+        $this->set($values);
     }
 
 
@@ -140,36 +136,42 @@ abstract class Set implements SetInterface, Arrayable, JsonSerializable, Jsonabl
     /**
      * To set (or activate) a member of the Set
      *
-     * @param string|array $member
+     * @param array|string $keys
      *
      * @return void
-     * @throws UnknownMemberException
      */
-    public function set($member): void
+    public function set($keys): void
     {
-        if (is_string($member))
-            $this->activateMember($member);
-        else if (is_array($member))
-            foreach ($member as $value)
-                $this->activateMember($value);
+        if (is_string($keys) && static::hasKey($keys)) {
+            $this->values[ $keys ] = true;
+        }
+
+        if (is_array($keys)) {
+            foreach (array_intersect(static::getKeys(), $keys) as $key) {
+                $this->values[ $key ] = true;
+            }
+        }
     }
 
 
     /**
      * To unset (or unactivate) a member of the Set
      *
-     * @param string|array $member
+     * @param string|array $keys
      *
      * @return void
-     * @throws UnknownMemberException
      */
-    public function unset($member): void
+    public function unset($keys): void
     {
-        if (is_string($member))
-            $this->unactivateMember($member);
-        else if (is_array($member))
-            foreach ($member as $value)
-                $this->unactivateMember($value);
+        if (is_string($keys) && static::hasKey($keys)) {
+            $this->values[ $keys ] = false;
+        }
+
+        if (is_array($keys)) {
+            foreach (array_intersect(static::getKeys(), $keys) as $key) {
+                $this->values[ $key ] = false;
+            }
+        }
     }
 
 
@@ -194,36 +196,6 @@ abstract class Set implements SetInterface, Arrayable, JsonSerializable, Jsonabl
     public static function hasKey(string $key): bool
     {
         return in_array($key, static::getKeys(), true);
-    }
-
-
-    /**
-     * @param string $member
-     *
-     * @return void
-     * @throws UnknownMemberException
-     */
-    protected function activateMember(string $member): void
-    {
-        $member = trim($member);
-        if (!static::hasKey($member))
-            throw new UnknownMemberException();
-        $this->values[ $member ] = true;
-    }
-
-
-    /**
-     * @param string $member
-     *
-     * @return void
-     * @throws UnknownMemberException
-     */
-    public function unactivateMember(string $member): void
-    {
-        $member = trim($member);
-        if (!static::hasKey($member))
-            throw new UnknownMemberException();
-        $this->values[ $member ] = false;
     }
 
 

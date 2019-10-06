@@ -4,8 +4,6 @@
 namespace Eliepse\Set;
 
 
-use Eliepse\Set\Exceptions\UnknownMemberException;
-
 interface SetInterface
 {
     /**
@@ -57,23 +55,21 @@ interface SetInterface
     /**
      * To set (or activate) a member of the Set
      *
-     * @param string|array $member
+     * @param string|array $key
      *
      * @return void
-     * @throws UnknownMemberException
      */
-    public function set($member): void;
+    public function set($key): void;
 
 
     /**
      * To unset (or unactivate) a member of the Set
      *
-     * @param string|array $member
+     * @param string|array $keys
      *
      * @return void
-     * @throws UnknownMemberException
      */
-    public function unset($member): void;
+    public function unset($keys): void;
 
 
     /**
