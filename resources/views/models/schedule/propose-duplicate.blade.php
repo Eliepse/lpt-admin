@@ -20,7 +20,7 @@ use App\Sets\DaysSet;
 
                 <div class="mb-3">
                     <a href="{{ route('schedules.show', $schedule) }}">
-                        <i class="fe fe-arrow-left"></i> Page de la classe</a>
+                        <i data-feather="arrow-left"></i> Page de la classe</a>
                 </div>
 
                 <div class="card">

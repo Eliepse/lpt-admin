@@ -46,7 +46,7 @@ $day = $day ?? null;
                     @else
                         {{ $schedule->subscriptions_count }}
                     @endif
-                    <i class="fe fe-users"></i>
+                    <i data-feather="users"></i>
                 </div>
                 <div class="">
                     {{ $schedule->hour->format("H:i") }} - {{ $schedule->hour->clone()->addMinutes($schedule->duration)->format("H:i") }}
@@ -59,18 +59,18 @@ $day = $day ?? null;
             <div class="schedule-footer text-center">
 
                 @if($schedule->isClassNow())
-                    <div><i class="fe fe-book-open"></i> Classe en cours</div>
+                    <div><i data-feather="book-open"></i> Classe en cours</div>
                 @elseif($schedule->isStudyPeriod() && $today === $day && $schedule->hour->isFuture())
                     <div>
-                        <i class="fe fe-book"></i>
+                        <i data-feather="book"></i>
                         Classe dans {{ $schedule->hour->diffInHours(\Carbon\Carbon::now()) }} h
                     </div>
                 @elseif($schedule->isStudyPeriod())
-                    <div><i class="fe fe-book"></i> Classe active</div>
+                    <div><i data-feather="book"></i> Classe active</div>
                 @elseif($schedule->isSignupPeriod())
-                    <div><i class="fe fe-user-plus"></i> Inscription</div>
+                    <div><i data-feather="user-plus"></i> Inscription</div>
                 @else
-                    <div><i class="fe fe-archive"></i> Classe terminée</div>
+                    <div><i data-feather="archive"></i> Classe terminée</div>
                 @endif
 
             </div>

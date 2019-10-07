@@ -25,7 +25,7 @@ $days = DaysSet::getKeys();
                 <div class="mb-3">
                     @can('view', $schedule)
                         <a href="{{ route('schedules.show', $schedule) }}">
-                            <i class="fe fe-arrow-left"></i> Page de la classe</a>
+                            <i data-feather="arrow-left"></i> Page de la classe</a>
                     @endcan
                 </div>
 
@@ -115,7 +115,7 @@ $days = DaysSet::getKeys();
                             @slot('default', $schedule->max_students)
                             @slot('after')
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2"><i class="fe fe-users"></i></span>
+                                    <span class="input-group-text" id="basic-addon2"><i data-feather="users"></i></span>
                                 </div>
                             @endslot
                         @endcomponent

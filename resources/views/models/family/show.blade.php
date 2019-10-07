@@ -27,7 +27,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
     <div class="container justify-content-center mt-3">
 
         {{-- TODO(eliepse): Add link to index --}}
-        {{--<a href="#" class="btn btn-link"><i class="fe fe-arrow-left"></i> Retour</a>--}}
+        {{--<a href="#" class="btn btn-link"><i data-feather="arrow-left"></i> Retour</a>--}}
 
         <h1 class="mt-3" style="margin-bottom: 3rem">Famille
             <i>{{ $family->parents->pluck('lastname')->unique()->join('-') }}</i></h1>
@@ -38,7 +38,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                 @can('create', $family)
                     <a href="{{ route('parents.create', $family) }}"
                        class="btn btn-sm btn-link">
-                        <i class="fe fe-plus"></i> Ajouter un parent
+                        <i data-feather="plus"></i> Ajouter un parent
                     </a>
                 @endcan
             </div>
@@ -54,7 +54,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                             <div>
                                 @can('update', $parent)
                                     <a href="{{ route('parents.edit', $parent) }}" class="btn btn-sm btn-icon">
-                                        <i class="fe fe-edit"></i>
+                                        <i data-feather="edit"></i>
                                     </a>
                                 @endcan
                             </div>
@@ -65,15 +65,15 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 <li>
-                                    <i class="fe fe-phone"></i>&nbsp;
+                                    <i data-feather="phone"></i>&nbsp;
                                     <a href="tel:{{ $parent->phone }}">{{ $parent->phone }}</a>
                                 </li>
                                 <li>
-                                    <i class="fe fe-hash"></i>&nbsp;
+                                    <i data-feather="hash"></i>&nbsp;
                                     <a href="weixin://dl/chat?{{ $parent->wechat_id }}">{{ $parent->wechat_id }}</a>
                                 </li>
                                 <li>
-                                    <i class="fe fe-mail"></i>&nbsp;
+                                    <i data-feather="mail"></i>&nbsp;
                                     <a href="mailto:{{ $parent->email }}">{{ $parent->email }}</a>
                                 </li>
                             </ul>
@@ -89,7 +89,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                 @can('createChild', $family)
                     <a href="{{ route('students.create', $family) }}"
                        class="btn btn-sm btn-link">
-                        <i class="fe fe-plus"></i> Ajouter un enfant
+                        <i data-feather="plus"></i> Ajouter un enfant
                     </a>
                 @endcan
             </div>
@@ -108,7 +108,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                                 {{ $student->birthday->diffInYears() }} ans
                                 @can('update', $student)
                                     <a href="{{ route('students.edit', $student) }}" class="btn btn-icon">
-                                        <i class="fe fe-edit"></i></a>
+                                        <i data-feather="edit"></i></a>
                                 @endcan
                             </div>
                         </div>

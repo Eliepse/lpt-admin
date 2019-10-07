@@ -22,7 +22,7 @@
                     <div class="mb-3">
                         @can('viewAny', \App\StaffUser::class)
                             <a href="{{ route('staff.index') }}">
-                                <i class="fe fe-arrow-left"></i> Liste de l'équipe</a>
+                                <i data-feather="arrow-left"></i> Liste de l'équipe</a>
                         @endcan
                     </div>
 

@@ -24,7 +24,7 @@ $days = DaysSet::getKeys();
 
         <div class="mb-3">
             <a href="{{ route('schedules.show', $schedule) }}">
-                <i class="fe fe-arrow-left"></i> Page de la classe</a>
+                <i data-feather="arrow-left"></i> Page de la classe</a>
         </div>
 
         <div class="card listjs-container">
@@ -34,7 +34,7 @@ $days = DaysSet::getKeys();
                 <div class="d-flex">
                     <div class="input-group input-group-sm ml-auto" style="max-width: 25rem;">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1"><i class="fe fe-search"></i></span>
+                            <span class="input-group-text" id="basic-addon1"><i data-feather="search"></i></span>
                         </div>
                         <input type="text"
                                class="form-control bg-light listjs search"

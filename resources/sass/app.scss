@@ -10,7 +10,8 @@
 html, body {
   min-height: 100vh;
 }
-@import "~tabler-ui/src/assets/scss/dashboard/fonts/_feather.scss";
+//@import "~tabler-ui/src/assets/scss/dashboard/fonts/_feather.scss";
+@import "feather";
 @import "header";
 @import "sidepanel";
 @import "courseSchedule";

@@ -34,12 +34,12 @@ use \Illuminate\Support\Str;
             <div>
                 @can('update', $course)
                     <a class="btn btn-link" href="{{ route('courses.edit', $course) }}">
-                        <i class="fe fe-edit-3"></i> Modifier le cours
+                        <i data-feather="edit-3"></i> Modifier le cours
                     </a><br>
                 @endcan
                 @can('delete', $course)
                     <a class="btn btn-link text-dark" href="{{ route('courses.delete', $course) }}">
-                        <i class="fe fe-trash"></i> Supprimer le cours
+                        <i data-feather="trash"></i> Supprimer le cours
                     </a>
                 @endcan
             </div>
@@ -78,7 +78,7 @@ use \Illuminate\Support\Str;
                 <div class="">
                     @can('create', \App\Schedule::class)
                         <a href="{{ route('schedules.create', ['course' => $course]) }}" class="btn btn-sm btn-link">
-                            <i class="fe fe-calendar"></i> Ajouter un classe
+                            <i data-feather="calendar"></i> Ajouter un classe
                         </a>
                     @endcan
                 </div>

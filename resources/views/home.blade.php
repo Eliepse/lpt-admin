@@ -52,7 +52,7 @@
                                                 @can('view', $schedule)
                                                     <a href="{{ route('schedules.show', $schedule) }}"
                                                        class="btn btn-icon">
-                                                        <i class="fe fe-eye"></i>
+                                                        <i data-feather="eye"></i>
                                                     </a>
                                                 @endcan
                                             </td>
@@ -97,7 +97,7 @@
                                                 @can('view', $subscription->marketable)
                                                     <a href="{{ route('schedules.show', $subscription->marketable) }}"
                                                        class="btn btn-icon">
-                                                        <i class="fe fe-eye"></i>
+                                                        <i data-feather="eye"></i>
                                                     </a>
                                                 @endcan
                                             </td>

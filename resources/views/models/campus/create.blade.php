@@ -13,7 +13,7 @@
                 <div class="col-12 col-md-6">
 
                     <div class="mb-3">
-                        <a href="{{ route('campuses.index') }}"><i class="fe fe-arrow-left"></i> Liste des campus</a>
+                        <a href="{{ route('campuses.index') }}"><i data-feather="arrow-left"></i> Liste des campus</a>
                     </div>
 
                     <div class="card">

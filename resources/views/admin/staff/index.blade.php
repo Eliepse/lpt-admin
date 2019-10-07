@@ -20,7 +20,7 @@ use \Illuminate\Database\Eloquent\Collection;
             <div>
                 @can('create', App\StaffUser::class)
                     <a class="btn btn-sm btn-link" href="{{ route('staff.create') }}">
-                        <i class="fe fe-plus"></i> Ajouter un membre
+                        <i data-feather="plus"></i> Ajouter un membre
                     </a>
                 @endcan
             </div>
@@ -56,12 +56,12 @@ use \Illuminate\Database\Eloquent\Collection;
                             <td class="text-right">
                                 @can('update', $member)
                                     <a href="{{ route('staff.edit', $member) }}" class="btn btn-icon">
-                                        <i class="fe fe-edit"></i>
+                                        <i data-feather="edit"></i>
                                     </a>
                                 @endcan
                                 @can('updatePassword', $member)
                                     <a href="{{ route('staff.edit.password', $member) }}" class="btn btn-icon">
-                                        <i class="fe fe-lock"></i>
+                                        <i data-feather="lock"></i>
                                     </a>
                                 @endcan
                             </td>

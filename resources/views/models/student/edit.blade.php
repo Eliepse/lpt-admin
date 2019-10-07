@@ -24,7 +24,7 @@ use App\Student;
                 <div class="mb-3">
                     @can('view', $student->family)
                         <a href="{{ route('families.show', $student->family) }}">
-                            <i class="fe fe-arrow-left"></i> Page de la famille</a>
+                            <i data-feather="arrow-left"></i> Page de la famille</a>
                     @endcan
                 </div>
 

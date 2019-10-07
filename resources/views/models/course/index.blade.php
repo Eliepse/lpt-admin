@@ -22,7 +22,7 @@ use \Illuminate\Support\Str;
             <div>
                 @can('create', App\Course::class)
                     <a class="btn btn-sm btn-link" href="{{ route('courses.create') }}">
-                        <i class="fe fe-plus"></i> Ajouter un cours
+                        <i data-feather="plus"></i> Ajouter un cours
                     </a>
                 @endcan
             </div>
@@ -50,7 +50,7 @@ use \Illuminate\Support\Str;
                                 @can('create', App\Schedule::class)
                                     <a href="{{ route('schedules.create', ['course' => $course]) }}"
                                        class="btn btn-sm btn-link">
-                                        <i class="fe fe-calendar"></i> Nouvelle classe
+                                        <i data-feather="calendar"></i> Nouvelle classe
                                     </a>
                                 @endcan
                                 @can('view', $course)

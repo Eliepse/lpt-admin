@@ -21,7 +21,7 @@ use \Illuminate\Database\Eloquent\Collection;
             <div>
                 @can('create', App\Lesson::class)
                     <a class="btn btn-sm btn-link" href="{{ route('lessons.create') }}">
-                        <i class="fe fe-plus"></i> Ajouter une leçon
+                        <i data-feather="plus"></i> Ajouter une leçon
                     </a>
                 @endcan
             </div>
@@ -50,7 +50,7 @@ use \Illuminate\Database\Eloquent\Collection;
                             <td class="text-right">
                                 @can('update', $lesson)
                                     <a class="btn btn-outline-secondary"
-                                       href="{{ route('lessons.edit', $lesson) }}"><i class="fe fe-edit-2"></i></a>
+                                       href="{{ route('lessons.edit', $lesson) }}"><i data-feather="edit-2"></i></a>
                                 @endcan
                             </td>
                         </tr>

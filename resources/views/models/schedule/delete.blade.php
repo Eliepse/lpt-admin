@@ -22,7 +22,7 @@ $days = DaysSet::getKeys();
                 <div class="mb-3">
                     @can('view', $schedule)
                         <a href="{{ route('schedules.show', $schedule) }}">
-                            <i class="fe fe-arrow-left"></i> Page de la classe</a>
+                            <i data-feather="arrow-left"></i> Page de la classe</a>
                     @endcan
                 </div>
 

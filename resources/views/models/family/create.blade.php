@@ -10,7 +10,7 @@
             @csrf
 
             <div class="mb-3">
-                <a href="{{ route('students.index') }}"><i class="fe fe-arrow-left"></i> Liste des étudiants</a>
+                <a href="{{ route('students.index') }}"><i data-feather="arrow-left"></i> Liste des étudiants</a>
             </div>
 
             <div class="card">

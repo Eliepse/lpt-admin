@@ -13,7 +13,7 @@
                 <div class="col-12 col-md-6">
 
                     <div class="mb-3">
-                        <a href="{{ route('lessons.index') }}"><i class="fe fe-arrow-left"></i> Liste des leçons</a>
+                        <a href="{{ route('lessons.index') }}"><i data-feather="arrow-left"></i> Liste des leçons</a>
                     </div>
 
                     <div class="card">

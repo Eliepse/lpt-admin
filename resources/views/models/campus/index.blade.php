@@ -21,7 +21,7 @@ use \Illuminate\Database\Eloquent\Collection;
             <div>
                 @can('create', App\Campus::class)
                     <a class="btn btn-sm btn-link" href="{{ route('campuses.create') }}">
-                        <i class="fe fe-plus"></i> Ajouter un campus
+                        <i data-feather="plus"></i> Ajouter un campus
                     </a>
                 @endcan
             </div>

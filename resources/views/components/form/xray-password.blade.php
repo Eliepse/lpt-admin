@@ -20,8 +20,8 @@
                @foreach($attrs ?? [] as $attr => $val) {{ "$attr=$val" }} @endforeach>
         <div class="input-group-append">
             <button class="x-ray btn btn-outline-secondary" data-x-ray="#{{ $name }}" data-default="hide">
-                <span class="x-ray-show" data-x-ray-show><i class="fe fe-eye"></i></span>
-                <span class="x-ray-hide" data-x-ray-hide><i class="fe fe-eye-off"></i></span>
+                <span class="x-ray-show" data-x-ray-show><i data-feather="eye"></i></span>
+                <span class="x-ray-hide" data-x-ray-hide><i data-feather="eye-off"></i></span>
             </button>
         </div>
         @error($name)

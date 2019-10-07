@@ -13,8 +13,6 @@ import ScheduleCalendar from "./components/schedule/ScheduleCalendar";
 import List from "list.js";
 import xray from "x-ray";
 
-//import feather from "feather-icons";
-
 require("./bootstrap");
 
 window.dayjs = require("dayjs");
@@ -22,15 +20,10 @@ window.dayjs.extend(customParseFormat);
 window.Vue = require("vue");
 
 Vue.use(VCalendar, {firstDayOfWeek: 2});
-
 Vue.use(window.dayjs);
 
 //Vue.component("course-form", function (resolve) {
 //    require(["./components/CourseForm"], resolve);
-//});
-//
-//Vue.component("schedule-calendar", function (resolve) {
-//    require(["./components/schedule/ScheduleCalendar"], resolve);
 //});
 
 const app = new Vue({
@@ -52,8 +45,6 @@ if (document.querySelector(".listjs")) {
         valueNames: listEl.dataset.names.split(",")
     });
 }
-
-//feather.replace();
 
 /**
  * The following block of code may be used to automatically register your

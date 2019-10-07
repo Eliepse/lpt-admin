@@ -17,7 +17,7 @@
                 <div class="mb-3">
                     @can('view', $course)
                         <a href="{{ route('courses.show', $course) }}">
-                            <i class="fe fe-arrow-left"></i> Page du cours</a>
+                            <i data-feather="arrow-left"></i> Page du cours</a>
                     @endcan
                 </div>
 

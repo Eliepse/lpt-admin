@@ -24,12 +24,12 @@ $days = DaysSet::getKeys();
                 <div class="mb-3">
                     @if($campuses->count() === 1)
                         <a href="{{ route('campuses.show', $campuses->first()) }}">
-                            <i class="fe fe-arrow-left"></i> Page du campus</a>
+                            <i data-feather="arrow-left"></i> Page du campus</a>
                     @elseif($courses->count() === 1)
                         <a href="{{ route('courses.show', $courses->first()) }}">
-                            <i class="fe fe-arrow-left"></i> Page du cours</a>
+                            <i data-feather="arrow-left"></i> Page du cours</a>
                     @else
-                        <a href="{{ redirect()->back()->getTargetUrl() }}"><i class="fe fe-arrow-left"></i> Retour</a>
+                        <a href="{{ redirect()->back()->getTargetUrl() }}"><i data-feather="arrow-left"></i> Retour</a>
                     @endif
                 </div>
 
@@ -119,7 +119,7 @@ $days = DaysSet::getKeys();
                             @slot('default', 12)
                             @slot('after')
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2"><i class="fe fe-users"></i></span>
+                                    <span class="input-group-text" id="basic-addon2"><i data-feather="users"></i></span>
                                 </div>
                             @endslot
                         @endcomponent

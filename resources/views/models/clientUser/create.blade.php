@@ -12,7 +12,7 @@
                 @csrf
 
                 <div class="mb-3">
-                    <a href="{{ route('families.show', $family) }}"><i class="fe fe-arrow-left"></i> Page de la famille</a>
+                    <a href="{{ route('families.show', $family) }}"><i data-feather="arrow-left"></i> Page de la famille</a>
                 </div>
 
                 <div class="card">

@@ -31,7 +31,7 @@ use \App\Enums\DaysEnum;
             <div>
                 @can('create', \App\Family::class)
                     <a class="btn btn-sm btn-link" href="{{ route('families.create') }}">
-                        <i class="fe fe-plus"></i> Ajouter une famille
+                        <i data-feather="plus"></i> Ajouter une famille
                     </a>
                 @endcan
             </div>
@@ -42,7 +42,7 @@ use \App\Enums\DaysEnum;
             <div class="col-12 mb-2">
                 <div class="input-group input-group-sm mb-1 ml-auto" style="max-width: 25rem;">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"><i class="fe fe-search"></i></span>
+                        <span class="input-group-text" id="basic-addon1"><i data-feather="search"></i></span>
                     </div>
                     <input type="text"
                            class="form-control bg-light listjs search"

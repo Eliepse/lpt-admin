@@ -43,17 +43,17 @@ use Illuminate\Support\Facades\Auth;
             <div>
                 @can('create', App\Schedule::class)
                     <a class="btn btn-sm btn-link" href="{{ route('schedules.duplicate', $schedule) }}">
-                        <i class="fe fe-copy"></i> Dupliquer</a>
+                        <i data-feather="copy"></i> Dupliquer</a>
                     <br>
                 @endcan
                 @can('update', $schedule)
                     <a class="btn btn-sm btn-link"
-                       href="{{ route('schedules.edit', $schedule) }}"><i class="fe fe-edit"></i> Modifier</a>
+                       href="{{ route('schedules.edit', $schedule) }}"><i data-feather="edit"></i> Modifier</a>
                     <br>
                 @endcan
                 @can('delete', $schedule)
                     <a class="btn btn-sm btn-link" href="{{ route('schedules.delete', $schedule) }}">
-                        <i class="fe fe-trash"></i> Supprimer</a>
+                        <i data-feather="trash"></i> Supprimer</a>
                 @endcan
             </div>
         </div>
@@ -65,7 +65,7 @@ use Illuminate\Support\Facades\Auth;
                     @can('subscribe', $schedule)
                         <a class="btn btn-sm btn-link"
                            href="{{ route('schedules.students.select', $schedule) }}">
-                            <i class="fe fe-user-plus"></i> Ajouter un étudiant</a>
+                            <i data-feather="user-plus"></i> Ajouter un étudiant</a>
                     @endcan
                 </div>
             </div>
@@ -105,11 +105,11 @@ use Illuminate\Support\Facades\Auth;
                             <td class="text-right">
                                 @can('editSubscription', [$schedule, $student])
                                     <a href="{{ route('schedules.students.edit', [$schedule, $student]) }}"
-                                       class="btn btn-sm btn-icon"><i class="fe fe-edit"></i></a>
+                                       class="btn btn-sm btn-icon"><i data-feather="edit"></i></a>
                                 @endcan
                                 @can('unsubscribe', [$schedule, $student])
                                     <a href="{{ route('schedules.students.unlink', [$schedule, $student]) }}"
-                                       class="btn btn-sm btn-icon"><i class="fe fe-trash"></i></a>
+                                       class="btn btn-sm btn-icon"><i data-feather="trash"></i></a>
                                 @endcan
                             </td>
                         </tr>
@@ -122,7 +122,7 @@ use Illuminate\Support\Facades\Auth;
                             {{ $schedule->getIncome() }}&nbsp;€ / {{ $schedule->subscriptions->isEmpty() ? $schedule->getTheoricalTotalIncome() : $schedule->getTotalIncome() }}&nbsp;€
                         </th>
                         <th>
-                            <i class="fe fe-users"></i> {{ $schedule->students->count() }} / {{ $schedule->max_students }}
+                            <i data-feather="users"></i> {{ $schedule->students->count() }} / {{ $schedule->max_students }}
                         </th>
                     </tr>
                     </tfoot>

@@ -21,7 +21,7 @@ $days = DaysSet::getKeys();
 
                 <div class="mb-3">
                     <a href="{{ route('campuses.show', $schedule->campus) }}">
-                        <i class="fe fe-arrow-left"></i> Page du campus</a>
+                        <i data-feather="arrow-left"></i> Page du campus</a>
                 </div>
 
                 <form class="card"
