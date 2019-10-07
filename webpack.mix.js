@@ -17,7 +17,7 @@ mix.sass("resources/sass/app.scss", "public/css")
 
 if (mix.inProduction()) {
     mix.version()
-        .extract(["vue"])
+        .extract(["vue", "v-calendar", "list.js", "dayjs", "axios", "bootstrap", "popper.js", "jquery", "lodash"])
         .copyDirectory("resources/images", "public/images");
 }
 
@@ -27,6 +27,6 @@ if (!mix.inProduction()) {
 
 mix.webpackConfig({
     stats: {
-        excludeAssets: /vendor/
+        //excludeAssets: /vendor/
     }
 });
