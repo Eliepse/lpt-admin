@@ -37,7 +37,9 @@ $day = $day ?? null;
     <a href="{{ route("schedules.show", $schedule) }}" class="schedule-link">
         @endcan
 
-        <div class="schedule {{ scheduleClass($schedule) }} {{ $today === $day && $schedule->isClassNow() ? 'schedule-active' : '' }}">
+        <div style="{{ $style ?? '' }}"
+             class="schedule {{ scheduleClass($schedule) }}
+             @if($today === $day && $schedule->isClassNow()) schedule-active @endif">
 
             <div class="schedule-body">
                 <div class="schedule-studentCount">
@@ -56,24 +58,24 @@ $day = $day ?? null;
                 </div>
             </div>
 
-            <div class="schedule-footer text-center">
+            {{--                <div class="schedule-footer text-center">--}}
 
-                @if($schedule->isClassNow())
-                    <div><i data-feather="book-open"></i> Classe en cours</div>
-                @elseif($schedule->isStudyPeriod() && $today === $day && $schedule->hour->isFuture())
-                    <div>
-                        <i data-feather="book"></i>
-                        Classe dans {{ $schedule->hour->diffInHours(\Carbon\Carbon::now()) }} h
-                    </div>
-                @elseif($schedule->isStudyPeriod())
-                    <div><i data-feather="book"></i> Classe active</div>
-                @elseif($schedule->isSignupPeriod())
-                    <div><i data-feather="user-plus"></i> Inscription</div>
-                @else
-                    <div><i data-feather="archive"></i> Classe terminée</div>
-                @endif
+            {{--                    @if($schedule->isClassNow())--}}
+            {{--                        <div><i data-feather="book-open"></i> Classe en cours</div>--}}
+            {{--                    @elseif($schedule->isStudyPeriod() && $today === $day && $schedule->hour->isFuture())--}}
+            {{--                        <div>--}}
+            {{--                            <i data-feather="book"></i>--}}
+            {{--                            Classe dans {{ $schedule->hour->diffInHours(\Carbon\Carbon::now()) }} h--}}
+            {{--                        </div>--}}
+            {{--                    @elseif($schedule->isStudyPeriod())--}}
+            {{--                        <div><i data-feather="book"></i> Classe active</div>--}}
+            {{--                    @elseif($schedule->isSignupPeriod())--}}
+            {{--                        <div><i data-feather="user-plus"></i> Inscription</div>--}}
+            {{--                    @else--}}
+            {{--                        <div><i data-feather="archive"></i> Classe terminée</div>--}}
+            {{--                    @endif--}}
 
-            </div>
+            {{--                </div>--}}
 
         </div>
         @can('view', $schedule)
