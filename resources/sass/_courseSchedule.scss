@@ -22,12 +22,13 @@
 }
 
 .schedule-link:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .schedule {
   font-size: .875em;
   min-height: 3rem;
+  min-width: 8.7rem;
   margin: .3rem;
   color: #718096;
   background-color: #bee3f8;
@@ -65,8 +66,8 @@
 }
 
 
-.schedule-link:hover,
-.schedule-link:active,
+.schedule-link:hover .schedule,
+.schedule-link:active .schedule,
 .schedule-active,
 .schedule:hover {
   &.popSchedule-bgEnded {

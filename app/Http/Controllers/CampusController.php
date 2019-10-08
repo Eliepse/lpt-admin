@@ -9,6 +9,7 @@ use App\Campus;
 use App\Schedule;
 use Carbon\Carbon;
 use Eliepse\Alert\AlertSuccess;
+use Eliepse\Charts\DayGantt\GanttDayChart;
 use Eliepse\Charts\HeatWeekCalendar\HeatWeekCalendar;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -89,6 +90,7 @@ class CampusController extends Controller
      * Display the specified resource.
      *
      * @param Request $request
+     * @param GanttDayChart $days
      * @param Campus $campus
      *
      * @return Response
@@ -106,30 +108,32 @@ class CampusController extends Controller
         $schedules->loadMissing(['course.lessons']);
 
         /** @var Carbon $min */
-        $min = $schedules->min(function (Schedule $schedule) { return $schedule->hour; });
-        $min = $min && $min->isBefore(Carbon::createFromTime(10)) ? $min : Carbon::createFromTime(10);
+//        $min = $schedules->min(function (Schedule $schedule) { return $schedule->hour; });
+//        $min = $min && $min->isBefore(Carbon::createFromTime(10)) ? $min : Carbon::createFromTime(10);
 
         /** @var Carbon $max */
-        $max = $schedules->max(function (Schedule $schedule) { return $schedule->hour; });
-        $max = $max && $max->isAfter(Carbon::createFromTime(18)) ? $max : Carbon::createFromTime(18);
+//        $max = $schedules->max(function (Schedule $schedule) { return $schedule->hour; });
+//        $max = $max && $max->isAfter(Carbon::createFromTime(18)) ? $max : Carbon::createFromTime(18);
 
         $days = $schedules
-            ->sortBy('hour')
+//            ->sortBy('hour')
             ->groupBy('day')
-            ->sortBy(function ($coll, $key) {
+            ->sortBy(function ($a, $key) {
                 return DaysEnum::getValue($key);
             })
             ->map(function (Collection $schedules) {
-                return $schedules->groupBy(function (Schedule $schedule) {
-                    return $schedule->hour->hour;
-                });
+                $day = new GanttDayChart(8 * 60, 19 * 60);
+
+                foreach ($schedules as $schedule) {
+                    $day->add($schedule);
+                }
+
+                return $day;
             });
 
         return view('models.campus.show', [
             'campus' => $campus,
             'days' => $days,
-            'min' => $min,
-            'max' => $max,
         ]);
     }
 

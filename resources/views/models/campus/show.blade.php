@@ -63,50 +63,12 @@ $today = \App\Enums\DaysEnum::getKey(Carbon::now()->dayOfWeek);
 
         <div class="row mt-3 mb-5">
             <div class="col">
-                @foreach($days as $day => $hours)
+                @foreach($days as $day => $chart)
                     <h5 class="mt-3">{{ Illuminate\Support\Str::ucfirst(__($day)) }}</h5>
                     <div class="card">
-                        <div class="row no-gutters">
-
-                            @for($h = $min->hour; $h <= $max->hour; $h++)
-								<?php $schedules = $hours[ $h ] ?? []; ?>
-                                <div class="day {{ empty($schedules) ? 'col' : 'col-2' }} {{--'day-active'--}}">
-                                    <div class="day-header">{{ $h }}h</div>
-                                    <div class="day-body">
-
-                                        @foreach($schedules as $schedule)
-                                            @component('models.campus.schedule-item')
-                                                @slot('schedule', $schedule)
-                                                @slot('today', $today)
-                                                @slot('day', $day)
-                                            @endcomponent
-                                        @endforeach
-
-                                    </div>
-                                </div>
-                            @endfor
-
-                        </div>
+                        @include('components.charts.gantt-day', ['gantt' => $chart, 'day' => $day])
                     </div>
                 @endforeach
-                {{--<div class="row no-gutters">
-                    @foreach(\App\Sets\DaysSet::getKeys() as $day)
-                        <div class="col day {{ $today === $day ? 'day-active' : '' }}">
-                            <div class="day-header">{{ $day }}</div>
-                            <div class="day-body">
-                                @foreach($schedules[$day] ?? collect() as $schedule)
-
-                                    @component('models.campus.schedule-item')
-                                        @slot('schedule', $schedule)
-                                        @slot('today', $today)
-                                        @slot('day', $day)
-                                    @endcomponent
-
-                                @endforeach
-                            </div>
-                        </div>
-                    @endforeach
-                </div>--}}
             </div>
         </div>
 
