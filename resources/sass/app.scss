@@ -1,15 +1,14 @@
 // Fonts
 //@import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 //@import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
 html, body {
-  min-height: 100vh;
+    min-height: 100vh;
 }
+
 //@import "~tabler-ui/src/assets/scss/dashboard/fonts/_feather.scss";
 @import "feather";
 @import "header";

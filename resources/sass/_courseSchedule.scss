@@ -1,68 +1,68 @@
 .day {
-  min-height: 15rem;
+    min-height: 15rem;
 }
 
 
 .day:nth-child(-n + 6) {
-  border-right: 1px solid #edf2f7;
+    border-right: 1px solid #edf2f7;
 }
 
 .day-active {
-  background-color: #f5f7f7;
+    background-color: #f5f7f7;
 }
 
 .day-header {
-  padding: 1rem;
-  background-color: #edf2f7;
-  font-size: .75em;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-align: center;
-  color: #a0aec0;
+    padding: 1rem;
+    background-color: #edf2f7;
+    font-size: .75em;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    color: #a0aec0;
 }
 
 .schedule-link:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .schedule {
-  font-size: .875em;
-  min-height: 3rem;
-  min-width: 8.7rem;
-  margin: .3rem;
-  color: #718096;
-  background-color: #bee3f8;
-  border-radius: 10px;
-  cursor: pointer;
+    font-size: .875em;
+    min-height: 3rem;
+    min-width: 8.7rem;
+    margin: .3rem;
+    color: #718096;
+    background-color: #bee3f8;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .schedule-header {
-  padding: .3rem .5rem;
+    padding: .3rem .5rem;
 }
 
 .schedule-body {
-  padding: .3rem .5rem;
+    padding: .3rem .5rem;
 }
 
 .schedule-footer {
-  padding: .3rem .5rem;
+    padding: .3rem .5rem;
 }
 
 .popSchedule-bgEnded {
-  background-color: #b2f5ea;
-  color: #38b2ac;
+    background-color: #b2f5ea;
+    color: #38b2ac;
 }
 
 
 .popSchedule-bgCurrent {
-  background-color: #c6f6d5;
-  color: #38A169;
+    background-color: #c6f6d5;
+    color: #38A169;
 }
 
 
 .popSchedule-bgSoon {
-  background-color: #bee3f8;
-  color: #4299e1;
+    background-color: #bee3f8;
+    color: #4299e1;
 }
 
 
@@ -70,100 +70,100 @@
 .schedule-link:active .schedule,
 .schedule-active,
 .schedule:hover {
-  &.popSchedule-bgEnded {
-    background-color: #81e6d9;
-    color: #319795;
-  }
+    &.popSchedule-bgEnded {
+        background-color: #81e6d9;
+        color: #319795;
+    }
 
-  &.popSchedule-bgCurrent {
-    background-color: #9ae6b4;
-    color: #38a169;
-  }
+    &.popSchedule-bgCurrent {
+        background-color: #9ae6b4;
+        color: #38a169;
+    }
 
-  &.popSchedule-bgSoon {
-    background-color: #90cdf4;
-    color: #3182ce;
-  }
+    &.popSchedule-bgSoon {
+        background-color: #90cdf4;
+        color: #3182ce;
+    }
 }
 
 
 .schedule-hour {
-  //font-weight: bold;
+    //font-weight: bold;
 }
 
 
 .schedule-location {
-  text-transform: capitalize;
-  font-weight: bold;
+    text-transform: capitalize;
+    font-weight: bold;
 }
 
 
 .schedule-studentCount {
-  float: right;
+    float: right;
 }
 
 
 .schedule-popup {
-  position: fixed;
-  width: 15rem;
-  height: auto;
-  //min-height: 10rem;
-  border-radius: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  left: -16rem;
-  top: 102vh;
-  color: #1a202c;
-  //overflow: hidden;
-  transition: opacity .2s, left .2s, top .2s, height .2s;
+    position: fixed;
+    width: 15rem;
+    height: auto;
+    //min-height: 10rem;
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    left: -16rem;
+    top: 102vh;
+    color: #1a202c;
+    //overflow: hidden;
+    transition: opacity .2s, left .2s, top .2s, height .2s;
 }
 
 
 .popSchedule-header {
-  padding: 1rem 1rem .75rem 1rem;
-  text-align: center;
-  border-bottom: 1px solid #e2e8f0;
+    padding: 1rem 1rem .75rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 
 .popSchedule-body {
-  padding: .75rem 1rem;
+    padding: .75rem 1rem;
 }
 
 
 .popSchedule-footer {
-  padding: 0.5rem 1rem;
-  font-size: 0.8em;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
-  border-radius: 0 0 20px 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 0 0 20px 20px;
 }
 
 
 .popSchedule-location {
-  text-transform: uppercase;
-  font-size: .75em;
-  color: #718096;
+    text-transform: uppercase;
+    font-size: .75em;
+    color: #718096;
 }
 
 
 .popSchedule-hour {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 
 .popSchedule-day {
-  text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 
 .popSchedule-period {
-  line-height: 1.1em;
+    line-height: 1.1em;
 
-  span {
-    font-size: .75em;
-    color: #718096;
-  }
+    span {
+        font-size: .75em;
+        color: #718096;
+    }
 }
