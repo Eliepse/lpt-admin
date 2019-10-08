@@ -12,12 +12,12 @@ const mix = require("laravel-mix");
  */
 
 mix.sass("resources/sass/app.scss", "public/css")
-    .js("resources/js/app.js", "public/js");
+    .js("resources/js/app.js", "public/js")
+    .extract(["vue", "v-calendar", "list.js", "dayjs", "axios", "bootstrap", "popper.js", "jquery", "lodash"]);
 
 
 if (mix.inProduction()) {
     mix.version()
-        .extract(["vue", "v-calendar", "list.js", "dayjs", "axios", "bootstrap", "popper.js", "jquery", "lodash"])
         .copyDirectory("resources/images", "public/images");
 }
 
