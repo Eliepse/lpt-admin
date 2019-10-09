@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\LocationEnum;
-use App\Rules\TimetableRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCourseRequest extends FormRequest
