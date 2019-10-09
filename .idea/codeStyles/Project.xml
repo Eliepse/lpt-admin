@@ -1,5 +1,11 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
+    <PHPCodeStyleSettings>
+      <option name="PHPDOC_BLANK_LINES_AROUND_PARAMETERS" value="true" />
+    </PHPCodeStyleSettings>
+    <editorconfig>
+      <option name="ENABLED" value="false" />
+    </editorconfig>
     <codeStyleSettings language="SCSS">
       <indentOptions>
         <option name="USE_TAB_CHARACTER" value="true" />

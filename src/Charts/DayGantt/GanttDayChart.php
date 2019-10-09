@@ -83,8 +83,8 @@ class GanttDayChart
     public function getData(): Collection
     {
         return $this->schedules
-            ->sortBy(function (Schedule $s) {
-                return $this->getScheduleStart($s) . '-' . $s->duration;
+            ->sortBy(function (Schedule $schedule) {
+                return $this->getScheduleStart($schedule) . '-' . $schedule->duration;
             });
     }
 

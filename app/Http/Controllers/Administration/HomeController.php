@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Administration;
 
-use App\Campus;
 use App\Enums\DaysEnum;
 use App\Schedule;
 use App\Subscription;
 use Carbon\Carbon;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -43,7 +40,7 @@ class HomeController extends Controller
             'activeSchedules' => $activeSchedules,
             'todaySchedules' => $activeSchedules->where('day', $today),
             'subscriptions' => $subscriptions,
-            'unpaidSubs' => $subscriptions->filter(function (Subscription $s) { return !$s->isPaid(); }),
+            'unpaidSubs' => $subscriptions->filter(function (Subscription $sub) { return !$sub->isPaid(); }),
         ]);
     }
 }

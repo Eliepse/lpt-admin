@@ -12,6 +12,11 @@ class StaffUserPolicy
     use HandlesAuthorization;
 
 
+    /**
+     * @param User $user
+     * @param $ability
+     * @return bool
+     */
     public function before(User $user, $ability)
     {
         if ($user->isAdmin()) {
@@ -25,7 +30,7 @@ class StaffUserPolicy
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function viewAny(User $user)
     {
@@ -43,7 +48,7 @@ class StaffUserPolicy
      * @param User $user
      * @param StaffUser $staffUser
      *
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, StaffUser $staffUser)
     {
@@ -60,7 +65,7 @@ class StaffUserPolicy
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
@@ -78,7 +83,7 @@ class StaffUserPolicy
      * @param User $user
      * @param StaffUser $staffUser
      *
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, StaffUser $staffUser)
     {
@@ -92,7 +97,7 @@ class StaffUserPolicy
      * @param User $user
      * @param StaffUser $staffUser
      *
-     * @return mixed
+     * @return bool
      */
     public function updatePassword(User $user, StaffUser $staffUser)
     {
@@ -106,7 +111,7 @@ class StaffUserPolicy
      * @param User $user
      * @param StaffUser $staffUser
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user, StaffUser $staffUser)
     {
@@ -120,7 +125,7 @@ class StaffUserPolicy
      * @param User $user
      * @param StaffUser $staffUser
      *
-     * @return mixed
+     * @return bool
      */
     public function restore(User $user, StaffUser $staffUser)
     {
@@ -134,7 +139,7 @@ class StaffUserPolicy
      * @param User $user
      * @param StaffUser $staffUser
      *
-     * @return mixed
+     * @return bool
      */
     public function forceDelete(User $user, StaffUser $staffUser)
     {

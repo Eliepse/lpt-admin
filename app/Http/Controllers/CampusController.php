@@ -20,26 +20,6 @@ use Illuminate\View\View;
 
 class CampusController extends Controller
 {
-    /**
-     * Represent the stats interval in hours
-     *
-     * @var int
-     */
-    private $statsGranularity = 1;
-
-    /**
-     * Day "start at" and "end at" values
-     *
-     * @var array
-     */
-    private $dayBoundaries = [8, 20];
-
-    /**
-     * @var int
-     */
-    private $activityLevels = 3;
-
-
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -56,8 +36,11 @@ class CampusController extends Controller
             ->map(function (Campus $campus) {
                 $heatmap = new HeatWeekCalendar();
                 $campus->getActiveSchedules()
-                    ->each(function (Schedule $s) use ($heatmap) {
-                        $heatmap->add($s->day, ($s->hour->hour * 60) + $s->hour->minute, $s->course->getDuration());
+                    ->each(function (Schedule $schedule) use ($heatmap) {
+                        $heatmap->add(
+                            $schedule->day, ($schedule->hour->hour * 60) + $schedule->hour->minute,
+                            $schedule->course->getDuration()
+                        );
                     });
 
                 return $heatmap;
@@ -118,7 +101,7 @@ class CampusController extends Controller
         $days = $schedules
 //            ->sortBy('hour')
             ->groupBy('day')
-            ->sortBy(function ($a, $key) {
+            ->sortBy(function ($collec, $key) {
                 return DaysEnum::getValue($key);
             })
             ->map(function (Collection $schedules) {

@@ -12,6 +12,11 @@ class FamilyPolicy
     use HandlesAuthorization;
 
 
+    /**
+     * @param User $user
+     * @param $ability
+     * @return bool
+     */
     public function before(User $user, $ability)
     {
         if ($user->isAdmin()) {
@@ -25,7 +30,7 @@ class FamilyPolicy
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function viewAny(User $user)
     {
@@ -43,7 +48,7 @@ class FamilyPolicy
      * @param User $user
      * @param Family $family
      *
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, Family $family)
     {
@@ -60,7 +65,7 @@ class FamilyPolicy
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
@@ -78,7 +83,7 @@ class FamilyPolicy
      * @param User $user
      * @param Family $family
      *
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, Family $family)
     {
@@ -96,7 +101,7 @@ class FamilyPolicy
      * @param User $user
      * @param Family $family
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user, Family $family)
     {
@@ -110,7 +115,7 @@ class FamilyPolicy
      * @param User $user
      * @param Family $family
      *
-     * @return mixed
+     * @return bool
      */
     public function restore(User $user, Family $family)
     {
@@ -124,7 +129,7 @@ class FamilyPolicy
      * @param User $user
      * @param Family $family
      *
-     * @return mixed
+     * @return bool
      */
     public function forceDelete(User $user, Family $family)
     {
@@ -132,7 +137,11 @@ class FamilyPolicy
     }
 
 
-    public function createChild()
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function createChild(User $user)
     {
         return false;
     }

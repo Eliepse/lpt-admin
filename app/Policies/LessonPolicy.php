@@ -11,6 +11,11 @@ class LessonPolicy
     use HandlesAuthorization;
 
 
+    /**
+     * @param User $user
+     * @param $ability
+     * @return bool
+     */
     public function before(User $user, $ability)
     {
         if ($user->isAdmin()) {
@@ -22,7 +27,7 @@ class LessonPolicy
     /**
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function viewAny(User $user)
     {
@@ -36,7 +41,7 @@ class LessonPolicy
      * @param User $user
      * @param Lesson $lesson
      *
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, Lesson $lesson)
     {
@@ -49,7 +54,7 @@ class LessonPolicy
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
@@ -63,7 +68,7 @@ class LessonPolicy
      * @param User $user
      * @param Lesson $lesson
      *
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, Lesson $lesson)
     {
@@ -77,7 +82,7 @@ class LessonPolicy
      * @param User $user
      * @param Lesson $lesson
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user, Lesson $lesson)
     {
@@ -91,7 +96,7 @@ class LessonPolicy
      * @param User $user
      * @param Lesson $lesson
      *
-     * @return mixed
+     * @return bool
      */
     public function restore(User $user, Lesson $lesson)
     {
@@ -105,7 +110,7 @@ class LessonPolicy
      * @param User $user
      * @param Lesson $lesson
      *
-     * @return mixed
+     * @return bool
      */
     public function forceDelete(User $user, Lesson $lesson)
     {

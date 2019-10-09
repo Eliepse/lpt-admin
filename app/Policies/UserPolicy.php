@@ -10,6 +10,11 @@ class UserPolicy
     use HandlesAuthorization;
 
 
+    /**
+     * @param User $user
+     * @param $ability
+     * @return bool
+     */
     public function before(User $user, $ability)
     {
         if ($user->isAdmin()) {
@@ -20,11 +25,9 @@ class UserPolicy
 
     /**
      * @param User $user
-     * @param User $model
-     *
-     * @return mixed
+     * @return bool
      */
-    public function viewAny()
+    public function viewAny(User $user)
     {
         return false;
     }
@@ -36,7 +39,7 @@ class UserPolicy
      * @param User $user
      * @param User $model
      *
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, User $model)
     {
@@ -49,7 +52,7 @@ class UserPolicy
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
@@ -63,7 +66,7 @@ class UserPolicy
      * @param User $user
      * @param User $model
      *
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, User $model)
     {
@@ -77,7 +80,7 @@ class UserPolicy
      * @param User $user
      * @param User $model
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user, User $model)
     {
@@ -91,7 +94,7 @@ class UserPolicy
      * @param User $user
      * @param User $model
      *
-     * @return mixed
+     * @return bool
      */
     public function restore(User $user, User $model)
     {
@@ -105,7 +108,7 @@ class UserPolicy
      * @param User $user
      * @param User $model
      *
-     * @return mixed
+     * @return bool
      */
     public function forceDelete(User $user, User $model)
     {

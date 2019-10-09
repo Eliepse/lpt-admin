@@ -5,7 +5,6 @@ namespace Eliepse\Charts\HeatWeekCalendar;
 
 
 use App\Enums\DaysEnum;
-use stdClass;
 
 class HeatWeekCalendar
 {
@@ -56,8 +55,8 @@ class HeatWeekCalendar
         $this->dayEndAt = $endAt;
         $this->levels = $levels;
 
-        for ($h = $startAt; $h < $endAt; $h += $granularity) {
-            $this->data[ $h ] = new HeatRow();
+        for ($hour = $startAt; $hour < $endAt; $hour += $granularity) {
+            $this->data[$hour] = new HeatRow();
         }
     }
 
@@ -78,9 +77,9 @@ class HeatWeekCalendar
         $start = max($this->dayStartAt, $startAt - $delta);
 //        $end = min($this->dayEndAt, $start + $duration - ($duration % $this->granularity));
 
-        for ($h = 0; $h < ceil($duration / $this->granularity); $h++) {
-            $hour = $start + ($this->granularity * $h);
-            $this->data[ $hour ]->add($day);
+        for ($hour = 0; $hour < ceil($duration / $this->granularity); $hour++) {
+            $key = $start + ($this->granularity * $hour);
+            $this->data[$key]->add($day);
         }
 
         return $this;
@@ -89,19 +88,25 @@ class HeatWeekCalendar
 
     private function getMin(): int
     {
-        $notEmptyRows = array_filter($this->data, function (HeatRow $hr) { return $hr->getMin() > 0; });
+        $notEmptyRows = array_filter($this->data, function (HeatRow $row) {
+            return $row->getMin() > 0;
+        });
 
         if (empty($notEmptyRows)) {
             return 1;
         }
 
-        return min(array_map(function (HeatRow $hr) { return $hr->getMin(); }, $notEmptyRows));
+        return min(array_map(function (HeatRow $row) {
+            return $row->getMin();
+        }, $notEmptyRows));
     }
 
 
     private function getMax(): int
     {
-        return max(array_map(function (HeatRow $hr) { return $hr->getMax(); }, $this->data));
+        return max(array_map(function (HeatRow $row) {
+            return $row->getMax();
+        }, $this->data));
     }
 
 
@@ -112,10 +117,10 @@ class HeatWeekCalendar
         $min = $this->getMin();
         $max = $this->getMax();
 
-        return array_map(function (HeatRow $hr) use ($min, $max) {
-            return array_map(function (HeatCell $hc) use ($min, $max) {
-                return $hc->computeLevel($this->levels, $min, $max);
-            }, $hr->getDays());
+        return array_map(function (HeatRow $row) use ($min, $max) {
+            return array_map(function (HeatCell $cell) use ($min, $max) {
+                return $cell->computeLevel($this->levels, $min, $max);
+            }, $row->getDays());
         }, $this->data);
     }
 }

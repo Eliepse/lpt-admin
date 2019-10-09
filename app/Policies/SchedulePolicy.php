@@ -13,6 +13,11 @@ class SchedulePolicy
     use HandlesAuthorization;
 
 
+    /**
+     * @param User $user
+     * @param $ability
+     * @return bool
+     */
     public function before(User $user, $ability)
     {
         if ($user->isAdmin()) {
@@ -24,7 +29,7 @@ class SchedulePolicy
     /**
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function viewAny(User $user)
     {
@@ -42,7 +47,7 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, Schedule $schedule)
     {
@@ -59,7 +64,7 @@ class SchedulePolicy
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
@@ -77,7 +82,7 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, Schedule $schedule)
     {
@@ -95,7 +100,7 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user, Schedule $schedule)
     {
@@ -113,7 +118,7 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function restore(User $user, Schedule $schedule)
     {
@@ -127,7 +132,7 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function forceDelete(User $user, Schedule $schedule)
     {
@@ -139,7 +144,7 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function subscribe(User $user, Schedule $schedule)
     {
@@ -156,7 +161,7 @@ class SchedulePolicy
      * @param Schedule $schedule
      * @param Student $student
      *
-     * @return mixed
+     * @return bool
      */
     public function editSubscription(User $user, Schedule $schedule, Student $student)
     {
@@ -173,7 +178,7 @@ class SchedulePolicy
      * @param Schedule $schedule
      * @param Student $student
      *
-     * @return mixed
+     * @return bool
      */
     public function unsubscribe(User $user, Schedule $schedule, Student $student)
     {

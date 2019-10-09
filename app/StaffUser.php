@@ -5,7 +5,6 @@ namespace App;
 
 use App\Pivots\ScheduleTeacher;
 use App\Scopes\StaffUserScope;
-use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class StaffUser extends User
@@ -15,7 +14,7 @@ class StaffUser extends User
     {
         parent::boot();
 
-        static::addGlobalScope(new StaffUserScope);
+        static::addGlobalScope(new StaffUserScope());
     }
 
 

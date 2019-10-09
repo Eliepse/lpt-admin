@@ -12,6 +12,11 @@ class CoursePolicy
     use HandlesAuthorization;
 
 
+    /**
+     * @param User $user
+     * @param $ability
+     * @return bool
+     */
     public function before(User $user, $ability)
     {
         if ($user->isAdmin()) {
@@ -26,7 +31,7 @@ class CoursePolicy
      * @param User $user
      * @param Course $course
      *
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, Course $course)
     {
@@ -41,7 +46,7 @@ class CoursePolicy
     /**
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function viewAny(User $user)
     {
@@ -58,7 +63,7 @@ class CoursePolicy
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
@@ -76,7 +81,7 @@ class CoursePolicy
      * @param User $user
      * @param Course $course
      *
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, Course $course)
     {
@@ -94,7 +99,7 @@ class CoursePolicy
      * @param User $user
      * @param Course $course
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user, Course $course)
     {
@@ -112,7 +117,7 @@ class CoursePolicy
      * @param User $user
      * @param Course $course
      *
-     * @return mixed
+     * @return bool
      */
     public function restore(User $user, Course $course)
     {
@@ -126,7 +131,7 @@ class CoursePolicy
      * @param User $user
      * @param Course $course
      *
-     * @return mixed
+     * @return bool
      */
     public function forceDelete(User $user, Course $course)
     {

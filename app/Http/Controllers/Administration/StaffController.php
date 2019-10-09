@@ -4,7 +4,6 @@
 namespace App\Http\Controllers\Administration;
 
 
-use App\Enums\UserTypeEnum;
 use App\Http\Requests\StoreStaffRequest;
 use App\Http\Requests\UpdateStaffUserRequest;
 use App\Sets\UserRolesSet;
