@@ -82,7 +82,7 @@ class StaffController
         $staff->fill($request->only(['firstname', 'lastname', 'email', 'wechat_id', 'phone', 'address']));
 
         if ($staff->isAdmin()) {
-            $staff->roles = new UserRolesSet($request->get('roles', []));
+            $staff->setRoles(new UserRolesSet($request->get('roles', [])));
 
         }
 
