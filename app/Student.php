@@ -18,17 +18,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Student
  *
  * @package App
- * @property int id
- * @property string firstname
- * @property string lastname
- * @property Carbon birthday
- * @property string notes
- * @property int family_id
- * @property Collection parents
- * @property Collection courses
- * @property Family family
- * @property Carbon created_at
- * @property Carbon updated_at
+ * @property int $id
+ * @property string $firstname
+ * @property string $lastname
+ * @property Carbon $birthday
+ * @property string $notes
+ * @property int $family_id
+ * @property Collection $parents
+ * @property Collection $courses
+ * @property Family $family
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Student extends Model
 {

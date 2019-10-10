@@ -14,7 +14,7 @@ class StudentPolicy
 
     /**
      * @param User $user
-     * @param $ability
+     * @param string $ability
      *
      * @return bool
      */

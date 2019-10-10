@@ -88,7 +88,7 @@ class ScheduleSubscriptionController extends Controller
      * @param Schedule $schedule
      * @param Student $student
      *
-     * @return View
+     * @return View|void
      * @throws AuthorizationException
      */
     public function edit(Schedule $schedule, Student $student)

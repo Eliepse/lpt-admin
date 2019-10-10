@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Class Family
  * @package App
- * @property int id
- * @property Collection parents
- * @property Collection students
- * @property Collection children
+ * @property int $id
+ * @property Collection $parents
+ * @property Collection $students
+ * @property Collection $children
  */
 class Family extends Model
 {

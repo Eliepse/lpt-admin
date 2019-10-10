@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @package App
  *
- * @property-read int id
- * @property-read Carbon updated_at
- * @property-read Carbon created_at
- * @property-read Collection schedules
- * @property-read Collection activeSchedules
+ * @property-read int $id
+ * @property-read Carbon $updated_at
+ * @property-read Carbon $created_at
+ * @property-read Collection $schedules
+ * @property-read Collection $activeSchedules
  *
- * @property string name
- * @property string|null postal_address
+ * @property string $name
+ * @property string|null $postal_address
  */
 class Campus extends Model
 {

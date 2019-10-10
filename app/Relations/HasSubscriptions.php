@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Trait HasSubscriptions
  *
  * @package App\Relations
+ *
  * @property Collection $subscriptions
  */
 trait HasSubscriptions

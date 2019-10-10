@@ -12,7 +12,7 @@ class UserPolicy
 
     /**
      * @param User $user
-     * @param $ability
+     * @param string $ability
      * @return bool
      */
     public function before(User $user, $ability)

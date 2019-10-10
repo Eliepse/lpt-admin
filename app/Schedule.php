@@ -17,27 +17,28 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Schedule
  *
  * @package App
- * @property-read int id
- * @property int course_id
- * @property int campus_id
+ *
+ * @property-read int $id
+ * @property int $course_id
+ * @property int $campus_id
  * @property string|null $room
- * @property string day
- * @property Carbon hour
- * @property int price
- * @property int max_students
- * @property Carbon start_at
- * @property Carbon end_at
- * @property Carbon signup_start_at
- * @property Carbon signup_end_at
- * @property Carbon created_at
- * @property Carbon updated_at
+ * @property string $day
+ * @property Carbon $hour
+ * @property int $price
+ * @property int $max_students
+ * @property Carbon $start_at
+ * @property Carbon $end_at
+ * @property Carbon $signup_start_at
+ * @property Carbon $signup_end_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  * /
- * @property int duration
+ * @property int $duration
  * Relations:
- * @property Campus campus
- * @property Course course
- * @property \Illuminate\Support\Collection students
- * @property int subscriptions_count
+ * @property Campus $campus
+ * @property Course $course
+ * @property \Illuminate\Support\Collection $students
+ * @property int $subscriptions_count
  */
 class Schedule extends Model
 {
@@ -87,9 +88,9 @@ class Schedule extends Model
 
 
     /**
-     * @param $value
+     * @param string $value
      *
-     * @return bool|DateTime
+     * @return Carbon
      */
     public function getHourAttribute($value)
     {

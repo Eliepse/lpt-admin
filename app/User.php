@@ -19,23 +19,25 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * Class User
  *
  * @package App
- * @property int id
- * @property string firstname
- * @property string lastname
- * @property string email
- * @property string type
- * @property string wechat_id
- * @property string phone
- * @property string address
- * @property string password
- * @property bool active
- * @property string remember_token
- * @property Collection children
- * @property Family family
- * @property Carbon created_at
- * @property Carbon updated_at
- * @method static Builder teacher
- * @method static Builder parent
+ *
+ * @property int $id
+ * @property string $firstname
+ * @property string $lastname
+ * @property string $email
+ * @property string $type
+ * @property string $wechat_id
+ * @property string $phone
+ * @property string $address
+ * @property string $password
+ * @property bool $active
+ * @property string $remember_token
+ * @property Collection $children
+ * @property Family $family
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ *
+ * @method static Builder teacher()
+ * @method static Builder parent()
  */
 class User extends Authenticatable
 {
@@ -81,22 +83,34 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function isAdmin(): bool { return $this->roles->isAdmin(); }
+    public function isAdmin(): bool
+    {
+        return $this->roles->isAdmin();
+    }
 
 
     /**
      * @return bool
      */
-    public function isTeacher(): bool { return $this->roles->isTeacher(); }
+    public function isTeacher(): bool
+    {
+        return $this->roles->isTeacher();
+    }
 
 
     /**
      * @return bool
      */
-    public function isStaff(): bool { return $this->type === 'staff'; }
+    public function isStaff(): bool
+    {
+        return $this->type === 'staff';
+    }
 
 
-    public function isClient(): bool { return $this->type === 'client'; }
+    public function isClient(): bool
+    {
+        return $this->type === 'client';
+    }
 
 
     /**
