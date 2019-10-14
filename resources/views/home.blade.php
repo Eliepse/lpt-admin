@@ -49,6 +49,12 @@
                                                 @endif
                                             </td>
                                             <td class="text-right">
+                                                @can('checkStudentAttendance', $schedule)
+                                                    <a href="{{ route('schedules.students.attendances', $schedule) }}"
+                                                       class="btn btn-icon">
+                                                        <i data-feather="clipboard"></i>
+                                                    </a>
+                                                @endcan
                                                 @can('view', $schedule)
                                                     <a href="{{ route('schedules.show', $schedule) }}"
                                                        class="btn btn-icon">
