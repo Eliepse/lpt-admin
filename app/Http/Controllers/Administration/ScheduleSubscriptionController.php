@@ -5,15 +5,12 @@ namespace App\Http\Controllers\Administration;
 
 
 use App\Http\Requests\LinkStudentToScheduleRequest;
-use App\Pivots\StudentSchedule;
 use App\Schedule;
 use App\Student;
 use Eliepse\Alert\Alert;
 use Eliepse\Alert\AlertSuccess;
 use Exception;
-use Facade\FlareClient\Http\Exceptions\NotFound;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;

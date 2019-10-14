@@ -16,6 +16,7 @@ class SchedulePolicy
     /**
      * @param User $user
      * @param string $ability
+     *
      * @return bool
      */
     public function before(User $user, $ability)
@@ -183,6 +184,21 @@ class SchedulePolicy
     public function unsubscribe(User $user, Schedule $schedule, Student $student)
     {
         if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param User $user
+     * @param Schedule $schedule
+     *
+     * @return bool
+     */
+    public function checkStudentAttendance(User $user, Schedule $schedule)
+    {
+        if ($user->hasRoles([UserRolesSet::MANAGER, UserRolesSet::TEACHER])) {
             return true;
         }
 

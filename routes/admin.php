@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\Admin\StaffUserPasswordController;
+use App\Http\Controllers\Administration\Attendance\CheckStudentAttendanceController;
 use App\Http\Controllers\Administration\HomeController;
 use App\Http\Controllers\Administration\ScheduleSubscriptionController;
 use App\Http\Controllers\Administration\SettingsController;
@@ -97,6 +98,11 @@ Route::delete('/schedules/{schedule}/students/{student}', [ScheduleSubscriptionC
 Route::get('/schedules/{schedule}/students/{student}/edit', [ScheduleSubscriptionController::class, 'edit'])->name('schedules.students.edit');
 Route::get('/schedules/{schedule}/delete', [ScheduleController::class, 'delete'])->name('schedules.delete');
 Route::delete('/schedules/{schedule}', [ScheduleController::class, 'trash'])->name('schedules.trash');
+
+
+// Attendances
+Route::get('/attendances/{schedule}', [CheckStudentAttendanceController::class, 'list'])->name('schedules.students.attendances');
+Route::post('/attendances/{schedule}/{student}', [CheckStudentAttendanceController::class, 'check'])->name('schedules.students.checkAttendances');
 
 
 // Campuses
