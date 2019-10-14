@@ -2,7 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Content-Language" content="en"/>
     {{--<meta name="msapplication-TileColor" content="#2d89ef">--}}
@@ -47,11 +48,7 @@
     @yield('root-main')
 </div>
 
-@section('scripts')
-    <script src="{{ mix("/js/app.js") }}"></script>
-    <script src="{{ mix("/js/manifest.js") }}"></script>
-    <script src="{{ mix("/js/vendor.js") }}"></script>
-@show
+@stack('scripts')
 
 </body>
 </html>
