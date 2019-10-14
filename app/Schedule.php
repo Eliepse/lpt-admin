@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 /**
  * Class Schedule
@@ -39,8 +40,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Relations:
  * @property Campus $campus
  * @property Course $course
- * @property \Illuminate\Support\Collection $students
+ * @property Collection $students
  * @property int $subscriptions_count
+ * @property Collection $attendances
  */
 class Schedule extends Model
 {
@@ -139,13 +141,13 @@ class Schedule extends Model
     }
 
 
-    public function getStudents(): \Illuminate\Support\Collection
+    public function getStudents(): Collection
     {
         return $this->getSubscribers();
     }
 
 
-    public function getStudentsAttribute(): \Illuminate\Support\Collection
+    public function getStudentsAttribute(): Collection
     {
         return $this->getStudents();
     }

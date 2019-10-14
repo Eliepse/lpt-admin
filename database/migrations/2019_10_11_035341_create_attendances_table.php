@@ -19,7 +19,7 @@ class CreateAttendancesTable extends Migration
             $table->morphs('attendable');
             $table->date('referred_date');
             $table->string('state');
-            $table->string('reason')->nullable();
+            $table->string('comment')->nullable();
             $table->timestamps();
         });
     }

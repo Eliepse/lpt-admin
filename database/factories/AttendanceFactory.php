@@ -24,6 +24,6 @@ $factory->define(Attendance::class, function (Faker $faker) {
             Attendance::STATE_LATE,
         ]),
         'referred_day' => $faker->date(),
-        'reason' => $faker->realText()
+        'comment' => $faker->realText()
     ];
 });

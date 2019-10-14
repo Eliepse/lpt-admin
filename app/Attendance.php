@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property string $attendable_type
  * @property Carbon $referred_date
  * @property string $state
- * @property string $reason
+ * @property string|null $comment
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Model $attendable
