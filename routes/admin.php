@@ -106,7 +106,7 @@ Route::get('/campuses/create', [CampusController::class, 'create'])->name('campu
 Route::post('/campuses', [CampusController::class, 'store'])->name('campuses.store');
 Route::get('/campuses/{campus}', [CampusController::class, 'show'])->name('campuses.show');
 Route::get('/campuses/{campus}/edit', [CampusController::class, 'edit'])->name('campuses.edit');
-Route::put('/campuses//{campus}', [CampusController::class, 'update'])->name('campuses.update');
+Route::put('/campuses/{campus}', [CampusController::class, 'update'])->name('campuses.update');
 
 // Settings
 Route::get('/settings', [SettingsController::class, 'general'])->name('settings');
