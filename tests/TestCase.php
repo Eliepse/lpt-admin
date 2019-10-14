@@ -17,4 +17,10 @@ abstract class TestCase extends BaseTestCase
             ->create(array_merge(['roles' => new UserRolesSet([UserRolesSet::ADMIN])], $attributes));
     }
 
+    protected function createManager($attributes = []): StaffUser
+    {
+        return factory(StaffUser::class)
+            ->create(array_merge(['roles' => new UserRolesSet([UserRolesSet::MANAGER])], $attributes));
+    }
+
 }
