@@ -57,6 +57,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $withChineseNames = true;
+
 
     /**
      * @return BelongsToMany

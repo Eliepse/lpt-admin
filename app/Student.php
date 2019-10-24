@@ -43,6 +43,8 @@ class Student extends Model
         'birthday',
     ];
 
+    protected $withChineseNames = true;
+
 
     public function parents(): HasMany
     {
