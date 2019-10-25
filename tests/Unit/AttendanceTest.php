@@ -43,7 +43,7 @@ class AttendanceTest extends TestCase
      */
     public function cast_referred_date()
     {
-        $attendance = $this->makeAttendance();
+        $attendance = factory(Attendance::class)->make();
         $attendance->referred_date = Carbon::createFromFormat('Y-m-d', $date = '2019-10-10');
         $attendance->save();
         $attendance->refresh();
@@ -60,11 +60,13 @@ class AttendanceTest extends TestCase
     {
         $attendance = $this->makeAttendance();
         $attendance->attendable()->associate($attendable = factory(Student::class)->create());
+        $attendance->schedule()->associate($schedule = factory(Schedule::class)->create());
         $attendance->save();
         $attendance->refresh();
         $attendance->load(['attendable']);
 
         $this->assertDatabaseHas('attendances', [
+            'schedule_id' => $schedule->id,
             'attendable_id' => $attendable->id,
             'attendable_type' => Student::class,
         ]);
