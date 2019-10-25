@@ -11,13 +11,21 @@ use App\Sets\DaysSet;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($schedule->office->name) . ": désinscription")
+@section('title', ucfirst($schedule->campus->name) . ": désinscription")
 
 @section('main')
     <div class="container mt-3">
 
         <div class="row justify-content-center">
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
+
+                <div class="mb-3">
+                    @can('view', $schedule)
+                        <a href="{{ route('schedules.show', $schedule) }}">
+                            <i data-feather="arrow-left"></i> Page de la classe</a>
+                    @endcan
+                </div>
+
                 <form class="card"
                       action="{{ route('schedules.students.link', [$schedule, $student])  }}"
                       method="POST">
@@ -32,7 +40,7 @@ $days = DaysSet::getKeys();
                     <div class="card-body">
                         <p>
                             <strong>Classe</strong><br>
-                            {{ $schedule->course->name }} ({{ $schedule->office->name }})
+                            {{ $schedule->course->name }} ({{ $schedule->campus->name }})
                             <small>{{ $schedule->room }}</small>
                             à {{ $schedule->hour->format("H\hi") }}
                             <br>
@@ -44,7 +52,9 @@ $days = DaysSet::getKeys();
 
                     <div class="card-footer text-right">
                         <div class="d-flex">
-                            <a href="{{ route('schedules.show', $schedule) }}" class="btn btn-secondary">Annuler</a>
+                            @can('view', $schedule)
+                                <a href="{{ route('schedules.show', $schedule) }}" class="btn btn-secondary">Annuler</a>
+                            @endcan
                             <button type="submit" class="btn btn-link ml-auto text-uppercase">Désinscrire</button>
                         </div>
                     </div>

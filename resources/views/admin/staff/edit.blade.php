@@ -6,7 +6,7 @@
  */
 ?>
 
-@section('title', "Nouveau membre de l'équipe - ")
+@section('title', "Modification d'un membre de l'équipe - ")
 
 @section('main')
     <div class="container mt-3">
@@ -19,6 +19,13 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
 
+                    <div class="mb-3">
+                        @can('viewAny', \App\StaffUser::class)
+                            <a href="{{ route('staff.index') }}">
+                                <i data-feather="arrow-left"></i> Liste de l'équipe</a>
+                        @endcan
+                    </div>
+
                     <div class="card">
 
                         <div class="card-header">
@@ -28,21 +35,47 @@
 
                         <div class="card-body">
 
-                            @component('components.form.input')
-                                @slot('title', 'Prénom')
-                                @slot('name', 'firstname')
-                                @slot('required', true)
-                                @slot('attrs', ['max' => 50])
-                                @slot('default', $staff->firstname)
-                            @endcomponent
+                            <div class="row">
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Prénom')
+                                        @slot('name', 'firstname')
+                                        @slot('required', true)
+                                        @slot('attrs', ['max' => 50])
+                                        @slot('default', $staff->firstname)
+                                    @endcomponent
+                                </div>
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Prénom chinois (optionel)')
+                                        @slot('name', 'firstname_zh')
+                                        @slot('required', false)
+                                        @slot('attrs', ['max' => 50])
+                                        @slot('default', $staff->firstname_zh)
+                                    @endcomponent
+                                </div>
+                            </div>
 
-                            @component('components.form.input')
-                                @slot('title', 'Nom')
-                                @slot('name', 'lastname')
-                                @slot('required', true)
-                                @slot('attrs', ['max' => 50])
-                                @slot('default', $staff->lastname)
-                            @endcomponent
+                            <div class="row">
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Nom')
+                                        @slot('name', 'lastname')
+                                        @slot('required', true)
+                                        @slot('attrs', ['max' => 50])
+                                        @slot('default', $staff->lastname)
+                                    @endcomponent
+                                </div>
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Nom chinois (optionel)')
+                                        @slot('name', 'lastname_zh')
+                                        @slot('required', false)
+                                        @slot('attrs', ['max' => 50])
+                                        @slot('default', $staff->lastname_zh)
+                                    @endcomponent
+                                </div>
+                            </div>
 
                             @if(Auth::guard('admin')->user()->isAdmin())
                                 @component('components.form.list')
@@ -96,8 +129,7 @@
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <a href="{{ route('staff.index') }}" class="btn btn-link">Annuler</a>
+                    <div class="card-footer">
                         <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
 

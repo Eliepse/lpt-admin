@@ -6,7 +6,7 @@ use App\Pivots\ParentStudent;
 use App\Sets\UserRolesSet;
 use App\Traits\HasHumanNames;
 use Carbon\Carbon;
-use Eliepse\Set\Exceptions\UnknownMemberException;
+use Eliepse\Roles\HasRoles;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -19,60 +19,52 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * Class User
  *
  * @package App
- * @property int id
- * @property string firstname
- * @property string lastname
- * @property string email
- * @property UserRolesSet roles
- * @property string type
- * @property string wechat_id
- * @property string phone
- * @property string address
- * @property string password
- * @property bool active
- * @property string remember_token
- * @property Collection children
- * @property Family family
- * @property Carbon created_at
- * @property Carbon updated_at
- * @method static Builder teacher
- * @method static Builder parent
+ *
+ * @property int $id
+ * @property string $firstname
+ * @property string $lastname
+ * @property string $email
+ * @property string $type
+ * @property string $wechat_id
+ * @property string $phone
+ * @property string $address
+ * @property string $password
+ * @property bool $active
+ * @property string $remember_token
+ * @property Collection $children
+ * @property Family $family
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ *
+ * @method static Builder teacher()
+ * @method static Builder parent()
  */
 class User extends Authenticatable
 {
-    use Notifiable, HasHumanNames, CanResetPassword;
+    use Notifiable,
+        HasHumanNames,
+        CanResetPassword,
+        HasRoles;
 
     protected $table = 'users';
 
     protected $fillable = [
-        'firstname', 'lastname', 'email',
-        'type', 'phone', 'address', 'wechat_id',
+        'firstname',
+        'firstname_zh',
+        'lastname',
+        'lastname_zh',
+        'email',
+        'type',
+        'phone',
+        'address',
+        'wechat_id',
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-
-    /**
-     * @param $value
-     *
-     * @return UserRolesSet
-     * @throws UnknownMemberException
-     */
-    public function getRolesAttribute($value): UserRolesSet
-    {
-        return new UserRolesSet($value ? explode(',', $value) : []);
-    }
-
-
-    /**
-     * @param UserRolesSet $value
-     */
-    public function setRolesAttribute(UserRolesSet $value)
-    {
-        $this->attributes['roles'] = join(',', $value->getValues());
-    }
+    protected $withChineseNames = true;
 
 
     /**
@@ -100,22 +92,34 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function isAdmin(): bool { return $this->roles->has(UserRolesSet::ADMIN); }
+    public function isAdmin(): bool
+    {
+        return $this->roles->isAdmin();
+    }
 
 
     /**
      * @return bool
      */
-    public function isTeacher(): bool { return $this->roles->has(UserRolesSet::TEACHER); }
+    public function isTeacher(): bool
+    {
+        return $this->roles->isTeacher();
+    }
 
 
     /**
      * @return bool
      */
-    public function isStaff(): bool { return $this->type === 'staff'; }
+    public function isStaff(): bool
+    {
+        return $this->type === 'staff';
+    }
 
 
-    public function isClient(): bool { return $this->type === 'client'; }
+    public function isClient(): bool
+    {
+        return $this->type === 'client';
+    }
 
 
     /**

@@ -6,8 +6,8 @@ use BenSampo\Enum\Enum;
 
 final class LessonCategoryEnum extends Enum
 {
-    const language = 'Langue';
-    const art = 'Art';
-    const activity = 'Activité';
-    const other = 'Autre';
+    public const language = 'Langue';
+    public const art = 'Art';
+    public const activity = 'Activité';
+    public const other = 'Autre';
 }

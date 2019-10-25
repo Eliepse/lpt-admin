@@ -11,6 +11,6 @@ class ClientUser extends User
     {
         parent::boot();
 
-        static::addGlobalScope(new ClientUserScope);
+        static::addGlobalScope(new ClientUserScope());
     }
 }

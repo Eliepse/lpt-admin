@@ -11,33 +11,38 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 /**
- * Class Timetable
+ * Class Schedule
  *
  * @package App
- * @property-read int id
- * @property int course_id
- * @property int office_id
+ *
+ * @property-read int $id
+ * @property int $course_id
+ * @property int $campus_id
  * @property string|null $room
- * @property string day
- * @property Carbon hour
- * @property int price
- * @property int max_students
- * @property Carbon start_at
- * @property Carbon end_at
- * @property Carbon signup_start_at
- * @property Carbon signup_end_at
- * @property Carbon created_at
- * @property Carbon updated_at
+ * @property string $day
+ * @property Carbon $hour
+ * @property int $price
+ * @property int $max_students
+ * @property Carbon $start_at
+ * @property Carbon $end_at
+ * @property Carbon $signup_start_at
+ * @property Carbon $signup_end_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  * /
- * @property int duration
+ * @property int $duration
  * Relations:
- * @property Office office
- * @property Course course
- * @property \Illuminate\Support\Collection students
- * @property int subscriptions_count
+ * @property Campus $campus
+ * @property Course $course
+ * @property Collection $students
+ * @property int $subscriptions_count
+ * @property Collection $attendances
  */
 class Schedule extends Model
 {
@@ -74,9 +79,15 @@ class Schedule extends Model
     /**
      * @return BelongsTo
      */
-    public function office(): BelongsTo
+    public function campus(): BelongsTo
     {
-        return $this->belongsTo(Office::class);
+        return $this->belongsTo(Campus::class);
+    }
+
+
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
     }
 
 
@@ -87,9 +98,9 @@ class Schedule extends Model
 
 
     /**
-     * @param $value
+     * @param string $value
      *
-     * @return bool|DateTime
+     * @return Carbon
      */
     public function getHourAttribute($value)
     {
@@ -130,13 +141,13 @@ class Schedule extends Model
     }
 
 
-    public function getStudents(): \Illuminate\Support\Collection
+    public function getStudents(): Collection
     {
         return $this->getSubscribers();
     }
 
 
-    public function getStudentsAttribute(): \Illuminate\Support\Collection
+    public function getStudentsAttribute(): Collection
     {
         return $this->getStudents();
     }

@@ -1,12 +1,12 @@
 @extends('dashboard-master')
 
 <?php
-use App\Office;
+use App\Campus;
 use App\Sets\DaysSet;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @var Office $office
+ * @var Campus $campus
  * @var Collection $courses
  * @var App\Schedule $schedule
  */
@@ -14,13 +14,21 @@ use Illuminate\Database\Eloquent\Collection;
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($office->name) . ": modification de classe ")
+@section('title', ucfirst($campus->name) . ": modification de classe ")
 
 @section('main')
     <div class="container mt-3">
 
         <div class="row justify-content-center">
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
+
+                <div class="mb-3">
+                    @can('view', $schedule)
+                        <a href="{{ route('schedules.show', $schedule) }}">
+                            <i data-feather="arrow-left"></i> Page de la classe</a>
+                    @endcan
+                </div>
+
                 <form class="card"
                       action="{{ route('schedules.update', $schedule)  }}"
                       method="POST">
@@ -29,17 +37,17 @@ $days = DaysSet::getKeys();
                     @method('put')
 
                     <div class="card-header">
-                        <h3 class="card-title">Modifier une classe à {{ ucfirst($office->name) }}</h3>
+                        <h3 class="card-title">Modifier une classe à {{ ucfirst($campus->name) }}</h3>
                     </div>
 
                     <div class="card-body">
 
-                        <input type="hidden" name="office" value="{{ $office->id }}"/>
+                        <input type="hidden" name="campus" value="{{ $campus->id }}"/>
 
                         @component('components.form.select')
                             @slot('title', 'Cours')
                             @slot('name', 'course')
-                            @slot('attrs', ['disabled' => true])
+                            @slot('disabled', true)
                             @slot('options', [["value" => "", "name" => $schedule->course->name . " ({$schedule->course->getDuration(true)})"]]);
                         @endcomponent
 
@@ -107,7 +115,7 @@ $days = DaysSet::getKeys();
                             @slot('default', $schedule->max_students)
                             @slot('after')
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2"><i class="fe fe-users"></i></span>
+                                    <span class="input-group-text" id="basic-addon2"><i data-feather="users"></i></span>
                                 </div>
                             @endslot
                         @endcomponent
@@ -116,11 +124,8 @@ $days = DaysSet::getKeys();
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <div class="d-flex">
-                            <a href="{{ route('schedules.show', $schedule) }}" class="btn btn-link">Annuler</a>
-                            <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
-                        </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </div>
                 </form>
             </div>

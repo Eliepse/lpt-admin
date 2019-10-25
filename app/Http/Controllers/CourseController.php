@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Http\Requests\StoreCourseRequest;
+use Eliepse\Alert\Alert;
+use Eliepse\Alert\AlertSuccess;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 
 class CourseController extends Controller
@@ -20,8 +24,7 @@ class CourseController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('roles:admin,manager');
+        $this->middleware('auth:admin');
         $this->authorizeResource(Course::class, 'course');
     }
 
@@ -63,17 +66,22 @@ class CourseController extends Controller
     {
         $this->authorize('create', Course::class);
 
-        $course = new Course($request->all(['name']));
+        $course = new Course($request->only(['name', 'description']));
         $course->save();
 
-        $course->lessons()->sync(
-            $this->prepareLessonsToSync($request->get('lessons', []))
-        );
+        // Workaround to allow models duplicates
+        foreach ($request->get('lessons', []) as $lesson) {
+            $course->lessons()->attach($lesson['id'], Arr::only($lesson, ['duration']));
+        }
 
         if ($request->ajax())
             return response()->json(['redirect' => route('courses.show', $course)]);
 
-        return redirect(route('courses.show', $course));
+        return redirect()
+            ->route('courses.show', $course)
+            ->with('alerts', [
+                new AlertSuccess('Le cours a été ajouté.'),
+            ]);
     }
 
 
@@ -87,7 +95,7 @@ class CourseController extends Controller
      */
     public function show(Request $request, Course $course)
     {
-        $course->loadMissing(['schedules.teachers:id,firstname,lastname', "schedules.office"]);
+        $course->loadMissing(['schedules.teachers:id,firstname,lastname', "schedules.campus"]);
 
         if ($request->ajax())
             return response()->json($course);
@@ -125,34 +133,54 @@ class CourseController extends Controller
         $course->fill($request->only(['name', 'description']));
         $course->save();
 
-        $course->lessons()->sync(
-            $this->prepareLessonsToSync($request->get('lessons', []))
-        );
+        // We start from zero
+        $course->lessons()->sync([]);
+
+        // And then we add back all lessons
+        // Workaround to allow models duplicates
+        foreach ($request->get('lessons', []) as $lesson) {
+            $course->lessons()->attach($lesson['id'], Arr::only($lesson, ['duration']));
+        }
 
         if ($request->ajax())
             return response()->json(['redirect' => route('courses.show', $course)]);
 
-        return redirect(route('courses.show', $course));
+        return redirect()
+            ->route('courses.show', $course)
+            ->with('alerts', [
+                new AlertSuccess('Le cours a été modifié.'),
+            ]);
     }
 
 
     /**
-     * Prepare lessons from the requests to match the sync method's requirements
+     * @param Course $course
      *
-     * @param array $lessons The lesson array from the request
-     *
-     * @return array
+     * @return Factory|View
+     * @throws AuthorizationException
      */
-    private function prepareLessonsToSync(array $lessons)
+    public function delete(Course $course)
     {
-        $result = [];
+        $this->authorize('delete', $course);
 
-        foreach ($lessons as $el) {
-            $result[ $el['id'] ] = [
-                'duration' => $el['duration'],
-            ];
-        }
+        return view('models.course.delete', ['course' => $course]);
+    }
 
-        return $result;
+
+    /**
+     * @param Course $course
+     *
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function destroy(Course $course)
+    {
+        $this->authorize('delete', $course);
+
+        $course->delete();
+
+        return redirect()
+            ->route('courses.index')
+            ->with(['alerts' => [new AlertSuccess('Le cours a été supprimé.')]]);
     }
 }

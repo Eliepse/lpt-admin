@@ -32,10 +32,16 @@ use \Illuminate\Support\Str;
                 </p>
             </div>
             <div>
-                <a class="btn btn-link" href="{{ route('courses.edit', $course) }}">
-                    <i class="fe fe-edit-3"></i>
-                    Modifier le cours
-                </a>
+                @can('update', $course)
+                    <a class="btn btn-link" href="{{ route('courses.edit', $course) }}">
+                        <i data-feather="edit-3"></i> Modifier le cours
+                    </a><br>
+                @endcan
+                @can('delete', $course)
+                    <a class="btn btn-link text-dark" href="{{ route('courses.delete', $course) }}">
+                        <i data-feather="trash"></i> Supprimer le cours
+                    </a>
+                @endcan
             </div>
         </div>
 
@@ -66,8 +72,20 @@ use \Illuminate\Support\Str;
             </table>
         </div>
 
-        <div class="d-flex justify-content-between mt-5"><h4>Classes</h4></div>
+        <div class="d-flex justify-content-between mt-5 border-bottom">
+            <h4>Classes</h4>
+            <div class="">
+                <div class="">
+                    @can('create', \App\Schedule::class)
+                        <a href="{{ route('schedules.create', ['course' => $course]) }}" class="btn btn-sm btn-link">
+                            <i data-feather="calendar"></i> Ajouter un classe
+                        </a>
+                    @endcan
+                </div>
+            </div>
+        </div>
 
+        {{-- TODO(eliepse): simplify this calendar, remove vuejs --}}
         <schedule-calendar
             :schedules="{{ $course->schedules->toJson() }}"
             :course="{{ $course->toJson() }}">

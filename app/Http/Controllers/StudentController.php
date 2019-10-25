@@ -15,8 +15,7 @@ class StudentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('roles:admin,manager');
+        $this->middleware('auth:admin');
         $this->authorizeResource(Student::class, 'student');
     }
 
@@ -55,7 +54,7 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request, Family $family)
     {
-        $family->students()->create($request->all(['firstname', 'lastname', 'birthday', 'notes']));
+        $family->students()->create($request->all());
 
         return redirect(route('families.show', $family));
     }

@@ -12,6 +12,10 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
 
+                    <div class="mb-3">
+                        <a href="{{ route('staff.index') }}"><i data-feather="arrow-left"></i> Liste de l'équipe</a>
+                    </div>
+
                     <div class="card">
 
                         <div class="card-header">
@@ -21,19 +25,43 @@
 
                         <div class="card-body">
 
-                            @component('components.form.input')
-                                @slot('title', 'Prénom')
-                                @slot('name', 'firstname')
-                                @slot('required', true)
-                                @slot('attrs', ['max' => 50])
-                            @endcomponent
+                            <div class="row">
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Prénom')
+                                        @slot('name', 'firstname')
+                                        @slot('required', true)
+                                        @slot('attrs', ['max' => 50])
+                                    @endcomponent
+                                </div>
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Prénom chinois (optionel)')
+                                        @slot('name', 'firstname_zh')
+                                        @slot('required', false)
+                                        @slot('attrs', ['max' => 50])
+                                    @endcomponent
+                                </div>
+                            </div>
 
-                            @component('components.form.input')
-                                @slot('title', 'Nom')
-                                @slot('name', 'lastname')
-                                @slot('required', true)
-                                @slot('attrs', ['max' => 50])
-                            @endcomponent
+                            <div class="row">
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Nom')
+                                        @slot('name', 'lastname')
+                                        @slot('required', true)
+                                        @slot('attrs', ['max' => 50])
+                                    @endcomponent
+                                </div>
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Nom chinois (optionel)')
+                                        @slot('name', 'lastname_zh')
+                                        @slot('required', false)
+                                        @slot('attrs', ['max' => 50])
+                                    @endcomponent
+                                </div>
+                            </div>
 
                             @component('components.form.list')
                                 @slot('title', 'Roles')
@@ -80,9 +108,8 @@
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <a href="{{ route('staff.index') }}" class="btn btn-link">Annuler</a>
-                        <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button><br>
                     </div>
 
                 </div>

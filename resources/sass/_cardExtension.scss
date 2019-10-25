@@ -1,0 +1,10 @@
+.card-hover {
+	cursor: pointer;
+}
+
+.card-hover:hover,
+.card-hover:active,
+.card-hover:focus,
+.card-hover:focus-within {
+	background-color: #EDF2F7;
+}

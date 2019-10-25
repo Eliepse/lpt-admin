@@ -16,8 +16,10 @@
               name="{{ $name }}"
               rows="6"
               autocomplete=""
+              @if($disabled ?? false) disabled @endif
+              @if($readonly ?? false) readonly @endif
               @if($required ?? false) required @endif
-              @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
+              @foreach($attrs ?? [] as $attr => $val) {!! "$attr=\"$val\"" !!} @endforeach
               placeholder="{{ $placeholder ?? '' }}">{{ old($name, $default ?? '') }}</textarea>
     @error($name)
     @foreach($errors->get($name) as $message)

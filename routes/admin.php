@@ -11,17 +11,18 @@
 |
 */
 
+use App\Http\Controllers\Admin\StaffUserPasswordController;
+use App\Http\Controllers\Administration\Attendance\CheckStudentAttendanceController;
+use App\Http\Controllers\Administration\HomeController;
 use App\Http\Controllers\Administration\ScheduleSubscriptionController;
 use App\Http\Controllers\Administration\SettingsController;
 use App\Http\Controllers\Administration\StaffController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DuplicateScheduleController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\LessonController;
-use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\CampusController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
@@ -37,7 +38,8 @@ Route::get('/staff/create', [StaffController::class, 'create'])->name('staff.cre
 Route::post('/staff', [StaffController::class, 'store'])->name('staff.store');
 Route::get('/staff/{staff}/edit', [StaffController::class, 'edit'])->name('staff.edit');
 Route::put('/staff/{staff}', [StaffController::class, 'update'])->name('staff.update');
-//Route::post('/staff/{staffUser}', [StaffController::class, 'show'])->name('staff.show');
+Route::get('/staff/{staff}/password', [StaffUserPasswordController::class, 'form'])->name('staff.edit.password');
+Route::put('/staff/{staff}/password', [StaffUserPasswordController::class, 'update']);
 
 
 // Parents
@@ -76,10 +78,13 @@ Route::get('courses/create', [CourseController::class, 'create'])->name('courses
 Route::get('/courses/{course}', [CourseController::class, 'show'])->name('courses.show');
 Route::put('/courses/{course}', [CourseController::class, 'update'])->name('courses.update');
 Route::get('/courses/{course}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+Route::get('/courses/{course}/delete', [CourseController::class, 'delete'])->name('courses.delete');
+Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
 
 
 // Schedules
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules.store');
+Route::get('/schedules/create', [ScheduleController::class, 'create'])->name('schedules.create');
 Route::get('/schedules/{schedule}', [ScheduleController::class, 'show'])->name('schedules.show');
 Route::get('/schedules/{schedule}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
 Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])->name('schedules.update');
@@ -95,15 +100,19 @@ Route::get('/schedules/{schedule}/delete', [ScheduleController::class, 'delete']
 Route::delete('/schedules/{schedule}', [ScheduleController::class, 'trash'])->name('schedules.trash');
 
 
-// Offices
-Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
-Route::get('/offices', [OfficeController::class, 'index'])->name('offices.index');
-Route::get('/offices/create', [OfficeController::class, 'create'])->name('offices.create');
-Route::post('/offices', [OfficeController::class, 'store'])->name('offices.store');
-Route::get('/offices/{office}', [OfficeController::class, 'show'])->name('offices.show');
-Route::get('/offices/{office}/schedules/create', [ScheduleController::class, 'create'])->name('offices.schedules.create');
-Route::get('/offices/{office}/edit', [OfficeController::class, 'edit'])->name('offices.edit');
-Route::put('/offices//{office}', [OfficeController::class, 'update'])->name('offices.update');
+// Attendances
+Route::get('/attendances/{schedule}', [CheckStudentAttendanceController::class, 'list'])->name('schedules.students.attendances');
+Route::post('/attendances/{schedule}/{student}', [CheckStudentAttendanceController::class, 'check'])->name('schedules.students.checkAttendances');
+
+
+// Campuses
+Route::get('/campuses', [CampusController::class, 'index'])->name('campuses.index');
+Route::get('/campuses', [CampusController::class, 'index'])->name('campuses.index');
+Route::get('/campuses/create', [CampusController::class, 'create'])->name('campuses.create');
+Route::post('/campuses', [CampusController::class, 'store'])->name('campuses.store');
+Route::get('/campuses/{campus}', [CampusController::class, 'show'])->name('campuses.show');
+Route::get('/campuses/{campus}/edit', [CampusController::class, 'edit'])->name('campuses.edit');
+Route::put('/campuses/{campus}', [CampusController::class, 'update'])->name('campuses.update');
 
 // Settings
 Route::get('/settings', [SettingsController::class, 'general'])->name('settings');
@@ -111,4 +120,4 @@ Route::get('/settings', [SettingsController::class, 'general'])->name('settings'
 
 
 // Other
-Route::get('/', 'Administration\\MainController@home')->name('dashboard');
+Route::get('/', HomeController::class)->name('dashboard');

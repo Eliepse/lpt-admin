@@ -22,6 +22,13 @@ use App\ClientUser;
                 @csrf
                 @method('put')
 
+                <div class="mb-3">
+                    @can('view', $parent->family)
+                        <a href="{{ route('families.show', $parent->family) }}">
+                            <i data-feather="arrow-left"></i> Page de la famille</a>
+                    @endcan
+                </div>
+
                 <div class="card">
 
                     <div class="card-header">
@@ -30,21 +37,47 @@ use App\ClientUser;
 
                     <div class="card-body">
 
-                        @component('components.form.input')
-                            @slot('title', 'Prénom')
-                            @slot('name', 'firstname')
-                            @slot('required', true)
-                            @slot('attrs', ['max' => 50])
-                            @slot('default', $parent->firstname)
-                        @endcomponent
+                        <div class="row">
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Prénom')
+                                    @slot('name', 'firstname')
+                                    @slot('required', true)
+                                    @slot('attrs', ['max' => 50])
+                                    @slot('default', $parent->firstname)
+                                @endcomponent
+                            </div>
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Prénom chinois (optionel)')
+                                    @slot('name', 'firstname_zh')
+                                    @slot('required', false)
+                                    @slot('attrs', ['max' => 50])
+                                    @slot('default', $parent->firstname_zh)
+                                @endcomponent
+                            </div>
+                        </div>
 
-                        @component('components.form.input')
-                            @slot('title', 'Nom')
-                            @slot('name', 'lastname')
-                            @slot('required', true)
-                            @slot('attrs', ['max' => 50])
-                            @slot('default', $parent->lastname)
-                        @endcomponent
+                        <div class="row">
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Nom')
+                                    @slot('name', 'lastname')
+                                    @slot('required', true)
+                                    @slot('attrs', ['max' => 50])
+                                    @slot('default', $parent->lastname)
+                                @endcomponent
+                            </div>
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Nom chinois (optionel)')
+                                    @slot('name', 'lastname_zh')
+                                    @slot('required', false)
+                                    @slot('attrs', ['max' => 50])
+                                    @slot('default', $parent->lastname_zh)
+                                @endcomponent
+                            </div>
+                        </div>
 
                         @component('components.form.input')
                             @slot('title', 'Email')
@@ -83,8 +116,7 @@ use App\ClientUser;
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <a href="{{ route('families.show', $parent->family) }}" class="btn btn-link">Annuler</a>
+                    <div class="card-footer">
                         <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
 

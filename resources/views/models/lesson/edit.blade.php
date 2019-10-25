@@ -18,12 +18,19 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
 
+                    <div class="mb-3">
+                        @can('viewAny', \App\Lesson::class)
+                            <a href="{{ route('lessons.index') }}">
+                                <i data-feather="arrow-left"></i> Liste des leçons</a>
+                        @endcan
+                    </div>
+
                     <div class="card">
 
                         <div class="card-header">
                             <h3 class="card-title">Modification d'une leçon</h3>
                             <p class="card-subtitle">
-                                <i class="fe fe-alert-triangle text-warning"></i> Attention, cette modification sera effective
+                                <i data-feather="alert-triangle text-warning"></i> Attention, cette modification sera effective
                                 pour tous les cours passés et actuels dans lesquels cette leçon a été ajouté.<br>
                                 Si la modification change le contenu, ou même le sens de cette leçon, il est préférable
                                 de créer une nouvelle leçon.
@@ -60,8 +67,7 @@
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <a href="{{ route('lessons.index') }}" class="btn btn-link">Annuler</a>
+                    <div class="card-footer">
                         <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
 

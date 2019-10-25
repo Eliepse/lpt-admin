@@ -1,7 +1,7 @@
 @guest
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a href="{{ route('login') }}" class="nav-link"><i class="fe fe-log-in"></i> Connexion</a>
+            <a href="{{ route('login') }}" class="nav-link"><i data-feather="log-in"></i> Connexion</a>
         </li>
     </ul>
 @endguest
@@ -10,50 +10,54 @@
     <ul class="navbar-nav">
         <li class="nav-item">
             <a href="{{ route('dashboard') }}" class="nav-link">
-                <i class="fe fe-home"></i>
+                <i data-feather="command"></i>
                 <span class="d-none d-md-inline">Accueil</span>
             </a>
         </li>
-        {{--<li class="nav-item">--}}
-        {{--<a href="{{ route('lessons.index') }}" class="nav-link"><i class="fe fe-book"></i> Cours</a>--}}
-        {{--</li>--}}
-        {{--<li class="nav-item">--}}
-        {{--<a href="{{ route('users.index') }}" class="nav-link"><i class="fe fe-users"></i> Équipe</a>--}}
-        {{--</li>--}}
-        <li class="nav-item">
-            <a href="{{ route('students.index') }}" class="nav-link">
-                <i class="fe fe-github"></i>
-                <span class="d-none d-md-inline">Étudiants</span>
+
+        @can('viewAny', \App\Campus::class)
+            <a href="{{ route('campuses.index') }}" class="nav-link">
+                <i data-feather="home"></i> Campus
             </a>
-        </li>
-        @if(auth()->user()->isAdmin())
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:void()" id="settingsDropdown"
-                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fe fe-settings"></i>
-                    <span class="d-none d-md-inline">Paramètres</span>
+        @endcan
+
+        @can('viewAny', App\Student::class)
+            <li class="nav-item">
+                <a href="{{ route('students.index') }}" class="nav-link">
+                    <i data-feather="github"></i>
+                    <span class="d-none d-md-inline">Étudiants</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="settingsDropdown">
-                    <a href="{{ route('settings') }}" class="nav-link">
-                        <i class="fe fe-grid"></i> Général
-                    </a>
-                    <a href="{{ route('courses.index') }}" class="nav-link">
-                        <i class="fe fe-book"></i> Cours
-                    </a>
-                    <a href="{{ route('lessons.index') }}" class="nav-link">
-                        <i class="fe fe-layers"></i> Leçons
-                    </a>
-                    <a href="{{ route('offices.index') }}" class="nav-link">
-                        <i class="fe fe-home"></i> Campus
-                    </a>
-                    <a href="{{ route('staff.index') }}" class="nav-link">
-                        <i class="fe fe-users"></i> Équipe
-                    </a>
-                </div>
             </li>
-        @endif
+        @endcan
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="javascript:void()" id="settingsDropdown"
+               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i data-feather="settings"></i>
+                <span class="d-none d-md-inline">Paramètres</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="settingsDropdown">
+                @if(auth()->user()->isAdmin())
+                    <a href="{{ route('settings') }}" class="nav-link">
+                        <i data-feather="grid"></i> Général
+                    </a>
+                @endif
+                @can('viewAny', \App\Course::class)
+                    <a href="{{ route('courses.index') }}" class="nav-link">
+                        <i data-feather="book"></i> Cours
+                    </a>
+                @endcan
+                @can('viewAny', \App\Lesson::class)
+                    <a href="{{ route('lessons.index') }}" class="nav-link">
+                        <i data-feather="layers"></i> Leçons
+                    </a>
+                @endcan
+                @can('viewAny', \App\StaffUser::class)
+                    <a href="{{ route('staff.index') }}" class="nav-link">
+                        <i data-feather="users"></i> Équipe
+                    </a>
+                @endcan
+            </div>
+        </li>
     </ul>
 @endauth
-
-{{--</div>--}}
-{{--</div>--}}

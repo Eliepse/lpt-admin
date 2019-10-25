@@ -1,18 +1,28 @@
 <template>
     <div>
+        <div class="text-right">
+            <a
+                href="javascript:void()"
+                class="text-dark"
+                @click="clearSelection">
+                <i class="fe fe-x"></i>
+                Effacer la sélection
+            </a>
+        </div>
+
         <v-date-picker
-                mode="range"
-                v-model="range"
-                :is-required="required"
-                :select-attribute="selectDragAttribute"
-                :drag-attribute="selectDragAttribute"
-                :input-props="{
+            mode="range"
+            v-model="range"
+            :is-required="required"
+            :select-attribute="selectDragAttribute"
+            :drag-attribute="selectDragAttribute"
+            :input-props="{
                     placeholder: placeholder,
                     class: 'form-control ' + classes.join(' ')
                 }"
-                @drag="dragValue = $event"
-                is-inline
-                is-expanded
+            @drag="dragValue = $event"
+            is-inline
+            is-expanded
         >
             <div slot="day-popover" slot-scope="{format}">
                 {{ dragValue ? Math.round(dayjs(dragValue.end).diff(dayjs(dragValue.start), "day") / 7) : 0 }} semaines
@@ -83,6 +93,10 @@
                 return date.getFullYear()
                     + '-' + twoDigits(date.getMonth() + 1)
                     + '-' + twoDigits(date.getDate())
+            },
+            clearSelection: function () {
+                this.range.start = undefined
+                this.range.end = undefined
             }
         }
     }

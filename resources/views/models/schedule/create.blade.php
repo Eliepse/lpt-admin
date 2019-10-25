@@ -1,25 +1,38 @@
 @extends('dashboard-master')
 
 <?php
-use App\Office;
+use App\Campus;
 use App\Sets\DaysSet;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @var Office $office
+ * @var Campus $campus
  * @var Collection $courses
  */
 
 $days = DaysSet::getKeys();
 ?>
 
-@section('title', ucfirst($office->name) . ": ajout de classe ")
+@section('title', "Ajout de classe ")
 
 @section('main')
     <div class="container mt-3">
 
         <div class="row justify-content-center">
             <div class="col-12 col-sm-11 col-md-10 col-lg-7 col-xl-6">
+
+                <div class="mb-3">
+                    @if($campuses->count() === 1)
+                        <a href="{{ route('campuses.show', $campuses->first()) }}">
+                            <i data-feather="arrow-left"></i> Page du campus</a>
+                    @elseif($courses->count() === 1)
+                        <a href="{{ route('courses.show', $courses->first()) }}">
+                            <i data-feather="arrow-left"></i> Page du cours</a>
+                    @else
+                        <a href="{{ redirect()->back()->getTargetUrl() }}"><i data-feather="arrow-left"></i> Retour</a>
+                    @endif
+                </div>
+
                 <form class="card"
                       action="{{ route('schedules.store')  }}"
                       method="POST">
@@ -28,12 +41,10 @@ $days = DaysSet::getKeys();
 
 
                     <div class="card-header">
-                        <h3 class="card-title">Ajouter une classe à {{ ucfirst($office->name) }}</h3>
+                        <h3 class="card-title">Ajouter une classe</h3>
                     </div>
 
                     <div class="card-body">
-
-                        <input type="hidden" name="office" value="{{ $office->id }}"/>
 
                         @component('components.form.select')
                             @slot('title', 'Cours')
@@ -41,6 +52,16 @@ $days = DaysSet::getKeys();
                             @slot('options', $courses->map(function (App\Course $course){
                                     return ["value" => $course->id, "name" => $course->name . " ({$course->getDuration(true)})"];
                                 })->toArray());
+                            @slot('readonly', $courses->count() === 1)
+                        @endcomponent
+
+                        @component('components.form.select')
+                            @slot('title', 'Campus')
+                            @slot('name', 'campus')
+                            @slot('options', $campuses->map(function (App\Campus $campus){
+                                    return ["value" => $campus->id, "name" => $campus->name];
+                                })->toArray());
+                            @slot('readonly', $campuses->count() === 1)
                         @endcomponent
 
                         @component('components.form.input')
@@ -98,7 +119,7 @@ $days = DaysSet::getKeys();
                             @slot('default', 12)
                             @slot('after')
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2"><i class="fe fe-users"></i></span>
+                                    <span class="input-group-text" id="basic-addon2"><i data-feather="users"></i></span>
                                 </div>
                             @endslot
                         @endcomponent
@@ -107,11 +128,8 @@ $days = DaysSet::getKeys();
 
                     </div>
 
-                    <div class="card-footer text-right">
-                        <div class="d-flex">
-                            <a href="{{ route('offices.show', $office    ) }}" class="btn btn-link">Annuler</a>
-                            <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
-                        </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                     </div>
                 </form>
             </div>

@@ -195,7 +195,7 @@
             },
             removeLesson: function (lesson) {
                 this.course.lessons = this.course.lessons.filter((el) => {
-                    return lesson.id !== el.id
+                    return lesson !== el
                 })
                 this.errors.lessons = undefined
             },

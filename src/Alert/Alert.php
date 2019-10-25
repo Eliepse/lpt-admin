@@ -16,18 +16,31 @@ class Alert implements Jsonable, Arrayable
     /**
      * @var string
      */
-    public $message;
+    private $message;
 
     /**
      * @var int
      */
-    public $type;
+    private $type;
+
+    /**
+     * @var bool
+     */
+    private $dismissible;
 
 
-    public function __construct(string $message, string $type = self::ALERT_INFO)
+    /**
+     * Alert constructor.
+     *
+     * @param string $message
+     * @param string $type
+     * @param bool $dismissible
+     */
+    public function __construct(string $message, string $type = self::ALERT_INFO, bool $dismissible = true)
     {
         $this->message = $message;
         $this->type = $type;
+        $this->dismissible = $dismissible;
     }
 
 
@@ -67,6 +80,18 @@ class Alert implements Jsonable, Arrayable
     }
 
 
+    public function isDissmissible(): bool
+    {
+        return $this->dismissible;
+    }
+
+
+    public function setDismissible(bool $value)
+    {
+        $this->dismissible = $value;
+    }
+
+
     /**
      * Get the instance as an array.
      *
@@ -91,6 +116,20 @@ class Alert implements Jsonable, Arrayable
     public function toJson($options = 0)
     {
         return json_encode($this->toArray(), $options);
+    }
+
+
+    /**
+     * Render the alter from the view template
+     *
+     * @return string
+     */
+    public function render(): string
+    {
+        return view($this->dismissible ? 'components.alert.dismissible' : 'components.alert.default', [
+            'class' => $this->type,
+            'message' => $this->message,
+        ]);
     }
 
 
