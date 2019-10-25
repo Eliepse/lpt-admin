@@ -49,8 +49,15 @@ class User extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
-        'firstname', 'lastname', 'email',
-        'type', 'phone', 'address', 'wechat_id',
+        'firstname',
+        'firstname_zh',
+        'lastname',
+        'lastname_zh',
+        'email',
+        'type',
+        'phone',
+        'address',
+        'wechat_id',
     ];
 
     protected $hidden = [

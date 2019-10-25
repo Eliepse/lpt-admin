@@ -37,7 +37,14 @@ class Student extends Model
         HasHumanNames,
         HasSubscriptions;
 
-    protected $fillable = ['firstname', 'lastname', 'birthday', 'notes'];
+    protected $fillable = [
+        'firstname',
+        'firstname_zh',
+        'lastname',
+        'lastname_zh',
+        'birthday',
+        'notes'
+    ];
 
     protected $dates = [
         'birthday',

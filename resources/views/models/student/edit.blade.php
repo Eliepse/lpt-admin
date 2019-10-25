@@ -36,21 +36,47 @@ use App\Student;
 
                     <div class="card-body">
 
-                        @component('components.form.input')
-                            @slot('title', 'Prénom')
-                            @slot('name', 'firstname')
-                            @slot('required', true)
-                            @slot('attrs', ['max' => 50])
-                            @slot('default', $student->firstname)
-                        @endcomponent
+                        <div class="row">
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Prénom')
+                                    @slot('name', 'firstname')
+                                    @slot('required', true)
+                                    @slot('attrs', ['max' => 50])
+                                    @slot('default', $student->firstname)
+                                @endcomponent
+                            </div>
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Prénom chinois (optionel)')
+                                    @slot('name', 'firstname_zh')
+                                    @slot('required', false)
+                                    @slot('attrs', ['max' => 50])
+                                    @slot('default', $student->firstname_zh)
+                                @endcomponent
+                            </div>
+                        </div>
 
-                        @component('components.form.input')
-                            @slot('title', 'Nom')
-                            @slot('name', 'lastname')
-                            @slot('required', true)
-                            @slot('attrs', ['max' => 50])
-                            @slot('default', $student->lastname)
-                        @endcomponent
+                        <div class="row">
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Nom')
+                                    @slot('name', 'lastname')
+                                    @slot('required', true)
+                                    @slot('attrs', ['max' => 50])
+                                    @slot('default', $student->lastname)
+                                @endcomponent
+                            </div>
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Nom chinois (optionel)')
+                                    @slot('name', 'lastname_zh')
+                                    @slot('required', false)
+                                    @slot('attrs', ['max' => 50])
+                                    @slot('default', $student->lastname_zh)
+                                @endcomponent
+                            </div>
+                        </div>
 
                         @component('components.form.input')
                             @slot('title', 'Date de naissance')

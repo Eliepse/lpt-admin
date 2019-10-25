@@ -29,8 +29,10 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
         {{-- TODO(eliepse): Add link to index --}}
         {{--<a href="#" class="btn btn-link"><i data-feather="arrow-left"></i> Retour</a>--}}
 
-        <h1 class="mt-3" style="margin-bottom: 3rem">Famille
-            <i>{{ $family->parents->pluck('lastname')->unique()->join('-') }}</i></h1>
+        <h1 class="mt-3" style="margin-bottom: 3rem">
+            Famille
+            <i>{{ $family->parents->pluck('lastname')->unique()->join('-') }}</i>
+        </h1>
 
         <div class="my-3 d-flex justify-content-between">
             <h2 class="mb-0">Parents</h2>
@@ -50,7 +52,10 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                 <div class="col">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <div class="card-title text-capitalize mb-0">{{ $parent->getFullname(true) }}</div>
+                            <div class="card-title text-capitalize mb-0">
+                                {{ $parent->getFullnameZh(true) }}
+                                @if($parent->hasChineseNames())({{ $parent->getFullname(true) }})@endif
+                            </div>
                             <div>
                                 @can('update', $parent)
                                     <a href="{{ route('parents.edit', $parent) }}" class="btn btn-sm btn-icon">
@@ -102,7 +107,10 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="card-title mb-0">
-                                <span class="text-capitalize">{{ $student->getFullname(true) }}</span>
+                                <span class="text-capitalize">
+                                    {{ $student->getFullnameZh(true) }}
+                                    @if($student->hasChineseNames())({{ $student->getFullname(true) }})@endif
+                                </span>
                             </div>
                             <div class="text-muted">
                                 {{ $student->birthday->diffInYears() }} ans
@@ -117,7 +125,7 @@ $today = DaysEnum::getKey(Carbon::now()->dayOfWeek);
                         </div>
                         <div class="card-body">
                             <ul>
-								<?php /** @var Subscription $subscription */ ?>
+                                <?php /** @var Subscription $subscription */ ?>
                                 @foreach($student->getActiveSubscriptions() as $subscription)
                                     <li>
                                         @can('view', $subscription->marketable)

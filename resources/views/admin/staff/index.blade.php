@@ -40,7 +40,8 @@ use \Illuminate\Database\Eloquent\Collection;
                     @foreach($staff as $member)
                         <tr>
                             <td>
-                                <strong>{{ $member->getFullname() }}</strong>
+                                <strong>{{ $member->getFullnameZh() }}</strong>
+                                @if($member->hasChineseNames())({{ $member->getFullname() }})@endif
                                 <br>
                                 <a href="mailto:{{ $member->email }}">
                                     <small class="text-muted">{{ $member->email }}</small>

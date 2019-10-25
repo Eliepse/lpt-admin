@@ -17,6 +17,8 @@ class StoreParentRequest extends FormRequest
         return [
             'firstname' => 'required|string|max:50',
             'lastname' => 'required|string|max:50',
+            'firstname_zh' => 'sometimes|nullable|string|max:50',
+            'lastname_zh' => 'sometimes|nullable|string|max:50',
             'email' => 'required|email|unique:users,email',
             'wechat_id' => 'required|string|max:50',
             'phone' => 'sometimes|string|max:16',

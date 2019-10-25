@@ -79,7 +79,7 @@ class StaffController
     {
         $this->authorize('update', $staff);
 
-        $staff->fill($request->only(['firstname', 'lastname', 'email', 'wechat_id', 'phone', 'address']));
+        $staff->fill($request->all());
 
         if ($staff->isAdmin()) {
             $staff->setRoles(new UserRolesSet($request->get('roles', [])));

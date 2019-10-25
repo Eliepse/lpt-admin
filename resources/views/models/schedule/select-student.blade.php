@@ -57,7 +57,11 @@ $days = DaysSet::getKeys();
                     @foreach($students as $student)
                         <tr>
                             <td>
-                                <span class="studentName">{{ $student->getFullname(true) }}</span><br>
+                                <span class="studentName">
+                                    {{ $student->getFullnameZh(true) }}
+                                    @if($student->hasChineseNames())({{ $student->getFullname(true) }})@endif
+                                </span>
+                                <br>
                                 <small class="text-muted">{{ $student->getAge() }} ans</small>
                             </td>
                             <td>
@@ -67,7 +71,8 @@ $days = DaysSet::getKeys();
                                                 })->join(', ') }}</span>
                             </td>
                             <td class="text-right">
-                                <form action="{{ route('schedules.students.link', [$schedule, $student]) }}" method="POST">
+                                <form action="{{ route('schedules.students.link', [$schedule, $student]) }}"
+                                      method="POST">
                                     @csrf
                                     @method("PUT")
                                     <button type="submit" class="btn btn-sm btn-outline-secondary">Ajouter</button>

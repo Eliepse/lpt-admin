@@ -23,19 +23,43 @@
 
                     <div class="card-body">
 
-                        @component('components.form.input')
-                            @slot('title', 'Prénom')
-                            @slot('name', 'firstname')
-                            @slot('required', true)
-                            @slot('attrs', ['max' => 50])
-                        @endcomponent
+                        <div class="row">
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Prénom')
+                                    @slot('name', 'firstname')
+                                    @slot('required', true)
+                                    @slot('attrs', ['max' => 50])
+                                @endcomponent
+                            </div>
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Prénom chinois (optionel)')
+                                    @slot('name', 'firstname_zh')
+                                    @slot('required', false)
+                                    @slot('attrs', ['max' => 50])
+                                @endcomponent
+                            </div>
+                        </div>
 
-                        @component('components.form.input')
-                            @slot('title', 'Nom')
-                            @slot('name', 'lastname')
-                            @slot('required', true)
-                            @slot('attrs', ['max' => 50])
-                        @endcomponent
+                        <div class="row">
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Nom')
+                                    @slot('name', 'lastname')
+                                    @slot('required', true)
+                                    @slot('attrs', ['max' => 50])
+                                @endcomponent
+                            </div>
+                            <div class="col">
+                                @component('components.form.input')
+                                    @slot('title', 'Nom chinois (optionel)')
+                                    @slot('name', 'lastname_zh')
+                                    @slot('required', false)
+                                    @slot('attrs', ['max' => 50])
+                                @endcomponent
+                            </div>
+                        </div>
 
                         @component('components.form.input')
                             @slot('title', 'Email')

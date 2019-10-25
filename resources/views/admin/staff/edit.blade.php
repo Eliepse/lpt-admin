@@ -35,21 +35,47 @@
 
                         <div class="card-body">
 
-                            @component('components.form.input')
-                                @slot('title', 'Prénom')
-                                @slot('name', 'firstname')
-                                @slot('required', true)
-                                @slot('attrs', ['max' => 50])
-                                @slot('default', $staff->firstname)
-                            @endcomponent
+                            <div class="row">
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Prénom')
+                                        @slot('name', 'firstname')
+                                        @slot('required', true)
+                                        @slot('attrs', ['max' => 50])
+                                        @slot('default', $staff->firstname)
+                                    @endcomponent
+                                </div>
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Prénom chinois (optionel)')
+                                        @slot('name', 'firstname_zh')
+                                        @slot('required', false)
+                                        @slot('attrs', ['max' => 50])
+                                        @slot('default', $staff->firstname_zh)
+                                    @endcomponent
+                                </div>
+                            </div>
 
-                            @component('components.form.input')
-                                @slot('title', 'Nom')
-                                @slot('name', 'lastname')
-                                @slot('required', true)
-                                @slot('attrs', ['max' => 50])
-                                @slot('default', $staff->lastname)
-                            @endcomponent
+                            <div class="row">
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Nom')
+                                        @slot('name', 'lastname')
+                                        @slot('required', true)
+                                        @slot('attrs', ['max' => 50])
+                                        @slot('default', $staff->lastname)
+                                    @endcomponent
+                                </div>
+                                <div class="col">
+                                    @component('components.form.input')
+                                        @slot('title', 'Nom chinois (optionel)')
+                                        @slot('name', 'lastname_zh')
+                                        @slot('required', false)
+                                        @slot('attrs', ['max' => 50])
+                                        @slot('default', $staff->lastname_zh)
+                                    @endcomponent
+                                </div>
+                            </div>
 
                             @if(Auth::guard('admin')->user()->isAdmin())
                                 @component('components.form.list')

@@ -22,6 +22,8 @@ class UpdateParentRequest extends FormRequest
         return [
             'firstname' => 'sometimes|string|max:50',
             'lastname' => 'sometimes|string|max:50',
+            'firstname_zh' => 'sometimes|nullable|string|max:50',
+            'lastname_zh' => 'sometimes|nullable|string|max:50',
             'email' => [
                 'sometimes', 'email', Rule::unique('users', 'email')->ignoreModel($parent, 'email'),
             ],

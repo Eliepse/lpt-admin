@@ -54,7 +54,7 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request, Family $family)
     {
-        $family->students()->create($request->all(['firstname', 'lastname', 'birthday', 'notes']));
+        $family->students()->create($request->all());
 
         return redirect(route('families.show', $family));
     }
