@@ -9,6 +9,8 @@ use Tests\TestCase;
 
 class HasHumanNamesTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * @test
      */
