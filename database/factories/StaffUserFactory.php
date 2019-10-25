@@ -5,6 +5,7 @@
 use App\Sets\UserRolesSet;
 use App\StaffUser;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -21,12 +22,17 @@ use Faker\Generator as Faker;
 
 $factory->define(StaffUser::class, function (Faker $faker) {
 
+    $faker_cn = \Faker\Factory::create('zh_CN');
+    $withChineseNames = $faker->boolean;
+
     return [
         'firstname' => $faker->firstName,
         'lastname' => $faker->lastName,
+        'firstname_zh' => $withChineseNames ? $faker_cn->firstName : null,
+        'lastname_zh' => $withChineseNames ? $faker_cn->lastName : null,
         'email' => $faker->unique()->safeEmail,
         'type' => 'staff',
-        'roles' => new UserRolesSet(['admin']),
+        'roles' => new UserRolesSet(Arr::random(UserRolesSet::getKeys(), 1)),
         'wechat_id' => $faker->userName . $faker->randomNumber(4),
         'phone' => $faker->phoneNumber,
         'address' => $faker->address,

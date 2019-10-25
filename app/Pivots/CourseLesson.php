@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 /**
  * Class ParentStudent
  * @package App\Pivots
- * @property int duration
- * @property string relation
+ *
+ * @property int $duration
+ * @property string $relation
  */
 class CourseLesson extends Pivot
 {
@@ -19,6 +20,7 @@ class CourseLesson extends Pivot
 
     /**
      * @param bool $toString
+     *
      * @return int|string
      */
     public function getDuration(bool $toString = false)

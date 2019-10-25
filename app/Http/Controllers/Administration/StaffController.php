@@ -4,11 +4,11 @@
 namespace App\Http\Controllers\Administration;
 
 
-use App\Enums\UserTypeEnum;
 use App\Http\Requests\StoreStaffRequest;
 use App\Http\Requests\UpdateStaffUserRequest;
 use App\Sets\UserRolesSet;
 use App\StaffUser;
+use Eliepse\Alert\AlertSuccess;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -41,14 +41,6 @@ class StaffController
     }
 
 
-    public function show(StaffUser $staffUser)
-    {
-        $this->authorize('view', $staffUser);
-
-        return view("", compact("staffUser"));
-    }
-
-
     public function create()
     {
         $this->authorize('create', StaffUser::class);
@@ -63,11 +55,15 @@ class StaffController
 
         $member = new StaffUser($request->all());
         $member->password = Hash::make(Str::random(64));
-        $member->roles = new UserRolesSet($request->get('roles', []));
+        $member->setRoles(new UserRolesSet($request->get('roles', [])));
         $member->type = 'staff';
         $member->save();
 
-        return redirect()->route('staff.index');
+        return redirect()
+            ->route('staff.index')
+            ->with('alerts', [
+                new AlertSuccess('Membre d\'équipe créé.'),
+            ]);
     }
 
 
@@ -83,15 +79,19 @@ class StaffController
     {
         $this->authorize('update', $staff);
 
-        $staff->fill($request->only(['firstname', 'lastname', 'email', 'wechat_id', 'phone', 'address']));
+        $staff->fill($request->all());
 
         if ($staff->isAdmin()) {
-            $staff->roles = new UserRolesSet($request->get('roles', []));
+            $staff->setRoles(new UserRolesSet($request->get('roles', [])));
 
         }
 
         $staff->save();
 
-        return redirect()->route('staff.index');
+        return redirect()
+            ->route('staff.index')
+            ->with('alerts', [
+                new AlertSuccess('Membre d\'équipe modifié.'),
+            ]);
     }
 }

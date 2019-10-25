@@ -10,6 +10,8 @@ import DatePeriodInput from "./components/DatePeriodInput";
 import Loader from "./components/Loader";
 import CourseForm from "./components/CourseForm";
 import ScheduleCalendar from "./components/schedule/ScheduleCalendar";
+import List from "list.js";
+import xray from "x-ray";
 
 require("./bootstrap");
 
@@ -18,15 +20,10 @@ window.dayjs.extend(customParseFormat);
 window.Vue = require("vue");
 
 Vue.use(VCalendar, {firstDayOfWeek: 2});
-
 Vue.use(window.dayjs);
 
 //Vue.component("course-form", function (resolve) {
 //    require(["./components/CourseForm"], resolve);
-//});
-//
-//Vue.component("schedule-calendar", function (resolve) {
-//    require(["./components/schedule/ScheduleCalendar"], resolve);
 //});
 
 const app = new Vue({
@@ -39,9 +36,15 @@ const app = new Vue({
     }
 });
 
+xray.init();
 
-
-//window.List = require('list.js')
+// Initialize list.js in the page (only one instance)
+if (document.querySelector(".listjs")) {
+    let listEl = document.querySelector(".listjs");
+    new List(listEl.closest(".listjs-container"), {
+        valueNames: listEl.dataset.names.split(",")
+    });
+}
 
 /**
  * The following block of code may be used to automatically register your

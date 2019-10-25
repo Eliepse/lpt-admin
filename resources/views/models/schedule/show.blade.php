@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
  */
 ?>
 
-@section('title', "Classe du " . __($schedule->day) . " {$schedule->hour->format("H \h i")} à {$schedule->office->name} - ")
+@section('title', "Classe du " . __($schedule->day) . " {$schedule->hour->format("H \h i")} à {$schedule->campus->name} - ")
 
 @section('main')
 
@@ -24,8 +24,13 @@ use Illuminate\Support\Facades\Auth;
                     <small class="text-muted">{{ $schedule->room }}</small>
                 </h1>
                 <p class="text-muted">
-                    <a href="{{ route('offices.show', $schedule->office) }}">
-                        {{ \Illuminate\Support\Str::title($schedule->office->name) }}</a>
+                    @can('view', $schedule->campus)
+                        <a href="{{ route('campuses.show', $schedule->campus) }}">
+                            {{ \Illuminate\Support\Str::title($schedule->campus->name) }}
+                        </a>
+                    @elsecan
+                        {{ \Illuminate\Support\Str::title($schedule->campus->name) }}
+                    @endcan
                     &middot; le {{ __($schedule->day) }} à {{ $schedule->hour->format("H \h i") }}
                     &middot; {{ $schedule->course->getDuration(true) }}
                     &middot; {{ $schedule->price }} €
@@ -36,14 +41,20 @@ use Illuminate\Support\Facades\Auth;
                 </p>
             </div>
             <div>
-                <a class="btn btn-sm btn-link" href="{{ route('schedules.duplicate', $schedule) }}">
-                    <i class="fe fe-copy"></i> Dupliquer</a>
-                <br>
-                <a class="btn btn-sm btn-link"
-                   href="{{ route('schedules.edit', $schedule) }}"><i class="fe fe-edit"></i> Modifier</a>
-                <br>
-                <a class="btn btn-sm btn-link" href="{{ route('schedules.delete', $schedule) }}">
-                    <i class="fe fe-trash"></i> Supprimer</a>
+                @can('create', App\Schedule::class)
+                    <a class="btn btn-sm btn-link" href="{{ route('schedules.duplicate', $schedule) }}">
+                        <i data-feather="copy"></i> Dupliquer</a>
+                    <br>
+                @endcan
+                @can('update', $schedule)
+                    <a class="btn btn-sm btn-link"
+                       href="{{ route('schedules.edit', $schedule) }}"><i data-feather="edit"></i> Modifier</a>
+                    <br>
+                @endcan
+                @can('delete', $schedule)
+                    <a class="btn btn-sm btn-link" href="{{ route('schedules.delete', $schedule) }}">
+                        <i data-feather="trash"></i> Supprimer</a>
+                @endcan
             </div>
         </div>
 
@@ -51,9 +62,11 @@ use Illuminate\Support\Facades\Auth;
             <div class="card-header d-flex justify-content-between">
                 <div class="card-title">Étudiants</div>
                 <div>
-                    <a class="btn btn-sm btn-link"
-                       href="{{ route('schedules.students.select', $schedule) }}">
-                        <i class="fe fe-user-plus"></i> Ajouter un étudiant</a>
+                    @can('subscribe', $schedule)
+                        <a class="btn btn-sm btn-link"
+                           href="{{ route('schedules.students.select', $schedule) }}">
+                            <i data-feather="user-plus"></i> Ajouter un étudiant</a>
+                    @endcan
                 </div>
             </div>
             <div class="card-table">
@@ -70,9 +83,13 @@ use Illuminate\Support\Facades\Auth;
 						<?php $sub = $student->findSubscription($schedule); ?>
                         <tr>
                             <td>
-                                <a href="{{ route('families.show', $student->family) }}">
+                                @can('view', $student->family)
+                                    <a href="{{ route('families.show', $student->family) }}">
+                                        {{ $student->getFullname(true) }}
+                                    </a>
+                                @elsecan
                                     {{ $student->getFullname(true) }}
-                                </a>
+                                @endcan
                                 <br>
                                 <small class="text-muted">{{ $student->getAge() }} ans</small>
                             </td>
@@ -86,12 +103,14 @@ use Illuminate\Support\Facades\Auth;
                                 @endif
                             </td>
                             <td class="text-right">
-                                <a href="{{ route('schedules.students.edit', [$schedule, $student]) }}"
-                                   class="btn btn-sm btn-icon"><i class="fe fe-edit"></i></a>
-                                @if(Auth::guard('admin')->user()->isAdmin())
+                                @can('editSubscription', [$schedule, $student])
+                                    <a href="{{ route('schedules.students.edit', [$schedule, $student]) }}"
+                                       class="btn btn-sm btn-icon"><i data-feather="edit"></i></a>
+                                @endcan
+                                @can('unsubscribe', [$schedule, $student])
                                     <a href="{{ route('schedules.students.unlink', [$schedule, $student]) }}"
-                                       class="btn btn-sm btn-icon"><i class="fe fe-trash"></i></a>
-                                @endif
+                                       class="btn btn-sm btn-icon"><i data-feather="trash"></i></a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
@@ -103,7 +122,7 @@ use Illuminate\Support\Facades\Auth;
                             {{ $schedule->getIncome() }}&nbsp;€ / {{ $schedule->subscriptions->isEmpty() ? $schedule->getTheoricalTotalIncome() : $schedule->getTotalIncome() }}&nbsp;€
                         </th>
                         <th>
-                            <i class="fe fe-users"></i> {{ $schedule->students->count() }} / {{ $schedule->max_students }}
+                            <i data-feather="users"></i> {{ $schedule->students->count() }} / {{ $schedule->max_students }}
                         </th>
                     </tr>
                     </tfoot>

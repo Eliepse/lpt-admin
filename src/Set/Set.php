@@ -3,14 +3,14 @@
 
 namespace Eliepse\Set;
 
-use Eliepse\Set\Exceptions\UnknownMemberException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use JsonSerializable;
+use ReflectionClass;
 
-class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
+abstract class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
 {
     /**
      * The active members of the Set stored
@@ -18,11 +18,6 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
      * @var array
      */
     private $values = [];
-
-    /**
-     * The members of the Set
-     */
-    protected static $members = [];
 
     /**
      * Is the Set nullable
@@ -35,15 +30,18 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
     /**
      * Set constructor.
      *
-     * @param array $values
-     *
-     * @throws UnknownMemberException
+     * @param array|string $values
      */
     public function __construct($values = [])
     {
-        // Unset all initialize $this->values
-        $this->unsetAll();
-        $this->set($values ?? []);
+        $this->values = array_fill_keys(static::getKeys(), false);
+        $this->set($values);
+    }
+
+
+    static private function getReflection(): ReflectionClass
+    {
+        return new ReflectionClass(static::class);
     }
 
 
@@ -54,7 +52,7 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
      */
     public static function getKeys(): array
     {
-        return static::$members;
+        return array_values(self::getReflection()->getConstants());
     }
 
 
@@ -76,46 +74,39 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
      */
     public function getValues(): ?array
     {
-        $values = array_keys(
-            array_filter($this->values, function ($value) { return $value; })
-        );
+        if (static::isNullbale() && array_filter($this->values) === []) {
+            return null;
+        }
 
-        if (static::$nullable)
-            return count($values) ? $values : null;
-        else
-            return $values;
+        return array_keys(array_filter($this->values));
     }
 
 
     /**
      * Check if a single member is active
      *
-     * @param string $member
+     * @param string $key
      *
      * @return bool
      */
-    public function has(string $member): bool
+    public function has(string $key): bool
     {
-        return $this->values[ $member ] ?? false;
+        return in_array($key, $this->getValues(), true);
     }
 
 
     /**
      * Check if at least one of the given members is active
      *
-     * @param array $members
+     * @param array $keys
      *
      * @return bool
      */
-    public function hasOne(array $members): bool
+    public function hasOne(array $keys): bool
     {
-        // We only take the valid members
-        $filtered = array_intersect_key($this->values, array_flip($members));
-
-        // Then we check if one of them is valid
-        foreach ($filtered as $value)
-            if ($value)
-                return true;
+        if (array_intersect($this->getValues(), $keys) !== []) {
+            return true;
+        }
 
         return false;
     }
@@ -124,23 +115,19 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
     /**
      * Check if every given members are active
      *
-     * @param array $members
+     * @param array $keys
      *
      * @return bool
      */
-    public function hasAll(array $members): bool
+    public function hasStrict(array $keys): bool
     {
-        // If some members are invalid, return false
-        // (because those keys are obviously not active)
-        if (count(array_diff_key(array_flip($members), $this->values)))
+        if (count($keys) !== count($this->getValues())) {
             return false;
+        }
 
-
-        // If members to test are valid, we proceed to a check
-        // that stops if there is an non-active member
-        foreach ($members as $member)
-            if (!$this->values[ $member ] ?? true)
-                return false;
+        if (array_diff($this->getValues(), $keys) !== []) {
+            return false;
+        }
 
         return true;
     }
@@ -149,36 +136,42 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
     /**
      * To set (or activate) a member of the Set
      *
-     * @param string|array $member
+     * @param array|string $keys
      *
      * @return void
-     * @throws UnknownMemberException
      */
-    public function set($member): void
+    public function set($keys): void
     {
-        if (is_string($member))
-            $this->activateMember($member);
-        else if (is_array($member))
-            foreach ($member as $value)
-                $this->activateMember($value);
+        if (is_string($keys) && static::hasKey($keys)) {
+            $this->values[ $keys ] = true;
+        }
+
+        if (is_array($keys)) {
+            foreach (array_intersect(static::getKeys(), $keys) as $key) {
+                $this->values[ $key ] = true;
+            }
+        }
     }
 
 
     /**
      * To unset (or unactivate) a member of the Set
      *
-     * @param string|array $member
+     * @param string|array $keys
      *
      * @return void
-     * @throws UnknownMemberException
      */
-    public function unset($member): void
+    public function unset($keys): void
     {
-        if (is_string($member))
-            $this->unactivateMember($member);
-        else if (is_array($member))
-            foreach ($member as $value)
-                $this->unactivateMember($value);
+        if (is_string($keys) && static::hasKey($keys)) {
+            $this->values[ $keys ] = false;
+        }
+
+        if (is_array($keys)) {
+            foreach (array_intersect(static::getKeys(), $keys) as $key) {
+                $this->values[ $key ] = false;
+            }
+        }
     }
 
 
@@ -187,10 +180,9 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
      *
      * @return void
      */
-    public function unsetAll(): void
+    public function reset(): void
     {
-        $r_members = array_flip(static::$members);
-        $this->values = array_map(function () { return false; }, $r_members);
+        $this->values = array_fill_keys(static::getKeys(), false);
     }
 
 
@@ -203,37 +195,19 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
      */
     public static function hasKey(string $key): bool
     {
-        return array_key_exists($key, array_flip(static::getKeys()));
+        return in_array($key, static::getKeys(), true);
     }
 
 
-    /**
-     * @param string $member
-     *
-     * @return void
-     * @throws UnknownMemberException
-     */
-    protected function activateMember(string $member): void
+    static public function validate(array $array): bool
     {
-        $member = trim($member);
-        if (!static::hasKey($member))
-            throw new UnknownMemberException();
-        $this->values[ $member ] = true;
-    }
+        foreach ($array as $key) {
+            if (!self::hasKey($key)) {
+                return false;
+            }
+        }
 
-
-    /**
-     * @param string $member
-     *
-     * @return void
-     * @throws UnknownMemberException
-     */
-    public function unactivateMember(string $member): void
-    {
-        $member = trim($member);
-        if (!static::hasKey($member))
-            throw new UnknownMemberException();
-        $this->values[ $member ] = false;
+        return true;
     }
 
 
@@ -285,7 +259,7 @@ class Set implements SetInterface, Arrayable, JsonSerializable, Jsonable
      * Specify data which should be serialized to JSON
      *
      * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @return array data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */

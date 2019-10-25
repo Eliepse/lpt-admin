@@ -14,11 +14,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Course
  *
  * @package App
- * @property-read int id
- * @property string name
- * @property string description
- * @property-read Carbon created_at
- * @property-read Carbon updated_at
+ * @property-read int $id
+ * @property string $name
+ * @property string $description
+ * @property-read Carbon $created_at
+ * @property-read Carbon $updated_at
  * @property Collection $lessons
  * @property Collection $schedules
  */
@@ -45,11 +45,15 @@ class Course extends Model
     }
 
 
-    public function activeSchedules(): HasMany
+    public function getActiveSchedules(): Collection
     {
-        return $this->schedules()
-            ->whereDate('start_at', '<=', Carbon::now())
-            ->whereDate('end_at', '>', Carbon::now());
+        $today = Carbon::now();
+
+        return $this->schedules
+            ->filter(function (Schedule $schedule) use ($today) {
+                return $today->isBetween($schedule->start_at, $schedule->end_at)
+                    || $today->isBetween($schedule->signup_start_at, $schedule->signup_end_at);
+            });
     }
 
 

@@ -30,14 +30,14 @@ $defaults = [old($name[0], $default[0] ?? null), old($name[1], $default[1] ?? nu
 
 
     @error($name[0])
-    <input type="hidden" class="custom-control-input is-invalid" disabled/>
+    <input type="hidden" class="custom-control-input is-invalid" readonly/>
     @foreach($errors->get($name[0]) as $message)
         <div class="invalid-feedback">{{ $message }}</div>
     @endforeach
     @enderror
 
     @error($name[1])
-    <input type="hidden" class="custom-control-input is-invalid" disabled/>
+    <input type="hidden" class="custom-control-input is-invalid" readonly/>
     @foreach($errors->get($name[1]) as $message)
         <div class="invalid-feedback">{{ $message }}</div>
     @endforeach

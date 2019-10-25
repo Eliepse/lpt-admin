@@ -9,6 +9,10 @@
 
             @csrf
 
+            <div class="mb-3">
+                <a href="{{ route('students.index') }}"><i data-feather="arrow-left"></i> Liste des étudiants</a>
+            </div>
+
             <div class="card">
 
                 <div class="card-header">
@@ -107,8 +111,7 @@
 
                 </div>
 
-                <div class="card-footer text-right">
-                    {{--                <a href="{{ route('families.index') }}" class="btn btn-link">Annuler</a>--}}
+                <div class="card-footer">
                     <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
                 </div>
 

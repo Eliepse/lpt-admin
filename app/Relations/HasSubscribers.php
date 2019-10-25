@@ -33,6 +33,11 @@ trait HasSubscribers
     }
 
 
+    /**
+     * @param Model|HasSubscriptions $model
+     *
+     * @return Subscription
+     */
     public function subscribe(Model $model): Subscription
     {
         $sub = new Subscription();

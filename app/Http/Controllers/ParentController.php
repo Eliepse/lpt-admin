@@ -6,6 +6,7 @@ use App\ClientUser;
 use App\Family;
 use App\Http\Requests\StoreParentRequest;
 use App\Http\Requests\UpdateParentRequest;
+use Eliepse\Alert\AlertSuccess;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -24,8 +25,7 @@ class ParentController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('roles:admin,manager');
+        $this->middleware('auth:admin');
     }
 
 
@@ -63,7 +63,11 @@ class ParentController extends Controller
 
         $family->parents()->save($parent);
 
-        return redirect(route('families.show', $family));
+        return redirect()
+            ->route('families.show', $family)
+            ->with('alerts', [
+                new AlertSuccess('Le parent a été ajouté.'),
+            ]);
     }
 
 
@@ -93,6 +97,10 @@ class ParentController extends Controller
         $parent->fill($request->all());
         $parent->save();
 
-        return redirect(route('families.show', $parent->family));
+        return redirect()
+            ->route('families.show', $parent->family)
+            ->with('alerts', [
+                new AlertSuccess('Le parent a été modifié.'),
+            ]);;
     }
 }

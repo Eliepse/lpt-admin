@@ -84,7 +84,7 @@ class ScheduleSubscriptionControllerTest extends TestCase
             ->get(route('schedules.students.edit', [$schedule, $student]));
 
         $response->assertStatus(200);
-        $response->assertViewIs("models.schedule.edit-student");
+        $response->assertViewIs("models.schedule.edit-subscription");
     }
 
 

@@ -60,8 +60,7 @@ class CreateUserCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
-     * @throws \Eliepse\Set\Exceptions\UnknownMemberException
+     * @return void
      */
     public function handle()
     {
@@ -105,9 +104,7 @@ class CreateUserCommand extends Command
         // We do not allow parent creation here, since it does not handle family links
 
         $role = $this->choice("Which kind of account do you want to create ?", ["admin", "teacher"]);
-        $roles = $user->roles;
-        $roles->set($role);
-        $user->roles = $roles;
+        $user->setRole($role);
 
         // Confirmation
         $this->info("This user is about to be created:");

@@ -4,17 +4,19 @@ namespace App\Http\Middleware;
 
 use App\User;
 use Closure;
-use Illuminate\Support\Arr;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AuthorizeUserRoles
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param Request $request
+     * @param Closure $next
      * @param array|string $roles
-     * @return mixed
+     * @return ResponseFactory|Response|mixed
      */
     public function handle($request, Closure $next, ...$roles)
     {

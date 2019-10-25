@@ -18,15 +18,16 @@
                class="form-control @error($name) is-invalid @enderror {{ $classes ?? '' }}"
                @isset($placeholder)placeholder="{{ $placeholder }}" @endisset
                autocomplete
+               @if($disabled ?? false) disabled @endif
+               @if($readonly ?? false) readonly @endif
                @if($required ?? false) required @endif
                @foreach($attrs ?? [] as $attr => $val) {{ "$attr=\"$val\"" }} @endforeach
                value="{{ old($name, $default ?? '') }}">
         {!! $after ?? '' !!}
+        @error($name)
+        @foreach($errors->get($name) as $message)
+            <div class="invalid-feedback">{{ $message }}</div>
+        @endforeach
+        @enderror
     </div>
-
-    @error($name)
-    @foreach($errors->get($name) as $message)
-        <div class="invalid-feedback">{{ $message }}</div>
-    @endforeach
-    @enderror
 </div>

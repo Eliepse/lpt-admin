@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
-use App\Office;
+use App\Campus;
 use App\Schedule;
+use Eliepse\Alert\Alert;
 use Eliepse\Alert\AlertSuccess;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class ScheduleController extends Controller
@@ -24,8 +27,7 @@ class ScheduleController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('roles:admin,manager');
+        $this->middleware('auth:admin');
         $this->authorizeResource(Schedule::class, 'schedule');
     }
 
@@ -36,11 +38,20 @@ class ScheduleController extends Controller
     }
 
 
-    public function create(Office $office)
+    public function create(Request $request)
     {
-        $courses = Course::all();
+        $courses = $request->has('course') ?
+            Course::query()->findOrFail($request->get('course')) :
+            Course::all();
 
-        return view('models.schedule.create', compact('office', 'courses'));
+        $campuses = $request->has('campus') ?
+            Campus::query()->findOrFail($request->get('campus')) :
+            Campus::all();
+
+        return view('models.schedule.create', [
+            'courses' => Collection::wrap($courses),
+            'campuses' => Collection::wrap($campuses),
+        ]);
     }
 
 
@@ -49,20 +60,26 @@ class ScheduleController extends Controller
         $schedule = new Schedule($request->all(['room', 'day', 'hour', 'start_at', 'end_at', 'signup_start_at',
             'signup_end_at', 'price', 'max_students']));
 
-        $schedule->office()->associate($request->get('office'));
+        $schedule->campus()->associate($request->get('campus'));
         $schedule->course()->associate($request->get('course'));
 
         // TODO(eliepse): add teachers
 
         $schedule->save();
 
-        return redirect()->route('schedules.promptDuplicate', $schedule);
+        return redirect()
+            ->route('schedules.promptDuplicate', $schedule)
+            ->with('alerts', [
+                new AlertSuccess('La classe a été ajoutée.'),
+            ]);
     }
+
 
     public function edit(Schedule $schedule)
     {
-        return view("models.schedule.edit", ['schedule' => $schedule, 'office' => $schedule->office]);
+        return view("models.schedule.edit", ['schedule' => $schedule, 'campus' => $schedule->campus]);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -86,7 +103,11 @@ class ScheduleController extends Controller
                 ],
             ]);
 
-        return redirect(route('schedules.show', $schedule));
+        return redirect()
+            ->route('schedules.show', $schedule)
+            ->with('alerts', [
+                new AlertSuccess('La classe a été modifée.'),
+            ]);
     }
 
 
@@ -107,6 +128,7 @@ class ScheduleController extends Controller
     /**
      * @param Schedule $schedule
      *
+     * @return RedirectResponse
      * @throws AuthorizationException
      * @throws \Exception
      */
@@ -116,6 +138,10 @@ class ScheduleController extends Controller
 
         $schedule->delete();
 
-        return redirect(route('dashboard'));
+        return redirect()
+            ->route('dashboard')
+            ->with('alerts', [
+                new Alert('La classe a été supprimée.'),
+            ]);
     }
 }

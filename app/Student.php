@@ -12,23 +12,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Student
  *
  * @package App
- * @property int id
- * @property string firstname
- * @property string lastname
- * @property Carbon birthday
- * @property string notes
- * @property int family_id
- * @property Collection parents
- * @property Collection courses
- * @property Family family
- * @property Carbon created_at
- * @property Carbon updated_at
+ * @property int $id
+ * @property string $firstname
+ * @property string $lastname
+ * @property Carbon $birthday
+ * @property string $notes
+ * @property int $family_id
+ * @property Collection $parents
+ * @property Collection $courses
+ * @property Family $family
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Student extends Model
 {
@@ -36,11 +37,20 @@ class Student extends Model
         HasHumanNames,
         HasSubscriptions;
 
-    protected $fillable = ['firstname', 'lastname', 'birthday', 'notes'];
+    protected $fillable = [
+        'firstname',
+        'firstname_zh',
+        'lastname',
+        'lastname_zh',
+        'birthday',
+        'notes'
+    ];
 
     protected $dates = [
         'birthday',
     ];
+
+    protected $withChineseNames = true;
 
 
     public function parents(): HasMany
@@ -52,6 +62,12 @@ class Student extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
+    }
+
+
+    public function attendances(): MorphMany
+    {
+        return $this->morphMany(Attendance::class, 'attendable');
     }
 
 

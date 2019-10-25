@@ -18,9 +18,11 @@ use \Illuminate\Database\Eloquent\Collection;
         <div class="d-flex mb-3 mt-3 justify-content-between align-items-end">
             <h1>Équipe</h1>
             <div>
-                <a class="btn btn-sm btn-link" href="{{ route('staff.create') }}">
-                    <i class="fe fe-plus"></i> Ajouter un membre
-                </a>
+                @can('create', App\StaffUser::class)
+                    <a class="btn btn-sm btn-link" href="{{ route('staff.create') }}">
+                        <i data-feather="plus"></i> Ajouter un membre
+                    </a>
+                @endcan
             </div>
         </div>
 
@@ -38,7 +40,8 @@ use \Illuminate\Database\Eloquent\Collection;
                     @foreach($staff as $member)
                         <tr>
                             <td>
-                                <strong>{{ $member->getFullname() }}</strong>
+                                <strong>{{ $member->getFullnameZh() }}</strong>
+                                @if($member->hasChineseNames())({{ $member->getFullname() }})@endif
                                 <br>
                                 <a href="mailto:{{ $member->email }}">
                                     <small class="text-muted">{{ $member->email }}</small>
@@ -54,7 +57,12 @@ use \Illuminate\Database\Eloquent\Collection;
                             <td class="text-right">
                                 @can('update', $member)
                                     <a href="{{ route('staff.edit', $member) }}" class="btn btn-icon">
-                                        <i class="fe fe-edit"></i>
+                                        <i data-feather="edit"></i>
+                                    </a>
+                                @endcan
+                                @can('updatePassword', $member)
+                                    <a href="{{ route('staff.edit.password', $member) }}" class="btn btn-icon">
+                                        <i data-feather="lock"></i>
                                     </a>
                                 @endcan
                             </td>

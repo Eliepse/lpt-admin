@@ -2,6 +2,8 @@
 
 namespace App\Policies;
 
+use App\Sets\UserRolesSet;
+use App\Student;
 use App\User;
 use App\Schedule;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -11,6 +13,12 @@ class SchedulePolicy
     use HandlesAuthorization;
 
 
+    /**
+     * @param User $user
+     * @param string $ability
+     *
+     * @return bool
+     */
     public function before(User $user, $ability)
     {
         if ($user->isAdmin()) {
@@ -21,12 +29,15 @@ class SchedulePolicy
 
     /**
      * @param User $user
-     * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
-    public function viewAny(User $user, Schedule $schedule)
+    public function viewAny(User $user)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -37,10 +48,14 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, Schedule $schedule)
     {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -50,10 +65,14 @@ class SchedulePolicy
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -64,10 +83,14 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, Schedule $schedule)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -78,10 +101,14 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user, Schedule $schedule)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
         return false;
     }
 
@@ -92,7 +119,7 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function restore(User $user, Schedule $schedule)
     {
@@ -106,7 +133,7 @@ class SchedulePolicy
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
     public function forceDelete(User $user, Schedule $schedule)
     {
@@ -115,15 +142,66 @@ class SchedulePolicy
 
 
     /**
-     * Determine whether the user can update the course.
-     *
      * @param User $user
      * @param Schedule $schedule
      *
-     * @return mixed
+     * @return bool
      */
-    public function updateStudents(User $user, Schedule $schedule)
+    public function subscribe(User $user, Schedule $schedule)
     {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param User $user
+     * @param Schedule $schedule
+     * @param Student $student
+     *
+     * @return bool
+     */
+    public function editSubscription(User $user, Schedule $schedule, Student $student)
+    {
+        if ($user->hasRoles([UserRolesSet::TEACHER, UserRolesSet::MANAGER])) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param User $user
+     * @param Schedule $schedule
+     * @param Student $student
+     *
+     * @return bool
+     */
+    public function unsubscribe(User $user, Schedule $schedule, Student $student)
+    {
+        if ($user->hasRoles([UserRolesSet::MANAGER])) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param User $user
+     * @param Schedule $schedule
+     *
+     * @return bool
+     */
+    public function checkStudentAttendance(User $user, Schedule $schedule)
+    {
+        if ($user->hasRoles([UserRolesSet::MANAGER, UserRolesSet::TEACHER])) {
+            return true;
+        }
+
         return false;
     }
 }

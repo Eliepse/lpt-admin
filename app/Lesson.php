@@ -11,14 +11,14 @@ use Illuminate\Support\Carbon;
 /**
  * Class Lesson
  * @package App
- * @property int id
- * @property string name
- * @property string|null description
- * @property string category
- * @property Collection course
- * @property \stdClass pivot
- * @property Carbon created_at
- * @property Carbon updated_at
+ * @property int $id
+ * @property string $name
+ * @property string|null $description
+ * @property string $category
+ * @property Collection $course
+ * @property \stdClass $pivot
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Lesson extends Model
 {

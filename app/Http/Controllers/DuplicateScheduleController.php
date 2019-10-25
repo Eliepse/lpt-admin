@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Schedule;
 use App\Sets\DaysSet;
+use Eliepse\Alert\AlertSuccess;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -63,7 +64,11 @@ class DuplicateScheduleController extends Controller
         $new->day = $request->get('day');
         $new->save();
 
-        return redirect()->route('schedules.promptDuplicate', $schedule);
+        return redirect()
+            ->route('schedules.promptDuplicate', $schedule)
+            ->with('alerts', [
+                new AlertSuccess('La classe a été ajoutée.'),
+            ]);
     }
 
 

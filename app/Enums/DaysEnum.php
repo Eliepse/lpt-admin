@@ -6,11 +6,11 @@ use BenSampo\Enum\Enum;
 
 final class DaysEnum extends Enum
 {
-    const monday = 1;
-    const tuesday = 2;
-    const wednesday = 3;
-    const thursday = 4;
-    const friday = 5;
-    const saturday = 6;
-    const sunday = 7;
+    public const monday = 1;
+    public const tuesday = 2;
+    public const wednesday = 3;
+    public const thursday = 4;
+    public const friday = 5;
+    public const saturday = 6;
+    public const sunday = 7;
 }

@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\ClientUser;
 use App\Family;
-use App\StaffUser;
+use App\Http\Controllers\FamilyController;
 use App\Student;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -38,7 +38,7 @@ class FamilyControllerTest extends TestCase
     }
 
 
-    /**+
+    /**
      * When a family is created, the user is redirected to the page
      * of the newly created family.
      *
@@ -46,11 +46,8 @@ class FamilyControllerTest extends TestCase
      */
     public function testCreateFamilyAndRedirect()
     {
-        /** @var StaffUser $admin */
-        $admin = factory(StaffUser::class)->create();
-
-        $response = $this->actingAs($admin, 'admin')
-            ->post(route('families.store'), [
+        $response = $this->actingAs($this->createAdmin(), 'admin')
+            ->post(action([FamilyController::class, 'store']), [
                 'parent' => $this->getFakeParent(),
                 'student' => $this->getFakeStudent(),
             ]);
@@ -77,13 +74,10 @@ class FamilyControllerTest extends TestCase
      */
     public function testCreateFamilyWithoutParentDuplicates()
     {
-        /** @var StaffUser $admin */
-        $admin = factory(StaffUser::class)->create();
-
         /** @var ClientUser $parent */
         factory(ClientUser::class)->create($this->getFakeParent());
 
-        $response = $this->actingAs($admin, 'admin')
+        $response = $this->actingAs($this->createAdmin(), 'admin')
             ->post(route('families.store'), [
                 'parent' => $this->getFakeParent(),
                 'student' => $this->getFakeStudent(),
@@ -102,17 +96,14 @@ class FamilyControllerTest extends TestCase
      */
     public function testCreateFamilyWithoutFamilyDuplicates()
     {
-        /** @var StaffUser $admin */
-        $admin = factory(StaffUser::class)->create();
-
         /** @var ClientUser $parent */
-        $parent = factory(ClientUser::class)->create($this->getFakeParent());
+        $parent = factory(ClientUser::class)->create($this->getFakeParent(['family_id' => null]));
 
         $family = Family::create();
         $parent->family()->associate($family);
         $parent->save();
 
-        $response = $this->actingAs($admin, 'admin')
+        $response = $this->actingAs($this->createAdmin(), 'admin')
             ->post(route('families.store'), [
                 'parent' => $this->getFakeParent(),
                 'student' => $this->getFakeStudent(),

@@ -3,7 +3,7 @@
 /* @var $factory Factory */
 
 use App\Course;
-use App\Office;
+use App\Campus;
 use App\Schedule;
 use App\Sets\DaysSet;
 use Carbon\Carbon;
@@ -19,8 +19,8 @@ $factory->define(Schedule::class, function (Faker $faker) {
         'course_id' => function () {
             return factory(Course::class)->create()->id;
         },
-        'office_id' => function () {
-            return factory(Office::class)->create()->id;
+        'campus_id' => function () {
+            return factory(Campus::class)->create()->id;
         },
         'day' => Arr::random(DaysSet::getKeys()),
         'hour' => $faker->date("H:i"),
