@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\ClientUser;
 use App\Family;
-use App\StaffUser;
+use App\Http\Controllers\FamilyController;
 use App\Student;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -38,7 +38,7 @@ class FamilyControllerTest extends TestCase
     }
 
 
-    /**+
+    /**
      * When a family is created, the user is redirected to the page
      * of the newly created family.
      *
@@ -47,7 +47,7 @@ class FamilyControllerTest extends TestCase
     public function testCreateFamilyAndRedirect()
     {
         $response = $this->actingAs($this->createAdmin(), 'admin')
-            ->post(route('families.store'), [
+            ->post(action([FamilyController::class, 'store']), [
                 'parent' => $this->getFakeParent(),
                 'student' => $this->getFakeStudent(),
             ]);
